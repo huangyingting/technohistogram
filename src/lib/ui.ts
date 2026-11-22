@@ -693,7 +693,13 @@ export function wordsOf(name: string): WordEntry[] {
         y: c.year_made,
         t: c.claim,
         v: c.outcome,
-        when: c.predicted_for ? `by ${c.predicted_for}` : 'no deadline',
+        when: isZh()
+          ? c.predicted_for
+            ? `目标 ${c.predicted_for}年`
+            : '未设期限'
+          : c.predicted_for
+            ? `by ${c.predicted_for}`
+            : 'no deadline',
       });
     }
   }
@@ -704,7 +710,13 @@ export function wordsOf(name: string): WordEntry[] {
         y: f.y0,
         t: f.text,
         v: f.v,
-        when: f.t ? `by ${f.t}` : 'no deadline',
+        when: isZh()
+          ? f.t
+            ? `目标 ${f.t}年`
+            : '未设期限'
+          : f.t
+            ? `by ${f.t}`
+            : 'no deadline',
       });
     }
   }
@@ -857,10 +869,10 @@ function hoistDrawer() {
     }`;
     dt.appendChild(bk);
   }
-  const pic = body.querySelector(':scope > .mo-pic');
-  if (pic) dt.appendChild(pic);
   const h = body.querySelector(':scope > h3');
   if (h) dt.appendChild(h);
+  const enSub = body.querySelector(':scope > .en-sub');
+  if (enSub) dt.appendChild(enSub);
   const d = body.querySelector(':scope > .date');
   if (d) dt.appendChild(d);
   const sn = body.querySelector(':scope > .scales');
@@ -2508,7 +2520,7 @@ export function initScrubber(): ScrubberHandle {
           g.select('text')
             .attr('x', a + 4)
             .attr('y', 10)
-            .attr('font-family', 'Instrument Sans, monospace')
+            .attr('font-family', "'Plus Jakarta Sans', 'PingFang SC', 'Noto Sans SC', sans-serif")
             .attr('font-size', 8.5)
             .attr('letter-spacing', '0.08em')
             .attr('fill', 'rgba(28,26,23,.68)')

@@ -18,12 +18,12 @@ interface EpochPreset {
 
 const EPOCH_PRESETS: EpochPreset[] = [
   { id: 'roots', year: -50000, zh: '远古', en: 'Roots', range: [-3400000, 1025] },
-  { id: 'song', year: 1092, zh: '宋元 1092', en: '1092', range: [1026, 1399] },
-  { id: 'print', year: 1450, zh: '活字 1450', en: '1450', range: [1400, 1699] },
-  { id: 'steam', year: 1780, zh: '蒸汽 1780', en: '1780', range: [1700, 1899] },
-  { id: 'chip', year: 1947, zh: '晶体管 1947', en: '1947', range: [1900, 1979] },
-  { id: 'web', year: 1991, zh: '万维网 1991', en: '1991', range: [1980, 2016] },
-  { id: 'ai', year: 2026, zh: 'AI 2026', en: 'AI 2026', range: [2017, 2030] },
+  { id: 'song', year: 1092, zh: '1092 宋元', en: '1092', range: [1026, 1399] },
+  { id: 'print', year: 1450, zh: '1450 活字', en: '1450', range: [1400, 1699] },
+  { id: 'steam', year: 1780, zh: '1780 蒸汽', en: '1780', range: [1700, 1899] },
+  { id: 'chip', year: 1947, zh: '1947 芯片', en: '1947', range: [1900, 1979] },
+  { id: 'web', year: 1991, zh: '1991 互联', en: '1991', range: [1980, 2016] },
+  { id: 'ai', year: 2026, zh: '2026 智能', en: 'AI 2026', range: [2017, 2030] },
 ];
 
 export default function HistomapClient() {
@@ -467,7 +467,7 @@ export default function HistomapClient() {
               <input
                 id="q"
                 type="search"
-                placeholder={zh ? '搜索史料、人物…' : 'Search records…'}
+                placeholder={zh ? '搜索史料…' : 'Search…'}
                 autoComplete="off"
                 aria-controls="search-results"
               />

@@ -61,10 +61,10 @@ export function onLangChange(fn: (lang: Lang) => void): () => boolean {
 }
 
 export const FONT_STACK_DISPLAY =
-  '"Instrument Serif", "Noto Serif SC", "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", "STSong", Georgia, serif';
+  '"Newsreader", "Songti SC", "STZhongsong", "Noto Serif SC", "Source Han Serif SC", Georgia, serif';
 
 export const FONT_STACK_SANS =
-  '"Instrument Sans", "Noto Sans SC", "PingFang SC", "HarmonyOS Sans SC", "Noto Sans CJK SC", "Hiragino Sans GB", "Microsoft YaHei UI", system-ui, sans-serif';
+  '"Plus Jakarta Sans", "PingFang SC", "HarmonyOS Sans SC", "MiSans", "Hiragino Sans GB", "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei UI", system-ui, -apple-system, sans-serif';
 
 export const DOMAIN_ZH: Record<string, { label: string; short: string }> = {
   ai: { label: '人工智能', short: '人工智能' },

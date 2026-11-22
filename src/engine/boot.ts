@@ -108,9 +108,10 @@ export function bootHistomap(): void {
         const showTitle = () => arPre.classList.add('on');
         if (document.fonts && document.fonts.load) {
           Promise.all([
-            document.fonts.load("400 48px 'Instrument Serif'"),
-            document.fonts.load("italic 400 48px 'Instrument Serif'"),
-            document.fonts.load("400 14px 'Instrument Sans'"),
+            document.fonts.load("500 44px 'Newsreader'"),
+            document.fonts.load("italic 400 44px 'Newsreader'"),
+            document.fonts.load("500 14px 'Plus Jakarta Sans'"),
+            document.fonts.load("600 16px 'Noto Sans SC'"),
           ]).then(showTitle, showTitle);
           setTimeout(showTitle, 1200);
         } else {

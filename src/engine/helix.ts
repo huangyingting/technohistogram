@@ -124,7 +124,7 @@ const FONT_DISPLAY = FONT_STACK_DISPLAY;
 const FONT_TEXT = FONT_STACK_SANS;
 const linName = (en: string) => (isZh() ? ROOT_LINEAGE_ZH[en] || en : en);
 const capW = (s: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : '');
-const MIN_TEXT = 15;
+const MIN_TEXT = 13;
 
 interface StagePreset {
   vert: boolean;
@@ -152,18 +152,18 @@ const DESK: StagePreset = {
   az: 32,
   dist: 2.98,
   fov: 1.05,
-  ox: 0.385,
-  oy: 0.48,
-  picMax: 82,
-  lines: 6,
+  ox: 0.395,
+  oy: 0.485,
+  picMax: 74,
+  lines: 9,
   claims: 3,
-  head: 25,
-  line: 15,
-  year: 15,
-  cent: 34,
-  readout: 88,
-  card: 15,
-  colW: 388,
+  head: 18,
+  line: 13,
+  year: 13,
+  cent: 22,
+  readout: 54,
+  card: 13.5,
+  colW: 336,
 };
 
 const VERT: StagePreset = {
@@ -173,16 +173,16 @@ const VERT: StagePreset = {
   dist: 3.5,
   fov: 1.15,
   ox: 0.5,
-  oy: 0.56,
-  picMax: 62,
-  lines: 4,
+  oy: 0.55,
+  picMax: 56,
+  lines: 5,
   claims: 1,
-  head: 22,
-  line: 15,
-  year: 15,
-  cent: 24,
-  readout: 52,
-  card: 15,
+  head: 17,
+  line: 13,
+  year: 13,
+  cent: 18,
+  readout: 38,
+  card: 13.5,
   colW: 0,
 };
 
@@ -1094,11 +1094,11 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   let BAND = { x0: 0, x1: 0, y0: 0, y1: 0, w: 0, h: 0, stripY: 0, stripH: 0 };
   const STRIP_W = 44;
   const STRIP_PAD = 18;
-  const STRIP_BOT = 40;
+  const STRIP_BOT = 38;
   const PLATE = 'rgba(6,8,26,0.92)';
   const PLATE_S = 'rgba(6,8,26,0.72)';
-  const READ = { pad: 12, date: 22, name: 30, line: 23 };
-  const TAG_H = 19;
+  const READ = { pad: 10, date: 19, name: 24, line: 20 };
+  const TAG_H = 18;
   const skyTop = () => 6;
   const onStage = (sx: number, sy: number) =>
     sx >= -24 && sx <= W + 24 && sy >= -24 && sy <= BAND.stripY + 6;
@@ -1109,10 +1109,10 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   let lastLayoutSig = '';
   const syncLayoutVars = (P: StagePreset, b: typeof BAND) => {
     const split = !P.vert && W >= 900;
-    const fx0 = b.x1 + 10;
-    const eraRight = split ? Math.max(240, Math.round(W - fx0)) : 0;
-    const drawerW = split ? Math.round(clamp(W * 0.285, 316, 420)) : 0;
-    const eraBottom = split ? Math.round(b.stripH + 12) : 0;
+    const fx0 = b.x1 + 8;
+    const eraRight = split ? Math.max(228, Math.round(W - fx0)) : 0;
+    const drawerW = split ? Math.round(clamp(W * 0.265, 304, 372)) : 0;
+    const eraBottom = split ? Math.round(b.stripH + 8) : 0;
     const sig = `${split ? '1' : '0'}:${eraRight}:${drawerW}:${eraBottom}`;
     if (sig === lastLayoutSig) return;
     lastLayoutSig = sig;
@@ -1126,13 +1126,13 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   };
 
   const bandOf = (P: StagePreset) => {
-    const sh = P.vert ? STRIP_BOT : 50;
+    const sh = P.vert ? STRIP_BOT : 42;
     const sy = H - sh;
     if (P.vert) {
       return { x0: 0, x1: W, y0: 0, y1: sy, w: W, h: sy, stripY: sy, stripH: sh };
     }
-    const cw = Math.min(P.colW, Math.max(276, Math.round(W * 0.265)));
-    const x1 = W - cw - 24;
+    const cw = Math.min(P.colW, Math.max(256, Math.round(W * 0.24)));
+    const x1 = W - cw - 18;
     return { x0: 0, x1, y0: 0, y1: sy, w: x1, h: sy, stripY: sy, stripH: sh };
   };
 
@@ -1170,8 +1170,8 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const uz = rx * fy - ry * fx;
     const split = !P.vert && W >= 900;
     const drT = split ? cam.drawer * (1 - pull) : 0;
-    const drawerW = split ? clamp(W * 0.285, 316, 420) : 0;
-    const openLeftW = split ? Math.max(260, BAND.x1 + 10 - 6 - drawerW) : BAND.w;
+    const drawerW = split ? clamp(W * 0.265, 304, 372) : 0;
+    const openLeftW = split ? Math.max(260, BAND.x1 + 8 - 6 - drawerW) : BAND.w;
     const side = P.vert
       ? Math.min(BAND.w * 0.92, BAND.h * 0.95)
       : Math.min(BAND.w, BAND.h);
@@ -2951,10 +2951,10 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const allEvs = openFcast ? [] : evByUnit.get(un!) || [];
     const allCl = openFcast ? fcastAll : claimsByUnit.get(un!) || [];
     const key = `${vert ? 'v' : 'd'}:${openFcast ? 'fc' : un}:${openFilter || ''}:${allEvs.length}:${allCl.length}:${picState}:${momentImg.size}`;
-    const x = vert ? BAND.x0 : BAND.x1 + 10;
-    const w = vert ? BAND.w : W - x - 18;
-    const y = vert ? Math.round(BAND.h * 0.28) : 14;
-    const h = vert ? BAND.y1 - y : BAND.stripY - 26;
+    const x = vert ? BAND.x0 : BAND.x1 + 8;
+    const w = vert ? BAND.w : W - x - 10;
+    const y = vert ? Math.round(BAND.h * 0.28) : 8;
+    const h = vert ? BAND.y1 - y : BAND.stripY - 16;
     openRect = { x, y, w, h };
     uEl.hidden = false;
     uEl.classList.toggle('vert', vert);
@@ -3527,55 +3527,55 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     if (P.vert) {
       drawPhoneOverlay(octx, V, f, roU, roNum, roEra, fieldA, linesA, pullFade);
     } else {
-      const rx = 28;
-      const ry = BAND.stripY - 36;
+      const rx = 20;
+      const ry = BAND.stripY - 24;
       octx.save();
       octx.textAlign = 'left';
       octx.textBaseline = 'alphabetic';
       octx.shadowColor = 'rgba(4, 7, 22, 0.85)';
-      octx.shadowBlur = 18;
+      octx.shadowBlur = 16;
       if (isZh() && roEra === '公元前') {
-        octx.font = `600 ${Math.round(P.readout * 0.30)}px ${FONT_DISPLAY}`;
+        octx.font = `600 ${Math.round(P.readout * 0.30)}px ${FONT_TEXT}`;
         octx.fillStyle = SOFT;
         octx.globalAlpha = 0.86;
         const ew = octx.measureText(roEra).width;
-        octx.fillText(roEra, rx, ry - Math.round(P.readout * 0.42));
-        octx.font = `400 ${Math.round(P.readout * 0.82)}px ${FONT_DISPLAY}`;
+        octx.fillText(roEra, rx, ry - Math.round(P.readout * 0.38));
+        octx.font = `500 ${Math.round(P.readout * 0.84)}px ${FONT_DISPLAY}`;
         octx.fillStyle = INK;
         octx.globalAlpha = 0.96;
         const nw = octx.measureText(roNum).width;
-        octx.fillText(roNum, rx + ew + 6, ry);
-        octx.font = `500 ${Math.round(P.readout * 0.32)}px ${FONT_DISPLAY}`;
+        octx.fillText(roNum, rx + ew + 5, ry);
+        octx.font = `500 ${Math.round(P.readout * 0.32)}px ${FONT_TEXT}`;
         octx.globalAlpha = 0.84;
-        octx.fillText('年', rx + ew + nw + 8, ry);
+        octx.fillText('年', rx + ew + nw + 6, ry);
       } else {
         octx.fillStyle = INK;
         octx.globalAlpha = 0.96;
-        octx.font = `400 ${P.readout}px ${FONT_DISPLAY}`;
+        octx.font = `500 ${P.readout}px ${FONT_DISPLAY}`;
         const numW = octx.measureText(roNum).width;
         octx.fillText(roNum, rx, ry);
         if (roEra) {
-          octx.font = `500 ${Math.round(P.readout * (isZh() ? 0.36 : 0.34))}px ${FONT_DISPLAY}`;
+          octx.font = `500 ${Math.round(P.readout * (isZh() ? 0.34 : 0.34))}px ${isZh() ? FONT_TEXT : FONT_DISPLAY}`;
           octx.fillStyle = isZh() ? mix(INK, SOFT, 0.35) : INK;
           octx.globalAlpha = 0.82;
-          octx.fillText(roEra, rx + numW + (isZh() ? 6 : 10), ry);
+          octx.fillText(roEra, rx + numW + (isZh() ? 5 : 8), ry);
         }
       }
       octx.shadowBlur = 0;
-      octx.font = `400 ${MIN_TEXT}px ${FONT_TEXT}`;
+      octx.font = `400 ${MIN_TEXT - 1}px ${FONT_TEXT}`;
       octx.fillStyle = SOFT;
       octx.globalAlpha = 0.78;
       const sub = V.pull > 0.5 ? recCount() : '';
-      if (sub) octx.fillText(sub, rx + 2, BAND.stripY - 13);
+      if (sub) octx.fillText(sub, rx + 2, BAND.stripY - 8);
       octx.restore();
 
       if (pullFade > 0.02) {
-        const fx = BAND.x1 + 10;
-        const fw = W - fx - 18;
+        const fx = BAND.x1 + 8;
+        const fw = W - fx - 10;
         if (openFcast || openUnit !== null) renderUnitDom(V);
         else {
           renderUnitDom(V);
-          drawFeed(octx, fx, 14, fw, BAND.stripY - 26, P, f, fieldA * pullFade, linesA * pullFade);
+          drawFeed(octx, fx, 8, fw, BAND.stripY - 16, P, f, fieldA * pullFade, linesA * pullFade);
         }
       } else {
         renderUnitDom(V);
@@ -3713,10 +3713,10 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         : claims[0]
           ? `\u201c${String(claims[0].claim || '').replace(/^[\u201c"]|[\u201d"]$/g, '')}\u201d`
           : unitLabel(f.un);
-    x.font = `400 ${P.head}px ${FONT_DISPLAY}`;
+    x.font = `600 ${P.head}px ${FONT_TEXT}`;
     x.fillStyle = INK;
     x.globalAlpha = a;
-    x.fillText(trimText(x, lead, inner), lx, yy + 22);
+    x.fillText(trimText(x, lead, inner), lx, yy + 17);
     if (cards[0] && !f.fcast) {
       feedHits[feedHits.length - 1] = {
         kind: 'openUnit',
@@ -3802,8 +3802,8 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     linesA: number,
   ) {
     if (fw0 < 140) return;
-    const padX = 18;
-    const padY = 16;
+    const padX = 14;
+    const padY = 12;
     const fx = fx0 + padX;
     const fy = fy0 + padY;
     const fw = fw0 - padX * 2;
@@ -3813,14 +3813,14 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     // Frosted dark-sapphire reading card behind the desktop right-side rail
     const cardA = clamp(Math.max(headA, linesA), 0, 1);
     const bgGrad = x.createLinearGradient(fx0, fy0, fx0, fy0 + fh0);
-    bgGrad.addColorStop(0, `rgba(9, 13, 36, ${(0.82 * cardA).toFixed(3)})`);
-    bgGrad.addColorStop(1, `rgba(6, 9, 27, ${(0.90 * cardA).toFixed(3)})`);
+    bgGrad.addColorStop(0, `rgba(9, 13, 36, ${(0.84 * cardA).toFixed(3)})`);
+    bgGrad.addColorStop(1, `rgba(6, 9, 27, ${(0.92 * cardA).toFixed(3)})`);
     x.fillStyle = bgGrad;
     x.shadowColor = `rgba(2, 4, 14, ${(0.55 * cardA).toFixed(3)})`;
-    x.shadowBlur = 24;
-    x.shadowOffsetY = 8;
+    x.shadowBlur = 22;
+    x.shadowOffsetY = 6;
     x.beginPath();
-    if (x.roundRect) x.roundRect(fx0, fy0, fw0, fh0, 14);
+    if (x.roundRect) x.roundRect(fx0, fy0, fw0, fh0, 12);
     else x.rect(fx0, fy0, fw0, fh0);
     x.fill();
     x.shadowBlur = 0;
@@ -3842,14 +3842,14 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     x.restore();
 
     x.beginPath();
-    if (x.roundRect) x.roundRect(fx0 + 2, fy0 + 2, fw0 - 4, fh0 - 4, 12);
+    if (x.roundRect) x.roundRect(fx0 + 2, fy0 + 2, fw0 - 4, fh0 - 4, 10);
     else x.rect(fx - 4, fy - 4, fw + 8, fh + 8);
     x.clip();
     x.textAlign = 'left';
     x.textBaseline = 'alphabetic';
 
     let y = fy + P.head - 2;
-    x.font = `600 ${P.head}px ${FONT_DISPLAY}`;
+    x.font = `600 ${P.head}px ${FONT_TEXT}`;
     x.fillStyle = accentCol;
     x.globalAlpha = 0.98 * headA;
     const headTxt = f.fcast ? fcT1() : unitLabel(f.un);
@@ -3866,7 +3866,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
               ? ` \u00b7 ${f.claimsTotal} claim${f.claimsTotal === 1 ? '' : 's'}`
               : ''
           }`;
-    y += 21;
+    y += 17;
     x.font = `400 ${MIN_TEXT - 1}px ${FONT_TEXT}`;
     x.fillStyle = SOFT;
     x.globalAlpha = 0.78 * headA;
@@ -3880,7 +3880,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       );
     }
 
-    y += 11;
+    y += 8;
     x.strokeStyle = 'rgba(205, 216, 255, 0.12)';
     x.lineWidth = 1;
     x.globalAlpha = headA;
@@ -3888,7 +3888,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     x.moveTo(fx, y + 0.5);
     x.lineTo(fx + fw, y + 0.5);
     x.stroke();
-    y += 12;
+    y += 9;
 
     if (linesA <= 0.02) {
       x.restore();
@@ -3901,7 +3901,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       if (selInUnit) cards[cards.length - 1] = selInUnit;
     }
     const claims = f.fcast ? f.claims : pickClaims(f.claims, P.claims);
-    const reserveFoot = !f.fcast && f.un >= FC_FROM && fcastTotal > 0 ? 52 : 28;
+    const reserveFoot = !f.fcast && f.un >= FC_FROM && fcastTotal > 0 ? 42 : 24;
     const itemRes = drawFeedItems(x, fx, y, fw, fy + fh - reserveFoot, P, f, cards, claims, linesA);
     y = itemRes.y;
 
@@ -3982,46 +3982,47 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     a: number,
   ): { y: number; selMidY: number | null } {
     const span = !f.fcast && (f.un < T0 || early(f.un));
-    const TH_W = 54;
-    const TH_H = 42;
+    const TH_W = 46;
+    const TH_H = 36;
+    const lineH = 17;
     let selMidY: number | null = null;
 
     for (const e of cards) {
       const pic = unitPic(e);
       const hasPic = !!(pic && pic.atl && pic.atl.complete && pic.atl.naturalWidth);
-      const tx = fx + (hasPic ? TH_W + 10 : 14);
+      const tx = fx + (hasPic ? TH_W + 9 : 12);
       const tw = fw - (tx - fx);
       x.font = `500 ${P.card}px ${FONT_TEXT}`;
       const tl = wrapLines(x, e.title, tw, 2);
-      const rowH = Math.max(hasPic ? TH_H + 8 : 0, tl.length * 19 + 22);
+      const rowH = Math.max(hasPic ? TH_H + 6 : 0, tl.length * lineH + 17);
       if (y + rowH > yMax) break;
 
       const isHov = hov && hov.kind === 'feedEv' && hov.e.id === e.id;
       const isSel = state.sel === e.id;
       if (isSel) {
-        selMidY = y - 3 + rowH * 0.5;
+        selMidY = y - 2 + rowH * 0.5;
         x.save();
         x.globalAlpha = a;
         x.fillStyle = 'rgba(138, 164, 255, 0.16)';
         x.strokeStyle = 'rgba(255, 226, 168, 0.34)';
         x.lineWidth = 1;
         x.beginPath();
-        if (x.roundRect) x.roundRect(fx - 8, y - 4, fw + 14, rowH + 2, 8);
-        else x.rect(fx - 8, y - 4, fw + 14, rowH + 2);
+        if (x.roundRect) x.roundRect(fx - 7, y - 3, fw + 12, rowH + 1, 7);
+        else x.rect(fx - 7, y - 3, fw + 12, rowH + 1);
         x.fill();
         x.stroke();
         x.fillStyle = '#ffe2a8';
         x.beginPath();
-        if (x.roundRect) x.roundRect(fx - 8, y + 1, 3, Math.max(12, rowH - 8), 2);
-        else x.rect(fx - 8, y + 1, 3, Math.max(12, rowH - 8));
+        if (x.roundRect) x.roundRect(fx - 7, y + 1, 2.5, Math.max(10, rowH - 7), 2);
+        else x.rect(fx - 7, y + 1, 2.5, Math.max(10, rowH - 7));
         x.fill();
         x.restore();
       } else if (isHov) {
         x.fillStyle = 'rgba(238,240,250,0.08)';
         x.globalAlpha = a;
         x.beginPath();
-        if (x.roundRect) x.roundRect(fx - 6, y - 3, fw + 10, rowH, 7);
-        else x.rect(fx - 6, y - 3, fw + 10, rowH);
+        if (x.roundRect) x.roundRect(fx - 5, y - 2, fw + 9, rowH - 1, 6);
+        else x.rect(fx - 5, y - 2, fw + 9, rowH - 1);
         x.fill();
       }
 
@@ -4038,17 +4039,17 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         x.fillStyle = dot;
         x.globalAlpha = a;
         x.beginPath();
-        x.arc(fx + 4, y + 10, e.moment ? 4 : 3, 0, Math.PI * 2);
+        x.arc(fx + 3.5, y + 9, e.moment ? 3.6 : 2.8, 0, Math.PI * 2);
         x.fill();
       }
 
       x.font = `500 ${P.card}px ${FONT_TEXT}`;
       x.fillStyle = INK;
       x.globalAlpha = 0.96 * a;
-      let ly = y + 14;
+      let ly = y + 13;
       for (const ln of tl) {
         x.fillText(ln, tx, ly);
-        ly += 19;
+        ly += lineH;
       }
 
       const dm = DOMAIN[e.domain];
@@ -4057,18 +4058,18 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       else if (e.date && e.date.length > 4) meta.push(fmtDate(e.date));
       if (dm) meta.push(dm.short || dm.label);
       if (e.who) meta.push(e.who);
-      x.font = `400 ${MIN_TEXT}px ${FONT_TEXT}`;
+      x.font = `400 ${MIN_TEXT - 1}px ${FONT_TEXT}`;
       x.fillStyle = SOFT;
       x.globalAlpha = 0.72 * a;
-      x.fillText(trimText(x, meta.join(' \u00b7 '), tw), tx, ly - 1);
+      x.fillText(trimText(x, meta.join(' \u00b7 '), tw), tx, ly - 2);
 
-      feedHits.push({ kind: 'feedEv', e, x0: fx - 4, y0: y - 3, x1: fx + fw + 4, y1: y + rowH });
-      y += rowH + 6;
+      feedHits.push({ kind: 'feedEv', e, x0: fx - 4, y0: y - 2, x1: fx + fw + 4, y1: y + rowH });
+      y += rowH + 4;
     }
 
-    if (claims.length && y < yMax - 28) {
+    if (claims.length && y < yMax - 24) {
       if (!f.fcast && cards.length) {
-        y += 4;
+        y += 3;
         x.strokeStyle = 'rgba(238,240,250,0.1)';
         x.lineWidth = 1;
         x.globalAlpha = a;
@@ -4076,61 +4077,61 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         x.moveTo(fx, y + 0.5);
         x.lineTo(fx + fw, y + 0.5);
         x.stroke();
-        y += 10;
+        y += 8;
       }
       for (const pr of claims) {
-        const tx = fx + 14;
-        const tw = fw - 14;
+        const tx = fx + 12;
+        const tw = fw - 12;
         const q = `\u201c${String(pr.claim || '').replace(/^[\u201c"]|[\u201d"]$/g, '')}\u201d`;
         x.font = `400 ${P.card}px ${FONT_TEXT}`;
         const tl = wrapLines(x, q, tw, 2);
-        const rowH = tl.length * 19 + 22;
+        const rowH = tl.length * lineH + 17;
         if (y + rowH > yMax) break;
 
         const isHov = hov && hov.kind === 'feedClaim' && hov.pr.id === pr.id;
         const isPrSel = state.sel === pr.id;
         if (isPrSel) {
-          selMidY = y - 3 + rowH * 0.5;
+          selMidY = y - 2 + rowH * 0.5;
           x.save();
           x.globalAlpha = a;
           x.fillStyle = 'rgba(138, 164, 255, 0.16)';
           x.strokeStyle = 'rgba(255, 226, 168, 0.34)';
           x.lineWidth = 1;
           x.beginPath();
-          if (x.roundRect) x.roundRect(fx - 8, y - 4, fw + 14, rowH + 2, 8);
-          else x.rect(fx - 8, y - 4, fw + 14, rowH + 2);
+          if (x.roundRect) x.roundRect(fx - 7, y - 3, fw + 12, rowH + 1, 7);
+          else x.rect(fx - 7, y - 3, fw + 12, rowH + 1);
           x.fill();
           x.stroke();
           x.fillStyle = '#ffe2a8';
           x.beginPath();
-          if (x.roundRect) x.roundRect(fx - 8, y + 1, 3, Math.max(12, rowH - 8), 2);
-          else x.rect(fx - 8, y + 1, 3, Math.max(12, rowH - 8));
+          if (x.roundRect) x.roundRect(fx - 7, y + 1, 2.5, Math.max(10, rowH - 7), 2);
+          else x.rect(fx - 7, y + 1, 2.5, Math.max(10, rowH - 7));
           x.fill();
           x.restore();
         } else if (isHov) {
           x.fillStyle = 'rgba(238,240,250,0.08)';
           x.globalAlpha = a;
           x.beginPath();
-          if (x.roundRect) x.roundRect(fx - 6, y - 3, fw + 10, rowH, 7);
-          else x.rect(fx - 6, y - 3, fw + 10, rowH);
+          if (x.roundRect) x.roundRect(fx - 5, y - 2, fw + 9, rowH - 1, 6);
+          else x.rect(fx - 5, y - 2, fw + 9, rowH - 1);
           x.fill();
         }
 
         const vc = prColor(pr);
         x.strokeStyle = vc;
-        x.lineWidth = 1.6;
+        x.lineWidth = 1.5;
         x.globalAlpha = a;
         x.beginPath();
-        x.arc(fx + 4, y + 10, 3.4, 0, Math.PI * 2);
+        x.arc(fx + 3.5, y + 9, 3.1, 0, Math.PI * 2);
         x.stroke();
 
         x.font = `400 ${P.card}px ${FONT_TEXT}`;
         x.fillStyle = INK;
         x.globalAlpha = 0.94 * a;
-        let ly = y + 14;
+        let ly = y + 13;
         for (const ln of tl) {
           x.fillText(ln, tx, ly);
-          ly += 19;
+          ly += lineH;
         }
 
         const vw = capW(prWord(pr));
@@ -4154,12 +4155,12 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         ]
           .filter(Boolean)
           .join(isZh() ? ' · ' : ', ');
-        x.font = `500 ${MIN_TEXT}px ${FONT_TEXT}`;
+        x.font = `500 ${MIN_TEXT - 1}px ${FONT_TEXT}`;
         x.fillStyle = vc;
         x.globalAlpha = 0.92 * a;
         const vwW = x.measureText(vw).width;
-        x.fillText(vw, tx, ly - 1);
-        x.font = `400 ${MIN_TEXT}px ${FONT_TEXT}`;
+        x.fillText(vw, tx, ly - 2);
+        x.font = `400 ${MIN_TEXT - 1}px ${FONT_TEXT}`;
         x.fillStyle = SOFT;
         x.globalAlpha = 0.72 * a;
         const rest = [tgt, who].filter(Boolean).join(' \u00b7 ');
@@ -4167,7 +4168,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
           x.fillText(
             trimText(x, ' ' + rest, tw - vwW - 4),
             tx + vwW + 4,
-            ly - 1,
+            ly - 2,
           );
         }
 
@@ -4175,11 +4176,11 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
           kind: 'feedClaim',
           pr,
           x0: fx - 4,
-          y0: y - 3,
+          y0: y - 2,
           x1: fx + fw + 4,
           y1: y + rowH,
         });
-        y += rowH + 6;
+        y += rowH + 4;
       }
     }
     return { y, selMidY };

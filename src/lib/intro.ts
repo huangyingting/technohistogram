@@ -355,7 +355,7 @@ function placeObjects(W: number, H: number, m: number, tb: HTMLElement) {
   const outB = (b: number[]) =>
     Math.max(0, m * 0.5 - b[0]) + Math.max(0, b[2] - (W - m * 0.5)) + Math.max(0, m * 0.5 - b[1]) + Math.max(0, b[3] - (H - m * 0.5));
   const ctx = document.createElement('canvas').getContext('2d')!;
-  ctx.font = `500 ${fsz}px 'Instrument Sans', sans-serif`;
+  ctx.font = `500 ${fsz}px 'Plus Jakarta Sans', 'PingFang SC', 'Noto Sans SC', sans-serif`;
   const order = OBJECTS.map((_, i) => i).sort((p, q) => OBJECTS[p].year - OBJECTS[q].year);
   for (const i of order) {
     const o = OBJECTS[i];

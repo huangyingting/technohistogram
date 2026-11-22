@@ -121,29 +121,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
           rel="stylesheet"
-        />
-        <link
-          rel="preload"
-          href={assetUrl('/assets/fonts/instrument-serif-1.ttf')}
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href={assetUrl('/assets/fonts/instrument-serif-2.ttf')}
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href={assetUrl('/assets/fonts/instrument-sans-400.ttf')}
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
         />
         <script dangerouslySetInnerHTML={{ __html: PREBOOT_SCRIPT }} />
       </head>
