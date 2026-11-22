@@ -1109,17 +1109,16 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   let lastLayoutSig = '';
   const syncLayoutVars = (P: StagePreset, b: typeof BAND) => {
     const split = !P.vert && W >= 900;
-    const fx0 = b.x1 + 8;
-    const eraRight = split ? Math.max(228, Math.round(W - fx0)) : 0;
+    const eraRightEdge = split ? Math.max(266, Math.round(b.x0 - 8)) : 0;
     const drawerW = split ? Math.round(clamp(W * 0.265, 304, 372)) : 0;
     const eraBottom = split ? Math.round(b.stripH + 8) : 0;
-    const sig = `${split ? '1' : '0'}:${eraRight}:${drawerW}:${eraBottom}`;
+    const sig = `${split ? '1' : '0'}:${eraRightEdge}:${drawerW}:${eraBottom}`;
     if (sig === lastLayoutSig) return;
     lastLayoutSig = sig;
     const root = document.documentElement;
     root.dataset.hxLayout = split ? 'split' : 'stack';
     if (split) {
-      root.style.setProperty('--hx-era-right', `${eraRight}px`);
+      root.style.setProperty('--hx-era-right-edge', `${eraRightEdge}px`);
       root.style.setProperty('--hx-drawer-w', `${drawerW}px`);
       root.style.setProperty('--hx-era-bottom', `${eraBottom}px`);
     }
@@ -1132,8 +1131,15 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       return { x0: 0, x1: W, y0: 0, y1: sy, w: W, h: sy, stripY: sy, stripH: sh };
     }
     const cw = Math.min(P.colW, Math.max(256, Math.round(W * 0.24)));
-    const x1 = W - cw - 18;
-    return { x0: 0, x1, y0: 0, y1: sy, w: x1, h: sy, stripY: sy, stripH: sh };
+    const x0 = 10 + cw + 8;
+    return { x0, x1: W, y0: 0, y1: sy, w: Math.max(240, W - x0), h: sy, stripY: sy, stripH: sh };
+  };
+
+  const stageLeft = () => {
+    if (BAND.x0 <= 0) return 0;
+    const drW = clamp(W * 0.265, 304, 372);
+    const openX0 = BAND.x0 - 8 + 6 + drW + 8;
+    return Math.round(lerp(BAND.x0, openX0, cam.drawer * (1 - cam.pull)));
   };
 
   function view() {
@@ -1171,12 +1177,15 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const split = !P.vert && W >= 900;
     const drT = split ? cam.drawer * (1 - pull) : 0;
     const drawerW = split ? clamp(W * 0.265, 304, 372) : 0;
-    const openLeftW = split ? Math.max(260, BAND.x1 + 8 - 6 - drawerW) : BAND.w;
+    const openStageX0 = split ? BAND.x0 - 8 + 6 + drawerW + 8 : BAND.x0;
+    const openRightW = split ? Math.max(260, W - openStageX0) : BAND.w;
     const side = P.vert
       ? Math.min(BAND.w * 0.92, BAND.h * 0.95)
       : Math.min(BAND.w, BAND.h);
     const f = side * P.fov * lerp(1, 0.91, drT);
-    const baseOx = split ? lerp(BAND.w * P.ox, openLeftW * 0.49, cam.drawer) : BAND.w * P.ox;
+    const closedOx = BAND.x0 + BAND.w * (1 - P.ox);
+    const openOx = openStageX0 + openRightW * 0.575;
+    const baseOx = split ? lerp(closedOx, openOx, cam.drawer) : closedOx;
     const ox = P.vert ? BAND.w * P.ox : lerp(baseOx, W * 0.5, pull);
     const oy = BAND.y0 + BAND.h * (P.vert ? lerp(P.oy, 0.58, pull) : P.oy);
     const rot = -aY * (1 - pull);
@@ -1224,7 +1233,8 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       return prOut;
     }
     const s = V.f / d;
-    prOut.sx = V.ox + (dx * V.rx + dy * V.ry + dz * V.rz) * s;
+    const hSign = V.P.vert ? 1 : -1;
+    prOut.sx = V.ox + hSign * (dx * V.rx + dy * V.ry + dz * V.rz) * s;
     prOut.sy = V.oy - (dx * V.ux + dy * V.uy + dz * V.uz) * s;
     prOut.d = d;
     prOut.s = s;
@@ -1243,7 +1253,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     grd.height = Math.max(1, Math.round(H * DPR));
     const g = grd.getContext('2d')!;
     g.scale(DPR, DPR);
-    const lg = g.createLinearGradient(0, 0, W * 0.3, H);
+    const lg = g.createLinearGradient(W, 0, W * 0.7, H);
     lg.addColorStop(0, GROUND[0]);
     lg.addColorStop(0.55, GROUND[1]);
     lg.addColorStop(1, GROUND[2]);
@@ -1500,13 +1510,14 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const col = mix(rootCol(0.75), INK, 0.5);
     x.font = `400 ${MIN_TEXT}px ${FONT_TEXT}`;
     x.textBaseline = 'middle';
+    const sL = stageLeft();
     const c = projR(V, wx, 0, 0);
-    const cx0 = c.d ? c.sx : BAND.w * 0.4;
+    const cx0 = c.d ? c.sx : sL + (BAND.x1 - sL) * 0.6;
 
     for (let li = 0; li < LIN.length; li++) {
       const a = rootAng(li, f) + (1 - f) * 0.55;
       const p = projR(V, wx, rr * Math.cos(a), rr * Math.sin(a));
-      if (!p.d || p.sx < 20 || p.sx > BAND.x1 - 20 || p.sy < 24 || p.sy > BAND.y1 - 20) {
+      if (!p.d || p.sx < sL + 20 || p.sx > BAND.x1 - 20 || p.sy < 24 || p.sy > BAND.y1 - 20) {
         continue;
       }
       const side = p.sx >= cx0 ? 1 : -1;
@@ -1530,7 +1541,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     for (const q of placed) {
       const tw = x.measureText(q.name).width;
       const x0 = q.side > 0 ? q.tx : q.tx - tw;
-      if (x0 < 8 || x0 + tw > BAND.x1 - 8) continue;
+      if (x0 < sL + 8 || x0 + tw > BAND.x1 - 8) continue;
       if (
         ageRects.some(
           (r) =>
@@ -1604,11 +1615,12 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const l2 = isZh() ? '公元前330万年' : '3.3 million BCE';
     x.font = `400 ${MIN_TEXT}px ${FONT_TEXT}`;
     const w = Math.max(x.measureText(l1).width, x.measureText(l2).width);
-    const side = p.sx > 180 ? -1 : 1;
+    const sL = stageLeft();
+    const side = p.sx > BAND.x1 - 180 ? -1 : 1;
     const tx = p.sx + side * 14;
     const ty = clamp(p.sy, 28, BAND.y1 - 28);
     const x0 = side > 0 ? tx : tx - w;
-    if (x0 < 6 || x0 + w > BAND.x1 - 6) return null;
+    if (x0 < sL + 6 || x0 + w > BAND.x1 - 6) return null;
     const box: [number, number, number, number] = [
       x0 - 6,
       ty - 20,
@@ -2264,7 +2276,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     if (!p.d) return null;
     const sy = p.sy;
     if (!onStage(p.sx, sy)) return null;
-    const sx = clamp(p.sx, half + 10, W - half - 10);
+    const sx = clamp(p.sx, stageLeft() + half + 10, BAND.x1 - half - 10);
     return {
       sx,
       sy,
@@ -2951,8 +2963,8 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const allEvs = openFcast ? [] : evByUnit.get(un!) || [];
     const allCl = openFcast ? fcastAll : claimsByUnit.get(un!) || [];
     const key = `${vert ? 'v' : 'd'}:${openFcast ? 'fc' : un}:${openFilter || ''}:${allEvs.length}:${allCl.length}:${picState}:${momentImg.size}`;
-    const x = vert ? BAND.x0 : BAND.x1 + 8;
-    const w = vert ? BAND.w : W - x - 10;
+    const x = vert ? BAND.x0 : 10;
+    const w = vert ? BAND.w : BAND.x0 - 18;
     const y = vert ? Math.round(BAND.h * 0.28) : 8;
     const h = vert ? BAND.y1 - y : BAND.stripY - 16;
     openRect = { x, y, w, h };
@@ -3278,16 +3290,20 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       (sum.length ? 5 + sum.length * 18 : 0) +
       (selEv ? 0 : 20) +
       PAD;
-    const side = refItem.sx > BAND.x0 + BAND.w * 0.52 ? -1 : 1;
+    const sL = stageLeft();
+    const side = refItem.sx > sL + (BAND.x1 - sL) * 0.52 ? -1 : 1;
     let cx0 = side > 0 ? refItem.sx + 44 : refItem.sx - 44 - CW;
-    cx0 = clamp(cx0, 14, BAND.x1 - CW - 14);
+    cx0 = clamp(cx0, sL + 14, BAND.x1 - CW - 14);
     if (Math.abs(cx0 + CW / 2 - refItem.sx) < CW * 0.45) {
       cx0 =
         side > 0
           ? Math.min(BAND.x1 - CW - 14, refItem.sx + 30)
-          : Math.max(14, refItem.sx - 30 - CW);
+          : Math.max(sL + 14, refItem.sx - 30 - CW);
     }
-    const cy0 = clamp(refItem.sy - CH * 0.5, 58, BAND.y1 - CH - 14);
+    let cy0 = clamp(refItem.sy - CH * 0.5, 58, BAND.y1 - CH - 14);
+    if (!V.P.vert && cx0 + CW > W - 210 && cy0 + CH > BAND.stripY - 80) {
+      cy0 = Math.max(54, BAND.stripY - 84 - CH);
+    }
     const ax = refItem.sx < cx0 ? cx0 : refItem.sx > cx0 + CW ? cx0 + CW : refItem.sx;
     const ay = clamp(refItem.sy, cy0 + 14, cy0 + CH - 14);
     const col = heatOf(e.year);
@@ -3505,7 +3521,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       const z = 1.5;
       const zw = Math.max(w * z, 96);
       const zh = Math.max(h * z, 96 / clamp(it.pc.a || 1, 0.65, 1.65));
-      const zx = clamp(cx, zw / 2 + 8, W - zw / 2 - 8);
+      const zx = clamp(cx, stageLeft() + zw / 2 + 8, W - zw / 2 - 8);
       const zy = clamp(cy, zh / 2 + 52, BAND.y1 - zh / 2 - 8);
       octx.save();
       octx.shadowColor = 'rgba(0,0,0,0.72)';
@@ -3527,7 +3543,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     if (P.vert) {
       drawPhoneOverlay(octx, V, f, roU, roNum, roEra, fieldA, linesA, pullFade);
     } else {
-      const rx = 20;
+      const rxRight = W - 20;
       const ry = BAND.stripY - 24;
       octx.save();
       octx.textAlign = 'left';
@@ -3535,30 +3551,48 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       octx.shadowColor = 'rgba(4, 7, 22, 0.85)';
       octx.shadowBlur = 16;
       if (isZh() && roEra === '公元前') {
-        octx.font = `600 ${Math.round(P.readout * 0.30)}px ${FONT_TEXT}`;
+        const eraFont = `600 ${Math.round(P.readout * 0.30)}px ${FONT_TEXT}`;
+        const numFont = `500 ${Math.round(P.readout * 0.84)}px ${FONT_DISPLAY}`;
+        const yrFont = `500 ${Math.round(P.readout * 0.32)}px ${FONT_TEXT}`;
+        octx.font = eraFont;
+        const ew = octx.measureText(roEra).width;
+        octx.font = numFont;
+        const nw = octx.measureText(roNum).width;
+        octx.font = yrFont;
+        const yw = octx.measureText('年').width;
+        const rx = rxRight - (ew + 5 + nw + 6 + yw);
+        octx.font = eraFont;
         octx.fillStyle = SOFT;
         octx.globalAlpha = 0.86;
-        const ew = octx.measureText(roEra).width;
         octx.fillText(roEra, rx, ry - Math.round(P.readout * 0.38));
-        octx.font = `500 ${Math.round(P.readout * 0.84)}px ${FONT_DISPLAY}`;
+        octx.font = numFont;
         octx.fillStyle = INK;
         octx.globalAlpha = 0.96;
-        const nw = octx.measureText(roNum).width;
         octx.fillText(roNum, rx + ew + 5, ry);
-        octx.font = `500 ${Math.round(P.readout * 0.32)}px ${FONT_TEXT}`;
+        octx.font = yrFont;
         octx.globalAlpha = 0.84;
         octx.fillText('年', rx + ew + nw + 6, ry);
       } else {
+        const numFont = `500 ${P.readout}px ${FONT_DISPLAY}`;
+        const eraFont = `500 ${Math.round(P.readout * 0.34)}px ${isZh() ? FONT_TEXT : FONT_DISPLAY}`;
+        octx.font = numFont;
+        const numW = octx.measureText(roNum).width;
+        let eraW = 0;
+        const gap = roEra ? (isZh() ? 5 : 8) : 0;
+        if (roEra) {
+          octx.font = eraFont;
+          eraW = octx.measureText(roEra).width;
+        }
+        const rx = rxRight - (numW + gap + eraW);
+        octx.font = numFont;
         octx.fillStyle = INK;
         octx.globalAlpha = 0.96;
-        octx.font = `500 ${P.readout}px ${FONT_DISPLAY}`;
-        const numW = octx.measureText(roNum).width;
         octx.fillText(roNum, rx, ry);
         if (roEra) {
-          octx.font = `500 ${Math.round(P.readout * (isZh() ? 0.34 : 0.34))}px ${isZh() ? FONT_TEXT : FONT_DISPLAY}`;
+          octx.font = eraFont;
           octx.fillStyle = isZh() ? mix(INK, SOFT, 0.35) : INK;
           octx.globalAlpha = 0.82;
-          octx.fillText(roEra, rx + numW + (isZh() ? 5 : 8), ry);
+          octx.fillText(roEra, rx + numW + gap, ry);
         }
       }
       octx.shadowBlur = 0;
@@ -3566,12 +3600,15 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       octx.fillStyle = SOFT;
       octx.globalAlpha = 0.78;
       const sub = V.pull > 0.5 ? recCount() : '';
-      if (sub) octx.fillText(sub, rx + 2, BAND.stripY - 8);
+      if (sub) {
+        octx.textAlign = 'right';
+        octx.fillText(sub, rxRight, BAND.stripY - 8);
+      }
       octx.restore();
 
       if (pullFade > 0.02) {
-        const fx = BAND.x1 + 8;
-        const fw = W - fx - 10;
+        const fx = 10;
+        const fw = BAND.x0 - 18;
         if (openFcast || openUnit !== null) renderUnitDom(V);
         else {
           renderUnitDom(V);
@@ -3951,18 +3988,19 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     }
     x.restore();
 
-    // Luminous leftward bridge notch connecting the selected era item directly into the left-adjacent detail drawer
+    // Luminous rightward bridge notch connecting the selected left-panel item directly into the right-adjacent detail drawer
     if (itemRes.selMidY !== null && !P.vert && W >= 900) {
       x.save();
       const my = itemRes.selMidY;
+      const rx = fx0 + fw0;
       x.globalAlpha = 0.95 * linesA;
       x.fillStyle = '#ffe2a8';
       x.shadowColor = 'rgba(255, 226, 168, 0.65)';
       x.shadowBlur = 10;
       x.beginPath();
-      x.moveTo(fx0 + 1, my - 6);
-      x.lineTo(fx0 - 5, my);
-      x.lineTo(fx0 + 1, my + 6);
+      x.moveTo(rx - 1, my - 6);
+      x.lineTo(rx + 5, my);
+      x.lineTo(rx - 1, my + 6);
       x.closePath();
       x.fill();
       x.restore();
@@ -4007,16 +4045,16 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         x.strokeStyle = 'rgba(255, 226, 168, 0.34)';
         x.lineWidth = 1;
         x.beginPath();
-        if (x.roundRect) x.roundRect(fx - 7, y - 3, fw + 12, rowH + 1, 7);
-        else x.rect(fx - 7, y - 3, fw + 12, rowH + 1);
-        x.fill();
-        x.stroke();
-        x.fillStyle = '#ffe2a8';
-        x.beginPath();
-        if (x.roundRect) x.roundRect(fx - 7, y + 1, 2.5, Math.max(10, rowH - 7), 2);
-        else x.rect(fx - 7, y + 1, 2.5, Math.max(10, rowH - 7));
-        x.fill();
-        x.restore();
+          if (x.roundRect) x.roundRect(fx - 5, y - 3, fw + 12, rowH + 1, 7);
+          else x.rect(fx - 5, y - 3, fw + 12, rowH + 1);
+          x.fill();
+          x.stroke();
+          x.fillStyle = '#ffe2a8';
+          x.beginPath();
+          if (x.roundRect) x.roundRect(fx + fw + 4.5, y + 1, 2.5, Math.max(10, rowH - 7), 2);
+          else x.rect(fx + fw + 4.5, y + 1, 2.5, Math.max(10, rowH - 7));
+          x.fill();
+          x.restore();
       } else if (isHov) {
         x.fillStyle = 'rgba(238,240,250,0.08)';
         x.globalAlpha = a;
@@ -4098,14 +4136,14 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
           x.strokeStyle = 'rgba(255, 226, 168, 0.34)';
           x.lineWidth = 1;
           x.beginPath();
-          if (x.roundRect) x.roundRect(fx - 7, y - 3, fw + 12, rowH + 1, 7);
-          else x.rect(fx - 7, y - 3, fw + 12, rowH + 1);
+          if (x.roundRect) x.roundRect(fx - 5, y - 3, fw + 12, rowH + 1, 7);
+          else x.rect(fx - 5, y - 3, fw + 12, rowH + 1);
           x.fill();
           x.stroke();
           x.fillStyle = '#ffe2a8';
           x.beginPath();
-          if (x.roundRect) x.roundRect(fx - 7, y + 1, 2.5, Math.max(10, rowH - 7), 2);
-          else x.rect(fx - 7, y + 1, 2.5, Math.max(10, rowH - 7));
+          if (x.roundRect) x.roundRect(fx + fw + 4.5, y + 1, 2.5, Math.max(10, rowH - 7), 2);
+          else x.rect(fx + fw + 4.5, y + 1, 2.5, Math.max(10, rowH - 7));
           x.fill();
           x.restore();
         } else if (isHov) {
@@ -4689,7 +4727,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
 
       const isVert = H > W || W < 720;
       if (ev.shiftKey) {
-        cam.azOff = clamp(cam.azOff - dx * 0.22, -42, 42);
+        cam.azOff = clamp(cam.azOff + dx * 0.22, -42, 42);
         cam.elOff = clamp(cam.elOff + dy * 0.18, -18, 28);
       } else {
         const delta = isVert ? dy * 0.24 : (-dx * YPP + dy * 0.12);
@@ -4699,7 +4737,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         cam.target = yn;
         cam.v = 0;
         if (!isVert) {
-          cam.azOff = clamp(cam.azOff - dx * 0.04, -18, 18);
+          cam.azOff = clamp(cam.azOff + dx * 0.04, -18, 18);
           cam.elOff = clamp(cam.elOff + dy * 0.04, -10, 14);
         }
         const now = performance.now();
