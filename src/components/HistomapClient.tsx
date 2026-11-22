@@ -467,7 +467,7 @@ export default function HistomapClient() {
               <input
                 id="q"
                 type="search"
-                placeholder={zh ? '搜索史料、人物、机构…' : 'Search 4,828 records…'}
+                placeholder={zh ? '搜索史料、人物…' : 'Search records…'}
                 autoComplete="off"
                 aria-controls="search-results"
               />

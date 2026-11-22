@@ -163,7 +163,7 @@ const DESK: StagePreset = {
   cent: 34,
   readout: 88,
   card: 15,
-  colW: 404,
+  colW: 388,
 };
 
 const VERT: StagePreset = {
@@ -525,6 +525,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     azOff: 0,
     elOff: 0,
     breath: 0,
+    drawer: 0,
     fling: null as {
       y0: number;
       y1: number;
@@ -1105,13 +1106,32 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   let decPl: [number, number, number, number][] = [];
   let rootEnd: { sx: number; sy: number; near: number } | null = null;
 
+  let lastLayoutSig = '';
+  const syncLayoutVars = (P: StagePreset, b: typeof BAND) => {
+    const split = !P.vert && W >= 900;
+    const fx0 = b.x1 + 10;
+    const eraRight = split ? Math.max(240, Math.round(W - fx0)) : 0;
+    const drawerW = split ? Math.round(clamp(W * 0.285, 316, 420)) : 0;
+    const eraBottom = split ? Math.round(b.stripH + 12) : 0;
+    const sig = `${split ? '1' : '0'}:${eraRight}:${drawerW}:${eraBottom}`;
+    if (sig === lastLayoutSig) return;
+    lastLayoutSig = sig;
+    const root = document.documentElement;
+    root.dataset.hxLayout = split ? 'split' : 'stack';
+    if (split) {
+      root.style.setProperty('--hx-era-right', `${eraRight}px`);
+      root.style.setProperty('--hx-drawer-w', `${drawerW}px`);
+      root.style.setProperty('--hx-era-bottom', `${eraBottom}px`);
+    }
+  };
+
   const bandOf = (P: StagePreset) => {
     const sh = P.vert ? STRIP_BOT : 50;
     const sy = H - sh;
     if (P.vert) {
       return { x0: 0, x1: W, y0: 0, y1: sy, w: W, h: sy, stripY: sy, stripH: sh };
     }
-    const cw = Math.min(P.colW, Math.round(W * 0.34));
+    const cw = Math.min(P.colW, Math.max(276, Math.round(W * 0.265)));
     const x1 = W - cw - 24;
     return { x0: 0, x1, y0: 0, y1: sy, w: x1, h: sy, stripY: sy, stripH: sh };
   };
@@ -1119,6 +1139,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   function view() {
     const P = H > W || W < 720 ? VERT : DESK;
     BAND = bandOf(P);
+    syncLayoutVars(P, BAND);
     const pull = cam.pull;
     const Y = Math.max(T0, cam.year);
     const el = ((P.el + cam.elOff + pull * 10) * Math.PI) / 180;
@@ -1147,11 +1168,16 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const ux = ry * fz - rz * fy;
     const uy = rz * fx - rx * fz;
     const uz = rx * fy - ry * fx;
+    const split = !P.vert && W >= 900;
+    const drT = split ? cam.drawer * (1 - pull) : 0;
+    const drawerW = split ? clamp(W * 0.285, 316, 420) : 0;
+    const openLeftW = split ? Math.max(260, BAND.x1 + 10 - 6 - drawerW) : BAND.w;
     const side = P.vert
       ? Math.min(BAND.w * 0.92, BAND.h * 0.95)
       : Math.min(BAND.w, BAND.h);
-    const f = side * P.fov;
-    const ox = P.vert ? BAND.w * P.ox : lerp(BAND.w * P.ox, W * 0.5, pull);
+    const f = side * P.fov * lerp(1, 0.91, drT);
+    const baseOx = split ? lerp(BAND.w * P.ox, openLeftW * 0.49, cam.drawer) : BAND.w * P.ox;
+    const ox = P.vert ? BAND.w * P.ox : lerp(baseOx, W * 0.5, pull);
     const oy = BAND.y0 + BAND.h * (P.vert ? lerp(P.oy, 0.58, pull) : P.oy);
     const rot = -aY * (1 - pull);
     return {
@@ -2900,6 +2926,16 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     unitDomKey = '';
   }
 
+  let lastUnitSel = '';
+  const syncUnitSel = (uEl: HTMLElement) => {
+    const sel = state.sel || '';
+    if (sel === lastUnitSel) return;
+    lastUnitSel = sel;
+    uEl.querySelectorAll<HTMLElement>('.hx-urow[data-id]').forEach((row) => {
+      row.classList.toggle('sel', Boolean(sel && row.dataset.id === sel));
+    });
+  };
+
   function renderUnitDom(V: ViewState) {
     V_LAST = V;
     const vert = V.P.vert;
@@ -2915,10 +2951,10 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const allEvs = openFcast ? [] : evByUnit.get(un!) || [];
     const allCl = openFcast ? fcastAll : claimsByUnit.get(un!) || [];
     const key = `${vert ? 'v' : 'd'}:${openFcast ? 'fc' : un}:${openFilter || ''}:${allEvs.length}:${allCl.length}:${picState}:${momentImg.size}`;
-    const x = vert ? BAND.x0 : BAND.x1 + 12;
-    const w = vert ? BAND.w : W - x - 12;
+    const x = vert ? BAND.x0 : BAND.x1 + 10;
+    const w = vert ? BAND.w : W - x - 18;
     const y = vert ? Math.round(BAND.h * 0.28) : 14;
-    const h = (vert ? BAND.y1 : BAND.stripY) - y - (vert ? 0 : 8);
+    const h = vert ? BAND.y1 - y : BAND.stripY - 26;
     openRect = { x, y, w, h };
     uEl.hidden = false;
     uEl.classList.toggle('vert', vert);
@@ -2926,8 +2962,12 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     uEl.style.top = y + 'px';
     uEl.style.width = w + 'px';
     uEl.style.height = h + 'px';
-    if (key === unitDomKey) return;
+    if (key === unitDomKey) {
+      syncUnitSel(uEl);
+      return;
+    }
     unitDomKey = key;
+    lastUnitSel = '';
     unitBuilding = true;
 
     const counts = new Map<string, number>();
@@ -3083,6 +3123,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
 
     const sc = uEl.querySelector('.hx-ubody') as HTMLElement | null;
     if (sc && openScroll) sc.scrollTop = openScroll;
+    syncUnitSel(uEl);
     if (sc) {
       sc.addEventListener(
         'scroll',
@@ -3855,9 +3896,14 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     }
 
     const cards = f.evs.slice(0, P.lines);
+    if (state.sel && cards.length > 0 && !cards.some((ev) => ev.id === state.sel)) {
+      const selInUnit = f.evs.find((ev) => ev.id === state.sel);
+      if (selInUnit) cards[cards.length - 1] = selInUnit;
+    }
     const claims = f.fcast ? f.claims : pickClaims(f.claims, P.claims);
     const reserveFoot = !f.fcast && f.un >= FC_FROM && fcastTotal > 0 ? 52 : 28;
-    y = drawFeedItems(x, fx, y, fw, fy + fh - reserveFoot, P, f, cards, claims, linesA);
+    const itemRes = drawFeedItems(x, fx, y, fw, fy + fh - reserveFoot, P, f, cards, claims, linesA);
+    y = itemRes.y;
 
     const shown = f.fcast ? claims.length : cards.length;
     const more = f.fcast
@@ -3904,6 +3950,23 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       feedHits.push({ kind: 'openFcast', x0: fx, y0: fy2 - 2, x1: fx + fw, y1: fy2 + 22 });
     }
     x.restore();
+
+    // Luminous leftward bridge notch connecting the selected era item directly into the left-adjacent detail drawer
+    if (itemRes.selMidY !== null && !P.vert && W >= 900) {
+      x.save();
+      const my = itemRes.selMidY;
+      x.globalAlpha = 0.95 * linesA;
+      x.fillStyle = '#ffe2a8';
+      x.shadowColor = 'rgba(255, 226, 168, 0.65)';
+      x.shadowBlur = 10;
+      x.beginPath();
+      x.moveTo(fx0 + 1, my - 6);
+      x.lineTo(fx0 - 5, my);
+      x.lineTo(fx0 + 1, my + 6);
+      x.closePath();
+      x.fill();
+      x.restore();
+    }
   }
 
   function drawFeedItems(
@@ -3917,10 +3980,11 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     cards: any[],
     claims: any[],
     a: number,
-  ) {
+  ): { y: number; selMidY: number | null } {
     const span = !f.fcast && (f.un < T0 || early(f.un));
     const TH_W = 54;
     const TH_H = 42;
+    let selMidY: number | null = null;
 
     for (const e of cards) {
       const pic = unitPic(e);
@@ -3934,10 +3998,31 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
 
       const isHov = hov && hov.kind === 'feedEv' && hov.e.id === e.id;
       const isSel = state.sel === e.id;
-      if (isHov || isSel) {
-        x.fillStyle = 'rgba(238,240,250,0.07)';
+      if (isSel) {
+        selMidY = y - 3 + rowH * 0.5;
+        x.save();
         x.globalAlpha = a;
-        x.fillRect(fx - 4, y - 3, fw + 8, rowH);
+        x.fillStyle = 'rgba(138, 164, 255, 0.16)';
+        x.strokeStyle = 'rgba(255, 226, 168, 0.34)';
+        x.lineWidth = 1;
+        x.beginPath();
+        if (x.roundRect) x.roundRect(fx - 8, y - 4, fw + 14, rowH + 2, 8);
+        else x.rect(fx - 8, y - 4, fw + 14, rowH + 2);
+        x.fill();
+        x.stroke();
+        x.fillStyle = '#ffe2a8';
+        x.beginPath();
+        if (x.roundRect) x.roundRect(fx - 8, y + 1, 3, Math.max(12, rowH - 8), 2);
+        else x.rect(fx - 8, y + 1, 3, Math.max(12, rowH - 8));
+        x.fill();
+        x.restore();
+      } else if (isHov) {
+        x.fillStyle = 'rgba(238,240,250,0.08)';
+        x.globalAlpha = a;
+        x.beginPath();
+        if (x.roundRect) x.roundRect(fx - 6, y - 3, fw + 10, rowH, 7);
+        else x.rect(fx - 6, y - 3, fw + 10, rowH);
+        x.fill();
       }
 
       if (hasPic) {
@@ -4003,10 +4088,32 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         if (y + rowH > yMax) break;
 
         const isHov = hov && hov.kind === 'feedClaim' && hov.pr.id === pr.id;
-        if (isHov || state.sel === pr.id) {
-          x.fillStyle = 'rgba(238,240,250,0.07)';
+        const isPrSel = state.sel === pr.id;
+        if (isPrSel) {
+          selMidY = y - 3 + rowH * 0.5;
+          x.save();
           x.globalAlpha = a;
-          x.fillRect(fx - 4, y - 3, fw + 8, rowH);
+          x.fillStyle = 'rgba(138, 164, 255, 0.16)';
+          x.strokeStyle = 'rgba(255, 226, 168, 0.34)';
+          x.lineWidth = 1;
+          x.beginPath();
+          if (x.roundRect) x.roundRect(fx - 8, y - 4, fw + 14, rowH + 2, 8);
+          else x.rect(fx - 8, y - 4, fw + 14, rowH + 2);
+          x.fill();
+          x.stroke();
+          x.fillStyle = '#ffe2a8';
+          x.beginPath();
+          if (x.roundRect) x.roundRect(fx - 8, y + 1, 3, Math.max(12, rowH - 8), 2);
+          else x.rect(fx - 8, y + 1, 3, Math.max(12, rowH - 8));
+          x.fill();
+          x.restore();
+        } else if (isHov) {
+          x.fillStyle = 'rgba(238,240,250,0.08)';
+          x.globalAlpha = a;
+          x.beginPath();
+          if (x.roundRect) x.roundRect(fx - 6, y - 3, fw + 10, rowH, 7);
+          else x.rect(fx - 6, y - 3, fw + 10, rowH);
+          x.fill();
         }
 
         const vc = prColor(pr);
@@ -4075,7 +4182,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         y += rowH + 6;
       }
     }
-    return y;
+    return { y, selMidY };
   }
 
   const stripBox = () => {
@@ -4395,6 +4502,13 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       cam.breath = bTarget;
     }
 
+    const drTarget = !(H > W || W < 900) && state.sel ? 1 : 0;
+    if (Math.abs(cam.drawer - drTarget) > 0.001) {
+      cam.drawer += (drTarget - cam.drawer) * Math.min(1, dt * 9);
+      if (Math.abs(cam.drawer - drTarget) < 0.002) cam.drawer = drTarget;
+      moving = true;
+    }
+
     void settleAt;
     void moveAt;
     return moving;
@@ -4415,6 +4529,9 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       c.style.width = W + 'px';
       c.style.height = H + 'px';
     }
+    const P = H > W || W < 720 ? VERT : DESK;
+    BAND = bandOf(P);
+    syncLayoutVars(P, BAND);
     gpu.setSize(W, H, DPR);
     sceneKey = '';
     unitDomKey = '';
@@ -4428,7 +4545,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const moving = stepPhysics(now);
     const V = view();
     const uHand = V.pull > 0.5 ? 'p' : unitOf(cam.year);
-    const key = `${W}x${H}x${DPR}:${slf(cam.year).toFixed(3)}:${V.pull.toFixed(3)}:${cam.azOff.toFixed(2)}:${cam.elOff.toFixed(2)}:${cam.breath.toFixed(3)}:${uHand}:${shA.toFixed(2)}:${geomKey}:${gpu.ready ? 1 : 0}`;
+    const key = `${W}x${H}x${DPR}:${slf(cam.year).toFixed(3)}:${V.pull.toFixed(3)}:${cam.drawer.toFixed(3)}:${cam.azOff.toFixed(2)}:${cam.elOff.toFixed(2)}:${cam.breath.toFixed(3)}:${uHand}:${shA.toFixed(2)}:${geomKey}:${gpu.ready ? 1 : 0}`;
     let sceneRepainted = false;
     if (key !== sceneKey) {
       sceneKey = key;
@@ -4682,6 +4799,11 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       const sy = ev.clientY - r.top;
       const h = hitAt(sx, sy);
       if (!h) {
+        if (state.sel) {
+          selectRecord('');
+          invalidate();
+          return;
+        }
         if (shOpen) {
           closeSheet();
           invalidate();
@@ -5133,6 +5255,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     window.removeEventListener('pointerup', onPointerUp);
     window.removeEventListener('pointercancel', onPointerUp);
     scene.removeEventListener('keydown', onKey);
+    delete document.documentElement.dataset.hxLayout;
     gpu.dispose();
     if (activeHooks === hooks) activeHooks = null;
     if (window.__helix === debugApi) delete window.__helix;

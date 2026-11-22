@@ -182,23 +182,21 @@ export function bootHistomap(): void {
   const topbar = document.querySelector('.topbar') as HTMLElement | null;
   if (!stage || !app || !topbar) return;
 
-  // Measure --top-h from topbar children
+  // Measure --top-h from actual rendered topbar height (including padding & wrapped rows)
   {
     const measure = () => {
-      const top = topbar.getBoundingClientRect().top;
-      let h = 0;
-      for (const c of Array.from(topbar.children)) {
-        const r = c.getBoundingClientRect();
-        if (r.height) h = Math.max(h, r.bottom - top);
+      const h = Math.ceil(topbar.getBoundingClientRect().height);
+      if (h > 1) {
+        app.style.setProperty('--top-h', `${h}px`);
+        document.documentElement.style.setProperty('--top-h', `${h}px`);
       }
-      h = Math.round(h) + 1;
-      if (h > 1) app.style.setProperty('--top-h', `${h}px`);
     };
     if (typeof ResizeObserver !== 'undefined') {
       for (const c of Array.from(topbar.children)) new ResizeObserver(measure).observe(c);
       new ResizeObserver(measure).observe(topbar);
     }
     document.addEventListener('draw-change', () => requestAnimationFrame(measure));
+    onLangChange(() => requestAnimationFrame(measure));
     window.addEventListener('resize', measure);
     measure();
   }
@@ -744,22 +742,15 @@ export function bootHistomap(): void {
     if (qEl) {
       const syncPlaceholder = () => {
         const zh = isZh();
+        const w = qEl.getBoundingClientRect().width;
         qEl.placeholder =
-          qEl.getBoundingClientRect().width < 145
+          w < 165
             ? zh
               ? '搜索…'
-              : 'Search'
-            : tabOf(state.view) === 'map'
-              ? zh
-                ? '搜索史料、人物、机构…'
-                : 'Search people, companies…'
-              : mq.matches
-                ? zh
-                  ? '搜索'
-                  : 'Search'
-                : zh
-                  ? '搜索 4,828 条史料'
-                  : 'Search the record';
+              : 'Search…'
+            : zh
+              ? '搜索史料、人物…'
+              : 'Search records…';
       };
       syncPlaceholder();
       mq.addEventListener('change', syncPlaceholder);
