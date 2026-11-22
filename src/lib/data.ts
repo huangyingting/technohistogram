@@ -82,8 +82,10 @@ export const ym = (d: string | number | null | undefined): number | null => {
   return y + ((m || 6.5) - 1 + (m ? ((dd || 15) - 0.5) / 31 : 0.5)) / 12;
 };
 
+import { assetUrl } from './basePath';
+
 let VER = '';
-const vurl = (path: string) => `/data/${path}${VER ? `?v=${VER}` : ''}`;
+const vurl = (path: string) => assetUrl(`/data/${path}${VER ? `?v=${VER}` : ''}`);
 
 const RETRY_MS = 700;
 async function getJSON(url: string, fallback: any): Promise<any> {
@@ -105,7 +107,7 @@ async function getJSON(url: string, fallback: any): Promise<any> {
     }
     if (attempt === 0) await new Promise((res) => setTimeout(res, RETRY_MS));
   }
-  db.missing.add(url.replace(/^\/?data\//, '').replace(/\?.*$/, ''));
+  db.missing.add(url.replace(/^.*\/data\//, '').replace(/\?.*$/, ''));
   if (typeof dispatchEvent === 'function' && typeof CustomEvent === 'function') {
     dispatchEvent(new CustomEvent('histomap:partial', { detail: url }));
   }
@@ -654,7 +656,7 @@ export async function load(): Promise<HistomapDB> {
   if (loadPromise) return loadPromise;
   loadPromise = (async () => {
     const man = await getJSON(
-      `/data/manifest.json${typeof window !== 'undefined' && window.__BUILD ? `?v=${window.__BUILD}` : ''}`,
+      assetUrl(`/data/manifest.json${typeof window !== 'undefined' && window.__BUILD ? `?v=${window.__BUILD}` : ''}`),
       { optional: [] },
     );
     VER = man.version || '';

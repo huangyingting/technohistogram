@@ -1,6 +1,7 @@
 // Intro, Zürich Grid: spiral sheet for non-arrival intro fallback (#intro=1 when arrival is disabled).
 import { db, census, onData } from './data';
 import { set, TABS } from './store';
+import { assetUrl } from './basePath';
 
 const esc = (v: any) =>
   String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
@@ -50,7 +51,7 @@ async function loadPalette() {
   palTried = true;
   try {
     const pre = window.__introPre && window.__introPre.pal;
-    const r = await (pre || fetch(`/data/palette.json${window.__BUILD ? `?v=${window.__BUILD}` : ''}`, { cache: 'no-cache' }));
+    const r = await (pre || fetch(assetUrl(`/data/palette.json${window.__BUILD ? `?v=${window.__BUILD}` : ''}`), { cache: 'no-cache' }));
     if (!r.ok) return;
     const j = await r.json();
     const pick = (o: any) => (o && typeof o === 'object' && !Array.isArray(o) ? o : null);
@@ -694,7 +695,7 @@ export function openIntro() {
   if (S.phone) {
     const reg = (
       (window.__introPre && window.__introPre.lm) ||
-      fetch(`/data/landmarks.json${window.__BUILD ? `?v=${window.__BUILD}` : ''}`)
+      fetch(assetUrl(`/data/landmarks.json${window.__BUILD ? `?v=${window.__BUILD}` : ''}`))
     )
       .then((r) => (r && r.ok ? r.json() : null))
       .catch(() => null);

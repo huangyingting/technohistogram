@@ -36,18 +36,12 @@ import {
   heat,
   rgba as rgbaOf,
 } from './spectrum';
+import { assetUrl } from './basePath';
 
 const clampY = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 const recCol = (y: number | string) => heat(slotOf(clampY(+y || 2026, YEAR_MIN, YEAR_MAX)) / SLOT_MAX);
 
-const normSrc = (src: string | undefined | null): string => {
-  const s = String(src || '');
-  if (!s) return '';
-  if (s.startsWith('/') || s.startsWith('http://') || s.startsWith('https://') || s.startsWith('data:')) {
-    return s;
-  }
-  return '/' + s;
-};
+const normSrc = (src: string | undefined | null): string => assetUrl(src);
 
 const tint = (col: string | null) => {
   const dr = document.getElementById('drawer');

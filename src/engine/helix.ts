@@ -28,6 +28,7 @@ import {
 import { DOMAIN } from '../lib/palette';
 import { REGION, YEAR_MIN, YEAR_MAX, fmtYear, fmtSpan, fmtTick } from '../lib/time';
 import { esc, tip, select as selectRecord, openEvidence } from '../lib/ui';
+import { assetUrl } from '../lib/basePath';
 import { state, hashParams } from '../lib/store';
 import { POSTER } from '../lib/poster';
 import { HelixGpuRenderer } from './helixGpu';
@@ -600,8 +601,8 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       });
     const p =
       A && A.pics
-        ? A.pics.catch(() => null).then((j) => j || fetch('/data/pictures.json').then((r) => (r.ok ? r.json() : null)))
-        : fetch('/data/pictures.json').then((r) => (r.ok ? r.json() : null));
+        ? A.pics.catch(() => null).then((j) => j || fetch(assetUrl('/data/pictures.json')).then((r) => (r.ok ? r.json() : null)))
+        : fetch(assetUrl('/data/pictures.json')).then((r) => (r.ok ? r.json() : null));
     p.then((D: any) => {
       const list = D && Array.isArray(D.pictures) ? D.pictures : null;
       if (!list || !list.length) {
@@ -617,7 +618,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         .then((blobs: Promise<Blob>[] | null) =>
           Promise.all(
             Array.from({ length: nAtlas }, (_, i) =>
-              loadImg(`/arrival/thumb${i}.jpg`, blobs && blobs[i]),
+              loadImg(assetUrl(`/arrival/thumb${i}.jpg`), blobs && blobs[i]),
             ),
           ),
         )
@@ -645,8 +646,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     for (const e of db.events || []) {
       if (!(e.moment || e.type === 'moment') || !e.picture || !e.picture.src) continue;
       if (picById.has(e.id)) continue;
-      const raw = e.picture.src;
-      const s = /^(https?:|\/)/.test(raw) ? raw : '/' + raw;
+      const s = assetUrl(e.picture.src);
       if (momentImg.has(s)) continue;
       momentImg.set(s, null);
       const im = new Image();
@@ -873,8 +873,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       if (!(e.moment || e.type === 'moment') || !e.picture || !e.picture.src || picById.has(e.id)) {
         continue;
       }
-      const raw = e.picture.src;
-      const src = /^(https?:|\/)/.test(raw) ? raw : '/' + raw;
+      const src = assetUrl(e.picture.src);
       const im = momentImg.get(src);
       if (!im || typeof im !== 'object' || !im.naturalWidth) continue;
       const cell = evCell.get(e.id);
@@ -2697,8 +2696,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const hit = picById.get(e.id);
     if (hit && hit.atl && hit.atl.naturalWidth) return hit;
     if (e.picture && e.picture.src) {
-      const raw = e.picture.src;
-      const src = /^(https?:|\/)/.test(raw) ? raw : '/' + raw;
+      const src = assetUrl(e.picture.src);
       const im = momentImg.get(src);
       if (im && typeof im === 'object' && im.naturalWidth) {
         return {

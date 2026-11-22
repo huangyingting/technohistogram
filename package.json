@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:pages": "NEXT_OUTPUT_EXPORT=1 NEXT_PUBLIC_BASE_PATH=/technohistogram NEXT_PUBLIC_SITE_URL=https://huangyingting.github.io next build",
     "start": "next start",
     "typecheck": "tsc --noEmit"
   },

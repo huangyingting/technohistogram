@@ -1,5 +1,7 @@
 # Technology Histomap (WebGPU + Three.js + Next.js)
 
+**Live Demo (GitHub Pages):** [https://huangyingting.github.io/technohistogram/](https://huangyingting.github.io/technohistogram/)
+
 An interactive 3D spiral timeline of **4,828 sourced records** spanning **3.3 million BCE to 2026**—plus **240 dated forecasts reaching to 2076**—rebuilt with **WebGPU**, **Three.js Shading Language (TSL)**, and **Next.js**.
 
 ## Stack

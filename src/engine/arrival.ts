@@ -18,9 +18,10 @@ import {
 import { slotOf, SLOT_MAX } from '../lib/time';
 import { heat, sunk, mix } from '../lib/spectrum';
 import { POSTER } from '../lib/poster';
+import { assetUrl } from '../lib/basePath';
 import { createWebGPURenderer, loadGpuTexture } from './webgpu';
 
-const BASE = '/arrival/';
+const BASE = `${assetUrl('/arrival')}/`;
 const clamp = (x: number, a: number, b: number) => Math.max(a, Math.min(b, x));
 const easeOut = (x: number) => 1 - Math.pow(1 - x, 3);
 const easeInOut = (x: number) =>

@@ -76,12 +76,7 @@ html.arrival-mode .ar-pre, .ar-pre.live { display: grid; }
 /* shell.css */
 
 /* ==== css/palette.css ==== */
-/* Fonts shipped with the site: Instrument Serif speaks, Instrument Sans measures. */
-@font-face { font-family: 'Instrument Sans'; src: url(/assets/fonts/instrument-sans-400.ttf) format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Instrument Sans'; src: url(/assets/fonts/instrument-sans-500.ttf) format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Instrument Sans'; src: url(/assets/fonts/instrument-sans-600.ttf) format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Instrument Serif'; src: url(/assets/fonts/instrument-serif-1.ttf) format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Instrument Serif'; src: url(/assets/fonts/instrument-serif-2.ttf) format('truetype'); font-weight: 400; font-style: italic; font-display: swap; }
+/* Fonts shipped with the site: Instrument Serif speaks, Instrument Sans measures (declared in RootLayout with basePath). */
 :root {
   --g-night: #07080d; --g-indigo: #141a3d; --g-print: #e3e4ea;
   --sp-ai-1: #ffd1d2;
