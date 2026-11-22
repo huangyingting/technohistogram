@@ -1,0 +1,1727 @@
+{
+ "generated": "2026-10-22",
+ "schema": "id, label, unit, source, source_url, direction, points [[year or date, value]], notes; detail and sources optional",
+ "series": [
+  {
+   "id": "ai_incidents",
+   "label": "Reported AI incidents per year (AI Incident Database)",
+   "unit": "incidents",
+   "source": "AI Incident Database via Stanford AI Index 2025 (Our World in Data) and AI Index 2026 chapter 3",
+   "source_url": "https://archive.ourworldindata.org/20250624-125417/grapher/annual-reported-ai-incidents-controversies.html",
+   "direction": "up",
+   "points": [
+    [
+     2012,
+     8
+    ],
+    [
+     2013,
+     6
+    ],
+    [
+     2014,
+     13
+    ],
+    [
+     2015,
+     24
+    ],
+    [
+     2016,
+     41
+    ],
+    [
+     2017,
+     49
+    ],
+    [
+     2018,
+     45
+    ],
+    [
+     2019,
+     43
+    ],
+    [
+     2020,
+     85
+    ],
+    [
+     2021,
+     75
+    ],
+    [
+     2022,
+     101
+    ],
+    [
+     2023,
+     149
+    ],
+    [
+     2024,
+     233
+    ],
+    [
+     2025,
+     362
+    ]
+   ],
+   "notes": "2012 to 2024 from the Our World in Data CSV of the AI Index 2025 figure 3.2.1 (AIID counts, OWID last updated 8 Apr 2025). 2025 = 362 from AI Index 2026 chapter 3 (figure 3.2.1, 2012 to 2025); that chapter prints only 2024 and 2025. AIID revises past years as incidents are added, so later readings can differ. The AI Index 2024 edition gave 123 for 2023; the 2025 edition revised it to 149.",
+   "last_reading": "2025",
+   "sources": [
+    {
+     "title": "OWID archive (24 Jun 2025): Global annual number of reported AI incidents and controversies",
+     "url": "https://archive.ourworldindata.org/20250624-125417/grapher/annual-reported-ai-incidents-controversies.html"
+    },
+    {
+     "title": "AI Index 2026, chapter 3 Responsible AI",
+     "url": "https://hai.stanford.edu/assets/files/ai_index_report_2026_chapter_3_responsible_ai.pdf"
+    },
+    {
+     "title": "AI Index 2025, Responsible AI highlights",
+     "url": "https://hai.stanford.edu/ai-index/2025-ai-index-report/responsible-ai"
+    }
+   ]
+  },
+  {
+   "id": "api_price_frontier",
+   "label": "Frontier tier model API list price per million tokens",
+   "unit": "US$ per 1M tokens (input; output in each point)",
+   "source": "OpenAI, Anthropic and Google announcements and current pricing pages",
+   "source_url": "https://developers.openai.com/api/docs/pricing.md",
+   "direction": "down",
+   "points": [
+    [
+     "2023-03-14",
+     30
+    ],
+    [
+     "2023-11-06",
+     10
+    ],
+    [
+     "2024-03-04",
+     15
+    ],
+    [
+     "2024-03-04",
+     3
+    ],
+    [
+     "2024-06-21",
+     3
+    ],
+    [
+     "2024-08-06",
+     2.5
+    ],
+    [
+     "2025-04-14",
+     2
+    ],
+    [
+     "2025-05-22",
+     15
+    ],
+    [
+     "2025-05-22",
+     3
+    ],
+    [
+     "2025-06-17",
+     1.25
+    ],
+    [
+     "2025-08-07",
+     1.25
+    ],
+    [
+     "2025-11-18",
+     2
+    ],
+    [
+     "2025-11-24",
+     5
+    ],
+    [
+     "2026-10-22",
+     1.75
+    ],
+    [
+     "2026-10-22",
+     4
+    ],
+    [
+     "2026-10-22",
+     2
+    ]
+   ],
+   "notes": "Each point is a list price at launch or at a documented price change, read from the vendor announcement linked in the point (per 1k prices from 2023 converted to per 1M by x1000). Points dated 2026-10-22 are readings of the current pricing pages on that date, not launch dates. Gemini 2.5 Pro is dated by its 17 Jun 2025 GA announcement but its $1.25/$10 price is read from the current pricing page. Claude Opus 4.5 price is stated as \"$5/$25\" without labelling input and output. Gaps: Claude 2 (Jul 2023) and Gemini 1.5 Pro launch prices were not stated on the fetched pages; the 2023 OpenAI pricing page was not archived in a readable form. Prices exclude cached, batch and long-context tiers. Cycle 4: the Anthropic pricing page lists no Claude 2 or 2.1 prices, so that gap stands.",
+   "last_reading": "2026-10-22",
+   "detail": [
+    {
+     "date": "2023-03-14",
+     "input": 30,
+     "output": 60,
+     "model": "GPT-4 (8k)",
+     "org": "OpenAI",
+     "source_url": "https://openai.com/index/gpt-4-research/"
+    },
+    {
+     "date": "2023-11-06",
+     "input": 10,
+     "output": 30,
+     "model": "GPT-4 Turbo",
+     "org": "OpenAI",
+     "source_url": "https://openai.com/index/new-models-and-developer-products-announced-at-devday/"
+    },
+    {
+     "date": "2024-03-04",
+     "input": 15,
+     "output": 75,
+     "model": "Claude 3 Opus",
+     "org": "Anthropic",
+     "source_url": "https://www.anthropic.com/news/claude-3-family"
+    },
+    {
+     "date": "2024-03-04",
+     "input": 3,
+     "output": 15,
+     "model": "Claude 3 Sonnet",
+     "org": "Anthropic",
+     "source_url": "https://www.anthropic.com/news/claude-3-family"
+    },
+    {
+     "date": "2024-06-21",
+     "input": 3,
+     "output": 15,
+     "model": "Claude 3.5 Sonnet",
+     "org": "Anthropic",
+     "source_url": "https://www.anthropic.com/news/claude-3-5-sonnet"
+    },
+    {
+     "date": "2024-08-06",
+     "input": 2.5,
+     "output": 10,
+     "model": "GPT-4o (2024-08-06)",
+     "org": "OpenAI",
+     "source_url": "https://openai.com/index/introducing-structured-outputs-in-the-api/"
+    },
+    {
+     "date": "2025-04-14",
+     "input": 2,
+     "output": 8,
+     "model": "GPT-4.1",
+     "org": "OpenAI",
+     "source_url": "https://openai.com/index/gpt-4-1/"
+    },
+    {
+     "date": "2025-05-22",
+     "input": 15,
+     "output": 75,
+     "model": "Claude Opus 4",
+     "org": "Anthropic",
+     "source_url": "https://www.anthropic.com/news/claude-4"
+    },
+    {
+     "date": "2025-05-22",
+     "input": 3,
+     "output": 15,
+     "model": "Claude Sonnet 4",
+     "org": "Anthropic",
+     "source_url": "https://www.anthropic.com/news/claude-4"
+    },
+    {
+     "date": "2025-06-17",
+     "input": 1.25,
+     "output": 10,
+     "model": "Gemini 2.5 Pro (GA)",
+     "org": "Google",
+     "source_url": "https://ai.google.dev/gemini-api/docs/pricing"
+    },
+    {
+     "date": "2025-08-07",
+     "input": 1.25,
+     "output": 10,
+     "model": "GPT-5",
+     "org": "OpenAI",
+     "source_url": "https://openai.com/index/introducing-gpt-5-for-developers/"
+    },
+    {
+     "date": "2025-11-18",
+     "input": 2,
+     "output": 12,
+     "model": "Gemini 3 Pro",
+     "org": "Google",
+     "source_url": "https://blog.google/technology/developers/gemini-3-developers/"
+    },
+    {
+     "date": "2025-11-24",
+     "input": 5,
+     "output": 25,
+     "model": "Claude Opus 4.5",
+     "org": "Anthropic",
+     "source_url": "https://www.anthropic.com/news/claude-opus-4-5"
+    },
+    {
+     "date": "2026-10-22",
+     "input": 1.75,
+     "output": 14,
+     "model": "GPT-5.2 (current list)",
+     "org": "OpenAI",
+     "source_url": "https://developers.openai.com/api/docs/pricing.md"
+    },
+    {
+     "date": "2026-10-22",
+     "input": 4,
+     "output": 20,
+     "model": "Claude Opus 5.5 (current list)",
+     "org": "Anthropic",
+     "source_url": "https://claude.com/pricing"
+    },
+    {
+     "date": "2026-10-22",
+     "input": 2,
+     "output": 12,
+     "model": "Gemini 3.1 Pro Preview (current list, \u2264200k)",
+     "org": "Google",
+     "source_url": "https://ai.google.dev/gemini-api/docs/pricing"
+    }
+   ]
+  },
+  {
+   "id": "api_price_small",
+   "label": "Small tier model API list price per million tokens",
+   "unit": "US$ per 1M tokens (input; output in each point)",
+   "source": "OpenAI, Anthropic and Google announcements and current pricing pages",
+   "source_url": "https://developers.openai.com/api/docs/pricing.md",
+   "direction": "down",
+   "points": [
+    [
+     "2023-03-01",
+     2
+    ],
+    [
+     "2023-06-13",
+     1.5
+    ],
+    [
+     "2023-11-06",
+     1
+    ],
+    [
+     "2024-01-25",
+     0.5
+    ],
+    [
+     "2024-03-04",
+     0.25
+    ],
+    [
+     "2024-07-18",
+     0.15
+    ],
+    [
+     "2024-08-12",
+     0.075
+    ],
+    [
+     "2024-12-03",
+     0.8
+    ],
+    [
+     "2025-04-14",
+     0.1
+    ],
+    [
+     "2025-08-07",
+     0.05
+    ],
+    [
+     "2025-10-15",
+     1
+    ],
+    [
+     "2026-10-22",
+     0.1
+    ],
+    [
+     "2026-10-22",
+     0.1
+    ],
+    [
+     "2026-10-22",
+     0.05
+    ]
+   ],
+   "notes": "Each point is a list price at launch or at a documented price change, read from the vendor announcement linked in the point (per 1k prices from 2023 converted to per 1M by x1000). Points dated 2026-10-22 are readings of the current pricing pages on that date, not launch dates. Gemini 2.5 Pro is dated by its 17 Jun 2025 GA announcement but its $1.25/$10 price is read from the current pricing page. Claude Opus 4.5 price is stated as \"$5/$25\" without labelling input and output. Gaps: Claude 2 (Jul 2023) and Gemini 1.5 Pro launch prices were not stated on the fetched pages; the 2023 OpenAI pricing page was not archived in a readable form. Prices exclude cached, batch and long-context tiers.",
+   "last_reading": "2026-10-22",
+   "detail": [
+    {
+     "date": "2023-03-01",
+     "input": 2,
+     "output": 2,
+     "model": "gpt-3.5-turbo ($0.002 per 1k, single rate)",
+     "org": "OpenAI",
+     "source_url": "https://openai.com/index/introducing-chatgpt-and-whisper-apis/"
+    },
+    {
+     "date": "2023-06-13",
+     "input": 1.5,
+     "output": 2,
+     "model": "gpt-3.5-turbo",
+     "org": "OpenAI",
+     "source_url": "https://openai.com/index/function-calling-and-other-api-updates/"
+    },
+    {
+     "date": "2023-11-06",
+     "input": 1,
+     "output": 2,
+     "model": "GPT-3.5 Turbo 16K (new)",
+     "org": "OpenAI",
+     "source_url": "https://openai.com/index/new-models-and-developer-products-announced-at-devday/"
+    },
+    {
+     "date": "2024-01-25",
+     "input": 0.5,
+     "output": 1.5,
+     "model": "gpt-3.5-turbo-0125",
+     "org": "OpenAI",
+     "source_url": "https://openai.com/index/new-embedding-models-and-api-updates/"
+    },
+    {
+     "date": "2024-03-04",
+     "input": 0.25,
+     "output": 1.25,
+     "model": "Claude 3 Haiku",
+     "org": "Anthropic",
+     "source_url": "https://www.anthropic.com/news/claude-3-family"
+    },
+    {
+     "date": "2024-07-18",
+     "input": 0.15,
+     "output": 0.6,
+     "model": "GPT-4o mini",
+     "org": "OpenAI",
+     "source_url": "https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/"
+    },
+    {
+     "date": "2024-08-12",
+     "input": 0.075,
+     "output": 0.3,
+     "model": "Gemini 1.5 Flash (\u2264128k, effective 12 Aug 2024)",
+     "org": "Google",
+     "source_url": "https://developers.googleblog.com/en/gemini-15-flash-updates-google-ai-studio-gemini-api/"
+    },
+    {
+     "date": "2024-12-03",
+     "input": 0.8,
+     "output": 4,
+     "model": "Claude 3.5 Haiku (revised price)",
+     "org": "Anthropic",
+     "source_url": "https://www.anthropic.com/news/3-5-models-and-computer-use"
+    },
+    {
+     "date": "2025-04-14",
+     "input": 0.1,
+     "output": 0.4,
+     "model": "GPT-4.1 nano",
+     "org": "OpenAI",
+     "source_url": "https://openai.com/index/gpt-4-1/"
+    },
+    {
+     "date": "2025-08-07",
+     "input": 0.05,
+     "output": 0.4,
+     "model": "GPT-5 nano",
+     "org": "OpenAI",
+     "source_url": "https://openai.com/index/introducing-gpt-5-for-developers/"
+    },
+    {
+     "date": "2025-10-15",
+     "input": 1,
+     "output": 5,
+     "model": "Claude Haiku 4.5",
+     "org": "Anthropic",
+     "source_url": "https://www.anthropic.com/news/claude-haiku-4-5"
+    },
+    {
+     "date": "2026-10-22",
+     "input": 0.1,
+     "output": 0.4,
+     "model": "Gemini 2.5 Flash-Lite (current list)",
+     "org": "Google",
+     "source_url": "https://ai.google.dev/gemini-api/docs/pricing"
+    },
+    {
+     "date": "2026-10-22",
+     "input": 0.1,
+     "output": 0.5,
+     "model": "Claude Haiku 5.5 (current list, \u2264100k)",
+     "org": "Anthropic",
+     "source_url": "https://claude.com/pricing"
+    },
+    {
+     "date": "2026-10-22",
+     "input": 0.05,
+     "output": 0.4,
+     "model": "GPT-5 nano (current list)",
+     "org": "OpenAI",
+     "source_url": "https://developers.openai.com/api/docs/pricing.md"
+    }
+   ]
+  },
+  {
+   "id": "open_weights_share",
+   "label": "Share of notable AI models released with open weights",
+   "unit": "% of notable models with known accessibility",
+   "source": "Epoch AI, Data on Notable AI Models (CSV), computed per publication year",
+   "source_url": "https://epoch.ai/data/notable_ai_models.csv",
+   "direction": "flat",
+   "points": [
+    [
+     2018,
+     30.0
+    ],
+    [
+     2019,
+     45.6
+    ],
+    [
+     2020,
+     56.0
+    ],
+    [
+     2021,
+     51.9
+    ],
+    [
+     2022,
+     45.6
+    ],
+    [
+     2023,
+     49.6
+    ],
+    [
+     2024,
+     39.8
+    ],
+    [
+     2025,
+     42.1
+    ],
+    [
+     2026,
+     34.5
+    ]
+   ],
+   "notes": "Computed from the Epoch AI notable models CSV downloaded 2026-10-22 (1078 rows): a model counts as open weights when its Model accessibility is \"Open weights (unrestricted)\", \"Open weights (restricted use)\" or \"Open weights (non-commercial)\"; the denominator excludes rows with blank accessibility (none from 2019 on). 2026 is a partial year. Epoch's open-models topic page gives no annual share; its Oct 2025 and May 2026 insights put the open-weight lag behind the closed frontier at about 3 and 4 months.",
+   "last_reading": "2026 (partial)",
+   "detail": [
+    {
+     "year": 2018,
+     "notable_models": 37,
+     "accessibility_known": 30,
+     "open_weights": 9
+    },
+    {
+     "year": 2019,
+     "notable_models": 68,
+     "accessibility_known": 68,
+     "open_weights": 31
+    },
+    {
+     "year": 2020,
+     "notable_models": 50,
+     "accessibility_known": 50,
+     "open_weights": 28
+    },
+    {
+     "year": 2021,
+     "notable_models": 79,
+     "accessibility_known": 79,
+     "open_weights": 41
+    },
+    {
+     "year": 2022,
+     "notable_models": 91,
+     "accessibility_known": 90,
+     "open_weights": 41
+    },
+    {
+     "year": 2023,
+     "notable_models": 119,
+     "accessibility_known": 119,
+     "open_weights": 59
+    },
+    {
+     "year": 2024,
+     "notable_models": 98,
+     "accessibility_known": 98,
+     "open_weights": 39
+    },
+    {
+     "year": 2025,
+     "notable_models": 107,
+     "accessibility_known": 107,
+     "open_weights": 45
+    },
+    {
+     "year": 2026,
+     "notable_models": 84,
+     "accessibility_known": 84,
+     "open_weights": 29
+    }
+   ],
+   "sources": [
+    {
+     "title": "Epoch AI: Open-weight models topic",
+     "url": "https://epoch.ai/topics/open-models"
+    }
+   ]
+  },
+  {
+   "id": "flops_per_dollar_epoch",
+   "label": "ML GPU price-performance (FLOP/s per US$, inflation adjusted)",
+   "unit": "FLOP/s per US$",
+   "source": "Epoch AI data insight: Performance per dollar improves around 30% each year (data updated 24 Nov 2025)",
+   "source_url": "https://epoch.ai/data-insights/price-performance-hardware",
+   "direction": "up",
+   "points": [
+    [
+     "2016-05",
+     1300000000.0,
+     "P100 FP16"
+    ],
+    [
+     "2017-06",
+     6700000000.0,
+     "V100 TF32"
+    ],
+    [
+     "2020-05",
+     13000000000.0,
+     "A100 TF32/FP16"
+    ],
+    [
+     "2022-10",
+     22000000000.0,
+     "H100 tensor FP16"
+    ]
+   ],
+   "notes": "The four GPU values are printed on the Epoch page; prices are normalised to the H100 release (Oct 2022). Release months for P100, V100 and A100 are not stated on that page and are taken from NVIDIA launch timing in our compute_cost series. Epoch states the trend as about 30 percent per year. The companion paper (Nov 2023, 47 accelerators 2010 to 2023) gives FP32 price-performance doubling every 2.1 years for ML GPUs and FP32 energy efficiency (FLOP/s per watt) doubling every 3.0 years; it prints no per-year FLOP per watt table, so no FLOP per watt point series is recorded here (gap). The existing compute_cost series carries 54 launch-price points.",
+   "last_reading": "2025-11-24",
+   "sources": [
+    {
+     "title": "Epoch AI: Trends in machine learning hardware (Nov 2023)",
+     "url": "https://epoch.ai/publications/trends-in-machine-learning-hardware"
+    }
+   ]
+  },
+  {
+   "id": "datacenter_electricity_v3",
+   "label": "Global data centre electricity consumption (IEA)",
+   "unit": "TWh",
+   "source": "IEA, Energy and AI (Apr 2025) and Key Questions on Energy and AI (2026)",
+   "source_url": "https://www.iea.org/reports/key-questions-on-energy-and-ai/executive-summary",
+   "direction": "up",
+   "points": [
+    [
+     2024,
+     415
+    ],
+    [
+     2025,
+     485
+    ],
+    [
+     2030,
+     950
+    ]
+   ],
+   "notes": "2024 = 415 TWh from IEA Energy and AI (2025 report, already in site/data/series/datacenter_electricity). 2025 = 485 TWh and the 2030 projection of 950 TWh (about 3 percent of global demand) from the 2026 Key Questions executive summary; it also states 17 percent growth in 2025 and 50 percent growth for AI-focused data centres. The IEA news release on the 2025 surge gives percentages only, no TWh. Earlier points (2018 200, 2022 460) use different scopes and sit in the existing series.",
+   "last_reading": "2025",
+   "sources": [
+    {
+     "title": "IEA news: Data centre electricity use surged in 2025",
+     "url": "https://www.iea.org/news/data-centre-electricity-use-surged-in-2025-even-with-tightening-bottlenecks-driving-a-scramble-for-solutions"
+    },
+    {
+     "title": "IEA: Energy and AI, executive summary",
+     "url": "https://www.iea.org/reports/energy-and-ai/executive-summary"
+    }
+   ]
+  },
+  {
+   "id": "chip_export_controls",
+   "label": "US and allied chip export control actions (cumulative count)",
+   "unit": "actions",
+   "source": "BIS press releases, Federal Register, Dutch government, METI, CSIS and Reuters legal summary",
+   "source_url": "https://media.bis.gov//news-updates/all-press-releases",
+   "direction": "up",
+   "points": [
+    [
+     "2022-10-07",
+     1
+    ],
+    [
+     "2023-07-23",
+     2
+    ],
+    [
+     "2023-09-01",
+     3
+    ],
+    [
+     "2023-10-25",
+     4
+    ],
+    [
+     "2024-09-07",
+     5
+    ],
+    [
+     "2024-12-02",
+     6
+    ],
+    [
+     "2025-01-13",
+     7
+    ],
+    [
+     "2025-01-15",
+     8
+    ],
+    [
+     "2025-03-25",
+     9
+    ],
+    [
+     "2025-05-13",
+     10
+    ],
+    [
+     "2025-08-29",
+     11
+    ],
+    [
+     "2025-09-29",
+     12
+    ],
+    [
+     "2026-01-13",
+     13
+    ],
+    [
+     "2026-03-01",
+     14
+    ],
+    [
+     "2026-07-10",
+     15
+    ]
+   ],
+   "notes": "Dated actions only; each carries the page it was read from. The Oct 2023 US update is dated by its Federal Register publication (25 Oct 2023) because the BIS press page for it did not fetch; CSIS dates the issue to mid October 2023. The 2026 case-by-case amendment is dated to March 2026 by the Reuters summary, which gives no day. Gaps: the Apr 2025 H20 licence requirement (NVIDIA 8-K did not fetch), the Aug 2025 H20 revenue-share arrangement, the Nov 2025 suspension of the affiliates rule, and EU-level dual-use list updates were not confirmed from a fetched page and are left out. The series is a timeline, not a measure of severity.",
+   "last_reading": "2026-07-10",
+   "detail": [
+    {
+     "date": "2022-10-07",
+     "actor": "US",
+     "action": "BIS issues the first advanced computing and semiconductor manufacturing controls on China (US-person rules effective 12 Oct, rest 21 Oct 2022)",
+     "source_url": "https://en.wikipedia.org/wiki/United_States_New_Export_Controls_on_Advanced_Computing_and_Semiconductors_to_China"
+    },
+    {
+     "date": "2023-07-23",
+     "actor": "Japan",
+     "action": "Japan adds 23 types of semiconductor manufacturing equipment to its export control list (promulgated 23 May 2023, in force 23 Jul 2023)",
+     "source_url": "https://www.meti.go.jp/policy/anpo/law_document/shourei/20230523_gaiyo.pdf"
+    },
+    {
+     "date": "2023-09-01",
+     "actor": "Netherlands",
+     "action": "Dutch national licence requirement for DUV lithography equipment comes into force",
+     "source_url": "https://www.government.nl/latest/news/2024/09/06/the-netherlands-expands-export-control-measure-advanced-semiconductor-manufacturing-equipment"
+    },
+    {
+     "date": "2023-10-25",
+     "actor": "US",
+     "action": "Updated advanced computing rule published in the Federal Register (TPP threshold cut to 1,600, performance density test, H800/A800 covered; effective 17 Nov 2023)",
+     "source_url": "https://www.federalregister.gov/documents/2023/10/25/2023-23055/implementation-of-additional-export-controls-certain-advanced-computing-items-supercomputer-and-semiconductor-end-use"
+    },
+    {
+     "date": "2024-09-07",
+     "actor": "Netherlands",
+     "action": "Expanded Dutch licence requirement covering more advanced semiconductor manufacturing equipment takes effect",
+     "source_url": "https://www.government.nl/latest/news/2024/09/06/the-netherlands-expands-export-control-measure-advanced-semiconductor-manufacturing-equipment"
+    },
+    {
+     "date": "2024-12-02",
+     "actor": "US",
+     "action": "BIS controls on semiconductor manufacturing equipment, software tools and high-bandwidth memory, with Entity List additions",
+     "source_url": "https://www.bis.gov/press-release/commerce-strengthens-export-controls-restrict-chinas-capability-produce-advanced-semiconductors-military"
+    },
+    {
+     "date": "2025-01-13",
+     "actor": "US",
+     "action": "Framework for Artificial Intelligence Diffusion: worldwide licensing of advanced chips and closed model weights with country tiers",
+     "source_url": "https://www.bis.gov/press-release/biden-harris-administration-announces-regulatory-framework-responsible-diffusion-advanced-artificial"
+    },
+    {
+     "date": "2025-01-15",
+     "actor": "Netherlands",
+     "action": "Netherlands announces controls on measuring and inspection equipment (effective 1 Apr 2025)",
+     "source_url": "https://www.reuters.com/technology/netherlands-expand-export-controls-semiconductor-equipment-2025-01-15/"
+    },
+    {
+     "date": "2025-03-25",
+     "actor": "US",
+     "action": "BIS further restricts China advanced computing capabilities (Entity List additions)",
+     "source_url": "https://media.bis.gov//news-updates/all-press-releases"
+    },
+    {
+     "date": "2025-05-13",
+     "actor": "US",
+     "action": "Commerce announces rescission of the AI Diffusion Rule and issues guidance strengthening chip controls",
+     "source_url": "https://media.bis.gov//news-updates/all-press-releases"
+    },
+    {
+     "date": "2025-08-29",
+     "actor": "US",
+     "action": "BIS closes the validated end user loophole for foreign-owned fabs in China",
+     "source_url": "https://media.bis.gov//news-updates/all-press-releases"
+    },
+    {
+     "date": "2025-09-29",
+     "actor": "US",
+     "action": "Affiliates rule: Entity List restrictions extended to entities 50 percent or more owned by listed parties",
+     "source_url": "https://media.bis.gov/press-release/department-commerce-expands-entity-list-cover-affiliates-listed-entities"
+    },
+    {
+     "date": "2026-01-13",
+     "actor": "US",
+     "action": "Commerce revises the licence review policy for semiconductors exported to China",
+     "source_url": "https://media.bis.gov//news-updates/all-press-releases"
+    },
+    {
+     "date": "2026-03-01",
+     "actor": "US",
+     "action": "BIS amends the EAR to allow case-by-case review of certain advanced computing exports to China (TPP below 21,000); day not stated in the source",
+     "source_url": "https://www.reuters.com/legal/legalindustry/whats-latest-with-semiconductor-export-controls--pracin-2026-09-23/"
+    },
+    {
+     "date": "2026-07-10",
+     "actor": "US",
+     "action": "Commerce eases export controls for the UAE (moved to Country Group A:5)",
+     "source_url": "https://media.bis.gov//news-updates/all-press-releases"
+    }
+   ],
+   "sources": [
+    {
+     "title": "CSIS: Where the chips fall (2022 to 2024)",
+     "url": "https://www.csis.org/analysis/where-chips-fall-us-export-controls-under-biden-administration-2022-2024"
+    }
+   ]
+  },
+  {
+   "id": "ai_job_postings_us",
+   "label": "US job postings requiring at least one AI skill (Lightcast)",
+   "unit": "% of all US job postings",
+   "source": "Lightcast via AI Index 2026, Our World in Data CSV (last updated 20 Apr 2026)",
+   "source_url": "https://ourworldindata.org/grapher/share-artificial-intelligence-job-postings",
+   "direction": "up",
+   "points": [
+    [
+     2014,
+     0.56
+    ],
+    [
+     2015,
+     0.64
+    ],
+    [
+     2016,
+     0.67
+    ],
+    [
+     2017,
+     0.88
+    ],
+    [
+     2018,
+     1.15
+    ],
+    [
+     2019,
+     1.28
+    ],
+    [
+     2020,
+     1.16
+    ],
+    [
+     2021,
+     1.31
+    ],
+    [
+     2022,
+     1.49
+    ],
+    [
+     2023,
+     1.26
+    ],
+    [
+     2024,
+     1.65
+    ],
+    [
+     2025,
+     2.56
+    ]
+   ],
+   "notes": "Values from the OWID CSV (Lightcast via AI Index 2026, figure 4.4.x), rounded to two decimals. AI Index 2025 printed 1.4 percent for 2023 and 1.8 percent for 2024 against an earlier Lightcast vintage; the 2026 vintage reads 1.26 and 1.65, so vintages differ. Indeed Hiring Lab measures a different quantity (postings mentioning AI terms, 7-day average): 4.2 percent of US postings in Dec 2025, its highest since 2019; the Indeed tracker history was not fetched as a table (gap).",
+   "last_reading": "2025",
+   "sources": [
+    {
+     "title": "OWID CSV",
+     "url": "https://ourworldindata.org/grapher/share-artificial-intelligence-job-postings.csv?v=1&csvType=full&useColumnShortNames=true"
+    },
+    {
+     "title": "AI Index 2026, chapter 4 Economy",
+     "url": "https://hai.stanford.edu/assets/files/ai_index_report_2026_chapter_4_economy.pdf"
+    },
+    {
+     "title": "Indeed Hiring Lab, Jan 2026 update",
+     "url": "https://hiringlab.indeed.com/2026/01/22/january-labor-market-update-jobs-mentioning-ai-are-growing-amid-broader-hiring-weakness/"
+    }
+   ]
+  },
+  {
+   "id": "pew_concerned",
+   "label": "US adults whose concern about AI in daily life outweighs their enthusiasm (Pew)",
+   "unit": "% of US adults",
+   "source": "Pew Research Center chart: Americans have grown more concerned about AI over time",
+   "source_url": "https://www.pewresearch.org/chart/americans-have-grown-more-concerned-about-ai-over-time/",
+   "direction": "up",
+   "points": [
+    [
+     2021,
+     37
+    ],
+    [
+     2022,
+     38
+    ],
+    [
+     2023,
+     52
+    ],
+    [
+     2024,
+     51
+    ],
+    [
+     2025,
+     50
+    ],
+    [
+     2026,
+     52
+    ]
+   ],
+   "notes": "Chart rows are labelled by year; the 2025 wave was fielded 9 to 15 Jun 2025 and the 2026 wave 22 to 28 Jun 2026. The other two answer shares (the enthusiastic share, then the even split): 2021 18/45, 2022 15/46, 2023 10/36, 2024 11/38, 2025 10/38, 2026 9/37.",
+   "last_reading": "2026-06",
+   "detail": [
+    {
+     "year": 2021,
+     "concerned": 37,
+     "excited": 18,
+     "equal": 45
+    },
+    {
+     "year": 2022,
+     "concerned": 38,
+     "excited": 15,
+     "equal": 46
+    },
+    {
+     "year": 2023,
+     "concerned": 52,
+     "excited": 10,
+     "equal": 36
+    },
+    {
+     "year": 2024,
+     "concerned": 51,
+     "excited": 11,
+     "equal": 38
+    },
+    {
+     "year": 2025,
+     "concerned": 50,
+     "excited": 10,
+     "equal": 38
+    },
+    {
+     "year": 2026,
+     "concerned": 52,
+     "excited": 9,
+     "equal": 37
+    }
+   ],
+   "sources": [
+    {
+     "title": "Pew: Key findings about how Americans view AI (Mar 2026)",
+     "url": "https://www.pewresearch.org/short-reads/2026/03/12/key-findings-about-how-americans-view-artificial-intelligence/"
+    },
+    {
+     "title": "Pew: How Americans view AI and its impact (Sep 2025)",
+     "url": "https://www.pewresearch.org/science/2025/09/17/how-americans-view-ai-and-its-impact-on-people-and-society/"
+    }
+   ],
+   "quote": "More concerned than excited about the increased use of artificial intelligence in daily life; more excited than concerned; equally concerned and excited"
+  },
+  {
+   "id": "ipsos_nervous",
+   "label": "Products and services using AI make me nervous (Ipsos AI Monitor, global country average)",
+   "unit": "% agree",
+   "source": "Ipsos AI Monitor 2024 and 2025 reports",
+   "source_url": "https://www.ipsos.com/sites/default/files/ct/publication/documents/2025-06/Ipsos-AI-Monitor-2025.pdf",
+   "direction": "up",
+   "points": [
+    [
+     2022,
+     39
+    ],
+    [
+     2023,
+     52
+    ],
+    [
+     2024,
+     50
+    ],
+    [
+     2025,
+     53
+    ]
+   ],
+   "notes": "2022 value (39 percent, 28 countries, fieldwork 19 Nov to 3 Dec 2021) from the Ipsos Global Opinions and Expectations about AI 2022 PDF; it is dated 2022 by publication. 2023 and 2024 from the 2024 report (32 countries, fieldwork 19 Apr to 3 May 2024); 2025 from the 2025 report (30 countries, fieldwork 21 Mar to 4 Apr 2025). Country sets differ between years. Ipsos's companion item on enthusiasm: 54 (2023), 53 (2024), 52 (2025).",
+   "last_reading": "2025-04",
+   "sources": [
+    {
+     "title": "Ipsos AI Monitor 2024 (PDF)",
+     "url": "https://resources.ipsos.com/rs/297-CXJ-795/images/Ipsos-AI-Monitor-2024.pdf"
+    },
+    {
+     "title": "Ipsos: Global opinions and expectations about AI (Jan 2022, PDF)",
+     "url": "https://www.ipsos.com/sites/default/files/ct/news/documents/2022-01/Global-opinions-and-expectations-about-AI-2022.pdf"
+    }
+   ],
+   "quote": "Products and services using artificial intelligence make me nervous; Products and services using artificial intelligence make me excited"
+  },
+  {
+   "id": "gallup_harm",
+   "label": "Americans saying AI does more harm than good (Bentley-Gallup)",
+   "unit": "% of US adults",
+   "source": "Gallup: Americans Cool Toward AI (28 Jul 2026)",
+   "source_url": "https://news.gallup.com/poll/712751/americans-cool-toward.aspx",
+   "direction": "up",
+   "points": [
+    [
+     2023,
+     40
+    ],
+    [
+     2024,
+     31
+    ],
+    [
+     2025,
+     31
+    ],
+    [
+     2026,
+     39
+    ]
+   ],
+   "notes": "Fieldwork: 8 to 15 May 2023, 29 Apr to 6 May 2024, 5 to 12 May 2025, 4 to 11 May 2026. Companion \"more good than harm\": 10, 13, 12, 9; \"equal\": 50, 56, 57, 52. The 2022 wave is referenced without shares on the page.",
+   "last_reading": "2026-05"
+  },
+  {
+   "id": "ai_copyright_lawsuits",
+   "label": "AI copyright lawsuits filed per year (tracker count)",
+   "unit": "cases filed",
+   "source": "AI Lawsuit Tracker, copyright section (last reviewed 19 Oct 2026)",
+   "source_url": "https://ailawsuittracker.com/copyright/",
+   "direction": "up",
+   "points": [
+    [
+     2020,
+     2
+    ],
+    [
+     2021,
+     0
+    ],
+    [
+     2022,
+     1
+    ],
+    [
+     2023,
+     15
+    ],
+    [
+     2024,
+     25
+    ],
+    [
+     2025,
+     51
+    ],
+    [
+     2026,
+     51
+    ]
+   ],
+   "notes": "Per-year counts as presented by the tracker (145 cases in total, mostly US); 2026 is a partial year to 19 Oct 2026. Other trackers count differently: Debevoise tracked more than 50 IP suits at end 2025, BakerHostetler and CMS list key cases without annual totals.",
+   "last_reading": "2026-10-19",
+   "sources": [
+    {
+     "title": "BakerHostetler case tracker",
+     "url": "https://www.bakerlaw.com/services/artificial-intelligence-ai/case-tracker-artificial-intelligence-copyrights-and-class-actions/"
+    }
+   ]
+  },
+  {
+   "id": "national_ai_strategies",
+   "label": "National AI strategies released per year",
+   "unit": "strategies released",
+   "source": "OECD.AI via Stanford AI Index 2024, figure 7.3.3",
+   "source_url": "https://hai.stanford.edu/assets/files/hai_ai-index-report-2024_chapter_7.pdf",
+   "direction": "flat",
+   "points": [
+    [
+     2017,
+     3
+    ],
+    [
+     2018,
+     6
+    ],
+    [
+     2019,
+     24
+    ],
+    [
+     2020,
+     14
+    ],
+    [
+     2021,
+     14
+    ],
+    [
+     2022,
+     6
+    ],
+    [
+     2023,
+     8
+    ]
+   ],
+   "notes": "Printed values from AI Index 2024 chapter 7 (cumulative 75 by end 2023). The AI Index 2023 edition printed a different vintage for 2017 to 2022 (3, 7, 26, 14, 10, 2; total 62), so counts move as OECD.AI reclassifies initiatives. No fetched page gave 2024 or 2025 releases (gap). Companion series, AI-related bills passed into law in 128 countries (AI Index 2024 figure 7.2.2): 2016 6, 2017 3, 2018 8, 2019 10, 2020 18, 2021 26, 2022 39, 2023 28. Cycle 4: AI Index 2025 chapter 7 no longer prints the strategies-by-year figure, OECD.AI dashboard pages returned not found, and the OECD Governing with AI report (Sep 2025) gives no count; 2024 to 2026 remain a gap.",
+   "last_reading": "2023",
+   "sources": [
+    {
+     "title": "AI Index 2023, chapter 6",
+     "url": "https://aiindex.stanford.edu/wp-content/uploads/2023/04/HAI_AI-Index-Report-2023_CHAPTER_6.pdf"
+    }
+   ]
+  },
+  {
+   "id": "flop_per_watt_datasheets",
+   "label": "Accelerator FP16/BF16 dense peak compute per watt (vendor datasheets)",
+   "unit": "GFLOP/s per W",
+   "source": "NVIDIA and Google datasheets and product pages; B200 TDP from SemiAnalysis",
+   "source_url": "https://www.nvidia.com/en-us/data-center/h100/",
+   "direction": "up",
+   "points": [
+    [
+     "2016-06",
+     74.8
+    ],
+    [
+     "2017-06",
+     416.7
+    ],
+    [
+     "2020-05",
+     780.0
+    ],
+    [
+     "2021-05",
+     1432.3
+    ],
+    [
+     "2022-09",
+     1413.6
+    ],
+    [
+     "2024-11",
+     2250.0
+    ]
+   ],
+   "notes": "Dense FP16 or BF16 tensor peak divided by TDP (or max measured power for TPU v4). Release months: P100 and V100 from NVIDIA launch timing, A100 May 2020, TPU v4 cloud announcement May 2021, H100 shipping Sept 2022, B200 shipping Nov 2024 (months not on the datasheets). Caveats: V100 \"Tensor performance\" is a mixed-precision figure; TPU v4 power is measured, not TDP; TPU v5e (197 TFLOPS) and v5p (459 TFLOPS) pages give no power figure, so they are left out. Sparsity figures were halved where the page states dense is half.",
+   "last_reading": "2024-11",
+   "detail": [
+    {
+     "date": "2016-06",
+     "chip": "P100 PCIe",
+     "tflops_dense": 18.7,
+     "watts": 250,
+     "source_url": "https://images.nvidia.com/content/tesla/pdf/nvidia-tesla-p100-PCIe-datasheet.pdf",
+     "note": "half-precision 18.7 TFLOPS, 250 W (datasheet)"
+    },
+    {
+     "date": "2017-06",
+     "chip": "V100 SXM2",
+     "tflops_dense": 125,
+     "watts": 300,
+     "source_url": "https://images.nvidia.com/content/technologies/volta/pdf/volta-v100-datasheet-update-us-1165301-r5.pdf",
+     "note": "Tensor performance 125 TFLOPS, 300 W (datasheet)"
+    },
+    {
+     "date": "2020-05",
+     "chip": "A100 SXM 80GB",
+     "tflops_dense": 312,
+     "watts": 400,
+     "source_url": "https://www.nvidia.com/en-us/data-center/a100/",
+     "note": "FP16 Tensor Core 312 TFLOPS dense (624 with sparsity), 400 W TDP"
+    },
+    {
+     "date": "2021-05",
+     "chip": "TPU v4",
+     "tflops_dense": 275,
+     "watts": 192,
+     "source_url": "https://cloud.google.com/tpu/docs/v4",
+     "note": "peak bf16 275 TFLOPS; measured power min/mean/max 90/170/192 W, max used here"
+    },
+    {
+     "date": "2022-09",
+     "chip": "H100 SXM",
+     "tflops_dense": 989.5,
+     "watts": 700,
+     "source_url": "https://www.nvidia.com/en-us/data-center/h100/",
+     "note": "FP16 Tensor Core 1,979 TFLOPS with sparsity, halved to dense; up to 700 W"
+    },
+    {
+     "date": "2024-11",
+     "chip": "B200 SXM",
+     "tflops_dense": 2250,
+     "watts": 1000,
+     "source_url": "https://inferencex.semianalysis.com/chips/b200",
+     "note": "BF16 dense 2,250 TFLOP/s and 1,000 W from SemiAnalysis InferenceX; NVIDIA HGX page gives 36 PFLOPS sparse per 8 GPUs (dense half), per-GPU TDP not listed by NVIDIA"
+    }
+   ]
+  },
+  {
+   "id": "notable_models_per_year",
+   "label": "Notable AI models released per year (Epoch AI)",
+   "unit": "models",
+   "source": "Epoch AI, Data on Notable AI Models (CSV downloaded 2026-10-22)",
+   "source_url": "https://epoch.ai/data/notable_ai_models.csv",
+   "direction": "up",
+   "points": [
+    [
+     2010,
+     10
+    ],
+    [
+     2011,
+     11
+    ],
+    [
+     2012,
+     13
+    ],
+    [
+     2013,
+     19
+    ],
+    [
+     2014,
+     33
+    ],
+    [
+     2015,
+     29
+    ],
+    [
+     2016,
+     49
+    ],
+    [
+     2017,
+     55
+    ],
+    [
+     2018,
+     37
+    ],
+    [
+     2019,
+     68
+    ],
+    [
+     2020,
+     50
+    ],
+    [
+     2021,
+     79
+    ],
+    [
+     2022,
+     91
+    ],
+    [
+     2023,
+     119
+    ],
+    [
+     2024,
+     98
+    ],
+    [
+     2025,
+     107
+    ],
+    [
+     2026,
+     84
+    ]
+   ],
+   "notes": "Count of rows by publication year in the Epoch notable models CSV (1078 rows). 2026 is partial, and Epoch adds recent models with a lag, so the last two years rise on later downloads.",
+   "last_reading": "2026 (partial)"
+  },
+  {
+   "id": "frontier_training_compute",
+   "label": "Largest known training run per year (Epoch AI)",
+   "unit": "FLOP",
+   "source": "Epoch AI, Data on Notable AI Models (CSV downloaded 2026-10-22), maximum Training compute per publication year",
+   "source_url": "https://epoch.ai/data/notable_ai_models.csv",
+   "direction": "up",
+   "points": [
+    [
+     2012,
+     6e+17
+    ],
+    [
+     2013,
+     2.61e+18
+    ],
+    [
+     2014,
+     2.98e+20
+    ],
+    [
+     2015,
+     3.8e+20
+    ],
+    [
+     2016,
+     6.62e+21
+    ],
+    [
+     2017,
+     8.43e+20
+    ],
+    [
+     2018,
+     8.74e+21
+    ],
+    [
+     2019,
+     1.08e+23
+    ],
+    [
+     2020,
+     3.14e+23
+    ],
+    [
+     2021,
+     2.05e+24
+    ],
+    [
+     2022,
+     2.74e+24
+    ],
+    [
+     2023,
+     5e+25
+    ],
+    [
+     2024,
+     3.8e+25
+    ],
+    [
+     2025,
+     5e+26
+    ],
+    [
+     2026,
+     9.4e+26
+    ]
+   ],
+   "notes": "Maximum of the Training compute (FLOP) column per publication year; many of these are Epoch estimates with stated confidence levels in the CSV. The model behind each point is in detail. 2026 is partial.",
+   "last_reading": "2026 (partial)",
+   "detail": [
+    {
+     "year": 2012,
+     "flop": 6e+17,
+     "model": "Unsupervised High-level Feature Learner",
+     "org": "Google",
+     "date": "2012-07-12"
+    },
+    {
+     "year": 2013,
+     "flop": 2.61e+18,
+     "model": "DistBelief NNLM",
+     "org": "Google",
+     "date": "2013-01-16"
+    },
+    {
+     "year": 2014,
+     "flop": 2.98e+20,
+     "model": "SNM-skip",
+     "org": "Google",
+     "date": "2014-12-03"
+    },
+    {
+     "year": 2015,
+     "flop": 3.8e+20,
+     "model": "AlphaGo Fan",
+     "org": "DeepMind",
+     "date": "2015-10-01"
+    },
+    {
+     "year": 2016,
+     "flop": 6.62e+21,
+     "model": "GNMT",
+     "org": "Google",
+     "date": "2016-09-26"
+    },
+    {
+     "year": 2017,
+     "flop": 8.43e+20,
+     "model": "JFT",
+     "org": "Google Research,Carnegie Mellon University (CMU)",
+     "date": "2017-07-10"
+    },
+    {
+     "year": 2018,
+     "flop": 8.74e+21,
+     "model": "ResNeXt-101 32x48d",
+     "org": "Facebook",
+     "date": "2018-05-02"
+    },
+    {
+     "year": 2019,
+     "flop": 1.08e+23,
+     "model": "AlphaStar",
+     "org": "DeepMind",
+     "date": "2019-10-30"
+    },
+    {
+     "year": 2020,
+     "flop": 3.14e+23,
+     "model": "GPT-3 175B (davinci)",
+     "org": "OpenAI",
+     "date": "2020-05-28"
+    },
+    {
+     "year": 2021,
+     "flop": 2.05e+24,
+     "model": "FLAN 137B",
+     "org": "Google Research",
+     "date": "2021-09-03"
+    },
+    {
+     "year": 2022,
+     "flop": 2.74e+24,
+     "model": "Minerva (540B)",
+     "org": "Google",
+     "date": "2022-06-29"
+    },
+    {
+     "year": 2023,
+     "flop": 5e+25,
+     "model": "Gemini 1.0 Ultra",
+     "org": "Google DeepMind",
+     "date": "2023-12-06"
+    },
+    {
+     "year": 2024,
+     "flop": 3.8e+25,
+     "model": "Llama 3.1-405B",
+     "org": "Meta AI",
+     "date": "2024-07-23"
+    },
+    {
+     "year": 2025,
+     "flop": 5e+26,
+     "model": "Grok 4",
+     "org": "xAI",
+     "date": "2025-07-09"
+    },
+    {
+     "year": 2026,
+     "flop": 9.4e+26,
+     "model": "GPT-6 Astra",
+     "org": "OpenAI",
+     "date": "2026-09-03"
+    }
+   ]
+  },
+  {
+   "id": "ai_share_venture",
+   "label": "AI share of global venture funding (Crunchbase)",
+   "unit": "% of global venture dollars",
+   "source": "Crunchbase News year-end analyses",
+   "source_url": "https://news.crunchbase.com/venture/funding-data-third-largest-year-2025/",
+   "direction": "up",
+   "points": [
+    [
+     2023,
+     18.3
+    ],
+    [
+     2024,
+     34
+    ],
+    [
+     2025,
+     50
+    ]
+   ],
+   "notes": "2024 = 34 percent and 2025 = close to 50 percent as printed by Crunchbase (16 Dec 2025 and 7 Jan 2026). 2023 computed from printed totals: $55.6B AI of $304B global (7 Jan 2025 article), 18.3 percent. Dollar totals in detail; Crunchbase revises totals as rounds are added (AI 2025 printed as $202.3B in December and $211B in January).",
+   "last_reading": "2025",
+   "detail": [
+    {
+     "year": 2023,
+     "ai_bn": 55.6,
+     "global_bn": 304,
+     "source_url": "https://news.crunchbase.com/venture/global-funding-data-analysis-ai-eoy-2024/"
+    },
+    {
+     "year": 2024,
+     "ai_bn": 114,
+     "global_bn": 314,
+     "source_url": "https://news.crunchbase.com/ai/big-funding-trends-charts-eoy-2025/"
+    },
+    {
+     "year": 2025,
+     "ai_bn": 211,
+     "global_bn": 425,
+     "source_url": "https://news.crunchbase.com/venture/funding-data-third-largest-year-2025/"
+    }
+   ]
+  },
+  {
+   "id": "gpu_export_scope",
+   "label": "Countries under US advanced-chip licence requirements or caps",
+   "unit": "countries",
+   "source": "CSIS (Oct 2023 update), Federal Register (AI Diffusion rule), BIS (rescission)",
+   "source_url": "https://www.federalregister.gov/documents/2025/01/15/2025-00636/framework-for-artificial-intelligence-diffusion",
+   "direction": "up",
+   "points": [
+    [
+     "2022-10-07",
+     2
+    ],
+    [
+     "2023-10-17",
+     45
+    ],
+    [
+     "2025-01-13",
+     170
+    ],
+    [
+     "2025-05-13",
+     45
+    ]
+   ],
+   "notes": "Approximate scope counts. Oct 2022: China and Macau. Oct 2023: CSIS states an additional 43 countries in Country Groups D:1, D:4 and D:5 became subject to licensing (45 with China and Macau). Jan 2025: the Diffusion rule applied caps to every destination except 19 low-risk destinations listed in Supplement 5 (18 countries plus the US) and the embargoed group, so roughly 170 of about 195 countries; the Federal Register page does not print the count, it is derived here. May 2025: rescission returns scope to the Oct 2023 rule. Treat as orders of magnitude, not a tally.",
+   "last_reading": "2025-05-13"
+  },
+  {
+   "id": "electricity_price_industrial_us",
+   "label": "US industrial electricity price (proxy for data centre power cost)",
+   "unit": "cents per kWh, nominal",
+   "source": "EIA Electric Power Monthly, Table 5.3 (annual totals), 2025 year to date through November",
+   "source_url": "https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_5_3",
+   "direction": "up",
+   "points": [
+    [
+     2014,
+     7.1
+    ],
+    [
+     2015,
+     6.91
+    ],
+    [
+     2016,
+     6.76
+    ],
+    [
+     2017,
+     6.88
+    ],
+    [
+     2018,
+     6.92
+    ],
+    [
+     2019,
+     6.81
+    ],
+    [
+     2020,
+     6.67
+    ],
+    [
+     2021,
+     7.18
+    ],
+    [
+     2022,
+     8.32
+    ],
+    [
+     2023,
+     8.04
+    ],
+    [
+     2024,
+     8.13
+    ],
+    [
+     2025,
+     8.61
+    ]
+   ],
+   "notes": "PROXY: the average retail price to the industrial sector, not a data centre tariff; large data centres often buy under commercial or special contracts. 2014 from EIA Electric Power Annual table 2.4; 2015 to 2024 annual totals and 2025 year to date (Jan to Nov, 8.61) from EPM Table 5.3; June 2026 monthly reading 9.17 (Table 5.6.A).",
+   "last_reading": "2025 (Jan to Nov)",
+   "sources": [
+    {
+     "title": "EIA Electric Power Annual table 2.4",
+     "url": "https://www.eia.gov/electricity/annual/html/epa_02_04.html"
+    },
+    {
+     "title": "EIA EPM Table 5.6.A June 2026",
+     "url": "https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_5_6_a"
+    }
+   ]
+  },
+  {
+   "id": "chatgpt_weekly_users",
+   "label": "ChatGPT weekly active users (company statements)",
+   "unit": "millions",
+   "source": "OpenAI statements as reported by The Verge, Reuters, CNBC, TechCrunch and Moneycontrol",
+   "source_url": "https://techcrunch.com/2026/02/27/chatgpt-reaches-900m-weekly-active-users/",
+   "direction": "up",
+   "points": [
+    [
+     "2023-11-06",
+     100
+    ],
+    [
+     "2024-08-29",
+     200
+    ],
+    [
+     "2024-12-04",
+     300
+    ],
+    [
+     "2025-02-20",
+     400
+    ],
+    [
+     "2025-08-04",
+     700
+    ],
+    [
+     "2025-10-06",
+     800
+    ],
+    [
+     "2026-02-27",
+     900
+    ],
+    [
+     "2026-09-30",
+     1200
+    ]
+   ],
+   "notes": "Company-stated milestones, dated by the statement; OpenAI does not publish a time series. The Aug 2025 figure was stated as on track to reach 700M that week. OpenAI's own DevDay 2025 page did not fetch, so TechCrunch carries that point.",
+   "last_reading": "2026-09-30",
+   "detail": [
+    {
+     "date": "2023-11-06",
+     "millions": 100,
+     "stated_by": "Sam Altman, DevDay",
+     "source_url": "https://www.theverge.com/2023/11/6/23948386/chatgpt-active-user-count-openai-developer-conference"
+    },
+    {
+     "date": "2024-08-29",
+     "millions": 200,
+     "stated_by": "OpenAI to The Verge",
+     "source_url": "https://www.theverge.com/2024/8/29/24231685/openai-chatgpt-200-million-weekly-users"
+    },
+    {
+     "date": "2024-12-04",
+     "millions": 300,
+     "stated_by": "Sam Altman, NYT DealBook",
+     "source_url": "https://www.theverge.com/2024/12/4/24313097/chatgpt-300-million-weekly-users"
+    },
+    {
+     "date": "2025-02-20",
+     "millions": 400,
+     "stated_by": "OpenAI spokesperson to Reuters",
+     "source_url": "https://www.reuters.com/technology/artificial-intelligence/openais-weekly-active-users-surpass-400-million-2025-02-20/"
+    },
+    {
+     "date": "2025-08-04",
+     "millions": 700,
+     "stated_by": "Nick Turley, OpenAI (CNBC)",
+     "source_url": "https://www.cnbc.com/2025/08/04/openai-chatgpt-700-million-users.html"
+    },
+    {
+     "date": "2025-10-06",
+     "millions": 800,
+     "stated_by": "Sam Altman, DevDay 2025 (TechCrunch)",
+     "source_url": "https://techcrunch.com/2025/10/06/sam-altman-says-chatgpt-has-hit-800m-weekly-active-users/"
+    },
+    {
+     "date": "2026-02-27",
+     "millions": 900,
+     "stated_by": "OpenAI (TechCrunch)",
+     "source_url": "https://techcrunch.com/2026/02/27/chatgpt-reaches-900m-weekly-active-users/"
+    },
+    {
+     "date": "2026-09-30",
+     "millions": 1200,
+     "stated_by": "Sam Altman, DevDay 2026 (Moneycontrol)",
+     "source_url": "https://www.moneycontrol.com/artificial-intelligence/openai-devday-2026-dots-always-on-ai-agents-gpt-6-1-sol-chatgpt-subscriptions-in-3rd-party-tools-article-14041450.html"
+    }
+   ]
+  }
+ ]
+}

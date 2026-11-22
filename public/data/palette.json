@@ -1,0 +1,1306 @@
+{
+ "version": 6,
+ "generated": "2026-10-26",
+ "grounds": {
+  "history": "#F8F6F1",
+  "intro": "#2639A8",
+  "ai": "#141C3A",
+  "ai_paper": "#FAF9F4",
+  "impact": "#F6F7F4",
+  "ledger": "#FCFBF7",
+  "play": "#FDFDFC",
+  "ink": "#17171A",
+  "ink_soft": "#F4F3EE"
+ },
+ "note": "OKLab-mixed steps from printed anchors; every hue carries a label step at 4.5:1 or better on its ground. Step 1 is pale (1026), the last step is the present.",
+ "history": {
+  "ground": "#F8F6F1",
+  "families": {
+   "signal": {
+    "undertone": "Prussian blues",
+    "pale": "#B8C9D9",
+    "deep": "#1B4366",
+    "steps": [
+     "#B8C9D9",
+     "#8FA6BB",
+     "#67849E",
+     "#416382",
+     "#1B4366"
+    ],
+    "label": "#1B4366",
+    "domains": {
+     "computing": {
+      "turn_deg": -10,
+      "steps": [
+       "#B6CAD7",
+       "#8CA7B9",
+       "#62869C",
+       "#3A657F",
+       "#0D4563"
+      ],
+      "label": "#0D4563"
+     },
+     "semiconductors": {
+      "turn_deg": 0,
+      "steps": [
+       "#B8C9D9",
+       "#8FA6BB",
+       "#67849E",
+       "#416382",
+       "#1B4366"
+      ],
+      "label": "#1B4366"
+     },
+     "internet": {
+      "turn_deg": 10,
+      "steps": [
+       "#BBC8DA",
+       "#93A4BC",
+       "#6C82A0",
+       "#486184",
+       "#264168"
+      ],
+      "label": "#264168"
+     },
+     "communications": {
+      "turn_deg": 20,
+      "steps": [
+       "#BEC7DA",
+       "#97A3BD",
+       "#7280A0",
+       "#4F5F84",
+       "#2F3E68"
+      ],
+      "label": "#2F3E68"
+     }
+    }
+   },
+   "knowledge": {
+    "undertone": "plum and madder",
+    "pale": "#D8BFC9",
+    "deep": "#682848",
+    "steps": [
+     "#D8BFC9",
+     "#BC98A7",
+     "#A17186",
+     "#844D66",
+     "#682848"
+    ],
+    "label": "#682848",
+    "domains": {
+     "society": {
+      "turn_deg": -14,
+      "steps": [
+       "#D5C0CE",
+       "#B899AE",
+       "#9C7290",
+       "#7F4E71",
+       "#622A55"
+      ],
+      "label": "#622A55"
+     },
+     "software": {
+      "turn_deg": 0,
+      "steps": [
+       "#D8BFC9",
+       "#BC98A7",
+       "#A17186",
+       "#844D66",
+       "#682848"
+      ],
+      "label": "#682848"
+     },
+     "media": {
+      "turn_deg": 14,
+      "steps": [
+       "#DABFC4",
+       "#BF989F",
+       "#A4717C",
+       "#884D5A",
+       "#6C273A"
+      ],
+      "label": "#6C273A"
+     },
+     "home": {
+      "turn_deg": 26,
+      "steps": [
+       "#DCC0BC",
+       "#C19993",
+       "#A6726D",
+       "#8B4E49",
+       "#6E2B2A"
+      ],
+      "label": "#6E2B2A"
+     }
+    }
+   },
+   "power": {
+    "undertone": "burnt sienna",
+    "pale": "#E6BFA3",
+    "deep": "#7D3318",
+    "steps": [
+     "#E6BFA3",
+     "#CC9B7F",
+     "#B2785C",
+     "#98553B",
+     "#7D3318"
+    ],
+    "label": "#7D3318",
+    "domains": {
+     "energy": {
+      "turn_deg": 8,
+      "steps": [
+       "#E3C1A0",
+       "#C99D7B",
+       "#AF7A56",
+       "#965733",
+       "#7B3607"
+      ],
+      "label": "#7B3607"
+     },
+     "materials": {
+      "turn_deg": -8,
+      "steps": [
+       "#E8BDA7",
+       "#CE9984",
+       "#B47662",
+       "#995343",
+       "#7E3124"
+      ],
+      "label": "#7E3124"
+     }
+    }
+   },
+   "movement": {
+    "undertone": "ochre",
+    "pale": "#E9D69C",
+    "deep": "#946E19",
+    "steps": [
+     "#E9D69C",
+     "#D3BB7D",
+     "#BEA15F",
+     "#A9873F",
+     "#946E19"
+    ],
+    "label": "#8D691B",
+    "domains": {
+     "transport": {
+      "turn_deg": 6,
+      "steps": [
+       "#E4D89D",
+       "#CEBD7D",
+       "#B9A35F",
+       "#A48A3F",
+       "#8F7117"
+      ],
+      "label": "#886C1A"
+     },
+     "space": {
+      "turn_deg": -8,
+      "steps": [
+       "#EFD39C",
+       "#D9B87E",
+       "#C49E60",
+       "#AF8441",
+       "#9A6A1E"
+      ],
+      "label": "#96681F"
+     }
+    }
+   },
+   "life": {
+    "undertone": "verdigris, moss and sea green",
+    "pale": "#B8CFC4",
+    "deep": "#285440",
+    "steps": [
+     "#B8CFC4",
+     "#93AFA1",
+     "#6E8F7F",
+     "#4B715F",
+     "#285440"
+    ],
+    "label": "#285440",
+    "domains": {
+     "biotech": {
+      "turn_deg": 0,
+      "steps": [
+       "#B8CFC4",
+       "#93AFA1",
+       "#6E8F7F",
+       "#4B715F",
+       "#285440"
+      ],
+      "label": "#285440"
+     },
+     "health": {
+      "turn_deg": 12,
+      "steps": [
+       "#B5D0CB",
+       "#8FB1AA",
+       "#699289",
+       "#45746A",
+       "#22574D"
+      ],
+      "label": "#22574D"
+     },
+     "agriculture": {
+      "turn_deg": -14,
+      "steps": [
+       "#C3CFAF",
+       "#A1B08B",
+       "#7F9168",
+       "#5E7346",
+       "#3D5626"
+      ],
+      "label": "#3D5626"
+     }
+    }
+   }
+  },
+  "ai": {
+   "undertone": "cinnabar to carmine",
+   "pale": "#D45B45",
+   "deep": "#8F1D21",
+   "steps": [
+    "#D45B45",
+    "#C24C3C",
+    "#B13D33",
+    "#A02E2A",
+    "#8F1D21"
+   ],
+   "label": "#8F1D21"
+  },
+  "regions": {
+   "north-america": {
+    "name": "cobalt",
+    "hex": "#405D98",
+    "steps": [
+     "#AEBAD0",
+     "#657EAD",
+     "#405D98"
+    ],
+    "label": "#405D98"
+   },
+   "latin-america": {
+    "name": "teal",
+    "hex": "#3D8077",
+    "steps": [
+     "#B1C8C1",
+     "#689990",
+     "#3D8077"
+    ],
+    "label": "#3B7A72"
+   },
+   "europe": {
+    "name": "moss",
+    "hex": "#6C803A",
+    "steps": [
+     "#C0C8AB",
+     "#899963",
+     "#6C803A"
+    ],
+    "label": "#657738"
+   },
+   "africa": {
+    "name": "ochre",
+    "hex": "#B48027",
+    "steps": [
+     "#E4D59D",
+     "#C39A5B",
+     "#B48027"
+    ],
+    "label": "#91692A"
+   },
+   "middle-east": {
+    "name": "rust",
+    "hex": "#A64F2D",
+    "steps": [
+     "#DCB6A5",
+     "#BB7459",
+     "#A64F2D"
+    ],
+    "label": "#A64F2D"
+   },
+   "south-asia": {
+    "name": "magenta",
+    "hex": "#A43D70",
+    "steps": [
+     "#DCB0BE",
+     "#BA678B",
+     "#A43D70"
+    ],
+    "label": "#A43D70"
+   },
+   "east-asia": {
+    "name": "plum",
+    "hex": "#6B3253",
+    "steps": [
+     "#C3A8B2",
+     "#8A5B73",
+     "#6B3253"
+    ],
+    "label": "#6B3253"
+   },
+   "oceania": {
+    "name": "violet",
+    "hex": "#6C599D",
+    "steps": [
+     "#C0B9D2",
+     "#887AB0",
+     "#6C599D"
+    ],
+    "label": "#6C599D"
+   },
+   "global": {
+    "name": "grey",
+    "hex": "#8A8580",
+    "steps": [
+     "#CDCAC5",
+     "#A19D98",
+     "#8A8580"
+    ],
+    "label": "#74706D"
+   }
+  }
+ },
+ "intro": {
+  "ground": "#2639A8",
+  "headline_white": "#F7F7F4",
+  "headline_black": "#111322",
+  "domains": {
+   "computing": {
+    "hex": "#28C8C4",
+    "label": "#28C8C4",
+    "from_step": "#0D4563"
+   },
+   "semiconductors": {
+    "hex": "#48B4E0",
+    "label": "#69BEE3",
+    "from_step": "#1B4366"
+   },
+   "internet": {
+    "hex": "#6E9CF4",
+    "label": "#92B5F4",
+    "from_step": "#264168"
+   },
+   "communications": {
+    "hex": "#9AB4FF",
+    "label": "#9AB4FF",
+    "from_step": "#2F3E68"
+   },
+   "society": {
+    "hex": "#CE74B7",
+    "label": "#ED9AD7",
+    "from_step": "#622A55"
+   },
+   "software": {
+    "hex": "#D871A2",
+    "label": "#F898C3",
+    "from_step": "#682848"
+   },
+   "media": {
+    "hex": "#DE708B",
+    "label": "#FE97AE",
+    "from_step": "#6C273A"
+   },
+   "energy": {
+    "hex": "#DC7A44",
+    "label": "#F89E6E",
+    "from_step": "#7B3607"
+   },
+   "materials": {
+    "hex": "#E17460",
+    "label": "#FF9B88",
+    "from_step": "#7E3124"
+   },
+   "transport": {
+    "hex": "#E0B43A",
+    "label": "#E0B43A",
+    "from_step": "#8F7117"
+   },
+   "space": {
+    "hex": "#C8860C",
+    "label": "#E7AB55",
+    "from_step": "#9A6A1E"
+   },
+   "biotech": {
+    "hex": "#38B892",
+    "label": "#6FC6A6",
+    "from_step": "#285440"
+   },
+   "ai": {
+    "hex": "#E0716B",
+    "label": "#FF9991",
+    "from_step": "#8F1D21"
+   },
+   "agriculture": {
+    "hex": "#A6C21A",
+    "label": "#C9E24F",
+    "from_step": "#4A5A04"
+   },
+   "health": {
+    "hex": "#2CC4A8",
+    "label": "#62E6CB",
+    "from_step": "#0A5B4D"
+   },
+   "home": {
+    "hex": "#F08A6A",
+    "label": "#FFB8A0",
+    "from_step": "#7F3A22"
+   }
+  }
+ },
+ "ai": {
+  "ground": "#141C3A",
+  "organs": {
+   "models": {
+    "anchor": "#8E7CF0",
+    "steps": [
+     "#4D4990",
+     "#8E7CF0",
+     "#ADA4F2"
+    ],
+    "label": "#8E7CF0"
+   },
+   "chips": {
+    "anchor": "#C84B78",
+    "steps": [
+     "#6B3759",
+     "#C84B78",
+     "#DC849C"
+    ],
+    "label": "#D06286"
+   },
+   "capital": {
+    "anchor": "#E8B84A",
+    "steps": [
+     "#756750",
+     "#E8B84A",
+     "#EDCC86"
+    ],
+    "label": "#E8B84A"
+   },
+   "energy": {
+    "anchor": "#F0803A",
+    "steps": [
+     "#7B4F47",
+     "#F0803A",
+     "#F6A77A"
+    ],
+    "label": "#F0803A"
+   },
+   "policy": {
+    "anchor": "#3FBFB0",
+    "steps": [
+     "#2B6973",
+     "#3FBFB0",
+     "#87D1C3"
+    ],
+    "label": "#3FBFB0"
+   },
+   "data": {
+    "anchor": "#5BC8F0",
+    "steps": [
+     "#376C90",
+     "#5BC8F0",
+     "#95D7F0"
+    ],
+    "label": "#5BC8F0"
+   },
+   "people": {
+    "anchor": "#F08A80",
+    "steps": [
+     "#7B535F",
+     "#F08A80",
+     "#F5ADA3"
+    ],
+    "label": "#F08A80"
+   },
+   "labs": {
+    "anchor": "#6F9BF5",
+    "steps": [
+     "#3F5792",
+     "#6F9BF5",
+     "#9AB9F5"
+    ],
+    "label": "#6F9BF5"
+   },
+   "products": {
+    "anchor": "#6BAE82",
+    "steps": [
+     "#3B6160",
+     "#6BAE82",
+     "#99C4A4"
+    ],
+    "label": "#6BAE82"
+   },
+   "talent": {
+    "anchor": "#F2A0C0",
+    "steps": [
+     "#7B5B7B",
+     "#F2A0C0",
+     "#F5BBCF"
+    ],
+    "label": "#F2A0C0"
+   },
+   "users": {
+    "anchor": "#BDB6E6",
+    "steps": [
+     "#62648B",
+     "#BDB6E6",
+     "#CFCAE9"
+    ],
+    "label": "#BDB6E6"
+   }
+  },
+  "heat": [
+   "#E09F24",
+   "#EB8A2C",
+   "#E5603A",
+   "#DE4078",
+   "#D23AA6"
+  ],
+  "riso": {
+   "ultramarine": {
+    "ink": "#3B45C4",
+    "tints": [
+     "#7E91DC",
+     "#BAC5EA",
+     "#DCE1F0"
+    ],
+    "label": "#3B45C4"
+   },
+   "orange": {
+    "ink": "#F26A2B",
+    "tints": [
+     "#FBA783",
+     "#FDD0BC",
+     "#FCE6DA"
+    ],
+    "label": "#B6552D"
+   },
+   "teal": {
+    "ink": "#0A858B",
+    "tints": [
+     "#7EB3B4",
+     "#BCD6D4",
+     "#DDE8E5"
+    ],
+    "label": "#117F85"
+   },
+   "pink": {
+    "ink": "#C84B78",
+    "tints": [
+     "#E293A8",
+     "#F0C6CD",
+     "#F6E1E2"
+    ],
+    "label": "#BE4973",
+    "navy": "#C85A82"
+   }
+  },
+  "paper": "#FAF9F4",
+  "labs": {
+   "openai": {
+    "anchor": "#2FA37E",
+    "steps": [
+     "#235C5D",
+     "#2FA37E",
+     "#7BBDA1"
+    ],
+    "label": "#2FA37E"
+   },
+   "google": {
+    "anchor": "#4F7FD6",
+    "steps": [
+     "#304B84",
+     "#4F7FD6",
+     "#83A5E0"
+    ],
+    "label": "#5785D8"
+   },
+   "anthropic": {
+    "anchor": "#C98A62",
+    "steps": [
+     "#685253",
+     "#C98A62",
+     "#D9AC8F"
+    ],
+    "label": "#C98A62"
+   },
+   "meta": {
+    "anchor": "#7C6BE0",
+    "steps": [
+     "#454288",
+     "#7C6BE0",
+     "#A099E8"
+    ],
+    "label": "#8476E2"
+   },
+   "mistral": {
+    "anchor": "#E9A23B",
+    "steps": [
+     "#765E4A",
+     "#E9A23B",
+     "#EFBD7E"
+    ],
+    "label": "#E9A23B"
+   },
+   "deepseek": {
+    "anchor": "#3FB9D6",
+    "steps": [
+     "#2C6584",
+     "#3FB9D6",
+     "#86CDDE"
+    ],
+    "label": "#3FB9D6"
+   },
+   "xai": {
+    "anchor": "#DEC48E",
+    "steps": [
+     "#706C67",
+     "#DEC48E",
+     "#E6D3AD"
+    ],
+    "label": "#DEC48E"
+   },
+   "alibaba": {
+    "anchor": "#E05A3A",
+    "steps": [
+     "#753F44",
+     "#E05A3A",
+     "#ED8F76"
+    ],
+    "label": "#E05A3A"
+   },
+   "microsoft-nvidia": {
+    "anchor": "#8DBE4A",
+    "steps": [
+     "#4A6A4E",
+     "#8DBE4A",
+     "#AED084"
+    ],
+    "label": "#8DBE4A"
+   },
+   "other-china": {
+    "anchor": "#C25E8A",
+    "steps": [
+     "#673E61",
+     "#C25E8A",
+     "#D68EA9"
+    ],
+    "label": "#C5668F"
+   },
+   "other": {
+    "anchor": "#6C82A6",
+    "steps": [
+     "#3D4C6E",
+     "#6C82A6",
+     "#97A5BD"
+    ],
+    "label": "#7287AA"
+   }
+  },
+  "amber": "#E09F24"
+ },
+ "impact": {
+  "ground": "#F6F7F4",
+  "families": {
+   "health": {
+    "undertone": "eucalyptus to deep forest",
+    "steps": [
+     "#9DBFAF",
+     "#5C8270",
+     "#1F4A36"
+    ],
+    "label": "#1F4A36"
+   },
+   "income": {
+    "undertone": "saffron to bronze",
+    "steps": [
+     "#E8B04B",
+     "#B07E30",
+     "#7A4F16"
+    ],
+    "label": "#7A4F16"
+   },
+   "access": {
+    "undertone": "sea glass to petrol",
+    "steps": [
+     "#9FD0C8",
+     "#598D91",
+     "#0F4F5C"
+    ],
+    "label": "#0F4F5C"
+   },
+   "tools": {
+    "undertone": "cornflower to petrol blue",
+    "steps": [
+     "#8FA6E0",
+     "#58779C",
+     "#234B5E"
+    ],
+    "label": "#234B5E"
+   },
+   "shadows": {
+    "undertone": "mulberry to oxblood",
+    "steps": [
+     "#7A2E52",
+     "#621F34",
+     "#4A0F17"
+    ],
+    "label": "#4A0F17"
+   },
+   "shadow-red": {
+    "undertone": "oxblood reds",
+    "steps": [
+     "#8C2B2B",
+     "#6A1D21",
+     "#4A0F17"
+    ],
+    "label": "#4A0F17"
+   },
+   "shadow-plum": {
+    "undertone": "mulberry plums",
+    "steps": [
+     "#7A2E52",
+     "#5B1F41",
+     "#3E1030"
+    ],
+    "label": "#3E1030"
+   }
+  }
+ },
+ "ledger": {
+  "ground": "#FCFBF7",
+  "verdigris": [
+   "#9CC4B4",
+   "#4F9683",
+   "#2E6E5C"
+  ],
+  "coral": [
+   "#E8A08C",
+   "#C9654D",
+   "#A13A29"
+  ],
+  "verdicts": {
+   "right": {
+    "meaning": "came true, verdigris",
+    "hex": "#2E6E5C",
+    "pale": "#9CC4B4",
+    "label": "#2E6E5C"
+   },
+   "late": {
+    "meaning": "late, teal",
+    "hex": "#2D7F8A",
+    "pale": "#C2DACE",
+    "label": "#2D7C87"
+   },
+   "partly": {
+    "meaning": "partly, amber",
+    "hex": "#C2890F",
+    "pale": "#F0E6AE",
+    "label": "#936A22"
+   },
+   "wrong": {
+    "meaning": "wrong, brick at matched lightness",
+    "hex": "#A13A29",
+    "pale": "#E8A08C",
+    "label": "#A13A29"
+   },
+   "pending": {
+    "meaning": "pending, grey",
+    "hex": "#7A7873",
+    "pale": "#D6D5D0",
+    "label": "#75736E"
+   },
+   "misattributed": {
+    "meaning": "misattributed, mulberry",
+    "hex": "#683252",
+    "pale": "#D2BFC6",
+    "label": "#683252"
+   }
+  },
+  "stamp": "#C8272E",
+  "pending_faded": "#B8B6B0"
+ },
+ "play": {
+  "ground": "#FDFDFC",
+  "stamp": "#17171A",
+  "pairs": [
+   {
+    "a": {
+     "name": "cobalt",
+     "hex": "#2A4FB5",
+     "label": "#2A4FB5"
+    },
+    "b": {
+     "name": "persimmon",
+     "hex": "#E8632B",
+     "label": "#BA542D"
+    }
+   },
+   {
+    "a": {
+     "name": "moss",
+     "hex": "#6B7F2E",
+     "label": "#697C2E"
+    },
+    "b": {
+     "name": "plum",
+     "hex": "#702C5E",
+     "label": "#702C5E"
+    }
+   },
+   {
+    "a": {
+     "name": "rose",
+     "hex": "#D9557A",
+     "label": "#BE4E6D"
+    },
+    "b": {
+     "name": "ink-blue",
+     "hex": "#1C2B6E",
+     "label": "#1C2B6E"
+    }
+   },
+   {
+    "a": {
+     "name": "ochre",
+     "hex": "#C58A1A",
+     "label": "#956B25"
+    },
+    "b": {
+     "name": "slate",
+     "hex": "#4A5A6E",
+     "label": "#4A5A6E"
+    }
+   },
+   {
+    "a": {
+     "name": "teal",
+     "hex": "#1F8A86",
+     "label": "#22807D"
+    },
+    "b": {
+     "name": "brick",
+     "hex": "#A8402A",
+     "label": "#A8402A"
+    }
+   },
+   {
+    "a": {
+     "name": "violet",
+     "hex": "#6A4FB5",
+     "label": "#6A4FB5"
+    },
+    "b": {
+     "name": "ochre-olive",
+     "hex": "#8F7117",
+     "label": "#8F7117"
+    }
+   }
+  ],
+  "year_ink": "#2E7D4F",
+  "mark": "#D98A1C"
+ },
+ "css": {
+  "--h-signal-1": "#B8C9D9",
+  "--h-signal-2": "#8FA6BB",
+  "--h-signal-3": "#67849E",
+  "--h-signal-4": "#416382",
+  "--h-signal-5": "#1B4366",
+  "--h-signal-label": "#1B4366",
+  "--h-signal-computing-1": "#B6CAD7",
+  "--h-signal-computing-2": "#8CA7B9",
+  "--h-signal-computing-3": "#62869C",
+  "--h-signal-computing-4": "#3A657F",
+  "--h-signal-computing-5": "#0D4563",
+  "--h-signal-computing-label": "#0D4563",
+  "--h-signal-semiconductors-1": "#B8C9D9",
+  "--h-signal-semiconductors-2": "#8FA6BB",
+  "--h-signal-semiconductors-3": "#67849E",
+  "--h-signal-semiconductors-4": "#416382",
+  "--h-signal-semiconductors-5": "#1B4366",
+  "--h-signal-semiconductors-label": "#1B4366",
+  "--h-signal-internet-1": "#BBC8DA",
+  "--h-signal-internet-2": "#93A4BC",
+  "--h-signal-internet-3": "#6C82A0",
+  "--h-signal-internet-4": "#486184",
+  "--h-signal-internet-5": "#264168",
+  "--h-signal-internet-label": "#264168",
+  "--h-signal-communications-1": "#BEC7DA",
+  "--h-signal-communications-2": "#97A3BD",
+  "--h-signal-communications-3": "#7280A0",
+  "--h-signal-communications-4": "#4F5F84",
+  "--h-signal-communications-5": "#2F3E68",
+  "--h-signal-communications-label": "#2F3E68",
+  "--h-knowledge-1": "#D8BFC9",
+  "--h-knowledge-2": "#BC98A7",
+  "--h-knowledge-3": "#A17186",
+  "--h-knowledge-4": "#844D66",
+  "--h-knowledge-5": "#682848",
+  "--h-knowledge-label": "#682848",
+  "--h-knowledge-society-1": "#D5C0CE",
+  "--h-knowledge-society-2": "#B899AE",
+  "--h-knowledge-society-3": "#9C7290",
+  "--h-knowledge-society-4": "#7F4E71",
+  "--h-knowledge-society-5": "#622A55",
+  "--h-knowledge-society-label": "#622A55",
+  "--h-knowledge-software-1": "#D8BFC9",
+  "--h-knowledge-software-2": "#BC98A7",
+  "--h-knowledge-software-3": "#A17186",
+  "--h-knowledge-software-4": "#844D66",
+  "--h-knowledge-software-5": "#682848",
+  "--h-knowledge-software-label": "#682848",
+  "--h-knowledge-media-1": "#DABFC4",
+  "--h-knowledge-media-2": "#BF989F",
+  "--h-knowledge-media-3": "#A4717C",
+  "--h-knowledge-media-4": "#884D5A",
+  "--h-knowledge-media-5": "#6C273A",
+  "--h-knowledge-media-label": "#6C273A",
+  "--h-power-1": "#E6BFA3",
+  "--h-power-2": "#CC9B7F",
+  "--h-power-3": "#B2785C",
+  "--h-power-4": "#98553B",
+  "--h-power-5": "#7D3318",
+  "--h-power-label": "#7D3318",
+  "--h-power-energy-1": "#E3C1A0",
+  "--h-power-energy-2": "#C99D7B",
+  "--h-power-energy-3": "#AF7A56",
+  "--h-power-energy-4": "#965733",
+  "--h-power-energy-5": "#7B3607",
+  "--h-power-energy-label": "#7B3607",
+  "--h-power-materials-1": "#E8BDA7",
+  "--h-power-materials-2": "#CE9984",
+  "--h-power-materials-3": "#B47662",
+  "--h-power-materials-4": "#995343",
+  "--h-power-materials-5": "#7E3124",
+  "--h-power-materials-label": "#7E3124",
+  "--h-movement-1": "#E9D69C",
+  "--h-movement-2": "#D3BB7D",
+  "--h-movement-3": "#BEA15F",
+  "--h-movement-4": "#A9873F",
+  "--h-movement-5": "#946E19",
+  "--h-movement-label": "#8D691B",
+  "--h-movement-transport-1": "#E4D89D",
+  "--h-movement-transport-2": "#CEBD7D",
+  "--h-movement-transport-3": "#B9A35F",
+  "--h-movement-transport-4": "#A48A3F",
+  "--h-movement-transport-5": "#8F7117",
+  "--h-movement-transport-label": "#886C1A",
+  "--h-movement-space-1": "#EFD39C",
+  "--h-movement-space-2": "#D9B87E",
+  "--h-movement-space-3": "#C49E60",
+  "--h-movement-space-4": "#AF8441",
+  "--h-movement-space-5": "#9A6A1E",
+  "--h-movement-space-label": "#96681F",
+  "--h-life-1": "#B8CFC4",
+  "--h-life-2": "#93AFA1",
+  "--h-life-3": "#6E8F7F",
+  "--h-life-4": "#4B715F",
+  "--h-life-5": "#285440",
+  "--h-life-label": "#285440",
+  "--h-life-biotech-1": "#B8CFC4",
+  "--h-life-biotech-2": "#93AFA1",
+  "--h-life-biotech-3": "#6E8F7F",
+  "--h-life-biotech-4": "#4B715F",
+  "--h-life-biotech-5": "#285440",
+  "--h-life-biotech-label": "#285440",
+  "--h-ai-1": "#D45B45",
+  "--h-ai-2": "#C24C3C",
+  "--h-ai-3": "#B13D33",
+  "--h-ai-4": "#A02E2A",
+  "--h-ai-5": "#8F1D21",
+  "--h-ai-label": "#8F1D21",
+  "--h-region-north-america": "#405D98",
+  "--h-region-north-america-label": "#405D98",
+  "--h-region-north-america-1": "#AEBAD0",
+  "--h-region-north-america-2": "#657EAD",
+  "--h-region-north-america-3": "#405D98",
+  "--h-region-latin-america": "#3D8077",
+  "--h-region-latin-america-label": "#3B7A72",
+  "--h-region-latin-america-1": "#B1C8C1",
+  "--h-region-latin-america-2": "#689990",
+  "--h-region-latin-america-3": "#3D8077",
+  "--h-region-europe": "#6C803A",
+  "--h-region-europe-label": "#657738",
+  "--h-region-europe-1": "#C0C8AB",
+  "--h-region-europe-2": "#899963",
+  "--h-region-europe-3": "#6C803A",
+  "--h-region-africa": "#B48027",
+  "--h-region-africa-label": "#91692A",
+  "--h-region-africa-1": "#E4D59D",
+  "--h-region-africa-2": "#C39A5B",
+  "--h-region-africa-3": "#B48027",
+  "--h-region-middle-east": "#A64F2D",
+  "--h-region-middle-east-label": "#A64F2D",
+  "--h-region-middle-east-1": "#DCB6A5",
+  "--h-region-middle-east-2": "#BB7459",
+  "--h-region-middle-east-3": "#A64F2D",
+  "--h-region-south-asia": "#A43D70",
+  "--h-region-south-asia-label": "#A43D70",
+  "--h-region-south-asia-1": "#DCB0BE",
+  "--h-region-south-asia-2": "#BA678B",
+  "--h-region-south-asia-3": "#A43D70",
+  "--h-region-east-asia": "#6B3253",
+  "--h-region-east-asia-label": "#6B3253",
+  "--h-region-east-asia-1": "#C3A8B2",
+  "--h-region-east-asia-2": "#8A5B73",
+  "--h-region-east-asia-3": "#6B3253",
+  "--h-region-oceania": "#6C599D",
+  "--h-region-oceania-label": "#6C599D",
+  "--h-region-oceania-1": "#C0B9D2",
+  "--h-region-oceania-2": "#887AB0",
+  "--h-region-oceania-3": "#6C599D",
+  "--h-region-global": "#8A8580",
+  "--h-region-global-label": "#74706D",
+  "--h-region-global-1": "#CDCAC5",
+  "--h-region-global-2": "#A19D98",
+  "--h-region-global-3": "#8A8580",
+  "--in-computing": "#28C8C4",
+  "--in-computing-label": "#28C8C4",
+  "--in-semiconductors": "#48B4E0",
+  "--in-semiconductors-label": "#69BEE3",
+  "--in-internet": "#6E9CF4",
+  "--in-internet-label": "#92B5F4",
+  "--in-communications": "#9AB4FF",
+  "--in-communications-label": "#9AB4FF",
+  "--in-society": "#CE74B7",
+  "--in-society-label": "#ED9AD7",
+  "--in-software": "#D871A2",
+  "--in-software-label": "#F898C3",
+  "--in-media": "#DE708B",
+  "--in-media-label": "#FE97AE",
+  "--in-energy": "#DC7A44",
+  "--in-energy-label": "#F89E6E",
+  "--in-materials": "#E17460",
+  "--in-materials-label": "#FF9B88",
+  "--in-transport": "#E0B43A",
+  "--in-transport-label": "#E0B43A",
+  "--in-space": "#C8860C",
+  "--in-space-label": "#E7AB55",
+  "--in-biotech": "#38B892",
+  "--in-biotech-label": "#6FC6A6",
+  "--in-ai": "#E0716B",
+  "--in-ai-label": "#FF9991",
+  "--in-ground": "#2639A8",
+  "--in-white": "#F7F7F4",
+  "--in-black": "#111322",
+  "--ai-organ-models-1": "#4D4990",
+  "--ai-organ-models-2": "#8E7CF0",
+  "--ai-organ-models-3": "#ADA4F2",
+  "--ai-organ-models-label": "#8E7CF0",
+  "--ai-organ-chips-1": "#6B3759",
+  "--ai-organ-chips-2": "#C84B78",
+  "--ai-organ-chips-3": "#DC849C",
+  "--ai-organ-chips-label": "#D06286",
+  "--ai-organ-capital-1": "#756750",
+  "--ai-organ-capital-2": "#E8B84A",
+  "--ai-organ-capital-3": "#EDCC86",
+  "--ai-organ-capital-label": "#E8B84A",
+  "--ai-organ-energy-1": "#7B4F47",
+  "--ai-organ-energy-2": "#F0803A",
+  "--ai-organ-energy-3": "#F6A77A",
+  "--ai-organ-energy-label": "#F0803A",
+  "--ai-organ-policy-1": "#2B6973",
+  "--ai-organ-policy-2": "#3FBFB0",
+  "--ai-organ-policy-3": "#87D1C3",
+  "--ai-organ-policy-label": "#3FBFB0",
+  "--ai-organ-data-1": "#376C90",
+  "--ai-organ-data-2": "#5BC8F0",
+  "--ai-organ-data-3": "#95D7F0",
+  "--ai-organ-data-label": "#5BC8F0",
+  "--ai-organ-people-1": "#7B535F",
+  "--ai-organ-people-2": "#F08A80",
+  "--ai-organ-people-3": "#F5ADA3",
+  "--ai-organ-people-label": "#F08A80",
+  "--ai-organ-labs-1": "#3F5792",
+  "--ai-organ-labs-2": "#6F9BF5",
+  "--ai-organ-labs-3": "#9AB9F5",
+  "--ai-organ-labs-label": "#6F9BF5",
+  "--ai-organ-products-1": "#3B6160",
+  "--ai-organ-products-2": "#6BAE82",
+  "--ai-organ-products-3": "#99C4A4",
+  "--ai-organ-products-label": "#6BAE82",
+  "--ai-organ-talent-1": "#7B5B7B",
+  "--ai-organ-talent-2": "#F2A0C0",
+  "--ai-organ-talent-3": "#F5BBCF",
+  "--ai-organ-talent-label": "#F2A0C0",
+  "--ai-organ-users-1": "#62648B",
+  "--ai-organ-users-2": "#BDB6E6",
+  "--ai-organ-users-3": "#CFCAE9",
+  "--ai-organ-users-label": "#BDB6E6",
+  "--lab-openai": "#2FA37E",
+  "--lab-openai-label": "#2FA37E",
+  "--lab-openai-1": "#235C5D",
+  "--lab-openai-2": "#2FA37E",
+  "--lab-openai-3": "#7BBDA1",
+  "--lab-google": "#4F7FD6",
+  "--lab-google-label": "#5785D8",
+  "--lab-google-1": "#304B84",
+  "--lab-google-2": "#4F7FD6",
+  "--lab-google-3": "#83A5E0",
+  "--lab-anthropic": "#C98A62",
+  "--lab-anthropic-label": "#C98A62",
+  "--lab-anthropic-1": "#685253",
+  "--lab-anthropic-2": "#C98A62",
+  "--lab-anthropic-3": "#D9AC8F",
+  "--lab-meta": "#7C6BE0",
+  "--lab-meta-label": "#8476E2",
+  "--lab-meta-1": "#454288",
+  "--lab-meta-2": "#7C6BE0",
+  "--lab-meta-3": "#A099E8",
+  "--lab-mistral": "#E9A23B",
+  "--lab-mistral-label": "#E9A23B",
+  "--lab-mistral-1": "#765E4A",
+  "--lab-mistral-2": "#E9A23B",
+  "--lab-mistral-3": "#EFBD7E",
+  "--lab-deepseek": "#3FB9D6",
+  "--lab-deepseek-label": "#3FB9D6",
+  "--lab-deepseek-1": "#2C6584",
+  "--lab-deepseek-2": "#3FB9D6",
+  "--lab-deepseek-3": "#86CDDE",
+  "--lab-xai": "#DEC48E",
+  "--lab-xai-label": "#DEC48E",
+  "--lab-xai-1": "#706C67",
+  "--lab-xai-2": "#DEC48E",
+  "--lab-xai-3": "#E6D3AD",
+  "--lab-alibaba": "#E05A3A",
+  "--lab-alibaba-label": "#E05A3A",
+  "--lab-alibaba-1": "#753F44",
+  "--lab-alibaba-2": "#E05A3A",
+  "--lab-alibaba-3": "#ED8F76",
+  "--lab-microsoft-nvidia": "#8DBE4A",
+  "--lab-microsoft-nvidia-label": "#8DBE4A",
+  "--lab-microsoft-nvidia-1": "#4A6A4E",
+  "--lab-microsoft-nvidia-2": "#8DBE4A",
+  "--lab-microsoft-nvidia-3": "#AED084",
+  "--lab-other-china": "#C25E8A",
+  "--lab-other-china-label": "#C5668F",
+  "--lab-other-china-1": "#673E61",
+  "--lab-other-china-2": "#C25E8A",
+  "--lab-other-china-3": "#D68EA9",
+  "--lab-other": "#6C82A6",
+  "--lab-other-label": "#7287AA",
+  "--lab-other-1": "#3D4C6E",
+  "--lab-other-2": "#6C82A6",
+  "--lab-other-3": "#97A5BD",
+  "--ai-amber": "#E09F24",
+  "--ai-heat-1": "#E09F24",
+  "--ai-heat-2": "#EB8A2C",
+  "--ai-heat-3": "#E5603A",
+  "--ai-heat-4": "#DE4078",
+  "--ai-heat-5": "#D23AA6",
+  "--riso-ultramarine": "#3B45C4",
+  "--riso-ultramarine-label": "#3B45C4",
+  "--riso-ultramarine-tint-1": "#7E91DC",
+  "--riso-ultramarine-tint-2": "#BAC5EA",
+  "--riso-ultramarine-tint-3": "#DCE1F0",
+  "--riso-orange": "#F26A2B",
+  "--riso-orange-label": "#B6552D",
+  "--riso-orange-tint-1": "#FBA783",
+  "--riso-orange-tint-2": "#FDD0BC",
+  "--riso-orange-tint-3": "#FCE6DA",
+  "--riso-teal": "#0A858B",
+  "--riso-teal-label": "#117F85",
+  "--riso-teal-tint-1": "#7EB3B4",
+  "--riso-teal-tint-2": "#BCD6D4",
+  "--riso-teal-tint-3": "#DDE8E5",
+  "--riso-pink": "#C84B78",
+  "--riso-pink-label": "#BE4973",
+  "--riso-pink-tint-1": "#E293A8",
+  "--riso-pink-tint-2": "#F0C6CD",
+  "--riso-pink-tint-3": "#F6E1E2",
+  "--riso-pink-navy": "#C85A82",
+  "--riso-pink-navy-label": "#CD668A",
+  "--ai-ground": "#141C3A",
+  "--ai-paper": "#FAF9F4",
+  "--imp-health-1": "#9DBFAF",
+  "--imp-health-2": "#5C8270",
+  "--imp-health-3": "#1F4A36",
+  "--imp-health-label": "#1F4A36",
+  "--imp-income-1": "#E8B04B",
+  "--imp-income-2": "#B07E30",
+  "--imp-income-3": "#7A4F16",
+  "--imp-income-label": "#7A4F16",
+  "--imp-access-1": "#9FD0C8",
+  "--imp-access-2": "#598D91",
+  "--imp-access-3": "#0F4F5C",
+  "--imp-access-label": "#0F4F5C",
+  "--imp-tools-1": "#8FA6E0",
+  "--imp-tools-2": "#58779C",
+  "--imp-tools-3": "#234B5E",
+  "--imp-tools-label": "#234B5E",
+  "--imp-shadows-1": "#7A2E52",
+  "--imp-shadows-2": "#621F34",
+  "--imp-shadows-3": "#4A0F17",
+  "--imp-shadows-label": "#4A0F17",
+  "--imp-shadow-red-1": "#8C2B2B",
+  "--imp-shadow-red-2": "#6A1D21",
+  "--imp-shadow-red-3": "#4A0F17",
+  "--imp-shadow-red-label": "#4A0F17",
+  "--imp-shadow-plum-1": "#7A2E52",
+  "--imp-shadow-plum-2": "#5B1F41",
+  "--imp-shadow-plum-3": "#3E1030",
+  "--imp-shadow-plum-label": "#3E1030",
+  "--imp-ground": "#F6F7F4",
+  "--led-verdigris-1": "#9CC4B4",
+  "--led-verdigris-2": "#4F9683",
+  "--led-verdigris-3": "#2E6E5C",
+  "--led-coral-1": "#E8A08C",
+  "--led-coral-2": "#C9654D",
+  "--led-coral-3": "#A13A29",
+  "--led-right": "#2E6E5C",
+  "--led-right-pale": "#9CC4B4",
+  "--led-right-label": "#2E6E5C",
+  "--led-late": "#2D7F8A",
+  "--led-late-pale": "#C2DACE",
+  "--led-late-label": "#2D7C87",
+  "--led-partly": "#C2890F",
+  "--led-partly-pale": "#F0E6AE",
+  "--led-partly-label": "#936A22",
+  "--led-wrong": "#A13A29",
+  "--led-wrong-pale": "#E8A08C",
+  "--led-wrong-label": "#A13A29",
+  "--led-pending": "#7A7873",
+  "--led-pending-pale": "#D6D5D0",
+  "--led-pending-label": "#75736E",
+  "--led-misattributed": "#683252",
+  "--led-misattributed-pale": "#D2BFC6",
+  "--led-misattributed-label": "#683252",
+  "--led-pending-faded": "#B8B6B0",
+  "--led-stamp": "#C8272E",
+  "--led-ground": "#FCFBF7",
+  "--play-pair-1a": "#2A4FB5",
+  "--play-pair-1a-label": "#2A4FB5",
+  "--play-pair-1b": "#E8632B",
+  "--play-pair-1b-label": "#BA542D",
+  "--play-pair-2a": "#6B7F2E",
+  "--play-pair-2a-label": "#697C2E",
+  "--play-pair-2b": "#702C5E",
+  "--play-pair-2b-label": "#702C5E",
+  "--play-pair-3a": "#D9557A",
+  "--play-pair-3a-label": "#BE4E6D",
+  "--play-pair-3b": "#1C2B6E",
+  "--play-pair-3b-label": "#1C2B6E",
+  "--play-pair-4a": "#C58A1A",
+  "--play-pair-4a-label": "#956B25",
+  "--play-pair-4b": "#4A5A6E",
+  "--play-pair-4b-label": "#4A5A6E",
+  "--play-pair-5a": "#1F8A86",
+  "--play-pair-5a-label": "#22807D",
+  "--play-pair-5b": "#A8402A",
+  "--play-pair-5b-label": "#A8402A",
+  "--play-pair-6a": "#6A4FB5",
+  "--play-pair-6a-label": "#6A4FB5",
+  "--play-pair-6b": "#8F7117",
+  "--play-pair-6b-label": "#8F7117",
+  "--play-year-ink": "#2E7D4F",
+  "--play-year-ink-label": "#2E7D4F",
+  "--play-mark": "#D98A1C",
+  "--play-mark-label": "#9E6828",
+  "--play-ground": "#FDFDFC",
+  "--play-stamp": "#17171A"
+ }
+}

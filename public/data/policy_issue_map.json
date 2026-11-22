@@ -1,0 +1,353 @@
+{
+ "_note": "Hand subject tags for the Policy atlas issue chips; an instrument absent here has no subject chip and shows only under all subjects. Issue ids match politics_map.json where the two overlap; xrisk reads as frontier-safety.",
+ "issues": [
+  {
+   "id": "export-controls",
+   "label": "Export controls"
+  },
+  {
+   "id": "open-weights",
+   "label": "Open weights"
+  },
+  {
+   "id": "copyright",
+   "label": "Copyright"
+  },
+  {
+   "id": "child-safety",
+   "label": "Child safety"
+  },
+  {
+   "id": "deepfakes",
+   "label": "Deepfakes and elections"
+  },
+  {
+   "id": "labor",
+   "label": "Labor"
+  },
+  {
+   "id": "datacenters",
+   "label": "Data centers"
+  },
+  {
+   "id": "antitrust",
+   "label": "Antitrust"
+  },
+  {
+   "id": "war",
+   "label": "AI in war"
+  },
+  {
+   "id": "preemption",
+   "label": "Preemption"
+  },
+  {
+   "id": "frontier-safety",
+   "label": "Frontier safety"
+  },
+  {
+   "id": "procurement",
+   "label": "Procurement"
+  }
+ ],
+ "alias": {
+  "xrisk": "frontier-safety"
+ },
+ "map": {
+  "us-preparing-future-ai-2016": [
+   "labor"
+  ],
+  "canada-directive-adm-2019": [
+   "procurement"
+  ],
+  "sf-facial-recognition-ban-2019": [
+   "procurement"
+  ],
+  "illinois-ai-video-interview-act-2019": [
+   "labor"
+  ],
+  "texas-deepfake-election-2019": [
+   "deepfakes"
+  ],
+  "us-dod-ai-principles-2020": [
+   "war"
+  ],
+  "washington-facial-recognition-2020": [
+   "procurement"
+  ],
+  "boston-facial-recognition-ban-2020": [
+   "procurement"
+  ],
+  "portland-facial-recognition-ban-2020": [
+   "procurement"
+  ],
+  "us-eo-13960-2020": [
+   "procurement"
+  ],
+  "nyc-local-law-144-2021": [
+   "labor"
+  ],
+  "china-algorithm-recommendation-2022": [
+   "labor",
+   "child-safety"
+  ],
+  "eu-dma-2022": [
+   "antitrust"
+  ],
+  "us-export-controls-2022": [
+   "export-controls"
+  ],
+  "eu-dsa-2022": [
+   "deepfakes",
+   "child-safety"
+  ],
+  "china-deep-synthesis-2023": [
+   "deepfakes"
+  ],
+  "us-political-declaration-military-ai-2023": [
+   "war"
+  ],
+  "minnesota-deepfake-election-2023": [
+   "deepfakes"
+  ],
+  "china-generative-ai-measures-2023": [
+   "copyright",
+   "deepfakes"
+  ],
+  "us-voluntary-commitments-2023": [
+   "frontier-safety",
+   "deepfakes"
+  ],
+  "california-eo-n-12-23-2023": [
+   "procurement",
+   "labor"
+  ],
+  "canada-genai-code-2023": [
+   "frontier-safety"
+  ],
+  "us-export-controls-2023": [
+   "export-controls"
+  ],
+  "uk-ai-safety-institute-2023": [
+   "frontier-safety"
+  ],
+  "uk-online-safety-act-2023": [
+   "child-safety"
+  ],
+  "g7-hiroshima-code-2023": [
+   "frontier-safety",
+   "deepfakes"
+  ],
+  "us-eo-14110-2023": [
+   "frontier-safety",
+   "labor",
+   "deepfakes",
+   "procurement"
+  ],
+  "bletchley-declaration-2023": [
+   "frontier-safety"
+  ],
+  "un-ga-laws-resolution-2023": [
+   "war"
+  ],
+  "us-fcc-ai-robocalls-2024": [
+   "deepfakes"
+  ],
+  "california-sb-1047-2024": [
+   "frontier-safety",
+   "open-weights"
+  ],
+  "india-meity-ai-advisory-2024": [
+   "deepfakes"
+  ],
+  "tennessee-elvis-act-2024": [
+   "deepfakes"
+  ],
+  "us-omb-m-24-10-2024": [
+   "procurement"
+  ],
+  "colorado-ai-act-2024": [
+   "labor"
+  ],
+  "seoul-declaration-2024": [
+   "frontier-safety"
+  ],
+  "singapore-genai-framework-2024": [
+   "deepfakes"
+  ],
+  "eu-ai-act-2024": [
+   "frontier-safety",
+   "deepfakes",
+   "copyright",
+   "open-weights"
+  ],
+  "illinois-hb-3773-2024": [
+   "labor"
+  ],
+  "california-ab-2655-2024": [
+   "deepfakes"
+  ],
+  "australia-voluntary-ai-safety-standard-2024": [
+   "frontier-safety"
+  ],
+  "california-sb-942-2024": [
+   "deepfakes"
+  ],
+  "california-ab-2013-2024": [
+   "copyright"
+  ],
+  "korea-ai-basic-act-2024": [
+   "frontier-safety",
+   "deepfakes"
+  ],
+  "uk-ai-opportunities-plan-2025": [
+   "datacenters"
+  ],
+  "virginia-hb-2094-2025": [
+   "labor"
+  ],
+  "us-ai-diffusion-rule-2025": [
+   "export-controls",
+   "open-weights"
+  ],
+  "us-copyright-office-copyrightability-2025": [
+   "copyright"
+  ],
+  "uk-ai-security-institute-rename-2025": [
+   "frontier-safety"
+  ],
+  "china-ai-labeling-2025": [
+   "deepfakes"
+  ],
+  "us-omb-ai-memos-2025": [
+   "procurement"
+  ],
+  "eu-ai-continent-plan-2025": [
+   "datacenters"
+  ],
+  "us-no-fakes-act-2024": [
+   "deepfakes",
+   "copyright"
+  ],
+  "us-ai-education-eo-2025": [
+   "labor"
+  ],
+  "us-take-it-down-act-2025": [
+   "deepfakes",
+   "child-safety"
+  ],
+  "uk-data-use-access-act-2025": [
+   "copyright"
+  ],
+  "texas-traiga-2025": [
+   "preemption"
+  ],
+  "california-civil-rights-ads-2025": [
+   "labor"
+  ],
+  "eu-gpai-code-of-practice-2025": [
+   "frontier-safety",
+   "copyright"
+  ],
+  "us-ai-action-plan-2025": [
+   "datacenters",
+   "export-controls",
+   "open-weights",
+   "procurement",
+   "labor"
+  ],
+  "us-ai-exports-eo-2025": [
+   "export-controls"
+  ],
+  "us-data-center-permitting-eo-2025": [
+   "datacenters"
+  ],
+  "us-woke-ai-eo-2025": [
+   "procurement"
+  ],
+  "illinois-ai-therapy-2025": [
+   "child-safety"
+  ],
+  "eu-gpai-obligations-2025": [
+   "frontier-safety",
+   "copyright",
+   "open-weights"
+  ],
+  "us-ftc-chatbot-inquiry-2025": [
+   "child-safety"
+  ],
+  "california-cppa-admt-2025": [
+   "labor"
+  ],
+  "italy-ai-law-2025": [
+   "labor",
+   "procurement",
+   "copyright",
+   "child-safety"
+  ],
+  "california-sb-53-2025": [
+   "frontier-safety"
+  ],
+  "california-sb-243-2025": [
+   "child-safety"
+  ],
+  "us-state-preemption-eo-2025": [
+   "preemption"
+  ],
+  "new-york-raise-act-2025": [
+   "frontier-safety"
+  ],
+  "india-it-rules-synthetic-media-2026": [
+   "deepfakes"
+  ],
+  "us-national-ai-legislative-framework-2026": [
+   "preemption",
+   "child-safety",
+   "datacenters",
+   "copyright",
+   "labor"
+  ],
+  "newsom-ai-eo-2026": [
+   "procurement"
+  ],
+  "us-caisi-testing-agreements-2026": [
+   "frontier-safety"
+  ],
+  "us-frontier-ai-oversight-2026": [
+   "frontier-safety"
+  ],
+  "eu-digital-omnibus-ai-2025": [
+   "frontier-safety",
+   "deepfakes"
+  ],
+  "eu-ai-act-transparency-2026": [
+   "deepfakes"
+  ],
+  "california-sb-813-2026": [
+   "frontier-safety"
+  ],
+  "california-sb-1119-2026": [
+   "child-safety"
+  ],
+  "california-sb-1050-2026": [
+   "deepfakes",
+   "labor"
+  ],
+  "california-eo-ai-oversight-2026": [
+   "frontier-safety"
+  ],
+  "china-ai-export-controls-2026": [
+   "export-controls"
+  ],
+  "denmark-deepfake-likeness-2025": [
+   "copyright",
+   "deepfakes"
+  ],
+  "india-meity-ai-advisory-march1-2024": [
+   "deepfakes"
+  ],
+  "colorado-sb-26-189-2026": [
+   "labor"
+  ]
+ }
+}

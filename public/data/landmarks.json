@@ -1,0 +1,4312 @@
+{
+ "generated": "2026-10-25",
+ "source": "site/data/events.json",
+ "rules": {
+  "landmark": "significance == 5, one entry per episode; canonical id listed with member ids; kind \"era\" marks period labels (type era) kept as separate entries so the build can exclude them",
+  "dense_register": "year >= 2010",
+  "thin_record": "century x region cells with fewer than 6 events (century n = years (n-1)00 to (n-1)99)"
+ },
+ "counts": {
+  "significance_5_events": 351,
+  "register_entries": 277,
+  "register_events": 269,
+  "register_eras": 8,
+  "folded_members": 74,
+  "dense_register_events": 1602,
+  "all_events": 3316,
+  "thin_cells": 57
+ },
+ "register": [
+  {
+   "id": "bi-sheng-movable-type-1040",
+   "episode": "Bi Sheng devises movable type from baked clay",
+   "year": 1040,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "media",
+   "type": "invention",
+   "kind": "event",
+   "title": "Bi Sheng devises movable type from baked clay",
+   "members": []
+  },
+  {
+   "id": "wujing-zongyao-gunpowder-1044",
+   "episode": "Wujing Zongyao records gunpowder formulas",
+   "year": 1044,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "materials",
+   "type": "invention",
+   "kind": "event",
+   "title": "Wujing Zongyao records gunpowder formulas",
+   "members": []
+  },
+  {
+   "id": "shen-kuo-magnetic-compass-1088",
+   "episode": "The magnetic compass in navigation",
+   "year": 1088,
+   "end_year": 1119,
+   "region": "east-asia",
+   "domain": "communications",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Shen Kuo records compass navigation and magnetic declination",
+   "members": [
+    "pingzhou-table-talks-compass-navigation-1119"
+   ]
+  },
+  {
+   "id": "chinampas-1100",
+   "episode": "Chinampa agriculture is documented in the Valley of Mexico",
+   "year": 1100,
+   "end_year": null,
+   "region": "latin-america",
+   "domain": "biotech",
+   "type": "invention",
+   "kind": "event",
+   "title": "Chinampa agriculture is documented in the Valley of Mexico",
+   "members": []
+  },
+  {
+   "id": "great-zimbabwe-1100",
+   "episode": "Construction of Great Zimbabwe begins",
+   "year": 1100,
+   "end_year": null,
+   "region": "africa",
+   "domain": "materials",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Construction of Great Zimbabwe begins",
+   "members": []
+  },
+  {
+   "id": "lalibela-rock-churches-1181",
+   "episode": "Rock-hewn churches built at Lalibela",
+   "year": 1181,
+   "end_year": null,
+   "region": "africa",
+   "domain": "materials",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Rock-hewn churches built at Lalibela",
+   "members": []
+  },
+  {
+   "id": "liber-abaci-1202",
+   "episode": "Liber Abaci introduces Hindu-Arabic numerals in Europe",
+   "year": 1202,
+   "end_year": null,
+   "region": "europe",
+   "domain": "computing",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Liber Abaci introduces Hindu-Arabic numerals in Europe",
+   "members": []
+  },
+  {
+   "id": "al-jazari-ingenious-devices-1206",
+   "episode": "Al-Jazari completes the Book of Knowledge of Ingenious Mechanical Devices",
+   "year": 1206,
+   "end_year": null,
+   "region": "middle-east",
+   "domain": "computing",
+   "type": "concept",
+   "kind": "event",
+   "title": "Al-Jazari completes the Book of Knowledge of Ingenious Mechanical Devices",
+   "members": []
+  },
+  {
+   "id": "mongol-empire-era-1206",
+   "episode": "Mongol Empire connects Eurasia and enables technology exchange",
+   "year": 1206,
+   "end_year": null,
+   "region": "global",
+   "domain": "society",
+   "type": "era",
+   "kind": "era",
+   "title": "Mongol Empire connects Eurasia and enables technology exchange",
+   "members": []
+  },
+  {
+   "id": "settlement-of-new-zealand-1250",
+   "episode": "Polynesian settlement of New Zealand",
+   "year": 1250,
+   "end_year": 1300,
+   "region": "oceania",
+   "domain": "transport",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Polynesian settlers arrive in New Zealand by canoe",
+   "members": [
+    "polynesian-navigation-1300"
+   ]
+  },
+  {
+   "id": "sack-of-baghdad-house-of-wisdom-1258",
+   "episode": "Mongol forces begin looting Baghdad",
+   "year": 1258,
+   "end_year": null,
+   "region": "middle-east",
+   "domain": "society",
+   "type": "incident",
+   "kind": "event",
+   "title": "Mongol forces begin looting Baghdad",
+   "members": []
+  },
+  {
+   "id": "tenochtitlan-founded-1325",
+   "episode": "Tenochtitlan was founded on an island in Lake Texcoco",
+   "year": 1325,
+   "end_year": null,
+   "region": "latin-america",
+   "domain": "materials",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Tenochtitlan was founded on an island in Lake Texcoco",
+   "members": []
+  },
+  {
+   "id": "black-death-1346",
+   "episode": "Black Death plague pandemic",
+   "year": 1346,
+   "end_year": null,
+   "region": "global",
+   "domain": "biotech",
+   "type": "incident",
+   "kind": "event",
+   "title": "Black Death plague pandemic",
+   "members": []
+  },
+  {
+   "id": "jikji-metal-type-1377-1377",
+   "episode": "Jikji was printed with movable metal type in Goryeo Korea",
+   "year": 1377,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "media",
+   "type": "invention",
+   "kind": "event",
+   "title": "Jikji was printed with movable metal type in Goryeo Korea",
+   "members": []
+  },
+  {
+   "id": "madhava-kerala-school-1400",
+   "episode": "Madhava developed infinite series for π and trigonometric functions",
+   "year": 1400,
+   "end_year": null,
+   "region": "south-asia",
+   "domain": "computing",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Madhava developed infinite series for π and trigonometric functions",
+   "members": []
+  },
+  {
+   "id": "zheng-he-treasure-voyages-1405",
+   "episode": "Ming treasure voyages cross the Indian Ocean",
+   "year": 1405,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "transport",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Ming treasure voyages cross the Indian Ocean",
+   "members": []
+  },
+  {
+   "id": "inca-road-system-1438",
+   "episode": "The Inca Empire begins expanding the Qhapaq Ñan",
+   "year": 1438,
+   "end_year": null,
+   "region": "latin-america",
+   "domain": "transport",
+   "type": "milestone",
+   "kind": "event",
+   "title": "The Inca Empire begins expanding the Qhapaq Ñan",
+   "members": []
+  },
+  {
+   "id": "quipu-1438",
+   "episode": "Quipus serve Inca administration",
+   "year": 1438,
+   "end_year": null,
+   "region": "latin-america",
+   "domain": "computing",
+   "type": "invention",
+   "kind": "event",
+   "title": "Quipus serve Inca administration",
+   "members": []
+  },
+  {
+   "id": "hangul-promulgation-1443",
+   "episode": "Sejong creates the Hangul alphabet",
+   "year": 1443,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "media",
+   "type": "invention",
+   "kind": "event",
+   "title": "Sejong creates the Hangul alphabet",
+   "members": []
+  },
+  {
+   "id": "gutenberg-press-1450",
+   "episode": "Gutenberg's press",
+   "year": 1450,
+   "end_year": 1500,
+   "region": "europe",
+   "domain": "media",
+   "type": "invention",
+   "kind": "event",
+   "title": "Gutenberg prints with movable metal type in Mainz",
+   "members": [
+    "gutenberg-bible-1454",
+    "spread-of-printing-1500"
+   ]
+  },
+  {
+   "id": "fall-of-constantinople-orban-cannon-1453",
+   "episode": "Ottomans capture Constantinople with cannon support",
+   "year": 1453,
+   "end_year": null,
+   "region": "europe",
+   "domain": "materials",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Ottomans capture Constantinople with cannon support",
+   "members": []
+  },
+  {
+   "id": "columbus-first-voyage-1492",
+   "episode": "Columbus's voyage and the Columbian exchange",
+   "year": 1492,
+   "end_year": 1492,
+   "region": "global",
+   "domain": "transport",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Columbus begins his first voyage to the Americas",
+   "members": [
+    "columbian-exchange-1492",
+    "age-of-discovery-era-1418"
+   ]
+  },
+  {
+   "id": "vasco-da-gama-calicut-1498",
+   "episode": "Vasco da Gama reaches Kozhikode by sea",
+   "year": 1498,
+   "end_year": null,
+   "region": "global",
+   "domain": "transport",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Vasco da Gama reaches Kozhikode by sea",
+   "members": []
+  },
+  {
+   "id": "atlantic-slave-trade-1500",
+   "episode": "Atlantic slave trade expands to the Americas",
+   "year": 1500,
+   "end_year": null,
+   "region": "global",
+   "domain": "society",
+   "type": "era",
+   "kind": "era",
+   "title": "Atlantic slave trade expands to the Americas",
+   "members": []
+  },
+  {
+   "id": "luther-95-theses-printing-1517",
+   "episode": "Ninety-five Theses appeared in print",
+   "year": 1517,
+   "end_year": null,
+   "region": "europe",
+   "domain": "media",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Ninety-five Theses appeared in print",
+   "members": []
+  },
+  {
+   "id": "magellan-elcano-circumnavigation-1519",
+   "episode": "The Magellan-Elcano expedition began the first circumnavigation",
+   "year": 1519,
+   "end_year": null,
+   "region": "global",
+   "domain": "transport",
+   "type": "milestone",
+   "kind": "event",
+   "title": "The Magellan-Elcano expedition began the first circumnavigation",
+   "members": []
+  },
+  {
+   "id": "copernicus-de-revolutionibus-1543",
+   "episode": "Copernicus and the Scientific Revolution",
+   "year": 1543,
+   "end_year": 1543,
+   "region": "europe",
+   "domain": "space",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Copernicus publishes De revolutionibus orbium coelestium",
+   "members": [
+    "scientific-revolution-era-1543"
+   ]
+  },
+  {
+   "id": "vesalius-fabrica-1543",
+   "episode": "Vesalius publishes influential anatomy work",
+   "year": 1543,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Vesalius publishes influential anatomy work",
+   "members": []
+  },
+  {
+   "id": "potosi-silver-1545",
+   "episode": "Cerro Rico silver discovery drives Potosí’s growth",
+   "year": 1545,
+   "end_year": null,
+   "region": "latin-america",
+   "domain": "materials",
+   "type": "market",
+   "kind": "event",
+   "title": "Cerro Rico silver discovery drives Potosí’s growth",
+   "members": []
+  },
+  {
+   "id": "index-librorum-prohibitorum-1559",
+   "episode": "Pauline Index is published",
+   "year": 1559,
+   "end_year": null,
+   "region": "europe",
+   "domain": "media",
+   "type": "policy",
+   "kind": "event",
+   "title": "Pauline Index is published",
+   "members": []
+  },
+  {
+   "id": "manila-galleon-trade-1565",
+   "episode": "The Manila galleon trade linked Manila and Acapulco",
+   "year": 1565,
+   "end_year": null,
+   "region": "global",
+   "domain": "transport",
+   "type": "market",
+   "kind": "event",
+   "title": "The Manila galleon trade linked Manila and Acapulco",
+   "members": []
+  },
+  {
+   "id": "dutch-east-india-company-1602",
+   "episode": "Dutch East India Company founded and shares traded in open markets",
+   "year": 1602,
+   "end_year": null,
+   "region": "global",
+   "domain": "society",
+   "type": "market",
+   "kind": "event",
+   "title": "Dutch East India Company founded and shares traded in open markets",
+   "members": []
+  },
+  {
+   "id": "galileo-telescope-1609",
+   "episode": "The telescope",
+   "year": 1609,
+   "end_year": 1609,
+   "region": "europe",
+   "domain": "space",
+   "type": "invention",
+   "kind": "event",
+   "title": "Galileo builds a telescope and turns it to the sky",
+   "members": [
+    "lippershey-telescope-patent-1608"
+   ]
+  },
+  {
+   "id": "huygens-pendulum-clock-1656",
+   "episode": "Christiaan Huygens invents the pendulum clock",
+   "year": 1656,
+   "end_year": null,
+   "region": "europe",
+   "domain": "computing",
+   "type": "invention",
+   "kind": "event",
+   "title": "Christiaan Huygens invents the pendulum clock",
+   "members": []
+  },
+  {
+   "id": "leeuwenhoek-microorganisms-1676",
+   "episode": "Van Leeuwenhoek documents single-celled microorganisms",
+   "year": 1676,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Van Leeuwenhoek documents single-celled microorganisms",
+   "members": []
+  },
+  {
+   "id": "newton-principia-1687",
+   "episode": "Newton publishes the Principia",
+   "year": 1687,
+   "end_year": null,
+   "region": "europe",
+   "domain": "space",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Newton publishes the Principia",
+   "members": []
+  },
+  {
+   "id": "newcomen-engine-1712",
+   "episode": "Newcomen's atmospheric steam engine pumps water from a coal mine",
+   "year": 1712,
+   "end_year": null,
+   "region": "europe",
+   "domain": "energy",
+   "type": "invention",
+   "kind": "event",
+   "title": "Newcomen's atmospheric steam engine pumps water from a coal mine",
+   "members": []
+  },
+  {
+   "id": "encyclopedie-diderot-1751",
+   "episode": "Diderot’s Encyclopédie begins publication",
+   "year": 1751,
+   "end_year": null,
+   "region": "europe",
+   "domain": "media",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Diderot’s Encyclopédie begins publication",
+   "members": []
+  },
+  {
+   "id": "harrison-h4-chronometer-1759",
+   "episode": "Harrison completes the H4 marine chronometer",
+   "year": 1759,
+   "end_year": null,
+   "region": "europe",
+   "domain": "transport",
+   "type": "invention",
+   "kind": "event",
+   "title": "Harrison completes the H4 marine chronometer",
+   "members": []
+  },
+  {
+   "id": "industrial-revolution-era-1760",
+   "episode": "The Industrial Revolution transforms manufacturing",
+   "year": 1760,
+   "end_year": null,
+   "region": "europe",
+   "domain": "energy",
+   "type": "era",
+   "kind": "era",
+   "title": "The Industrial Revolution transforms manufacturing",
+   "members": []
+  },
+  {
+   "id": "spinning-jenny-1764",
+   "episode": "Mechanised cotton spinning",
+   "year": 1764,
+   "end_year": 1771,
+   "region": "europe",
+   "domain": "materials",
+   "type": "invention",
+   "kind": "event",
+   "title": "James Hargreaves invents the spinning jenny",
+   "members": [
+    "cromford-mill-1771"
+   ]
+  },
+  {
+   "id": "watt-separate-condenser-1769",
+   "episode": "Watt's steam engine",
+   "year": 1769,
+   "end_year": 1776,
+   "region": "europe",
+   "domain": "energy",
+   "type": "invention",
+   "kind": "event",
+   "title": "James Watt patents the separate condenser",
+   "members": [
+    "watt-boulton-engines-1776-1776"
+   ]
+  },
+  {
+   "id": "wealth-of-nations-1776",
+   "episode": "Smith explains productivity gains from division of labor",
+   "year": 1776,
+   "end_year": null,
+   "region": "europe",
+   "domain": "society",
+   "type": "concept",
+   "kind": "event",
+   "title": "Smith explains productivity gains from division of labor",
+   "members": []
+  },
+  {
+   "id": "lavoisier-elements-chemistry-1789",
+   "episode": "Lavoisier publishes the first modern chemistry textbook",
+   "year": 1789,
+   "end_year": null,
+   "region": "europe",
+   "domain": "materials",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Lavoisier publishes the first modern chemistry textbook",
+   "members": []
+  },
+  {
+   "id": "chappe-semaphore-1792",
+   "episode": "Claude Chappe invents the optical telegraph",
+   "year": 1792,
+   "end_year": null,
+   "region": "europe",
+   "domain": "communications",
+   "type": "invention",
+   "kind": "event",
+   "title": "Claude Chappe invents the optical telegraph",
+   "members": []
+  },
+  {
+   "id": "cotton-gin-1793",
+   "episode": "Eli Whitney creates the mechanical cotton gin",
+   "year": 1793,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "materials",
+   "type": "invention",
+   "kind": "event",
+   "title": "Eli Whitney creates the mechanical cotton gin",
+   "members": []
+  },
+  {
+   "id": "jenner-vaccination-1796",
+   "episode": "Edward Jenner tests cowpox inoculation against smallpox",
+   "year": 1796,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Edward Jenner tests cowpox inoculation against smallpox",
+   "members": []
+  },
+  {
+   "id": "volta-pile-1800",
+   "episode": "Alessandro Volta describes the voltaic pile",
+   "year": 1800,
+   "end_year": null,
+   "region": "europe",
+   "domain": "energy",
+   "type": "invention",
+   "kind": "event",
+   "title": "Alessandro Volta describes the voltaic pile",
+   "members": []
+  },
+  {
+   "id": "hanaoka-seishu-general-anesthesia-1804",
+   "episode": "Hanaoka performs surgery under general anesthesia",
+   "year": 1804,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "biotech",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Hanaoka performs surgery under general anesthesia",
+   "members": []
+  },
+  {
+   "id": "jacquard-loom-1804",
+   "episode": "Jacquard patents a punched-card loom mechanism",
+   "year": 1804,
+   "end_year": null,
+   "region": "europe",
+   "domain": "computing",
+   "type": "invention",
+   "kind": "event",
+   "title": "Jacquard patents a punched-card loom mechanism",
+   "members": []
+  },
+  {
+   "id": "frankenstein-1818",
+   "episode": "Mary Shelley publishes Frankenstein",
+   "year": 1818,
+   "end_year": null,
+   "region": "europe",
+   "domain": "society",
+   "type": "fear",
+   "kind": "event",
+   "title": "Mary Shelley publishes Frankenstein",
+   "members": []
+  },
+  {
+   "id": "liverpool-manchester-railway-1830",
+   "episode": "Liverpool and Manchester Railway opens",
+   "year": 1830,
+   "end_year": null,
+   "region": "europe",
+   "domain": "transport",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Liverpool and Manchester Railway opens",
+   "members": []
+  },
+  {
+   "id": "faraday-induction-1831",
+   "episode": "Faraday discovers electromagnetic induction",
+   "year": 1831,
+   "end_year": null,
+   "region": "europe",
+   "domain": "energy",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Faraday discovers electromagnetic induction",
+   "members": []
+  },
+  {
+   "id": "babbage-analytical-engine-1837",
+   "episode": "Babbage's engines and Lovelace's notes",
+   "year": 1837,
+   "end_year": 1843,
+   "region": "europe",
+   "domain": "computing",
+   "type": "concept",
+   "kind": "event",
+   "title": "Babbage first describes the Analytical Engine",
+   "members": [
+    "babbage-difference-engine-1822",
+    "ada-lovelace-notes-1843"
+   ]
+  },
+  {
+   "id": "daguerreotype-1839",
+   "episode": "Daguerreotype introduced worldwide",
+   "year": 1839,
+   "end_year": null,
+   "region": "europe",
+   "domain": "media",
+   "type": "invention",
+   "kind": "event",
+   "title": "Daguerreotype introduced worldwide",
+   "members": []
+  },
+  {
+   "id": "railway-mania-1840",
+   "episode": "Railway Mania peaks and collapses",
+   "year": 1840,
+   "end_year": null,
+   "region": "europe",
+   "domain": "transport",
+   "type": "failure",
+   "kind": "event",
+   "title": "Railway Mania peaks and collapses",
+   "members": []
+  },
+  {
+   "id": "morse-telegraph-1844",
+   "episode": "The electric telegraph",
+   "year": 1844,
+   "end_year": 1844,
+   "region": "north-america",
+   "domain": "communications",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Morse sends \"What hath God wrought\" from Washington to Baltimore",
+   "members": [
+    "cooke-wheatstone-telegraph-1837"
+   ]
+  },
+  {
+   "id": "ether-day-anesthesia-1846",
+   "episode": "Morton demonstrates ether anesthesia at Massachusetts General Hospital",
+   "year": 1846,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "biotech",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Morton demonstrates ether anesthesia at Massachusetts General Hospital",
+   "members": []
+  },
+  {
+   "id": "great-exhibition-1851",
+   "episode": "Great Exhibition opens at the Crystal Palace",
+   "year": 1851,
+   "end_year": null,
+   "region": "europe",
+   "domain": "society",
+   "type": "hope",
+   "kind": "event",
+   "title": "Great Exhibition opens at the Crystal Palace",
+   "members": []
+  },
+  {
+   "id": "boole-laws-of-thought-1854",
+   "episode": "George Boole publishes The Laws of Thought",
+   "year": 1854,
+   "end_year": null,
+   "region": "europe",
+   "domain": "computing",
+   "type": "concept",
+   "kind": "event",
+   "title": "George Boole publishes The Laws of Thought",
+   "members": []
+  },
+  {
+   "id": "john-snow-cholera-1854",
+   "episode": "John Snow traced Soho cholera cases to the Broad Street pump",
+   "year": 1854,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "discovery",
+   "kind": "event",
+   "title": "John Snow traced Soho cholera cases to the Broad Street pump",
+   "members": []
+  },
+  {
+   "id": "bessemer-process-1856",
+   "episode": "Henry Bessemer announces a process for making steel cheaply",
+   "year": 1856,
+   "end_year": null,
+   "region": "europe",
+   "domain": "materials",
+   "type": "invention",
+   "kind": "event",
+   "title": "Henry Bessemer announces a process for making steel cheaply",
+   "members": []
+  },
+  {
+   "id": "mendel-pea-genetics-1856",
+   "episode": "Mendel conducts plant hybridization experiments",
+   "year": 1856,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Mendel conducts plant hybridization experiments",
+   "members": []
+  },
+  {
+   "id": "transatlantic-cable-1858-1858",
+   "episode": "The first transatlantic cable failed after three weeks",
+   "year": 1858,
+   "end_year": null,
+   "region": "global",
+   "domain": "communications",
+   "type": "failure",
+   "kind": "event",
+   "title": "The first transatlantic cable failed after three weeks",
+   "members": []
+  },
+  {
+   "id": "darwin-origin-of-species-1859",
+   "episode": "Darwin publishes On the origin of species",
+   "year": 1859,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Darwin publishes On the origin of species",
+   "members": []
+  },
+  {
+   "id": "drake-oil-well-1859",
+   "episode": "Drake Well launches U.S. oil boom",
+   "year": 1859,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "energy",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Drake Well launches U.S. oil boom",
+   "members": []
+  },
+  {
+   "id": "pasteur-germ-theory-1862",
+   "episode": "Pasteur’s flask experiment challenges spontaneous generation",
+   "year": 1862,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Pasteur’s flask experiment challenges spontaneous generation",
+   "members": []
+  },
+  {
+   "id": "butler-darwin-among-machines-1863",
+   "episode": "Butler's machine warnings",
+   "year": 1863,
+   "end_year": 1872,
+   "region": "oceania",
+   "domain": "media",
+   "type": "fear",
+   "kind": "event",
+   "title": "Samuel Butler warns machines could supplant humans",
+   "members": [
+    "erewhon-1872"
+   ]
+  },
+  {
+   "id": "lister-antiseptic-1865",
+   "episode": "Lister develops an antiseptic surgery system using carbolic acid",
+   "year": 1865,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Lister develops an antiseptic surgery system using carbolic acid",
+   "members": []
+  },
+  {
+   "id": "maxwell-equations-1865",
+   "episode": "Maxwell publishes his electromagnetic field theory",
+   "year": 1865,
+   "end_year": null,
+   "region": "europe",
+   "domain": "communications",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Maxwell publishes his electromagnetic field theory",
+   "members": []
+  },
+  {
+   "id": "meiji-restoration-industrialization-1868",
+   "episode": "Meiji Restoration begins Japan's rapid industrialization",
+   "year": 1868,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "society",
+   "type": "era",
+   "kind": "era",
+   "title": "Meiji Restoration begins Japan's rapid industrialization",
+   "members": []
+  },
+  {
+   "id": "mendeleev-periodic-table-1869",
+   "episode": "Mendeleev presents his periodic table",
+   "year": 1869,
+   "end_year": null,
+   "region": "europe",
+   "domain": "materials",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Mendeleev presents his periodic table",
+   "members": []
+  },
+  {
+   "id": "suez-canal-1869",
+   "episode": "Suez Canal officially opens",
+   "year": 1869,
+   "end_year": null,
+   "region": "africa",
+   "domain": "transport",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Suez Canal officially opens",
+   "members": []
+  },
+  {
+   "id": "transcontinental-railroad-1869",
+   "episode": "Transcontinental Railroad opens at Promontory Summit",
+   "year": 1869,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "transport",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Transcontinental Railroad opens at Promontory Summit",
+   "members": []
+  },
+  {
+   "id": "second-industrial-revolution-era-1870",
+   "episode": "The Second Industrial Revolution spans 1870 to 1914",
+   "year": 1870,
+   "end_year": null,
+   "region": "global",
+   "domain": "energy",
+   "type": "era",
+   "kind": "era",
+   "title": "The Second Industrial Revolution spans 1870 to 1914",
+   "members": []
+  },
+  {
+   "id": "standard-oil-incorporated-1870",
+   "episode": "Rockefeller incorporates Standard Oil in Ohio",
+   "year": 1870,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "energy",
+   "type": "market",
+   "kind": "event",
+   "title": "Rockefeller incorporates Standard Oil in Ohio",
+   "members": []
+  },
+  {
+   "id": "bell-telephone-1876",
+   "episode": "Alexander Graham Bell's telephone transmits speech",
+   "year": 1876,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "communications",
+   "type": "invention",
+   "kind": "event",
+   "title": "Alexander Graham Bell's telephone transmits speech",
+   "members": []
+  },
+  {
+   "id": "otto-four-stroke-1876",
+   "episode": "Otto develops the four-stroke compressed-charge engine",
+   "year": 1876,
+   "end_year": null,
+   "region": "europe",
+   "domain": "energy",
+   "type": "invention",
+   "kind": "event",
+   "title": "Otto develops the four-stroke compressed-charge engine",
+   "members": []
+  },
+  {
+   "id": "edison-phonograph-1877",
+   "episode": "Thomas Edison invents the phonograph",
+   "year": 1877,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "media",
+   "type": "invention",
+   "kind": "event",
+   "title": "Thomas Edison invents the phonograph",
+   "members": []
+  },
+  {
+   "id": "edison-light-bulb-1879-1879",
+   "episode": "Edison's electric light and power",
+   "year": 1879,
+   "end_year": 1882,
+   "region": "north-america",
+   "domain": "energy",
+   "type": "invention",
+   "kind": "event",
+   "title": "Edison tests a successful carbon-filament lamp",
+   "members": [
+    "edison-pearl-street-1882"
+   ]
+  },
+  {
+   "id": "koch-tuberculosis-1882",
+   "episode": "Koch identifies the tuberculosis bacterium",
+   "year": 1882,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Koch identifies the tuberculosis bacterium",
+   "members": []
+  },
+  {
+   "id": "benz-patent-motorwagen-1886",
+   "episode": "Carl Benz files a patent for the Patent-Motorwagen",
+   "year": 1886,
+   "end_year": null,
+   "region": "europe",
+   "domain": "transport",
+   "type": "invention",
+   "kind": "event",
+   "title": "Carl Benz files a patent for the Patent-Motorwagen",
+   "members": []
+  },
+  {
+   "id": "hertz-radio-waves-1887",
+   "episode": "Hertz demonstrates electromagnetic waves",
+   "year": 1887,
+   "end_year": null,
+   "region": "europe",
+   "domain": "communications",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Hertz demonstrates electromagnetic waves",
+   "members": []
+  },
+  {
+   "id": "hollerith-tabulator-census-1890",
+   "episode": "Hollerith tabulating machine used for the 1890 Census",
+   "year": 1890,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "computing",
+   "type": "invention",
+   "kind": "event",
+   "title": "Hollerith tabulating machine used for the 1890 Census",
+   "members": []
+  },
+  {
+   "id": "lumiere-cinematograph-1895",
+   "episode": "Lumière brothers hold their first paid public film screening in Paris",
+   "year": 1895,
+   "end_year": null,
+   "region": "europe",
+   "domain": "media",
+   "type": "invention",
+   "kind": "event",
+   "title": "Lumière brothers hold their first paid public film screening in Paris",
+   "members": []
+  },
+  {
+   "id": "roentgen-x-rays-1895",
+   "episode": "Wilhelm Röntgen discovers X-rays",
+   "year": 1895,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Wilhelm Röntgen discovers X-rays",
+   "members": []
+  },
+  {
+   "id": "becquerel-radioactivity-1896",
+   "episode": "Radioactivity",
+   "year": 1896,
+   "end_year": 1898,
+   "region": "europe",
+   "domain": "energy",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Henri Becquerel discovers spontaneous radioactivity",
+   "members": [
+    "curie-radium-polonium-1898"
+   ]
+  },
+  {
+   "id": "marconi-radio-patent-1896",
+   "episode": "Marconi's wireless",
+   "year": 1896,
+   "end_year": 1901,
+   "region": "europe",
+   "domain": "communications",
+   "type": "invention",
+   "kind": "event",
+   "title": "Marconi applied for a wireless telegraphy patent",
+   "members": [
+    "marconi-transatlantic-1901"
+   ]
+  },
+  {
+   "id": "thomson-electron-1897",
+   "episode": "J. J. Thomson identified the electron",
+   "year": 1897,
+   "end_year": null,
+   "region": "europe",
+   "domain": "semiconductors",
+   "type": "discovery",
+   "kind": "event",
+   "title": "J. J. Thomson identified the electron",
+   "members": []
+  },
+  {
+   "id": "planck-quantum-1900",
+   "episode": "Planck revises his black-body radiation law",
+   "year": 1900,
+   "end_year": null,
+   "region": "europe",
+   "domain": "materials",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Planck revises his black-body radiation law",
+   "members": []
+  },
+  {
+   "id": "us-steel-billion-dollar-1901",
+   "episode": "J. P. Morgan forms U.S. Steel, the first billion-dollar corporation",
+   "year": 1901,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "materials",
+   "type": "market",
+   "kind": "event",
+   "title": "J. P. Morgan forms U.S. Steel, the first billion-dollar corporation",
+   "members": []
+  },
+  {
+   "id": "wright-flyer-1903",
+   "episode": "The Wright brothers make the first controlled powered flights",
+   "year": 1903,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "transport",
+   "type": "milestone",
+   "kind": "event",
+   "title": "The Wright brothers make the first controlled powered flights",
+   "members": []
+  },
+  {
+   "id": "fleming-valve-1904",
+   "episode": "The vacuum tube",
+   "year": 1904,
+   "end_year": 1906,
+   "region": "europe",
+   "domain": "semiconductors",
+   "type": "invention",
+   "kind": "event",
+   "title": "Fleming invents the thermionic diode",
+   "members": [
+    "de-forest-audion-1906"
+   ]
+  },
+  {
+   "id": "einstein-annus-mirabilis-1905",
+   "episode": "Einstein publishes papers on special relativity and mass-energy equivalence",
+   "year": 1905,
+   "end_year": null,
+   "region": "europe",
+   "domain": "energy",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Einstein publishes papers on special relativity and mass-energy equivalence",
+   "members": []
+  },
+  {
+   "id": "bakelite-1907",
+   "episode": "Leo Baekeland develops Bakelite",
+   "year": 1907,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "materials",
+   "type": "invention",
+   "kind": "event",
+   "title": "Leo Baekeland develops Bakelite",
+   "members": []
+  },
+  {
+   "id": "ford-model-t-1908",
+   "episode": "Ford introduces the Model T",
+   "year": 1908,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "transport",
+   "type": "product",
+   "kind": "event",
+   "title": "Ford introduces the Model T",
+   "members": []
+  },
+  {
+   "id": "forster-machine-stops-1909",
+   "episode": "E. M. Forster publishes “The Machine Stops”",
+   "year": 1909,
+   "end_year": null,
+   "region": "europe",
+   "domain": "internet",
+   "type": "fear",
+   "kind": "event",
+   "title": "E. M. Forster publishes “The Machine Stops”",
+   "members": []
+  },
+  {
+   "id": "haber-ammonia-1909-1909",
+   "episode": "Haber-Bosch ammonia synthesis",
+   "year": 1909,
+   "end_year": 1913,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "invention",
+   "kind": "event",
+   "title": "Haber demonstrates laboratory ammonia synthesis",
+   "members": [
+    "haber-bosch-1913"
+   ]
+  },
+  {
+   "id": "ehrlich-salvarsan-1910",
+   "episode": "Salvarsan marketed as the first modern antimicrobial agent",
+   "year": 1910,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Salvarsan marketed as the first modern antimicrobial agent",
+   "members": []
+  },
+  {
+   "id": "rutherford-nucleus-1911",
+   "episode": "Rutherford proposes a nuclear model of the atom",
+   "year": 1911,
+   "end_year": null,
+   "region": "europe",
+   "domain": "energy",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Rutherford proposes a nuclear model of the atom",
+   "members": []
+  },
+  {
+   "id": "taylor-scientific-management-1911",
+   "episode": "Taylor publishes Principles of Scientific Management",
+   "year": 1911,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "society",
+   "type": "concept",
+   "kind": "event",
+   "title": "Taylor publishes Principles of Scientific Management",
+   "members": []
+  },
+  {
+   "id": "titanic-sinking-1912",
+   "episode": "Titanic sank after striking an iceberg",
+   "year": 1912,
+   "end_year": null,
+   "region": "global",
+   "domain": "transport",
+   "type": "failure",
+   "kind": "event",
+   "title": "Titanic sank after striking an iceberg",
+   "members": []
+  },
+  {
+   "id": "torres-quevedo-ajedrecista-1912",
+   "episode": "Torres Quevedo completed El Ajedrecista",
+   "year": 1912,
+   "end_year": null,
+   "region": "europe",
+   "domain": "computing",
+   "type": "invention",
+   "kind": "event",
+   "title": "Torres Quevedo completed El Ajedrecista",
+   "members": []
+  },
+  {
+   "id": "ford-assembly-line-1913",
+   "episode": "Ford’s moving assembly line begins at Highland Park",
+   "year": 1913,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "materials",
+   "type": "invention",
+   "kind": "event",
+   "title": "Ford’s moving assembly line begins at Highland Park",
+   "members": []
+  },
+  {
+   "id": "panama-canal-1914",
+   "episode": "Panama Canal opens",
+   "year": 1914,
+   "end_year": null,
+   "region": "latin-america",
+   "domain": "transport",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Panama Canal opens",
+   "members": []
+  },
+  {
+   "id": "einstein-general-relativity-1915",
+   "episode": "Einstein presents the core equations of general relativity",
+   "year": 1915,
+   "end_year": null,
+   "region": "europe",
+   "domain": "space",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Einstein presents the core equations of general relativity",
+   "members": []
+  },
+  {
+   "id": "second-ypres-chlorine-gas-1915",
+   "episode": "German forces launch a chlorine gas attack at Ypres",
+   "year": 1915,
+   "end_year": null,
+   "region": "europe",
+   "domain": "materials",
+   "type": "incident",
+   "kind": "event",
+   "title": "German forces launch a chlorine gas attack at Ypres",
+   "members": []
+  },
+  {
+   "id": "spanish-flu-1918",
+   "episode": "The 1918 to 1920 influenza pandemic",
+   "year": 1918,
+   "end_year": null,
+   "region": "global",
+   "domain": "biotech",
+   "type": "incident",
+   "kind": "event",
+   "title": "The 1918 to 1920 influenza pandemic",
+   "members": []
+  },
+  {
+   "id": "kdka-broadcast-1920",
+   "episode": "Westinghouse broadcasts presidential election returns",
+   "year": 1920,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "communications",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Westinghouse broadcasts presidential election returns",
+   "members": []
+  },
+  {
+   "id": "banting-best-insulin-1921",
+   "episode": "Banting and Best isolate insulin",
+   "year": 1921,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "biotech",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Banting and Best isolate insulin",
+   "members": []
+  },
+  {
+   "id": "rur-capek-1921",
+   "episode": "R.U.R. premieres and introduces the word “robot”",
+   "year": 1921,
+   "end_year": null,
+   "region": "europe",
+   "domain": "media",
+   "type": "fear",
+   "kind": "event",
+   "title": "R.U.R. premieres and introduces the word “robot”",
+   "members": []
+  },
+  {
+   "id": "heisenberg-matrix-mechanics-1925",
+   "episode": "Matrix mechanics formulated",
+   "year": 1925,
+   "end_year": null,
+   "region": "europe",
+   "domain": "materials",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Matrix mechanics formulated",
+   "members": []
+  },
+  {
+   "id": "goddard-liquid-rocket-1926",
+   "episode": "Goddard launches the first liquid-fueled rocket",
+   "year": 1926,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "space",
+   "type": "invention",
+   "kind": "event",
+   "title": "Goddard launches the first liquid-fueled rocket",
+   "members": []
+  },
+  {
+   "id": "penicillin-discovery-1928",
+   "episode": "Fleming observes penicillin’s antibacterial effect",
+   "year": 1928,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Fleming observes penicillin’s antibacterial effect",
+   "members": []
+  },
+  {
+   "id": "wall-street-crash-1929",
+   "episode": "Wall Street crash of 1929 ends the Roaring Twenties boom",
+   "year": 1929,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "society",
+   "type": "market",
+   "kind": "event",
+   "title": "Wall Street crash of 1929 ends the Roaring Twenties boom",
+   "members": []
+  },
+  {
+   "id": "keynes-economic-possibilities-1930",
+   "episode": "Keynes describes technological unemployment",
+   "year": 1930,
+   "end_year": null,
+   "region": "europe",
+   "domain": "society",
+   "type": "concept",
+   "kind": "event",
+   "title": "Keynes describes technological unemployment",
+   "members": []
+  },
+  {
+   "id": "turing-computable-numbers-1936",
+   "episode": "Alan Turing introduces the Turing machine",
+   "year": 1936,
+   "end_year": null,
+   "region": "europe",
+   "domain": "computing",
+   "type": "concept",
+   "kind": "event",
+   "title": "Alan Turing introduces the Turing machine",
+   "members": []
+  },
+  {
+   "id": "nuclear-fission-discovery-1938",
+   "episode": "Hahn and Strassmann establish fission; Meitner and Frisch explain it",
+   "year": 1938,
+   "end_year": null,
+   "region": "europe",
+   "domain": "energy",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Hahn and Strassmann establish fission; Meitner and Frisch explain it",
+   "members": []
+  },
+  {
+   "id": "mcculloch-pitts-neuron-1943",
+   "episode": "McCulloch and Pitts propose the artificial neuron model",
+   "year": 1943,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "concept",
+   "kind": "event",
+   "title": "McCulloch and Pitts propose the artificial neuron model",
+   "members": []
+  },
+  {
+   "id": "hiroshima-nagasaki-1945",
+   "episode": "The United States drops atomic bombs on Hiroshima and Nagasaki",
+   "year": 1945,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "society",
+   "type": "fear",
+   "kind": "event",
+   "title": "The United States drops atomic bombs on Hiroshima and Nagasaki",
+   "members": []
+  },
+  {
+   "id": "trinity-nuclear-test-1945",
+   "episode": "The Manhattan Project and the first nuclear weapon",
+   "year": 1945,
+   "end_year": 1945,
+   "region": "north-america",
+   "domain": "energy",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Trinity test: first detonation of a nuclear weapon",
+   "members": [
+    "manhattan-project-1942",
+    "chicago-pile-1-1942"
+   ]
+  },
+  {
+   "id": "eniac-1946",
+   "episode": "ENIAC and the stored-program report",
+   "year": 1946,
+   "end_year": 1946,
+   "region": "north-america",
+   "domain": "computing",
+   "type": "invention",
+   "kind": "event",
+   "title": "ENIAC announced to the public",
+   "members": [
+    "edvac-report-1945"
+   ]
+  },
+  {
+   "id": "transistor-1947",
+   "episode": "Point-contact transistor demonstrated at Bell Labs",
+   "year": 1947,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "semiconductors",
+   "type": "invention",
+   "kind": "event",
+   "title": "Point-contact transistor demonstrated at Bell Labs",
+   "members": []
+  },
+  {
+   "id": "cybernetics-book-1948",
+   "episode": "Cybernetics",
+   "year": 1948,
+   "end_year": 1948,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "concept",
+   "kind": "event",
+   "title": "Norbert Wiener publishes Cybernetics",
+   "members": [
+    "era-cybernetics"
+   ]
+  },
+  {
+   "id": "information-theory-1948",
+   "episode": "Claude Shannon publishes \"A Mathematical Theory of Communication\"",
+   "year": 1948,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "computing",
+   "type": "concept",
+   "kind": "event",
+   "title": "Claude Shannon publishes \"A Mathematical Theory of Communication\"",
+   "members": []
+  },
+  {
+   "id": "orwell-nineteen-eighty-four-1949",
+   "episode": "Nineteen eighty-four published",
+   "year": 1949,
+   "end_year": null,
+   "region": "europe",
+   "domain": "society",
+   "type": "culture",
+   "kind": "event",
+   "title": "Nineteen eighty-four published",
+   "members": []
+  },
+  {
+   "id": "turing-test-1950",
+   "episode": "Alan Turing publishes “Computing Machinery and Intelligence”",
+   "year": 1950,
+   "end_year": null,
+   "region": "europe",
+   "domain": "ai",
+   "type": "concept",
+   "kind": "event",
+   "title": "Alan Turing publishes “Computing Machinery and Intelligence”",
+   "members": []
+  },
+  {
+   "id": "dna-double-helix-1953",
+   "episode": "Watson and Crick publish the DNA double-helix paper",
+   "year": 1953,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Watson and Crick publish the DNA double-helix paper",
+   "members": []
+  },
+  {
+   "id": "silicon-solar-cell-1954",
+   "episode": "Bell Labs demonstrates the first practical photovoltaic cell",
+   "year": 1954,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "energy",
+   "type": "invention",
+   "kind": "event",
+   "title": "Bell Labs demonstrates the first practical photovoltaic cell",
+   "members": []
+  },
+  {
+   "id": "polio-vaccine-salk-1955",
+   "episode": "Success of Salk's polio vaccine is announced",
+   "year": 1955,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "biotech",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Success of Salk's polio vaccine is announced",
+   "members": []
+  },
+  {
+   "id": "dartmouth-workshop-1956",
+   "episode": "The Dartmouth workshop and symbolic AI",
+   "year": 1956,
+   "end_year": 1956,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Dartmouth Summer Research Project on Artificial Intelligence",
+   "members": [
+    "dartmouth-proposal-1955",
+    "era-symbolic"
+   ]
+  },
+  {
+   "id": "perceptron-1958",
+   "episode": "Rosenblatt begins developing the perceptron",
+   "year": 1957,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "invention",
+   "kind": "event",
+   "title": "Rosenblatt begins developing the perceptron",
+   "members": []
+  },
+  {
+   "id": "sputnik-1-1957",
+   "episode": "Sputnik and the Space Race",
+   "year": 1957,
+   "end_year": 1958,
+   "region": "europe",
+   "domain": "space",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Sputnik 1 launched",
+   "members": [
+    "space-race-era-1955",
+    "nasa-founded-1958"
+   ]
+  },
+  {
+   "id": "integrated-circuit-1958",
+   "episode": "The integrated circuit",
+   "year": 1958,
+   "end_year": 1959,
+   "region": "north-america",
+   "domain": "semiconductors",
+   "type": "invention",
+   "kind": "event",
+   "title": "Jack Kilby demonstrates the first integrated circuit at Texas Instruments",
+   "members": [
+    "planar-process-1959"
+   ]
+  },
+  {
+   "id": "lisp-1958",
+   "episode": "John McCarthy begins developing Lisp",
+   "year": 1958,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "software",
+   "type": "invention",
+   "kind": "event",
+   "title": "John McCarthy begins developing Lisp",
+   "members": []
+  },
+  {
+   "id": "mosfet-1959",
+   "episode": "Mohamed Atalla and Dawon Kahng invent the MOSFET at Bell Labs",
+   "year": 1959,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "semiconductors",
+   "type": "invention",
+   "kind": "event",
+   "title": "Mohamed Atalla and Dawon Kahng invent the MOSFET at Bell Labs",
+   "members": []
+  },
+  {
+   "id": "birth-control-pill-1960",
+   "episode": "The first oral contraceptive is approved in the United States",
+   "year": 1960,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "biotech",
+   "type": "product",
+   "kind": "event",
+   "title": "The first oral contraceptive is approved in the United States",
+   "members": []
+  },
+  {
+   "id": "thalidomide-scandal-1961",
+   "episode": "Thalidomide link to birth defects presented",
+   "year": 1961,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "failure",
+   "kind": "event",
+   "title": "Thalidomide link to birth defects presented",
+   "members": []
+  },
+  {
+   "id": "vostok-1-gagarin-1961",
+   "episode": "Yuri Gagarin becomes the first human in space",
+   "year": 1961,
+   "end_year": null,
+   "region": "europe",
+   "domain": "space",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Yuri Gagarin becomes the first human in space",
+   "members": []
+  },
+  {
+   "id": "eliza-1966",
+   "episode": "Joseph Weizenbaum develops ELIZA at MIT",
+   "year": 1964,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "invention",
+   "kind": "event",
+   "title": "Joseph Weizenbaum develops ELIZA at MIT",
+   "members": []
+  },
+  {
+   "id": "ibm-system-360-1964",
+   "episode": "IBM announces System/360, a compatible family of computers",
+   "year": 1964,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "computing",
+   "type": "product",
+   "kind": "event",
+   "title": "IBM announces System/360, a compatible family of computers",
+   "members": []
+  },
+  {
+   "id": "packet-switching-baran-1964",
+   "episode": "Paul Baran's \"On Distributed Communications\" proposes survivable packet-switched networks",
+   "year": 1964,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "internet",
+   "type": "concept",
+   "kind": "event",
+   "title": "Paul Baran's \"On Distributed Communications\" proposes survivable packet-switched networks",
+   "members": []
+  },
+  {
+   "id": "good-intelligence-explosion-1965",
+   "episode": "Good publishes his intelligence explosion argument",
+   "year": 1965,
+   "end_year": null,
+   "region": "europe",
+   "domain": "ai",
+   "type": "concept",
+   "kind": "event",
+   "title": "Good publishes his intelligence explosion argument",
+   "members": []
+  },
+  {
+   "id": "moores-law-1965",
+   "episode": "Gordon Moore predicts the doubling of components per chip",
+   "year": 1965,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "semiconductors",
+   "type": "concept",
+   "kind": "event",
+   "title": "Gordon Moore predicts the doubling of components per chip",
+   "members": []
+  },
+  {
+   "id": "mother-of-all-demos-1968",
+   "episode": "Douglas Engelbart's \"Mother of All Demos\" shows the mouse, hypertext and videoconferencing",
+   "year": 1968,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "computing",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Douglas Engelbart's \"Mother of All Demos\" shows the mouse, hypertext and videoconferencing",
+   "members": []
+  },
+  {
+   "id": "space-odyssey-2001-1968",
+   "episode": "2001: A Space Odyssey introduces HAL 9000",
+   "year": 1968,
+   "end_year": null,
+   "region": "europe",
+   "domain": "ai",
+   "type": "culture",
+   "kind": "event",
+   "title": "2001: A Space Odyssey introduces HAL 9000",
+   "members": []
+  },
+  {
+   "id": "apollo-11-1969",
+   "episode": "Apollo 11 lands on the Moon",
+   "year": 1969,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "space",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Apollo 11 lands on the Moon",
+   "members": []
+  },
+  {
+   "id": "arpanet-first-message-1969",
+   "episode": "First ARPANET message is sent from UCLA to SRI",
+   "year": 1969,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "internet",
+   "type": "milestone",
+   "kind": "event",
+   "title": "First ARPANET message is sent from UCLA to SRI",
+   "members": []
+  },
+  {
+   "id": "perceptrons-book-1969",
+   "episode": "Minsky and Papert publish Perceptrons",
+   "year": 1969,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "concept",
+   "kind": "event",
+   "title": "Minsky and Papert publish Perceptrons",
+   "members": []
+  },
+  {
+   "id": "unix-1969",
+   "episode": "Ken Thompson and Dennis Ritchie begin Unix at Bell Labs",
+   "year": 1969,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "software",
+   "type": "invention",
+   "kind": "event",
+   "title": "Ken Thompson and Dennis Ritchie begin Unix at Bell Labs",
+   "members": []
+  },
+  {
+   "id": "fiber-optics-low-loss-1970",
+   "episode": "Corning researchers achieve the 20 dB/km attenuation limit",
+   "year": 1970,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "communications",
+   "type": "invention",
+   "kind": "event",
+   "title": "Corning researchers achieve the 20 dB/km attenuation limit",
+   "members": []
+  },
+  {
+   "id": "intel-4004-1971",
+   "episode": "Intel 4004, the first commercial microprocessor, is released",
+   "year": 1971,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "semiconductors",
+   "type": "invention",
+   "kind": "event",
+   "title": "Intel 4004, the first commercial microprocessor, is released",
+   "members": []
+  },
+  {
+   "id": "c-language-1972",
+   "episode": "Dennis Ritchie develops the C programming language",
+   "year": 1972,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "software",
+   "type": "invention",
+   "kind": "event",
+   "title": "Dennis Ritchie develops the C programming language",
+   "members": []
+  },
+  {
+   "id": "oil-crisis-1973",
+   "episode": "OAPEC oil ministers agree to use the oil weapon",
+   "year": 1973,
+   "end_year": null,
+   "region": "global",
+   "domain": "energy",
+   "type": "failure",
+   "kind": "event",
+   "title": "OAPEC oil ministers agree to use the oil weapon",
+   "members": []
+  },
+  {
+   "id": "recombinant-dna-1973",
+   "episode": "Cohen and Boyer report functional bacterial plasmids made in vitro",
+   "year": 1973,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "biotech",
+   "type": "invention",
+   "kind": "event",
+   "title": "Cohen and Boyer report functional bacterial plasmids made in vitro",
+   "members": []
+  },
+  {
+   "id": "first-ai-winter-1974",
+   "episode": "The first AI winter",
+   "year": 1974,
+   "end_year": 1974,
+   "region": "global",
+   "domain": "ai",
+   "type": "failure",
+   "kind": "event",
+   "title": "UK and DARPA cuts to AI research funding",
+   "members": [
+    "lighthill-report-1973",
+    "era-winter1"
+   ]
+  },
+  {
+   "id": "tcp-ip-paper-1974",
+   "episode": "TCP/IP",
+   "year": 1974,
+   "end_year": 1983,
+   "region": "north-america",
+   "domain": "internet",
+   "type": "invention",
+   "kind": "event",
+   "title": "Vint Cerf and Bob Kahn describe TCP for internetworking networks",
+   "members": [
+    "tcp-ip-flag-day-1983"
+   ]
+  },
+  {
+   "id": "who-expanded-programme-immunization-1974",
+   "episode": "WHO launches the Expanded Programme on Immunization",
+   "year": 1974,
+   "end_year": null,
+   "region": "global",
+   "domain": "biotech",
+   "type": "policy",
+   "kind": "event",
+   "title": "WHO launches the Expanded Programme on Immunization",
+   "members": []
+  },
+  {
+   "id": "altair-8800-1975",
+   "episode": "Altair 8800 kit on the Popular Electronics cover sparks the PC hobby",
+   "year": 1975,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "computing",
+   "type": "product",
+   "kind": "event",
+   "title": "Altair 8800 kit on the Popular Electronics cover sparks the PC hobby",
+   "members": []
+  },
+  {
+   "id": "microsoft-founded-1975",
+   "episode": "Bill Gates and Paul Allen found Microsoft",
+   "year": 1975,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "software",
+   "type": "market",
+   "kind": "event",
+   "title": "Bill Gates and Paul Allen found Microsoft",
+   "members": []
+  },
+  {
+   "id": "diffie-hellman-1976",
+   "episode": "Diffie and Hellman publish public-key cryptography",
+   "year": 1976,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "software",
+   "type": "invention",
+   "kind": "event",
+   "title": "Diffie and Hellman publish public-key cryptography",
+   "members": []
+  },
+  {
+   "id": "apple-ii-1977",
+   "episode": "Apple and the Apple II",
+   "year": 1977,
+   "end_year": 1977,
+   "region": "north-america",
+   "domain": "computing",
+   "type": "product",
+   "kind": "event",
+   "title": "Apple II, a mass-market personal computer, is released",
+   "members": [
+    "apple-founded-1976"
+   ]
+  },
+  {
+   "id": "sanger-sequencing-1977",
+   "episode": "Sanger's chain termination method makes DNA sequencing practical",
+   "year": 1977,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "invention",
+   "kind": "event",
+   "title": "Sanger's chain termination method makes DNA sequencing practical",
+   "members": []
+  },
+  {
+   "id": "china-reform-opening-1978",
+   "episode": "China's reform and opening begins at the Third Plenum",
+   "year": 1978,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "society",
+   "type": "policy",
+   "kind": "event",
+   "title": "China's reform and opening begins at the Third Plenum",
+   "members": []
+  },
+  {
+   "id": "intel-8086-1978",
+   "episode": "Intel 8086 introduces the x86 architecture",
+   "year": 1978,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "semiconductors",
+   "type": "product",
+   "kind": "event",
+   "title": "Intel 8086 introduces the x86 architecture",
+   "members": []
+  },
+  {
+   "id": "oral-rehydration-therapy-lancet-1978",
+   "episode": "The Lancet calls oral rehydration therapy potentially the most important medical advance this century",
+   "year": 1978,
+   "end_year": null,
+   "region": "south-asia",
+   "domain": "biotech",
+   "type": "milestone",
+   "kind": "event",
+   "title": "The Lancet calls oral rehydration therapy potentially the most important medical advance this century",
+   "members": []
+  },
+  {
+   "id": "smallpox-eradication-1980",
+   "episode": "WHO certifies the global eradication of smallpox",
+   "year": 1980,
+   "end_year": null,
+   "region": "global",
+   "domain": "biotech",
+   "type": "milestone",
+   "kind": "event",
+   "title": "WHO certifies the global eradication of smallpox",
+   "members": []
+  },
+  {
+   "id": "xcon-1980",
+   "episode": "Expert systems",
+   "year": 1980,
+   "end_year": 1980,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "product",
+   "kind": "event",
+   "title": "XCON begins configuring DEC VAX orders",
+   "members": [
+    "era-expert"
+   ]
+  },
+  {
+   "id": "hiv-aids-first-reports-1981",
+   "episode": "CDC first recognizes AIDS",
+   "year": 1981,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "biotech",
+   "type": "fear",
+   "kind": "event",
+   "title": "CDC first recognizes AIDS",
+   "members": []
+  },
+  {
+   "id": "ibm-pc-1981",
+   "episode": "IBM Personal Computer is introduced",
+   "year": 1981,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "computing",
+   "type": "product",
+   "kind": "event",
+   "title": "IBM Personal Computer is introduced",
+   "members": []
+  },
+  {
+   "id": "fifth-generation-project-1982",
+   "episode": "Japan launches the Fifth Generation Computer Systems project",
+   "year": 1982,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "Japan launches the Fifth Generation Computer Systems project",
+   "members": []
+  },
+  {
+   "id": "pcr-mullis-1983",
+   "episode": "Kary Mullis invents PCR",
+   "year": 1983,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "biotech",
+   "type": "invention",
+   "kind": "event",
+   "title": "Kary Mullis invents PCR",
+   "members": []
+  },
+  {
+   "id": "bhopal-disaster-1984",
+   "episode": "Bhopal gas leak",
+   "year": 1984,
+   "end_year": null,
+   "region": "south-asia",
+   "domain": "materials",
+   "type": "failure",
+   "kind": "event",
+   "title": "Bhopal gas leak",
+   "members": []
+  },
+  {
+   "id": "macintosh-1984",
+   "episode": "Apple Macintosh launches with the \"1984\" Super Bowl ad",
+   "year": 1984,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "computing",
+   "type": "product",
+   "kind": "event",
+   "title": "Apple Macintosh launches with the \"1984\" Super Bowl ad",
+   "members": []
+  },
+  {
+   "id": "neuromancer-1984",
+   "episode": "William Gibson publishes Neuromancer",
+   "year": 1984,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "internet",
+   "type": "culture",
+   "kind": "event",
+   "title": "William Gibson publishes Neuromancer",
+   "members": []
+  },
+  {
+   "id": "terminator-1984",
+   "episode": "The Terminator is released",
+   "year": 1984,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "culture",
+   "kind": "event",
+   "title": "The Terminator is released",
+   "members": []
+  },
+  {
+   "id": "backprop-rumelhart-1986",
+   "episode": "Rumelhart, Hinton and Williams publish backpropagation paper in Nature",
+   "year": 1986,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Rumelhart, Hinton and Williams publish backpropagation paper in Nature",
+   "members": []
+  },
+  {
+   "id": "challenger-disaster-1986",
+   "episode": "Challenger breaks apart after an O-ring failure",
+   "year": 1986,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "space",
+   "type": "failure",
+   "kind": "event",
+   "title": "Challenger breaks apart after an O-ring failure",
+   "members": []
+  },
+  {
+   "id": "chernobyl-disaster-1986",
+   "episode": "Chernobyl Reactor 4 accident",
+   "year": 1986,
+   "end_year": null,
+   "region": "europe",
+   "domain": "energy",
+   "type": "failure",
+   "kind": "event",
+   "title": "Chernobyl Reactor 4 accident",
+   "members": []
+  },
+  {
+   "id": "era-winter2",
+   "episode": "Second AI winter",
+   "year": 1987,
+   "end_year": null,
+   "region": "global",
+   "domain": "ai",
+   "type": "era",
+   "kind": "era",
+   "title": "Second AI winter",
+   "members": []
+  },
+  {
+   "id": "tsmc-founded-1987",
+   "episode": "Morris Chang founds TSMC, pioneering the pure-play foundry model",
+   "year": 1987,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "semiconductors",
+   "type": "market",
+   "kind": "event",
+   "title": "Morris Chang founds TSMC, pioneering the pure-play foundry model",
+   "members": []
+  },
+  {
+   "id": "www-proposal-1989",
+   "episode": "The World Wide Web",
+   "year": 1989,
+   "end_year": 1991,
+   "region": "europe",
+   "domain": "internet",
+   "type": "concept",
+   "kind": "event",
+   "title": "Tim Berners-Lee proposes the World Wide Web at CERN",
+   "members": [
+    "www-public-1991"
+   ]
+  },
+  {
+   "id": "human-genome-project-launch-1990",
+   "episode": "The Human Genome Project",
+   "year": 1990,
+   "end_year": 2000,
+   "region": "north-america",
+   "domain": "biotech",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Human Genome Project launched",
+   "members": [
+    "human-genome-project-draft-2000"
+   ]
+  },
+  {
+   "id": "linux-1991",
+   "episode": "Linus Torvalds releases the first Linux kernel",
+   "year": 1991,
+   "end_year": null,
+   "region": "europe",
+   "domain": "software",
+   "type": "invention",
+   "kind": "event",
+   "title": "Linus Torvalds releases the first Linux kernel",
+   "members": []
+  },
+  {
+   "id": "lithium-ion-battery-sony-1991",
+   "episode": "Sony commercializes Li-ion batteries; developers receive 2019 Nobel",
+   "year": 1991,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "energy",
+   "type": "product",
+   "kind": "event",
+   "title": "Sony commercializes Li-ion batteries; developers receive 2019 Nobel",
+   "members": []
+  },
+  {
+   "id": "era-statistical",
+   "episode": "Statistical machine learning",
+   "year": 1993,
+   "end_year": null,
+   "region": "global",
+   "domain": "ai",
+   "type": "era",
+   "kind": "era",
+   "title": "Statistical machine learning",
+   "members": []
+  },
+  {
+   "id": "mosaic-1993",
+   "episode": "NCSA Mosaic graphical web browser is released",
+   "year": 1993,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "internet",
+   "type": "product",
+   "kind": "event",
+   "title": "NCSA Mosaic graphical web browser is released",
+   "members": []
+  },
+  {
+   "id": "vinge-coming-singularity-1993",
+   "episode": "Vinge forecasts a technological singularity",
+   "year": 1993,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "concept",
+   "kind": "event",
+   "title": "Vinge forecasts a technological singularity",
+   "members": []
+  },
+  {
+   "id": "amazon-1995",
+   "episode": "Amazon begins selling books online",
+   "year": 1995,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "internet",
+   "type": "market",
+   "kind": "event",
+   "title": "Amazon begins selling books online",
+   "members": []
+  },
+  {
+   "id": "gps-full-operational-1995",
+   "episode": "GPS reaches full operational capability",
+   "year": 1995,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "space",
+   "type": "milestone",
+   "kind": "event",
+   "title": "GPS reaches full operational capability",
+   "members": []
+  },
+  {
+   "id": "netscape-ipo-1995",
+   "episode": "Netscape IPO kicks off the dot-com boom",
+   "year": 1995,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "internet",
+   "type": "market",
+   "kind": "event",
+   "title": "Netscape IPO kicks off the dot-com boom",
+   "members": []
+  },
+  {
+   "id": "cyberspace-declaration-1996",
+   "episode": "John Perry Barlow's \"Declaration of the Independence of Cyberspace\"",
+   "year": 1996,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "society",
+   "type": "hope",
+   "kind": "event",
+   "title": "John Perry Barlow's \"Declaration of the Independence of Cyberspace\"",
+   "members": []
+  },
+  {
+   "id": "section-230-1996",
+   "episode": "Telecommunications Act passes with Section 230 protecting online platforms",
+   "year": 1996,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "internet",
+   "type": "policy",
+   "kind": "event",
+   "title": "Telecommunications Act passes with Section 230 protecting online platforms",
+   "members": []
+  },
+  {
+   "id": "deep-blue-kasparov-1997",
+   "episode": "Deep Blue defeats Garry Kasparov in the 1997 rematch",
+   "year": 1997,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Deep Blue defeats Garry Kasparov in the 1997 rematch",
+   "members": []
+  },
+  {
+   "id": "lstm-1997",
+   "episode": "Hochreiter and Schmidhuber publish the LSTM paper",
+   "year": 1997,
+   "end_year": null,
+   "region": "europe",
+   "domain": "ai",
+   "type": "invention",
+   "kind": "event",
+   "title": "Hochreiter and Schmidhuber publish the LSTM paper",
+   "members": []
+  },
+  {
+   "id": "google-founded-1998",
+   "episode": "Google is incorporated by Larry Page and Sergey Brin",
+   "year": 1998,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "internet",
+   "type": "market",
+   "kind": "event",
+   "title": "Google is incorporated by Larry Page and Sergey Brin",
+   "members": []
+  },
+  {
+   "id": "the-matrix-1999",
+   "episode": "The Matrix released in U.S. theaters",
+   "year": 1999,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "culture",
+   "kind": "event",
+   "title": "The Matrix released in U.S. theaters",
+   "members": []
+  },
+  {
+   "id": "dot-com-crash-2000",
+   "episode": "Dot-com bubble bursts after the Nasdaq peaks",
+   "year": 2000,
+   "end_year": null,
+   "region": "global",
+   "domain": "internet",
+   "type": "failure",
+   "kind": "event",
+   "title": "Dot-com bubble bursts after the Nasdaq peaks",
+   "members": []
+  },
+  {
+   "id": "facebook-2004",
+   "episode": "Facebook launches at Harvard",
+   "year": 2004,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "internet",
+   "type": "market",
+   "kind": "event",
+   "title": "Facebook launches at Harvard",
+   "members": []
+  },
+  {
+   "id": "aws-launch-2006",
+   "episode": "Amazon Web Services launches S3 and EC2, starting modern cloud computing",
+   "year": 2006,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "software",
+   "type": "market",
+   "kind": "event",
+   "title": "Amazon Web Services launches S3 and EC2, starting modern cloud computing",
+   "members": []
+  },
+  {
+   "id": "cuda-2007",
+   "episode": "Nvidia releases CUDA",
+   "year": 2007,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "semiconductors",
+   "type": "product",
+   "kind": "event",
+   "title": "Nvidia releases CUDA",
+   "members": []
+  },
+  {
+   "id": "iphone-2007",
+   "episode": "The smartphone platforms",
+   "year": 2007,
+   "end_year": 2008,
+   "region": "north-america",
+   "domain": "communications",
+   "type": "product",
+   "kind": "event",
+   "title": "iPhone announced; U.S. release follows in June",
+   "members": [
+    "app-store-2008",
+    "android-2008"
+   ]
+  },
+  {
+   "id": "bitcoin-whitepaper-2008",
+   "episode": "Satoshi Nakamoto publishes the Bitcoin white paper",
+   "year": 2008,
+   "end_year": null,
+   "region": "global",
+   "domain": "software",
+   "type": "concept",
+   "kind": "event",
+   "title": "Satoshi Nakamoto publishes the Bitcoin white paper",
+   "members": []
+  },
+  {
+   "id": "fukushima-nuclear-accident-2011",
+   "episode": "Fukushima Daiichi accident begins after earthquake and tsunami",
+   "year": 2011,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "energy",
+   "type": "failure",
+   "kind": "event",
+   "title": "Fukushima Daiichi accident begins after earthquake and tsunami",
+   "members": []
+  },
+  {
+   "id": "watson-jeopardy-2011",
+   "episode": "IBM Watson wins the Jeopardy! competition",
+   "year": 2011,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "milestone",
+   "kind": "event",
+   "title": "IBM Watson wins the Jeopardy! competition",
+   "members": []
+  },
+  {
+   "id": "alexnet-2012",
+   "episode": "ImageNet and AlexNet",
+   "year": 2012,
+   "end_year": 2012,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "milestone",
+   "kind": "event",
+   "title": "AlexNet wins the 2012 ImageNet challenge",
+   "members": [
+    "imagenet-2009",
+    "era-deep"
+   ]
+  },
+  {
+   "id": "crispr-gene-editing-2012",
+   "episode": "Doudna and Charpentier publish CRISPR-Cas9 findings and receive Nobel Prize",
+   "year": 2012,
+   "end_year": null,
+   "region": "global",
+   "domain": "biotech",
+   "type": "discovery",
+   "kind": "event",
+   "title": "Doudna and Charpentier publish CRISPR-Cas9 findings and receive Nobel Prize",
+   "members": []
+  },
+  {
+   "id": "frey-osborne-future-of-employment-2013",
+   "episode": "Frey and Osborne estimate the share of jobs at risk from computerisation",
+   "year": 2013,
+   "end_year": null,
+   "region": "europe",
+   "domain": "society",
+   "type": "fear",
+   "kind": "event",
+   "title": "Frey and Osborne estimate the share of jobs at risk from computerisation",
+   "members": []
+  },
+  {
+   "id": "snowden-nsa-revelations-2013",
+   "episode": "Guardian reveals Edward Snowden as source of NSA leaks",
+   "year": 2013,
+   "end_year": null,
+   "region": "europe",
+   "domain": "internet",
+   "type": "fear",
+   "kind": "event",
+   "title": "Guardian reveals Edward Snowden as source of NSA leaks",
+   "members": []
+  },
+  {
+   "id": "bostrom-superintelligence-2014",
+   "episode": "Nick Bostrom publishes Superintelligence",
+   "year": 2014,
+   "end_year": null,
+   "region": "europe",
+   "domain": "ai",
+   "type": "fear",
+   "kind": "event",
+   "title": "Nick Bostrom publishes Superintelligence",
+   "members": []
+  },
+  {
+   "id": "gan-2014",
+   "episode": "Ian Goodfellow and colleagues develop GANs",
+   "year": 2014,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "invention",
+   "kind": "event",
+   "title": "Ian Goodfellow and colleagues develop GANs",
+   "members": []
+  },
+  {
+   "id": "falcon-9-first-landing-2015",
+   "episode": "Falcon 9 booster makes its first successful landing",
+   "year": 2015,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "space",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Falcon 9 booster makes its first successful landing",
+   "members": []
+  },
+  {
+   "id": "openai-founded-2015",
+   "episode": "OpenAI founded as a nonprofit with $1 billion pledged",
+   "year": 2015,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "milestone",
+   "kind": "event",
+   "title": "OpenAI founded as a nonprofit with $1 billion pledged",
+   "members": []
+  },
+  {
+   "id": "paris-agreement-2015",
+   "episode": "Paris Agreement adopted at COP21",
+   "year": 2015,
+   "end_year": null,
+   "region": "global",
+   "domain": "energy",
+   "type": "policy",
+   "kind": "event",
+   "title": "Paris Agreement adopted at COP21",
+   "members": []
+  },
+  {
+   "id": "resnet-2015",
+   "episode": "ResNet wins the 2015 ImageNet challenge",
+   "year": 2015,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "invention",
+   "kind": "event",
+   "title": "ResNet wins the 2015 ImageNet challenge",
+   "members": []
+  },
+  {
+   "id": "alphago-lee-sedol-2016",
+   "episode": "AlphaGo and its successors",
+   "year": 2016,
+   "end_year": 2017,
+   "region": "east-asia",
+   "domain": "ai",
+   "type": "milestone",
+   "kind": "event",
+   "title": "AlphaGo defeats Lee Sedol 4 to 1 in Seoul",
+   "members": [
+    "alphago-ke-jie-2017",
+    "alphago-zero-2017",
+    "alphazero-2017"
+   ]
+  },
+  {
+   "id": "upi-launch-2016",
+   "episode": "India launches UPI instant payments",
+   "year": 2016,
+   "end_year": null,
+   "region": "south-asia",
+   "domain": "internet",
+   "type": "product",
+   "kind": "event",
+   "title": "India launches UPI instant payments",
+   "members": []
+  },
+  {
+   "id": "asilomar-ai-principles-2017",
+   "episode": "Asilomar AI Principles developed at Beneficial AI conference",
+   "year": 2017,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "hope",
+   "kind": "event",
+   "title": "Asilomar AI Principles developed at Beneficial AI conference",
+   "members": []
+  },
+  {
+   "id": "attention-is-all-you-need-2017",
+   "episode": "The Transformer",
+   "year": 2017,
+   "end_year": 2017,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "invention",
+   "kind": "event",
+   "title": "Attention Is All You Need introduces the Transformer",
+   "members": [
+    "attention-mechanism-2014",
+    "era-transformer"
+   ]
+  },
+  {
+   "id": "china-ai-development-plan-2017",
+   "episode": "China issues its New Generation AI Development Plan",
+   "year": 2017,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "China issues its New Generation AI Development Plan",
+   "members": []
+  },
+  {
+   "id": "libratus-poker-2017",
+   "episode": "Libratus defeats top poker professionals",
+   "year": 2017,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Libratus defeats top poker professionals",
+   "members": []
+  },
+  {
+   "id": "bert-2018",
+   "episode": "Google researchers introduce BERT",
+   "year": 2018,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "invention",
+   "kind": "event",
+   "title": "Google researchers introduce BERT",
+   "members": []
+  },
+  {
+   "id": "cambridge-analytica-2018",
+   "episode": "Cambridge Analytica Facebook data scandal breaks",
+   "year": 2018,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "internet",
+   "type": "incident",
+   "kind": "event",
+   "title": "Cambridge Analytica Facebook data scandal breaks",
+   "members": []
+  },
+  {
+   "id": "uber-self-driving-fatality-2018",
+   "episode": "Uber self-driving car kills pedestrian in Tempe",
+   "year": 2018,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "transport",
+   "type": "incident",
+   "kind": "event",
+   "title": "Uber self-driving car kills pedestrian in Tempe",
+   "members": []
+  },
+  {
+   "id": "boeing-737-max-grounding-2019",
+   "episode": "Ethiopian Airlines 302 crash triggers worldwide 737 MAX grounding",
+   "year": 2019,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "transport",
+   "type": "failure",
+   "kind": "event",
+   "title": "Ethiopian Airlines 302 crash triggers worldwide 737 MAX grounding",
+   "members": []
+  },
+  {
+   "id": "oecd-ai-principles-2019",
+   "episode": "OECD adopts AI Principles",
+   "year": 2019,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "OECD adopts AI Principles",
+   "members": []
+  },
+  {
+   "id": "openai-five-og-2019",
+   "episode": "OpenAI Five defeats Dota 2 world champions Team OG",
+   "year": 2019,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "milestone",
+   "kind": "event",
+   "title": "OpenAI Five defeats Dota 2 world champions Team OG",
+   "members": []
+  },
+  {
+   "id": "starlink-first-launch-2019",
+   "episode": "First operational Starlink batch launched",
+   "year": 2019,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "communications",
+   "type": "product",
+   "kind": "event",
+   "title": "First operational Starlink batch launched",
+   "members": []
+  },
+  {
+   "id": "turing-award-deep-learning-2019",
+   "episode": "Deep learning honoured",
+   "year": 2019,
+   "end_year": 2024,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Bengio, Hinton, and LeCun named 2018 Turing Award recipients",
+   "members": [
+    "nobel-physics-hinton-hopfield-2024"
+   ]
+  },
+  {
+   "id": "alphafold2-casp14-2020",
+   "episode": "AlphaFold",
+   "year": 2020,
+   "end_year": 2024,
+   "region": "europe",
+   "domain": "ai",
+   "type": "discovery",
+   "kind": "event",
+   "title": "AlphaFold 2 makes a breakthrough at CASP14",
+   "members": [
+    "alphafold3-2024",
+    "nobel-chemistry-alphafold-2024"
+   ]
+  },
+  {
+   "id": "covid-19-pandemic-2020",
+   "episode": "WHO declares COVID-19 a pandemic",
+   "year": 2020,
+   "end_year": null,
+   "region": "global",
+   "domain": "biotech",
+   "type": "fear",
+   "kind": "event",
+   "title": "WHO declares COVID-19 a pandemic",
+   "members": []
+  },
+  {
+   "id": "diffusion-ddpm-2020",
+   "episode": "Diffusion models and text-to-image",
+   "year": 2020,
+   "end_year": 2022,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "invention",
+   "kind": "event",
+   "title": "Ho et al. introduce denoising diffusion probabilistic models",
+   "members": [
+    "dall-e-2021",
+    "stable-diffusion-2022"
+   ]
+  },
+  {
+   "id": "gpt-3-2020",
+   "episode": "GPT-3 and foundation models",
+   "year": 2020,
+   "end_year": 2020,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "milestone",
+   "kind": "event",
+   "title": "GPT-3 demonstrates few-shot learning at scale",
+   "members": [
+    "gpt-1-2018",
+    "era-foundation"
+   ]
+  },
+  {
+   "id": "mrna-covid-vaccine-2020",
+   "episode": "United Kingdom authorizes Pfizer-BioNTech vaccine for emergency use",
+   "year": 2020,
+   "end_year": null,
+   "region": "europe",
+   "domain": "biotech",
+   "type": "milestone",
+   "kind": "event",
+   "title": "United Kingdom authorizes Pfizer-BioNTech vaccine for emergency use",
+   "members": []
+  },
+  {
+   "id": "pix-launch-2020",
+   "episode": "Brazil's central bank launches Pix",
+   "year": 2020,
+   "end_year": null,
+   "region": "latin-america",
+   "domain": "internet",
+   "type": "product",
+   "kind": "event",
+   "title": "Brazil's central bank launches Pix",
+   "members": []
+  },
+  {
+   "id": "retrieval-augmented-generation-2020",
+   "episode": "Lewis et al. introduce Retrieval-Augmented Generation",
+   "year": 2020,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "invention",
+   "kind": "event",
+   "title": "Lewis et al. introduce Retrieval-Augmented Generation",
+   "members": []
+  },
+  {
+   "id": "scaling-laws-2020",
+   "episode": "OpenAI publishes scaling laws for neural language models",
+   "year": 2020,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "discovery",
+   "kind": "event",
+   "title": "OpenAI publishes scaling laws for neural language models",
+   "members": []
+  },
+  {
+   "id": "vision-transformer-2020",
+   "episode": "Vision Transformer applies Transformers to image recognition",
+   "year": 2020,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "invention",
+   "kind": "event",
+   "title": "Vision Transformer applies Transformers to image recognition",
+   "members": []
+  },
+  {
+   "id": "eu-ai-act-proposal-2021",
+   "episode": "The EU AI Act",
+   "year": 2021,
+   "end_year": 2024,
+   "region": "europe",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "European Commission proposes the AI Act",
+   "members": [
+    "eu-ai-act-political-agreement-2023",
+    "eu-ai-act-parliament-vote-2024",
+    "eu-ai-act-in-force-2024"
+   ]
+  },
+  {
+   "id": "james-webb-space-telescope-2021",
+   "episode": "James Webb Space Telescope launches",
+   "year": 2021,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "space",
+   "type": "milestone",
+   "kind": "event",
+   "title": "James Webb Space Telescope launches",
+   "members": []
+  },
+  {
+   "id": "mixture-of-experts-switch-2021",
+   "episode": "Google introduces the Trillion-Parameter Switch Transformer",
+   "year": 2021,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "invention",
+   "kind": "event",
+   "title": "Google introduces the Trillion-Parameter Switch Transformer",
+   "members": []
+  },
+  {
+   "id": "semaglutide-wegovy-2021",
+   "episode": "FDA approves Wegovy (semaglutide) for chronic weight management",
+   "year": 2021,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "biotech",
+   "type": "product",
+   "kind": "event",
+   "title": "FDA approves Wegovy (semaglutide) for chronic weight management",
+   "members": []
+  },
+  {
+   "id": "unesco-ai-ethics-2021",
+   "episode": "UNESCO adopts global AI ethics recommendation",
+   "year": 2021,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "UNESCO adopts global AI ethics recommendation",
+   "members": []
+  },
+  {
+   "id": "chain-of-thought-2022",
+   "episode": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+   "year": 2022,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "invention",
+   "kind": "event",
+   "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+   "members": []
+  },
+  {
+   "id": "chatgpt-launch-2022",
+   "episode": "ChatGPT and the GPT-4 generation",
+   "year": 2022,
+   "end_year": 2026,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "product",
+   "kind": "event",
+   "title": "OpenAI launches ChatGPT",
+   "members": [
+    "gpt-4-2023",
+    "gpt-4o-2024",
+    "gpt-6-astra-2026"
+   ]
+  },
+  {
+   "id": "chinchilla-2022",
+   "episode": "DeepMind publishes Chinchilla compute-optimal scaling results",
+   "year": 2022,
+   "end_year": null,
+   "region": "europe",
+   "domain": "ai",
+   "type": "discovery",
+   "kind": "event",
+   "title": "DeepMind publishes Chinchilla compute-optimal scaling results",
+   "members": []
+  },
+  {
+   "id": "chips-act-2022",
+   "episode": "CHIPS and Science Act signed into law",
+   "year": 2022,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "semiconductors",
+   "type": "policy",
+   "kind": "event",
+   "title": "CHIPS and Science Act signed into law",
+   "members": []
+  },
+  {
+   "id": "export-controls-oct-2022",
+   "episode": "US chip export controls",
+   "year": 2022,
+   "end_year": 2025,
+   "region": "north-america",
+   "domain": "semiconductors",
+   "type": "policy",
+   "kind": "event",
+   "title": "U.S. imposes sweeping chip export controls on China",
+   "members": [
+    "ai-diffusion-rule-2025"
+   ]
+  },
+  {
+   "id": "ftx-collapse-2022",
+   "episode": "FTX cryptocurrency exchange collapses",
+   "year": 2022,
+   "end_year": null,
+   "region": "global",
+   "domain": "software",
+   "type": "failure",
+   "kind": "event",
+   "title": "FTX cryptocurrency exchange collapses",
+   "members": []
+  },
+  {
+   "id": "biden-ai-executive-order-2023",
+   "episode": "Biden issues Executive Order 14110 on AI",
+   "year": 2023,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "Biden issues Executive Order 14110 on AI",
+   "members": []
+  },
+  {
+   "id": "bletchley-summit-2023",
+   "episode": "The AI safety summit series",
+   "year": 2023,
+   "end_year": 2026,
+   "region": "europe",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "Bletchley Declaration establishes international AI safety cooperation",
+   "members": [
+    "international-ai-safety-report-2025",
+    "india-ai-impact-summit-2026"
+   ]
+  },
+  {
+   "id": "nvidia-trillion-2023",
+   "episode": "Nvidia's rise",
+   "year": 2023,
+   "end_year": 2025,
+   "region": "north-america",
+   "domain": "semiconductors",
+   "type": "market",
+   "kind": "event",
+   "title": "Nvidia briefly reaches a $1 trillion market cap",
+   "members": [
+    "nvidia-blackwell-2024",
+    "nvidia-4-trillion-2025",
+    "nvidia-5-trillion-2025"
+   ]
+  },
+  {
+   "id": "pause-letter-2023",
+   "episode": "The 2023 AI risk warnings",
+   "year": 2023,
+   "end_year": 2023,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "Future of Life Institute publishes AI pause letter",
+   "members": [
+    "hinton-leaves-google-2023",
+    "cais-extinction-statement-2023"
+   ]
+  },
+  {
+   "id": "colorado-ai-act-2024",
+   "episode": "Colorado signs first comprehensive U.S. AI law",
+   "year": 2024,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "Colorado signs first comprehensive U.S. AI law",
+   "members": []
+  },
+  {
+   "id": "council-of-europe-ai-convention-2024",
+   "episode": "EU signs Council of Europe AI Framework Convention",
+   "year": 2024,
+   "end_year": null,
+   "region": "global",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "EU signs Council of Europe AI Framework Convention",
+   "members": []
+  },
+  {
+   "id": "crowdstrike-outage-2024",
+   "episode": "CrowdStrike software update causes global IT outage",
+   "year": 2024,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "computing",
+   "type": "incident",
+   "kind": "event",
+   "title": "CrowdStrike software update causes global IT outage",
+   "members": []
+  },
+  {
+   "id": "era-agentic",
+   "episode": "Agentic AI",
+   "year": 2024,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "era",
+   "kind": "era",
+   "title": "Agentic AI",
+   "members": []
+  },
+  {
+   "id": "llama-3-1-405b-2024",
+   "episode": "Meta releases Llama 3.1 405B open model",
+   "year": 2024,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "product",
+   "kind": "event",
+   "title": "Meta releases Llama 3.1 405B open model",
+   "members": []
+  },
+  {
+   "id": "un-ai-resolution-2024",
+   "episode": "The United Nations on AI",
+   "year": 2024,
+   "end_year": 2025,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "UN General Assembly adopts first AI resolution",
+   "members": [
+    "un-ai-panel-dialogue-2025"
+   ]
+  },
+  {
+   "id": "ai-designed-virus-2025",
+   "episode": "AI models generate viable bacteriophage genomes",
+   "year": 2025,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "milestone",
+   "kind": "event",
+   "title": "AI models generate viable bacteriophage genomes",
+   "members": []
+  },
+  {
+   "id": "bartz-v-anthropic-fair-use-2025",
+   "episode": "Bartz v. Anthropic",
+   "year": 2025,
+   "end_year": 2025,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "Judge rules Anthropic’s AI training on books is fair use",
+   "members": [
+    "anthropic-settlement-1-5b-2025"
+   ]
+  },
+  {
+   "id": "cal-state-chatgpt-2025",
+   "episode": "CSU announces systemwide ChatGPT Edu access",
+   "year": 2025,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "society",
+   "type": "product",
+   "kind": "event",
+   "title": "CSU announces systemwide ChatGPT Edu access",
+   "members": []
+  },
+  {
+   "id": "deepseek-r1-2025",
+   "episode": "DeepSeek R1",
+   "year": 2025,
+   "end_year": 2025,
+   "region": "east-asia",
+   "domain": "ai",
+   "type": "product",
+   "kind": "event",
+   "title": "DeepSeek releases R1 open-weight reasoning model",
+   "members": [
+    "deepseek-nvidia-selloff-2025"
+   ]
+  },
+  {
+   "id": "disney-openai-sora-deal-2025",
+   "episode": "Disney invests $1 billion in OpenAI and licenses characters for Sora",
+   "year": 2025,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "media",
+   "type": "market",
+   "kind": "event",
+   "title": "Disney invests $1 billion in OpenAI and licenses characters for Sora",
+   "members": []
+  },
+  {
+   "id": "gema-v-openai-2025",
+   "episode": "Munich court rules for GEMA in OpenAI lyrics case",
+   "year": 2025,
+   "end_year": null,
+   "region": "europe",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "Munich court rules for GEMA in OpenAI lyrics case",
+   "members": []
+  },
+  {
+   "id": "gulf-chip-deals-2025",
+   "episode": "Gulf AI chip deals",
+   "year": 2025,
+   "end_year": 2025,
+   "region": "global",
+   "domain": "semiconductors",
+   "type": "market",
+   "kind": "event",
+   "title": "U.S. and Gulf states announce major AI chip deals",
+   "members": [
+    "saudi-humain-2025"
+   ]
+  },
+  {
+   "id": "imo-gold-ai-2025",
+   "episode": "AI at the Mathematical Olympiad",
+   "year": 2025,
+   "end_year": 2025,
+   "region": "global",
+   "domain": "ai",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Google DeepMind and OpenAI models reach gold-medal level at IMO",
+   "members": [
+    "alphaproof-imo-2024"
+   ]
+  },
+  {
+   "id": "renewables-overtake-coal-2025",
+   "episode": "Renewables overtake coal in global electricity generation",
+   "year": 2025,
+   "end_year": null,
+   "region": "global",
+   "domain": "energy",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Renewables overtake coal in global electricity generation",
+   "members": []
+  },
+  {
+   "id": "sb-53-signed-2025",
+   "episode": "Newsom signs California frontier AI transparency law",
+   "year": 2025,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "Newsom signs California frontier AI transparency law",
+   "members": []
+  },
+  {
+   "id": "stargate-announcement-2025",
+   "episode": "OpenAI's mega-funding",
+   "year": 2025,
+   "end_year": 2026,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "market",
+   "kind": "event",
+   "title": "Stargate announced as a $500 billion AI infrastructure project",
+   "members": [
+    "openai-40b-softbank-2025",
+    "nvidia-openai-100b-2025",
+    "openai-110b-round-2026",
+    "openai-852b-valuation-2026"
+   ]
+  },
+  {
+   "id": "thomson-reuters-v-ross-2025",
+   "episode": "Court rejects Ross Intelligence’s fair-use defense",
+   "year": 2025,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "Court rejects Ross Intelligence’s fair-use defense",
+   "members": []
+  },
+  {
+   "id": "tsmc-arizona-2025",
+   "episode": "TSMC announces an additional $100 billion U.S. investment",
+   "year": 2025,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "semiconductors",
+   "type": "market",
+   "kind": "event",
+   "title": "TSMC announces an additional $100 billion U.S. investment",
+   "members": []
+  },
+  {
+   "id": "artemis-ii-2026",
+   "episode": "Artemis II flies four astronauts around the Moon",
+   "year": 2026,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "space",
+   "type": "milestone",
+   "kind": "event",
+   "title": "Artemis II flies four astronauts around the Moon",
+   "members": []
+  },
+  {
+   "id": "grok-deepfake-scandal-2026",
+   "episode": "Grok sexualized-image scandal prompts global regulatory probes",
+   "year": 2026,
+   "end_year": null,
+   "region": "global",
+   "domain": "ai",
+   "type": "incident",
+   "kind": "event",
+   "title": "Grok sexualized-image scandal prompts global regulatory probes",
+   "members": []
+  },
+  {
+   "id": "korea-ai-basic-act-2026",
+   "episode": "South Korea’s AI Basic Act takes effect",
+   "year": 2026,
+   "end_year": null,
+   "region": "east-asia",
+   "domain": "ai",
+   "type": "policy",
+   "kind": "event",
+   "title": "South Korea’s AI Basic Act takes effect",
+   "members": []
+  },
+  {
+   "id": "openai-math-discovery-2026",
+   "episode": "OpenAI model disproves Erdős unit-distance conjecture",
+   "year": 2026,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "discovery",
+   "kind": "event",
+   "title": "OpenAI model disproves Erdős unit-distance conjecture",
+   "members": []
+  },
+  {
+   "id": "spacex-xai-merger-2026",
+   "episode": "SpaceX acquires xAI in record-setting merger",
+   "year": 2026,
+   "end_year": null,
+   "region": "north-america",
+   "domain": "ai",
+   "type": "market",
+   "kind": "event",
+   "title": "SpaceX acquires xAI in record-setting merger",
+   "members": []
+  }
+ ],
+ "dense_register": {
+  "rule": "year >= 2010",
+  "count": 1602
+ },
+ "thin_cells": [
+  {
+   "century": 11,
+   "years": "1000-1099",
+   "region": "africa",
+   "count": 0
+  },
+  {
+   "century": 11,
+   "years": "1000-1099",
+   "region": "east-asia",
+   "count": 4
+  },
+  {
+   "century": 11,
+   "years": "1000-1099",
+   "region": "europe",
+   "count": 2
+  },
+  {
+   "century": 11,
+   "years": "1000-1099",
+   "region": "global",
+   "count": 0
+  },
+  {
+   "century": 11,
+   "years": "1000-1099",
+   "region": "latin-america",
+   "count": 0
+  },
+  {
+   "century": 11,
+   "years": "1000-1099",
+   "region": "middle-east",
+   "count": 2
+  },
+  {
+   "century": 11,
+   "years": "1000-1099",
+   "region": "north-america",
+   "count": 3
+  },
+  {
+   "century": 11,
+   "years": "1000-1099",
+   "region": "oceania",
+   "count": 0
+  },
+  {
+   "century": 11,
+   "years": "1000-1099",
+   "region": "south-asia",
+   "count": 0
+  },
+  {
+   "century": 12,
+   "years": "1100-1199",
+   "region": "africa",
+   "count": 5
+  },
+  {
+   "century": 12,
+   "years": "1100-1199",
+   "region": "global",
+   "count": 1
+  },
+  {
+   "century": 12,
+   "years": "1100-1199",
+   "region": "latin-america",
+   "count": 1
+  },
+  {
+   "century": 12,
+   "years": "1100-1199",
+   "region": "middle-east",
+   "count": 2
+  },
+  {
+   "century": 12,
+   "years": "1100-1199",
+   "region": "north-america",
+   "count": 1
+  },
+  {
+   "century": 12,
+   "years": "1100-1199",
+   "region": "oceania",
+   "count": 1
+  },
+  {
+   "century": 12,
+   "years": "1100-1199",
+   "region": "south-asia",
+   "count": 3
+  },
+  {
+   "century": 13,
+   "years": "1200-1299",
+   "region": "africa",
+   "count": 4
+  },
+  {
+   "century": 13,
+   "years": "1200-1299",
+   "region": "global",
+   "count": 1
+  },
+  {
+   "century": 13,
+   "years": "1200-1299",
+   "region": "latin-america",
+   "count": 1
+  },
+  {
+   "century": 13,
+   "years": "1200-1299",
+   "region": "north-america",
+   "count": 0
+  },
+  {
+   "century": 13,
+   "years": "1200-1299",
+   "region": "oceania",
+   "count": 2
+  },
+  {
+   "century": 13,
+   "years": "1200-1299",
+   "region": "south-asia",
+   "count": 1
+  },
+  {
+   "century": 14,
+   "years": "1300-1399",
+   "region": "africa",
+   "count": 5
+  },
+  {
+   "century": 14,
+   "years": "1300-1399",
+   "region": "global",
+   "count": 2
+  },
+  {
+   "century": 14,
+   "years": "1300-1399",
+   "region": "latin-america",
+   "count": 1
+  },
+  {
+   "century": 14,
+   "years": "1300-1399",
+   "region": "middle-east",
+   "count": 0
+  },
+  {
+   "century": 14,
+   "years": "1300-1399",
+   "region": "north-america",
+   "count": 0
+  },
+  {
+   "century": 14,
+   "years": "1300-1399",
+   "region": "oceania",
+   "count": 1
+  },
+  {
+   "century": 14,
+   "years": "1300-1399",
+   "region": "south-asia",
+   "count": 2
+  },
+  {
+   "century": 15,
+   "years": "1400-1499",
+   "region": "africa",
+   "count": 1
+  },
+  {
+   "century": 15,
+   "years": "1400-1499",
+   "region": "global",
+   "count": 4
+  },
+  {
+   "century": 15,
+   "years": "1400-1499",
+   "region": "middle-east",
+   "count": 3
+  },
+  {
+   "century": 15,
+   "years": "1400-1499",
+   "region": "north-america",
+   "count": 0
+  },
+  {
+   "century": 15,
+   "years": "1400-1499",
+   "region": "oceania",
+   "count": 0
+  },
+  {
+   "century": 15,
+   "years": "1400-1499",
+   "region": "south-asia",
+   "count": 2
+  },
+  {
+   "century": 16,
+   "years": "1500-1599",
+   "region": "africa",
+   "count": 1
+  },
+  {
+   "century": 16,
+   "years": "1500-1599",
+   "region": "east-asia",
+   "count": 4
+  },
+  {
+   "century": 16,
+   "years": "1500-1599",
+   "region": "global",
+   "count": 5
+  },
+  {
+   "century": 16,
+   "years": "1500-1599",
+   "region": "middle-east",
+   "count": 5
+  },
+  {
+   "century": 16,
+   "years": "1500-1599",
+   "region": "north-america",
+   "count": 0
+  },
+  {
+   "century": 16,
+   "years": "1500-1599",
+   "region": "oceania",
+   "count": 1
+  },
+  {
+   "century": 16,
+   "years": "1500-1599",
+   "region": "south-asia",
+   "count": 4
+  },
+  {
+   "century": 17,
+   "years": "1600-1699",
+   "region": "africa",
+   "count": 1
+  },
+  {
+   "century": 17,
+   "years": "1600-1699",
+   "region": "global",
+   "count": 2
+  },
+  {
+   "century": 17,
+   "years": "1600-1699",
+   "region": "latin-america",
+   "count": 1
+  },
+  {
+   "century": 17,
+   "years": "1600-1699",
+   "region": "middle-east",
+   "count": 1
+  },
+  {
+   "century": 17,
+   "years": "1600-1699",
+   "region": "north-america",
+   "count": 4
+  },
+  {
+   "century": 17,
+   "years": "1600-1699",
+   "region": "oceania",
+   "count": 1
+  },
+  {
+   "century": 17,
+   "years": "1600-1699",
+   "region": "south-asia",
+   "count": 2
+  },
+  {
+   "century": 18,
+   "years": "1700-1799",
+   "region": "africa",
+   "count": 0
+  },
+  {
+   "century": 18,
+   "years": "1700-1799",
+   "region": "east-asia",
+   "count": 5
+  },
+  {
+   "century": 18,
+   "years": "1700-1799",
+   "region": "global",
+   "count": 0
+  },
+  {
+   "century": 18,
+   "years": "1700-1799",
+   "region": "latin-america",
+   "count": 0
+  },
+  {
+   "century": 18,
+   "years": "1700-1799",
+   "region": "middle-east",
+   "count": 3
+  },
+  {
+   "century": 18,
+   "years": "1700-1799",
+   "region": "oceania",
+   "count": 1
+  },
+  {
+   "century": 18,
+   "years": "1700-1799",
+   "region": "south-asia",
+   "count": 3
+  },
+  {
+   "century": 19,
+   "years": "1800-1899",
+   "region": "middle-east",
+   "count": 4
+  }
+ ],
+ "cell_counts": [
+  {
+   "century": 11,
+   "region": "africa",
+   "count": 0
+  },
+  {
+   "century": 11,
+   "region": "east-asia",
+   "count": 4
+  },
+  {
+   "century": 11,
+   "region": "europe",
+   "count": 2
+  },
+  {
+   "century": 11,
+   "region": "global",
+   "count": 0
+  },
+  {
+   "century": 11,
+   "region": "latin-america",
+   "count": 0
+  },
+  {
+   "century": 11,
+   "region": "middle-east",
+   "count": 2
+  },
+  {
+   "century": 11,
+   "region": "north-america",
+   "count": 3
+  },
+  {
+   "century": 11,
+   "region": "oceania",
+   "count": 0
+  },
+  {
+   "century": 11,
+   "region": "south-asia",
+   "count": 0
+  },
+  {
+   "century": 12,
+   "region": "africa",
+   "count": 5
+  },
+  {
+   "century": 12,
+   "region": "east-asia",
+   "count": 7
+  },
+  {
+   "century": 12,
+   "region": "europe",
+   "count": 12
+  },
+  {
+   "century": 12,
+   "region": "global",
+   "count": 1
+  },
+  {
+   "century": 12,
+   "region": "latin-america",
+   "count": 1
+  },
+  {
+   "century": 12,
+   "region": "middle-east",
+   "count": 2
+  },
+  {
+   "century": 12,
+   "region": "north-america",
+   "count": 1
+  },
+  {
+   "century": 12,
+   "region": "oceania",
+   "count": 1
+  },
+  {
+   "century": 12,
+   "region": "south-asia",
+   "count": 3
+  },
+  {
+   "century": 13,
+   "region": "africa",
+   "count": 4
+  },
+  {
+   "century": 13,
+   "region": "east-asia",
+   "count": 10
+  },
+  {
+   "century": 13,
+   "region": "europe",
+   "count": 16
+  },
+  {
+   "century": 13,
+   "region": "global",
+   "count": 1
+  },
+  {
+   "century": 13,
+   "region": "latin-america",
+   "count": 1
+  },
+  {
+   "century": 13,
+   "region": "middle-east",
+   "count": 7
+  },
+  {
+   "century": 13,
+   "region": "north-america",
+   "count": 0
+  },
+  {
+   "century": 13,
+   "region": "oceania",
+   "count": 2
+  },
+  {
+   "century": 13,
+   "region": "south-asia",
+   "count": 1
+  },
+  {
+   "century": 14,
+   "region": "africa",
+   "count": 5
+  },
+  {
+   "century": 14,
+   "region": "east-asia",
+   "count": 9
+  },
+  {
+   "century": 14,
+   "region": "europe",
+   "count": 17
+  },
+  {
+   "century": 14,
+   "region": "global",
+   "count": 2
+  },
+  {
+   "century": 14,
+   "region": "latin-america",
+   "count": 1
+  },
+  {
+   "century": 14,
+   "region": "middle-east",
+   "count": 0
+  },
+  {
+   "century": 14,
+   "region": "north-america",
+   "count": 0
+  },
+  {
+   "century": 14,
+   "region": "oceania",
+   "count": 1
+  },
+  {
+   "century": 14,
+   "region": "south-asia",
+   "count": 2
+  },
+  {
+   "century": 15,
+   "region": "africa",
+   "count": 1
+  },
+  {
+   "century": 15,
+   "region": "east-asia",
+   "count": 7
+  },
+  {
+   "century": 15,
+   "region": "europe",
+   "count": 13
+  },
+  {
+   "century": 15,
+   "region": "global",
+   "count": 4
+  },
+  {
+   "century": 15,
+   "region": "latin-america",
+   "count": 7
+  },
+  {
+   "century": 15,
+   "region": "middle-east",
+   "count": 3
+  },
+  {
+   "century": 15,
+   "region": "north-america",
+   "count": 0
+  },
+  {
+   "century": 15,
+   "region": "oceania",
+   "count": 0
+  },
+  {
+   "century": 15,
+   "region": "south-asia",
+   "count": 2
+  },
+  {
+   "century": 16,
+   "region": "africa",
+   "count": 1
+  },
+  {
+   "century": 16,
+   "region": "east-asia",
+   "count": 4
+  },
+  {
+   "century": 16,
+   "region": "europe",
+   "count": 17
+  },
+  {
+   "century": 16,
+   "region": "global",
+   "count": 5
+  },
+  {
+   "century": 16,
+   "region": "latin-america",
+   "count": 7
+  },
+  {
+   "century": 16,
+   "region": "middle-east",
+   "count": 5
+  },
+  {
+   "century": 16,
+   "region": "north-america",
+   "count": 0
+  },
+  {
+   "century": 16,
+   "region": "oceania",
+   "count": 1
+  },
+  {
+   "century": 16,
+   "region": "south-asia",
+   "count": 4
+  },
+  {
+   "century": 17,
+   "region": "africa",
+   "count": 1
+  },
+  {
+   "century": 17,
+   "region": "east-asia",
+   "count": 10
+  },
+  {
+   "century": 17,
+   "region": "europe",
+   "count": 43
+  },
+  {
+   "century": 17,
+   "region": "global",
+   "count": 2
+  },
+  {
+   "century": 17,
+   "region": "latin-america",
+   "count": 1
+  },
+  {
+   "century": 17,
+   "region": "middle-east",
+   "count": 1
+  },
+  {
+   "century": 17,
+   "region": "north-america",
+   "count": 4
+  },
+  {
+   "century": 17,
+   "region": "oceania",
+   "count": 1
+  },
+  {
+   "century": 17,
+   "region": "south-asia",
+   "count": 2
+  },
+  {
+   "century": 18,
+   "region": "africa",
+   "count": 0
+  },
+  {
+   "century": 18,
+   "region": "east-asia",
+   "count": 5
+  },
+  {
+   "century": 18,
+   "region": "europe",
+   "count": 43
+  },
+  {
+   "century": 18,
+   "region": "global",
+   "count": 0
+  },
+  {
+   "century": 18,
+   "region": "latin-america",
+   "count": 0
+  },
+  {
+   "century": 18,
+   "region": "middle-east",
+   "count": 3
+  },
+  {
+   "century": 18,
+   "region": "north-america",
+   "count": 6
+  },
+  {
+   "century": 18,
+   "region": "oceania",
+   "count": 1
+  },
+  {
+   "century": 18,
+   "region": "south-asia",
+   "count": 3
+  },
+  {
+   "century": 19,
+   "region": "africa",
+   "count": 8
+  },
+  {
+   "century": 19,
+   "region": "east-asia",
+   "count": 20
+  },
+  {
+   "century": 19,
+   "region": "europe",
+   "count": 94
+  },
+  {
+   "century": 19,
+   "region": "global",
+   "count": 10
+  },
+  {
+   "century": 19,
+   "region": "latin-america",
+   "count": 8
+  },
+  {
+   "century": 19,
+   "region": "middle-east",
+   "count": 4
+  },
+  {
+   "century": 19,
+   "region": "north-america",
+   "count": 36
+  },
+  {
+   "century": 19,
+   "region": "oceania",
+   "count": 14
+  },
+  {
+   "century": 19,
+   "region": "south-asia",
+   "count": 6
+  },
+  {
+   "century": 20,
+   "region": "africa",
+   "count": 25
+  },
+  {
+   "century": 20,
+   "region": "east-asia",
+   "count": 50
+  },
+  {
+   "century": 20,
+   "region": "europe",
+   "count": 179
+  },
+  {
+   "century": 20,
+   "region": "global",
+   "count": 44
+  },
+  {
+   "century": 20,
+   "region": "latin-america",
+   "count": 26
+  },
+  {
+   "century": 20,
+   "region": "middle-east",
+   "count": 20
+  },
+  {
+   "century": 20,
+   "region": "north-america",
+   "count": 649
+  },
+  {
+   "century": 20,
+   "region": "oceania",
+   "count": 18
+  },
+  {
+   "century": 20,
+   "region": "south-asia",
+   "count": 33
+  },
+  {
+   "century": 21,
+   "region": "africa",
+   "count": 32
+  },
+  {
+   "century": 21,
+   "region": "east-asia",
+   "count": 173
+  },
+  {
+   "century": 21,
+   "region": "europe",
+   "count": 179
+  },
+  {
+   "century": 21,
+   "region": "global",
+   "count": 108
+  },
+  {
+   "century": 21,
+   "region": "latin-america",
+   "count": 34
+  },
+  {
+   "century": 21,
+   "region": "middle-east",
+   "count": 32
+  },
+  {
+   "century": 21,
+   "region": "north-america",
+   "count": 1125
+  },
+  {
+   "century": 21,
+   "region": "oceania",
+   "count": 29
+  },
+  {
+   "century": 21,
+   "region": "south-asia",
+   "count": 30
+  }
+ ]
+}

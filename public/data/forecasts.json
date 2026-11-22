@@ -1,0 +1,5238 @@
+[
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Ahmed Yahia Al Idrissi",
+  "text": "MGX portfolio companies will have more than 8 GW of contracted data center capacity by the end of 2026",
+  "said": "2026-05",
+  "w": 1,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-11-10",
+   "now": 6.4,
+   "line": 8,
+   "lab": "MGX portfolio holds 8 GW of data centers by end 2026",
+   "u": "GW, Aligned alone counted",
+   "note": "Aligned Data Centers, which MGX bought with AIP and BlackRock's GIP for about $40 billion, lists more than 6.4 GW of operational and planned capacity across 51 campuses. MGX has published no total for its portfolio companies.",
+   "ev": [
+    {
+     "title": "MGX Consortium Closes $40bn Aligned Data Centers Deal",
+     "url": "https://www.itp.net/cloud-data/mgx-consortium-closes-40bn-aligned-data-centers-deal",
+     "fact": "AIP, MGX and GIP completed their purchase of Aligned Data Centers, valued at about $40 billion with $5 billion of added growth capital; Aligned has 51 campuses and more than 6.4 GW of operational and planned capacity."
+    },
+    {
+     "title": "MGX Investments 2026: Fund I, Deal Record and Governance",
+     "url": "https://thegulftape.com/articles/mgx-investments",
+     "fact": "MGX board minutes of May 2026 projected \"more than 8 GW by the end of 2026\" for portfolio companies; page gives no current aggregate."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Ahmed Yahia Al Idrissi",
+  "text": "MGX could surpass $100 billion in assets under management within a few years",
+  "said": "2024-03",
+  "w": 1,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-07-01",
+   "now": 49,
+   "line": 100,
+   "lab": "MGX passes $100B under management",
+   "u": "$B, Fund I commitments",
+   "note": "MGX Fund I closed 1 July 2026 with $49 billion in commitments against a $45 billion target. MGX has published no total for assets under management; AI investment chief Ali Osman said in February it plans to deploy as much as $10 billion a year.",
+   "ev": [
+    {
+     "title": "MGX: Homepage",
+     "url": "https://www.mgx.ae/",
+     "fact": "1 July 2026: MGX confirmed final close of MGX Fund I at $49 billion in total commitments, above its $45 billion target."
+    },
+    {
+     "title": "MGX closes first fund at $49 billion as AI infrastructure bets grow",
+     "url": "https://thetechcapital.com/mgx-closes-first-fund-at-49-billion-as-ai-infrastructure-bets-grow/",
+     "fact": "MGX has \"a target of more than US$100 billion in assets across the AI value chain.\""
+    },
+    {
+     "title": "MGX Targets $100 Billion AUM, Plans $10 Billion Annual AI Spending",
+     "url": "https://www.gurufocus.com/news/8626345/mgx-targets-100-billion-aum-plans-10-billion-annual-ai-spending",
+     "fact": "18 February 2026: Ali Osman said MGX plans to deploy as much as $10 billion annually over next few years."
+    }
+   ]
+  }
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Ahmed Yahia Al Idrissi",
+  "text": "Intelligence capacity is no longer a constraint on growth",
+  "said": "2026-10",
+  "w": 1
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Alexandr Wang",
+  "text": "Even with no further model improvement, current AI implies decades of economic upheaval",
+  "said": "2026-07",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Alexandr Wang",
+  "text": "Humans will become managers and overseers of AI agents rather than direct task performers",
+  "said": "2025-04",
+  "w": 2
+ },
+ {
+  "t": 2025,
+  "v": "came_true",
+  "who": "Alexandr Wang",
+  "text": "China has caught up with the United States at the AI frontier, and the two countries are in an AI war",
+  "said": "2025-01-23",
+  "w": 4
+ },
+ {
+  "t": 2026,
+  "v": "unresolvable",
+  "who": "Alexandr Wang",
+  "text": "2026 will be the year of the personal agent",
+  "said": "2026-02",
+  "w": 3
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Alexandr Wang",
+  "text": "AGI arrives in two to four years",
+  "said": "2025-01-23",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Anton Osika",
+  "text": "Lovable will reach $1 billion in annualized revenue by the end of 2026",
+  "said": "2025-12",
+  "w": 1,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-09-24",
+   "now": 600,
+   "line": 1000,
+   "lab": "Lovable at $1B annualized revenue by end 2026",
+   "u": "$M annualized revenue",
+   "note": "Lovable passed $600 million in annualized revenue, CTO Fabian Hedin said at HumanX Amsterdam on 24 September 2026, after $400 million in February and $500 million in June. At that pace of about $100 million per quarter, $400 million remains to add by 31 December.",
+   "ev": [
+    {
+     "title": "Lovable crosses $600 million annualized revenue as AI coding demand grows",
+     "url": "https://www.technotime.net/17162",
+     "fact": "Co-founder and CTO Fabian Hedin said at HumanX in Amsterdam that Lovable \"surpassed $600 million in annualized revenue\"; it crossed $400 million in February and more than $500 million in June."
+    },
+    {
+     "title": "Lovable revenue, valuation & funding (Sacra)",
+     "url": "https://sacra.com/c/lovable/",
+     "fact": "Sacra estimates Lovable reached $600M in annualized revenue by September 2026, from $250M at end of 2025."
+    },
+    {
+     "title": "Lovable Valuation: $13.3B, $600M Run Rate (Oct 2026)",
+     "url": "https://valueaddvc.com/blog/lovable-valuation-2026-how-vibe-coding-actually-makes-money",
+     "fact": "Hedin gave the \"$600M+\" figure on 24 September 2026 at HumanX Amsterdam."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2031,
+  "v": "pending",
+  "who": "Anton Osika",
+  "text": "In five years all new software will be built by explaining in plain English what you want",
+  "said": "2026-04",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Anton Osika",
+  "text": "Lovable will be the platform on which the first one-person unicorn is built",
+  "said": "2026-04",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Anton Osika",
+  "text": "Lovable is building 'the last piece of software', after which people describe rather than build applications",
+  "said": "2025",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Aravind Srinivas",
+  "text": "Google Search and Chrome will die as AI agents replace the query-and-click model",
+  "said": "2025",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Aravind Srinivas",
+  "text": "Google must choose between its ad revenue and building agents, and loses the browser war either way",
+  "said": "2025-07",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Aravind Srinivas",
+  "text": "AI-driven job displacement will be temporary and lead to a glorious future of entrepreneurship",
+  "said": "2026-03",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Aravind Srinivas",
+  "text": "It is premature to regulate AI broadly, though deepfakes and voice fraud should be regulated",
+  "said": "2024-02",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Aravind Srinivas",
+  "text": "People will want AI to help them decide what to buy rather than to purchase on their behalf",
+  "said": "2026-10",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Boris Cherny",
+  "text": "Some companies will need fewer engineers and many others will need more",
+  "said": "2026-05",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Boris Cherny",
+  "text": "The next step is agents prompting other agents to write code, with the human-facing harness shrinking",
+  "said": "2026-06-22",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Boris Cherny",
+  "text": "Claude will write the large majority of Anthropic's production code",
+  "said": "2025-11",
+  "w": 3
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Boris Cherny",
+  "text": "Within a year the title software engineer will start to disappear, replaced by roles more like builder",
+  "said": "2026-02",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-10-21",
+   "note": "Indeed's software development postings index stood at 78.9 on 16 October 2026, up 21 percent from a year earlier, with AI-titled jobs supplying 37 percent of that growth. Stanford researchers found use of \"member of technical staff\" up 50 percent in a year at Anthropic, OpenAI, Microsoft AI and xAI, and \"builder\" postings appeared at SoFi and Decagon.",
+   "ev": [
+    {
+     "title": "Software Engineer Job Market 2026: Data, Charts, Outlook",
+     "url": "https://stackchief.com/blog/Software%20Engineer%20Job%20Market%202026:%20What%20the%20Data%20Shows%20Right%20Now",
+     "fact": "Indeed software development postings index was 78.9 on 16 October 2026 (February 2020 = 100), up 21 percent from a year earlier; jobs with AI in their title drove 37 percent of that growth."
+    },
+    {
+     "title": "Job titles are out. Now we're all 'members of the technical staff'",
+     "url": "https://www.seattletimes.com/explore/careers/job-titles-are-out-now-were-all-members-of-the-technical-staff/",
+     "fact": "21 October 2026: Stanford researchers Nick Bloom and Gideon Slocum Moore found use of \"member of technical staff\" rose 50 percent in a year at Anthropic, OpenAI, MicrosoftAI and xAI; 39 percent of Anthropic profiles listed it."
+    },
+    {
+     "title": "'Engineer' is so 2025. In AI land, everyone's a 'builder' now",
+     "url": "https://sfstandard.com/2026/03/05/engineer-2025-ai-land-everyone-s-builder-now/",
+     "fact": "5 March 2026: Decagon is hiring an \"agent builder\" and SoFi a \"product builder\"; Meta product managers who call themselves builders keep their official titles."
+    },
+    {
+     "title": "AI writes the code now. What's left for software engineers?",
+     "url": "https://sfstandard.com/2026/02/19/ai-writes-code-now-s-left-software-engineers/",
+     "fact": "19 February 2026, Cherny: \"We're going to start to see the title of software engineer go away. It's just going to be 'builder' or 'product manager.'\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Boris Cherny",
+  "text": "Within three years the number of people writing code with agents will be 100 times today's",
+  "said": "2026-06",
+  "w": 2
+ },
+ {
+  "t": 2025,
+  "v": "partly",
+  "who": "C.C. Wei",
+  "text": "TSMC's 2025 revenue will grow by about 25 percent in US dollar terms",
+  "said": "2025-01",
+  "w": 2
+ },
+ {
+  "t": 2025,
+  "v": "came_true",
+  "who": "C.C. Wei",
+  "text": "Revenue from AI accelerators will double in 2025 after more than tripling in 2024",
+  "said": "2025-01",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "C.C. Wei",
+  "text": "TSMC's 2026 revenue will grow around 44 percent year over year in US dollar terms",
+  "said": "2026-10",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-10-31",
+   "now": 43.3,
+   "line": 44,
+   "lab": "TSMC 2026 revenue up about 44%",
+   "u": "% growth, Jan to Oct, NT dollars",
+   "note": "TSMC revenue for January through October 2026 reached NT$4,485.62 billion, up 43.3 percent from a year earlier in New Taiwan dollars, with October alone up 59.7 percent. Fourth-quarter guidance of $52.3 billion to $54.3 billion follows third-quarter revenue of $46.72 billion, up 41.2 percent.",
+   "ev": [
+    {
+     "title": "TSMC October 2026 Revenue Report",
+     "url": "https://pr.tsmc.com/english/news/3349",
+     "fact": "Issued 10 November 2026: October revenue about NT$586.89 billion, up 59.7 percent from October 2025; January through October NT$4,485.62 billion, up 43.3 percent."
+    },
+    {
+     "title": "TSMC Reports Third Quarter EPS of NT$29.43",
+     "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000726/a3q26e_withguidancexfinal.htm",
+     "fact": "Third-quarter 2026 revenue was $46.72 billion, up 41.2 percent from a year earlier; fourth-quarter revenue is expected between $52.3 billion and $54.3 billion."
+    },
+    {
+     "title": "TSMC (TSM) Q3 2026 Earnings Call Transcript",
+     "url": "https://finance.yahoo.com/markets/stocks/articles/tsmc-tsm-q3-2026-earnings-155842357.html",
+     "fact": "C.C. Wei on 15 October 2026: \"we now expect our full year 2026 revenue growth to be around 44% year-over-year in U.S. dollar term.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "C.C. Wei",
+  "text": "TSMC's AI accelerator revenue will grow at a mid-40s percent annual rate from 2024 to 2029",
+  "said": "2025-01",
+  "w": 2
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "C.C. Wei",
+  "text": "TSMC's overall revenue will grow close to 20 percent a year from 2024 to 2029",
+  "said": "2025-01",
+  "w": 1
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "C.C. Wei",
+  "text": "AI demand shows no sign of slowing and will keep exceeding supply",
+  "said": "2026-10",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "partly",
+  "who": "David Sacks",
+  "text": "Apocalyptic predictions of AI job loss are as overhyped as AGI",
+  "said": "2025-08-11",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "David Sacks",
+  "text": "Executives who deploy unsafe AI will face massive civil and criminal liability under existing law",
+  "said": "2026-09",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "David Sacks",
+  "text": "US GDP growth in 2026 will be about 5 percent after inflation",
+  "said": "2026-01-10",
+  "w": 4,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "contradicted",
+   "at": "2026-10-29",
+   "now": 2.3,
+   "line": 5,
+   "lab": "US GDP grows about 5% in 2026",
+   "u": "% inflation-adjusted growth, Blue Chip consensus",
+   "note": "BEA put annualized inflation-adjusted GDP growth at 2.5 percent for 2026's first quarter, 2.2 percent for its second and 3.4 percent for its third (advance estimate, 29 October). Blue Chip consensus for October 2026 forecasts 2.3 percent growth for 2026 as a whole.",
+   "ev": [
+    {
+     "title": "Bureau of Economic Analysis",
+     "url": "https://www.bea.gov/",
+     "fact": "Inflation-adjusted GDP grew at annual rates of 2.5 percent in Q1 2026 (revised) and 2.2 percent in Q2 (both released 30 September) and 3.4 percent in Q3 (advance estimate, 29 October 2026)."
+    },
+    {
+     "title": "November 2026 Preliminary Economic Forecast memo (Washington State ERFC)",
+     "url": "https://erfc.wa.gov/sites/default/files/2026-11/memo_1026.pdf",
+     "fact": "Blue Chip average for October 2026 shows inflation-adjusted GDP growth of 2.3 percent in 2026 and 2.1 percent in 2027."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "David Sacks",
+  "text": "AI will increase demand for knowledge workers in 2026, not decrease it",
+  "said": "2026-01-10",
+  "w": 4,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-11-06",
+   "note": "Professional and business services added 70,000 jobs in October 2026 against a monthly average of 15,000 over the prior 12 months, BLS reported, with unemployment at 4.1 percent. Employers cited AI for 121,401 announced job cuts through October, more than double 54,836 for all of 2025.",
+   "ev": [
+    {
+     "title": "Employment Situation News Release",
+     "url": "https://www.bls.gov/news.release/empsit.htm?ref=workersrights.news",
+     "fact": "Payrolls rose 165,000 in October 2026 and unemployment was 4.1 percent; professional and business services added 70,000 against an average monthly gain of 15,000 over prior 12 months; computer systems design added 3,200."
+    },
+    {
+     "title": "Latest jobs report shows a white-collar hiring turnaround",
+     "url": "https://www.marketplace.org/story/2026/11/06/latest-jobs-report-shows-a-whitecollar-hiring-turnaround",
+     "fact": "6 November 2026: economy added 165,000 jobs in October, about 70,000 of them in professional and business services."
+    },
+    {
+     "title": "AI blamed for 121,401 job cuts, but the labor data isn't buying it",
+     "url": "https://www.hcamag.com/us/specialization/transformation/ai-blamed-for-121401-job-cuts-but-the-labor-data-isnt-buying-it/594129",
+     "fact": "Challenger, Gray & Christmas counted 121,401 US job cuts citing AI through October 2026, against 54,836 for all of 2025; employers cited AI for 1,265 cuts in October."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "David Sacks",
+  "text": "AI capital expenditure will be about a 2 percentage point tailwind to US GDP growth in 2026",
+  "said": "2026-05-03",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-09-30",
+   "now": 1.39,
+   "line": 2,
+   "lab": "AI capex adds 2 points to US GDP growth",
+   "u": "points of growth, Jefferies estimate",
+   "note": "Jefferies strategist Christopher Wood put AI-related capital spending at 1.39 percentage points of 2.1 percent US growth over four quarters through September 2026. Capital Economics estimates about 0.3 points, and Jason Furman at PIIE finds data center construction raised GDP about 0.3 percent because most equipment is imported.",
+   "ev": [
+    {
+     "title": "Jefferies warns that the AI capital expenditure cycle may be approaching an inflection point",
+     "url": "https://www.lookonchain.com/feeds/80983",
+     "fact": "Christopher Wood's report says US AI-related capital expenditure contributed 1.39 percentage points to year-over-year GDP growth over four quarters ending in Q3 2026, 67 percent of 2.1 percent total growth."
+    },
+    {
+     "title": "The AI Boom's Two Engines",
+     "url": "https://www.piie.com/blogs/realtime-economics/2026/ai-booms-two-engines",
+     "fact": "Jason Furman, 9 November 2026: data center buildout alone raised GDP by \"only about 0.3 percent\" by third quarter 2026 because \"most of the investment is imported.\""
+    },
+    {
+     "title": "How sustainable is the AI investment boom after Thursday's selloff?",
+     "url": "https://au.finance.yahoo.com/news/sustainable-ai-investment-boom-thursday-214809856.html",
+     "fact": "Capital Economics estimates AI investment has recently added around 0.3 percentage points to annual US GDP growth (8 November 2026)."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "David Sacks",
+  "text": "Congress could pass bipartisan federal AI legislation within months",
+  "said": "2026-03-26",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-11-09",
+   "note": "Congress returned 9 November 2026 with the FRONTIER Act and AI Kill Switch Act, both introduced in July, still awaiting action. A bipartisan preemption draft released 4 June had stalled by September.",
+   "ev": [
+    {
+     "title": "Congress returns to an AI to-do list",
+     "url": "https://www.politico.com/newsletters/weekly-cybersecurity/2026/11/09/congress-returns-to-an-ai-to-do-list-01156233",
+     "fact": "9 November 2026: pending measures include FRONTIER Act (Trahan, Obernolte) and AI Kill Switch Act (Lieu, Moran), introduced in July."
+    },
+    {
+     "title": "Congress returns to slew of cyber deadlines and unfinished AI safety bills",
+     "url": "https://www.nextgov.com/cybersecurity/2026/11/congress-returns-slew-cyber-deadlines-and-unfinished-ai-safety-bills/417123/",
+     "fact": "9 November 2026: FRONTIER Act and AI Kill Switch Act, both from July, await action."
+    },
+    {
+     "title": "Federal AI Preemption Fight: Where It Stands",
+     "url": "https://casrai.org/news/federal-ai-moratorium-state-preemption-fight-2026",
+     "fact": "As of September 2026 a bipartisan preemption discussion draft released 4 June 2026 had not been introduced as formal legislation and had \"stalled since June.\""
+    },
+    {
+     "title": "Will Federal Law Override State AI Rules After the Midterms?",
+     "url": "https://primumlaw.com/will-federal-law-override-state-ai-rules-after-the-midterms/",
+     "fact": "6 November 2026: \"Proposals to broadly preempt state AI laws didn't make it through Congress.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2024,
+  "v": "partly",
+  "who": "Demis Hassabis",
+  "text": "Project Astra agent capabilities will come to the Gemini app later in 2024",
+  "said": "2024-05",
+  "w": 2
+ },
+ {
+  "t": 2025,
+  "v": "wrong",
+  "who": "Demis Hassabis",
+  "text": "AI-designed drugs from Isomorphic Labs will be in clinical trials by the end of 2025",
+  "said": "2025-01",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Demis Hassabis",
+  "text": "Isomorphic Labs will start its first clinical trials by the end of 2026",
+  "said": "2026-01",
+  "w": 4,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-11-05",
+   "note": "Isomorphic's drug programs remained in preclinical development on 2 November 2026, president Max Jaderberg said at Bloomberg Tech in London. Its target of first clinical trials by year-end stands, with no trial start or filing announced.",
+   "ev": [
+    {
+     "title": "Isomorphic Labs in Talks for About $5 Billion in Funding",
+     "url": "https://finance.yahoo.com/technology/ai/articles/isomorphic-labs-talks-5-billion-225144910.html",
+     "fact": "4 November 2026: Jaderberg said at Bloomberg Tech in London that Isomorphic's efforts were still in preclinical trials; Hassabis said in January it expected first clinical trials by end of 2026."
+    },
+    {
+     "title": "Isomorphic Labs president: All drugs will be AI-designed",
+     "url": "https://www.rdworldonline.com/isomorphic-labs-president-says-all-drugs-will-be-ai-designed-as-first-trials-near-a-year-end-target/",
+     "fact": "5 November 2026: programs \"remain in preclinical development\"; target is first clinical trials by end of 2026."
+    },
+    {
+     "title": "The $50B Question: How Do We Know If Isomorphic's AI Works?",
+     "url": "https://www.biopharmatrend.com/business-intelligence/the-27b-question-how-do-we-know-if-isomorphics-ai-works/",
+     "fact": "Updated 5 November 2026: Isomorphic had not announced an IND filing or trial start as of early November."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Demis Hassabis",
+  "text": "Drug design time will fall from years to months within a couple of years",
+  "said": "2025-09",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-11-05",
+   "note": "Isomorphic reported that its IsoDDE system searched chemical space for two to four days on one unnamed target and produced a molecule with a working concentration-response curve, against an estimated three to five years for a published comparison molecule. Its programs remain preclinical.",
+   "ev": [
+    {
+     "title": "The $50B Question: How Do We Know If Isomorphic's AI Works?",
+     "url": "https://www.biopharmatrend.com/business-intelligence/the-27b-question-how-do-we-know-if-isomorphics-ai-works/",
+     "fact": "On \"Target D,\" IsoDDE searched chemical space for two to four days; Isomorphic estimated a published comparison molecule took three to five years of work. Drug work was still preclinical on 2 November 2026."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Demis Hassabis",
+  "text": "A significant breakthrough in physical robotics within 18 to 24 months",
+  "said": "2026-01",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-11-10",
+   "note": "Google DeepMind released Gemini Robotics 2.5 on 10 November 2026, evaluated on more than 200 tasks, and reported a 96 percent success rate in a Mercedes-Benz proof of concept on production lines in Kecskemét and Sindelfingen.",
+   "ev": [
+    {
+     "title": "Gemini Robotics 2.5: Accelerating Physical Intelligence",
+     "url": "https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/",
+     "fact": "10 November 2026: tested on \"over 200 distinct tasks\" with a \"30% to 100% higher success rate depending on the type of task\"; Mercedes-Benz proof of concept reached a \"96% success rate\" on lines in Kecskemét, Hungary and Sindelfingen, Germany."
+    },
+    {
+     "title": "DeepMind reveals Gemini Robotics 2.5 and open safety benchmark \"ASIMOV-jailbreak\"",
+     "url": "https://arstechnica.com/google/2026/11/deepmind-reveals-gemini-robotics-2-5-and-open-safety-benchmark-asimov-jailbreak/",
+     "fact": "Model was evaluated across more than 200 activities; Apptronik's Apollo 2 humanoid running it can tie a bow with five-fingered hands."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Demis Hassabis",
+  "text": "Roughly 50 percent chance of AGI by 2030",
+  "said": "2025-07",
+  "w": 5
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Demis Hassabis",
+  "text": "AGI, a system matching humans at any cognitive task, arrives within five to ten years",
+  "said": "2025-03",
+  "w": 4
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Demis Hassabis",
+  "text": "AI could cure all disease within roughly the next decade",
+  "said": "2025-04",
+  "w": 5
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Demis Hassabis",
+  "text": "Once AGI arrives the world enters radical abundance, a post-scarcity era",
+  "said": "2026-01",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "partly",
+  "who": "Dylan Patel",
+  "text": "US export controls on China have clearly failed",
+  "said": "2023-10",
+  "w": 3
+ },
+ {
+  "t": 2023,
+  "v": "partly",
+  "who": "Dylan Patel",
+  "text": "Google will train a model with five times GPT-4's compute by the end of 2023",
+  "said": "2023-08-28",
+  "w": 2
+ },
+ {
+  "t": 2024,
+  "v": "wrong",
+  "who": "Dylan Patel",
+  "text": "Google will reach twenty times GPT-4's compute by the end of 2024",
+  "said": "2023-08-28",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Dylan Patel",
+  "text": "Global datacenter IT power rises from 49 GW in 2023 to 96 GW by 2026, about 40 GW of it for AI",
+  "said": "2024-03-13",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-01",
+   "now": 103,
+   "line": 96,
+   "lab": "Datacenter IT power reaches 96 GW by 2026",
+   "u": "GW, JLL total capacity",
+   "note": "JLL's 2026 outlook counts about 103 GW of global data center capacity. TrendForce puts 2026 power demand capacity at 161 GW with AI servers at 33.4 percent, about 54 GW; neither figure uses Patel's critical IT power measure.",
+   "ev": [
+    {
+     "title": "Data Centers: The New Anchor of Commercial Real Estate Investment",
+     "url": "https://www.evalueserve.com/blog/data-centers-the-new-anchor-of-commercial-real-estate-investment/",
+     "fact": "Cites JLL's 2026 Global Data Center Outlook: \"103 GW today\" and \"200 GW by 2030.\""
+    },
+    {
+     "title": "Data Center Statistics 2026: Market, Power, AI and Jobs",
+     "url": "https://www.apollotechnical.com/data-center-statistics/",
+     "fact": "Global data center capacity is about 103 GW, projected to reach 200 GW by 2030 (JLL, 2026 Global Data Center Outlook, January 2026)."
+    },
+    {
+     "title": "Grid Supply Gap to Widen in 2028, Says TrendForce",
+     "url": "https://www.dramexchange.com/WeeklyResearch/Post/2/12839.html",
+     "fact": "16 September 2026: global data center power demand capacity in 2026 is 161 GW, up about 31 percent from a year earlier, with AI servers at 33.4 percent of total."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Dylan Patel",
+  "text": "Hyperscaler capital spending in 2026 will be $725 billion to $850 billion",
+  "said": "2025-12",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-10-29",
+   "now": 730,
+   "line": 725,
+   "lab": "Hyperscaler capex $725B to $850B in 2026",
+   "u": "$B, four-company guidance midpoints",
+   "note": "Latest 2026 guidance sums to about $730 billion at midpoints: Amazon about $220 billion, Alphabet $195 billion to $205 billion, Microsoft about $170 billion, Meta $135 billion to $145 billion. Adding SpaceX's implied $83.1 billion to $88.1 billion lifts that to $803 billion to $828 billion; 2025 spending was $376.1 billion.",
+   "ev": [
+    {
+     "title": "Amazon.com Announces Third Quarter Results (Exhibit 99.1)",
+     "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000038/amzn-20260930xex991.htm",
+     "fact": "29 October 2026: \"We continue to expect 2026 cash capital expenditures to be approximately $220 billion.\""
+    },
+    {
+     "title": "Alphabet (GOOGL) earnings Q3 2026",
+     "url": "https://www.cnbc.com/2026/10/28/alphabet-googl-earnings-q3-2026.html",
+     "fact": "Alphabet kept its 2026 capex forecast at $195 billion to $205 billion; Q3 capex was $51.36 billion."
+    },
+    {
+     "title": "Microsoft cuts capex forecast on AI capacity delays",
+     "url": "https://africa.businessinsider.com/news/microsoft-cuts-capex-forecast-on-ai-capacity-delays/qwnrx2k",
+     "fact": "28 October 2026: Microsoft's calendar 2026 capex forecast is $170 billion, down from $175 billion, CFO Amy Hood said."
+    },
+    {
+     "title": "Meta earnings Q3 2026",
+     "url": "https://www.cnbc.com/2026/10/21/meta-earnings-q3-2026-live-updates.html",
+     "fact": "21 October 2026: Meta set 2026 capital expenditures at $135 billion to $145 billion, from $130 billion to $145 billion."
+    },
+    {
+     "title": "AI Capex Tracker: Hyperscaler Capital Spending by Quarter (2026)",
+     "url": "https://walnutinvest.com/stats/ai-capex-statistics",
+     "fact": "Combined 2026 guidance is roughly $730 billion (sum of midpoints, mixed definitions); 2025 total was $376.1 billion."
+    },
+    {
+     "title": "Big Tech and SpaceX Guide Q4 Capex Up to $270B Above Q3",
+     "url": "https://fourweekmba.com/ai-big-tech-and-spacex-guide-q4-capex-up-to-270b-above-q3/",
+     "fact": "As of 2 November 2026 combined 2026 outlooks for Amazon, Alphabet, Microsoft, Meta and SpaceX total about $803 billion to $828 billion."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Dylan Patel",
+  "text": "Memory prices rise another two to three times as AI demand outruns 20 to 30 percent yearly capacity growth",
+  "said": "2026-01",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "came_true",
+   "at": "2026-03-31",
+   "now": 2.06,
+   "line": 2,
+   "lab": "Memory prices rise two to three times",
+   "u": "price multiple, 64GB RDIMM",
+   "note": "Counterpoint data put a 64GB server RDIMM at about $927 in 2026's first quarter, up from $450 a quarter earlier, a 2.06-fold rise. TrendForce reported conventional DRAM contract prices up 93 percent to 98 percent that quarter and forecast further increases for each later quarter of 2026.",
+   "ev": [
+    {
+     "title": "Memory Prices Are Changing the Economics of IT Infrastructure",
+     "url": "https://www.sim-networks.com/en/blog/memory-prices-are-changing-the-economics-of-it-infrastructure",
+     "fact": "Counterpoint Research: 64GB RDIMM cost $255 in Q3 2025, $450 in Q4 2025 and approximately $927 in Q1 2026."
+    },
+    {
+     "title": "RAM shortage 2026: what memory costs embedded products",
+     "url": "https://www.aestechno.com/en/memory-shortage-2026-embedded-products/",
+     "fact": "TrendForce conventional DRAM contract prices: 1Q26 up 93 percent to 98 percent (reported); forecasts of 58 percent to 63 percent for 2Q26, 13 percent to 18 percent for 3Q26 and 10 percent to 15 percent for 4Q26."
+    },
+    {
+     "title": "SK Hynix & Samsung: DRAM up 15% this winter",
+     "url": "https://www.netz-trends.de/uk/sk-hynix-samsung-record-quarter-dram-prices-uk-winter-2026/",
+     "fact": "TrendForce forecast of 30 September 2026: DRAM contract prices to rise 10 percent to 15 percent in Q4 2026 and NAND 15 percent to 20 percent."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Dylan Patel",
+  "text": "Google could show no profits in 2027 because of AI capex and depreciation",
+  "said": "2026-02-26",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-09-30",
+   "note": "Alphabet earned $26.17 billion in 2026's third quarter while capital spending of $51.4 billion pushed free cash flow to negative $9.1 billion. CFO Anat Ashkenazi said capex will \"increase significantly in 2027.\"",
+   "ev": [
+    {
+     "title": "Alphabet (GOOGL) earnings Q3 2026",
+     "url": "https://www.cnbc.com/2026/10/28/alphabet-googl-earnings-q3-2026.html",
+     "fact": "Q3 2026 net income was $26.17 billion; Ashkenazi: \"We continue to expect our capex to increase significantly in 2027.\""
+    },
+    {
+     "title": "Alphabet's free cash flow drops to negative $9.1bn despite $26.2bn profit",
+     "url": "https://ppc.land/alphabets-free-cash-flow-drops-to-negative-9-1bn-despite-26-2bn-profit/",
+     "fact": "Quarter ended 30 September 2026: free cash flow of negative $9,065 million on capital expenditure of $51,355 million."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Dylan Patel",
+  "text": "Co-packaged optics reach volume in 2028 or 2029, not 2027; Rubin and Feynman stay on copper",
+  "said": "2026-07",
+  "w": 1
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Eddie Wu",
+  "text": "Alibaba will invest more than RMB 380 billion in AI and cloud infrastructure over three years",
+  "said": "2025-02",
+  "w": 2
+ },
+ {
+  "t": 2032,
+  "v": "pending",
+  "who": "Eddie Wu",
+  "text": "Alibaba Cloud's data center energy use grows tenfold from 2022 to 2032 for the age of superintelligence",
+  "said": "2025-09",
+  "w": 2
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Eddie Wu",
+  "text": "Within ten years society moves fully to an intelligent economy, with the super AI cloud as the next computer",
+  "said": "2025-11",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Eddie Wu",
+  "text": "AGI is a certainty and only the starting point on the road to self-iterating ASI",
+  "said": "2025-09",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Eddie Wu",
+  "text": "Machine thinking will exceed human thinking more than 1,000-fold and shoulder 99.9 percent of all thinking",
+  "said": "2026-09",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Eddie Wu",
+  "text": "Qwen will scale to a 10 trillion parameter model",
+  "said": "2026-09",
+  "w": 2
+ },
+ {
+  "t": 2020,
+  "v": "wrong",
+  "who": "Elon Musk",
+  "text": "Tesla will have one million robotaxis on the road by the end of 2020",
+  "said": "2019-04",
+  "w": 4
+ },
+ {
+  "t": 2025,
+  "v": "wrong",
+  "who": "Elon Musk",
+  "text": "AI will be smarter than any single human by the end of 2025",
+  "said": "2024-03",
+  "w": 5
+ },
+ {
+  "t": 2025,
+  "v": "wrong",
+  "who": "Elon Musk",
+  "text": "Grok 5 will ship in 2025 and will be AGI or something indistinguishable from AGI",
+  "said": "2025-10",
+  "w": 4
+ },
+ {
+  "t": 2025,
+  "v": "wrong",
+  "who": "Elon Musk",
+  "text": "Unsupervised full self-driving will reach customer-owned cars by the end of 2025",
+  "said": "2024-10",
+  "w": 4
+ },
+ {
+  "t": 2025,
+  "v": "partly",
+  "who": "Elon Musk",
+  "text": "AI will run out of electricity and transformers in 2025",
+  "said": "2024-02",
+  "w": 3
+ },
+ {
+  "t": 2025,
+  "v": "wrong",
+  "who": "Elon Musk",
+  "text": "Tesla will build 10,000 to 12,000 Optimus robots in 2025",
+  "said": "2025",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Elon Musk",
+  "text": "AGI will arrive in 2026, a year later than first promised",
+  "said": "2024-12",
+  "w": 5,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-11-09",
+   "note": "xAI had not released Grok 5 by 9 November 2026; Grok 4.7, its latest model, shipped 21 September. Musk said in October 2025 that \"Grok 5 will be AGI or something indistinguishable from AGI.\"",
+   "ev": [
+    {
+     "title": "Grok 5: Release Date, Specs & What's Confirmed (November 2026)",
+     "url": "https://geotoolbox.ai/blog/grok-5",
+     "fact": "Grok 5 was unreleased as of 9 November 2026; Grok 4.7 shipped 21 September 2026. Musk said in October 2025 that \"Grok 5 will be AGI or something indistinguishable from AGI.\""
+    },
+    {
+     "title": "Elon Musk's xAI Predictions, Scored",
+     "url": "https://twoweeks.lol/company/xai/",
+     "fact": "Tracker lists Musk prediction \"AGI will be achieved in 2026.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Elon Musk",
+  "text": "AI software will be better than any human at software development at some point in 2027",
+  "said": "2026-09",
+  "w": 4,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "note": "Musk told a G20 session on 1 September 2026 that AI software would be \"Stockfish-level good\" at writing code \"at some point next year.\" Cursor said in July that cloud agents author more than half of its merged pull requests.",
+   "ev": [
+    {
+     "title": "Musk warns G20 of looming AI power crunch",
+     "url": "https://ianslive.in/musk-warns-g20-of-looming-ai-power-crunch--20260901214803",
+     "fact": "1 September: \"At some point next year is my prediction, software will be so good, AI software will be so good that it will be Stockfish-level good, meaning that it is impossible for a human to compete in writing software with AI.\""
+    },
+    {
+     "title": "How we set up our cloud agent environment",
+     "url": "https://cursor.com/blog/cloud-agent-environment",
+     "fact": "Cursor wrote on 30 July 2026 that cloud agents author more than half of merged pull requests at Cursor, up from roughly one in ten in December."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Elon Musk",
+  "text": "AI will be smarter than all humans combined by 2029 or 2030",
+  "said": "2025-02",
+  "w": 5
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Elon Musk",
+  "text": "Within 10 to 20 years work will be optional and money irrelevant",
+  "said": "2025-11",
+  "w": 4
+ },
+ {
+  "t": 2036,
+  "v": "pending",
+  "who": "Elon Musk",
+  "text": "AI and robots will more than double the global economy in less than 10 years",
+  "said": "2026-09",
+  "w": 3
+ },
+ {
+  "t": 2040,
+  "v": "pending",
+  "who": "Elon Musk",
+  "text": "By 2040 there will probably be more humanoid robots than people",
+  "said": "2024-10",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Elon Musk",
+  "text": "There is a 10 to 20 percent chance AI annihilates humanity; 80 percent chance of a good outcome",
+  "said": "2025-02",
+  "w": 4
+ },
+ {
+  "t": 2026,
+  "v": "partly",
+  "who": "Jeff Dean",
+  "text": "AI systems will operate at the level of a junior software engineer within about a year",
+  "said": "2025-05",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Jeff Dean",
+  "text": "Discovery Loop will automate the experimental loop of research, starting with ML research and engineering",
+  "said": "2026-08",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Jeff Dean",
+  "text": "AI is a very small portion of data center energy use, though growing fast",
+  "said": "2024-07",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Jeff Dean",
+  "text": "Models will reach PhD-level expertise across many scientific and engineering domains",
+  "said": "2026-08",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Jensen Huang",
+  "text": "China is going to win the AI race",
+  "said": "2025-11-05",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Jensen Huang",
+  "text": "Some jobs will be obsolete but many more will be created; no AI jobs bloodbath",
+  "said": "2025-06-11",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Jensen Huang",
+  "text": "Building AI data centers will unlock many six-figure plumbing, electrical and construction jobs",
+  "said": "2026-09",
+  "w": 4
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Jensen Huang",
+  "text": "Nvidia has $500 billion of Blackwell and Rubin orders through calendar 2026",
+  "said": "2025-10-28",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-07-26",
+   "now": 357.9,
+   "line": 500,
+   "lab": "$500B of Blackwell and Rubin orders through 2026",
+   "u": "$B, data center revenue so far",
+   "note": "Nvidia data center revenue totals $357.9 billion from fiscal 2026's start through 26 July 2026: $193.7 billion for fiscal 2026, then $75.2 billion and $89.0 billion in two quarters after. October-quarter guidance is $108.0 billion in total revenue; segment figures include products beyond Blackwell and Rubin.",
+   "ev": [
+    {
+     "title": "NVIDIA Announces Financial Results for Fourth Quarter and Fiscal 2026",
+     "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-fourth-quarter-and-fiscal-2026",
+     "fact": "Fiscal 2026 (ended 25 January 2026) revenue was $215.9 billion, including $193.7 billion from Data Center."
+    },
+    {
+     "title": "NVIDIA posts Q1 FY27 revenue of $81.6B (NVDA 8-K)",
+     "url": "https://www.stocktitan.net/sec-filings/NVDA/8-k-nvidia-corp-reports-material-event-56086a88bbb4.html",
+     "fact": "Quarter ended 26 April 2026: revenue $81,615 million, Data Center $75,246 million."
+    },
+    {
+     "title": "NVIDIA posts $96.2B Q2 revenue on AI surge (NVDA 8-K)",
+     "url": "https://www.stocktitan.net/sec-filings/NVDA/8-k-nvidia-corp-reports-material-event-bb35cdd18786.html",
+     "fact": "Quarter ended 26 July 2026: revenue $96.2 billion, Data Center $89.0 billion; outlook for following quarter $108.0 billion, plus or minus 2 percent."
+    },
+    {
+     "title": "Nvidia GTC 2026: CEO Jensen Huang keynote Blackwell Vera Rubin",
+     "url": "https://www.cnbc.com/2026/03/16/nvidia-gtc-2026-ceo-jensen-huang-keynote-blackwell-vera-rubin.html",
+     "fact": "16 March 2026: Huang said he expects purchase orders for Blackwell and Vera Rubin to reach $1 trillion through 2027, up from a $500 billion opportunity projected a year earlier."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Jensen Huang",
+  "text": "Nvidia revenue will grow about 70 percent in fiscal 2028",
+  "said": "2026-08-26",
+  "w": 2
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Jensen Huang",
+  "text": "Data center capital spending will reach $1 trillion a year by 2028",
+  "said": "2025-03-18",
+  "w": 4
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Jensen Huang",
+  "text": "Within five years AI will pass every test a human can take",
+  "said": "2024-03-01",
+  "w": 4
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Jensen Huang",
+  "text": "Compute supply will not exceed demand in 2027 through 2029",
+  "said": "2026-09-24",
+  "w": 2
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Jensen Huang",
+  "text": "AI infrastructure spending will total $3 to 4 trillion by 2030",
+  "said": "2025-08-27",
+  "w": 4
+ },
+ {
+  "t": 2040,
+  "v": "pending",
+  "who": "Jensen Huang",
+  "text": "Useful quantum computers are 15 to 30 years away",
+  "said": "2025-01-07",
+  "w": 3
+ },
+ {
+  "t": 2024,
+  "v": "came_true",
+  "who": "Lisa Su",
+  "text": "MI300 data center GPU revenue will exceed $2 billion in 2024",
+  "said": "2023-10",
+  "w": 2
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Lisa Su",
+  "text": "Data center AI accelerator TAM reaches about $150 billion by 2027",
+  "said": "2023-06",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "came_true",
+   "at": "2026-01-25",
+   "now": 193.7,
+   "line": 150,
+   "lab": "AI accelerator market about $150B by 2027",
+   "u": "$B, Nvidia data center, fiscal 2026",
+   "note": "Nvidia alone booked $193.7 billion of data center revenue in fiscal 2026, which ended 25 January 2026. ResearchAndMarkets sized 2025's AI accelerator market at $151.0 billion.",
+   "ev": [
+    {
+     "title": "NVIDIA Announces Financial Results for Fourth Quarter and Fiscal 2026",
+     "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-fourth-quarter-and-fiscal-2026",
+     "fact": "Fiscal 2026 (ended 25 January 2026) revenue was $215.9 billion, including $193.7 billion from Data Center."
+    },
+    {
+     "title": "Global AI Accelerator Market - 2026 Edition: Size, Share",
+     "url": "https://finance.yahoo.com/technology/ai/articles/global-ai-accelerator-market-2026-162600718.html",
+     "fact": "ResearchAndMarkets, 3 November 2026: AI accelerator market was $151.0 billion in 2025, forecast at $443.0 billion by 2030."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Lisa Su",
+  "text": "Data center AI accelerator TAM reaches $400 billion in 2027",
+  "said": "2023-12",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-07-26",
+   "now": 356,
+   "line": 400,
+   "lab": "AI accelerator market $400B in 2027",
+   "u": "$B a year, Nvidia latest quarter",
+   "note": "Nvidia's data center revenue of $89.0 billion for its quarter ended 26 July 2026 annualizes to $356 billion before any other supplier is counted. AMD reported record data center segment revenue of $8.5 billion for its third quarter.",
+   "ev": [
+    {
+     "title": "NVIDIA posts $96.2B Q2 revenue on AI surge (NVDA 8-K)",
+     "url": "https://www.stocktitan.net/sec-filings/NVDA/8-k-nvidia-corp-reports-material-event-bb35cdd18786.html",
+     "fact": "Quarter ended 26 July 2026: revenue $96.2 billion, Data Center $89.0 billion; outlook for following quarter $108.0 billion, plus or minus 2 percent."
+    },
+    {
+     "title": "AMD Reports Third Quarter 2026 Financial Results",
+     "url": "https://ir.amd.com/news-events/press-releases/detail/1303/amd-reports-third-quarter-2026-financial-results",
+     "fact": "AMD reported third-quarter 2026 revenue of $13.4 billion and record Data Center segment revenue of $8.5 billion, up 97 percent from a year earlier."
+    },
+    {
+     "title": "Lisa Su, AMD: 2026 Will Be the \"First Year of AI Inference\"",
+     "url": "https://www.moomoo.com/news/post/1001111370/lisa-su-amd-2026-will-be-the-first-year-of",
+     "fact": "14 October 2026: Su said data center AI accelerator market is expected to \"approach US$1.5 trillion by 2030.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Lisa Su",
+  "text": "Data center AI accelerator TAM reaches $500 billion by 2028",
+  "said": "2024-10",
+  "w": 2
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Lisa Su",
+  "text": "AMD revenue will grow at roughly a 35 percent compound annual rate over the next three to five years",
+  "said": "2025-11",
+  "w": 1
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Lisa Su",
+  "text": "Data center AI accelerator TAM reaches $1 trillion by 2030, with AMD taking double-digit share",
+  "said": "2025-11",
+  "w": 2
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Lisa Su",
+  "text": "Server CPU TAM reaches more than $120 billion by 2030",
+  "said": "2026-05",
+  "w": 1
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Lisa Su",
+  "text": "People calling AI a bubble look at too narrow a window; demand is solid and long-lasting",
+  "said": "2024-09",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "partly",
+  "who": "Marc Andreessen",
+  "text": "AI growth in 2026 will be driven by revenue rather than hype",
+  "said": "2026-01",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Marc Andreessen",
+  "text": "AI will not cause mass unemployment; the labor replacement theory is a lump-of-labor fallacy",
+  "said": "2023-06",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Marc Andreessen",
+  "text": "AI will sharply speed up productivity growth, bringing new industries, new jobs and higher wages",
+  "said": "2023",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Marc Andreessen",
+  "text": "The world will either be running on American AI or on Chinese AI",
+  "said": "2025",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Marc Andreessen",
+  "text": "AI will not produce miracles; expect small tangible steps where positives outweigh negatives",
+  "said": "2023-06",
+  "w": 3
+ },
+ {
+  "t": 2025,
+  "v": "partly",
+  "who": "Mark Zuckerberg",
+  "text": "In 2025 Meta and other companies will have AI that can act as a mid-level engineer writing production code",
+  "said": "2025-01",
+  "w": 4
+ },
+ {
+  "t": 2025,
+  "v": "came_true",
+  "who": "Mark Zuckerberg",
+  "text": "In 2025 a personalised AI assistant will reach more than a billion people, and Meta AI will be that assistant",
+  "said": "2025-01",
+  "w": 3
+ },
+ {
+  "t": 2025,
+  "v": "wrong",
+  "who": "Mark Zuckerberg",
+  "text": "In 2025 Llama and open source will become the most advanced and widely used AI models",
+  "said": "2025-01",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "wrong",
+  "who": "Mark Zuckerberg",
+  "text": "Within 12 to 18 months most of Meta's code will be written by AI agents",
+  "said": "2025-04",
+  "w": 5
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Mark Zuckerberg",
+  "text": "Meta spends hundreds of billions on compute for superintelligence, including the multi-gigawatt Hyperion",
+  "said": "2025-07",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Mark Zuckerberg",
+  "text": "Developing superintelligence is now in sight",
+  "said": "2025-07",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Mark Zuckerberg",
+  "text": "People without AI glasses will be at a significant cognitive disadvantage in the future",
+  "said": "2025-07",
+  "w": 3
+ },
+ {
+  "t": 2025,
+  "v": "unresolvable",
+  "who": "Masayoshi Son",
+  "text": "SoftBank will deploy one billion AI agents internally during 2025",
+  "said": "2025-07-16",
+  "w": 2
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Masayoshi Son",
+  "text": "SoftBank will invest $100 billion in the US and create 100,000 jobs over four years",
+  "said": "2024-12-16",
+  "w": 2
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Masayoshi Son",
+  "text": "AGI, one to ten times smarter than humans, arrives within three to five years",
+  "said": "2024-06-21",
+  "w": 3
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Masayoshi Son",
+  "text": "Artificial superintelligence 10,000 times smarter than humans will exist by 2035",
+  "said": "2024-10-29",
+  "w": 3
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Masayoshi Son",
+  "text": "Within ten years superintelligence replaces at least 5 percent of global GDP, about $9 trillion",
+  "said": "2025-03-24",
+  "w": 3
+ },
+ {
+  "t": 2040,
+  "v": "pending",
+  "who": "Masayoshi Son",
+  "text": "By 2040: a billion humanoid robots, 100 trillion AI agents, and AI at 20 percent of global GDP",
+  "said": "2026-07-14",
+  "w": 3
+ },
+ {
+  "t": 2047,
+  "v": "pending",
+  "who": "Masayoshi Son",
+  "text": "Superintelligence with an IQ of 10,000 will exist within 30 years",
+  "said": "2017-02-27",
+  "w": 3
+ },
+ {
+  "t": 2047,
+  "v": "pending",
+  "who": "Masayoshi Son",
+  "text": "Robots will replace most blue-collar and many white-collar jobs within 30 years",
+  "said": "2017-09-20",
+  "w": 3
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Michael Kratsios",
+  "text": "Americans return to the Moon by 2028",
+  "said": "2026-08",
+  "w": 4
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Michael Kratsios",
+  "text": "A nuclear reactor will operate in space by 2028",
+  "said": "2026-08",
+  "w": 3
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Michael Kratsios",
+  "text": "A scientifically relevant quantum computer will exist by the end of the Trump term",
+  "said": "2026-08",
+  "w": 3
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Michael Kratsios",
+  "text": "Elements of a lunar base will be in place by 2030",
+  "said": "2026-08",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Michael Kratsios",
+  "text": "The Genesis Mission will double the productivity of American science",
+  "said": "2025-11",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Michael Kratsios",
+  "text": "America will win the AI race under the AI Action Plan",
+  "said": "2025-07",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Michael Truell",
+  "text": "Vibe coding without understanding produces shaky foundations that will cause problems",
+  "said": "2026-03",
+  "w": 2
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Michael Truell",
+  "text": "A year from now the vast majority of development work will be done by autonomous agents",
+  "said": "2026-03",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-07-30",
+   "note": "Cursor said 30 July 2026 that cloud agents author 56 percent of merged pull requests at Cursor, up from roughly one in ten in December 2025. No comparable industry-wide count has been published.",
+   "ev": [
+    {
+     "title": "How we set up our cloud agent environment",
+     "url": "https://cursor.com/blog/cloud-agent-environment",
+     "fact": "Cursor wrote on 30 July 2026 that cloud agents author more than half of merged pull requests at Cursor, up from roughly one in ten in December."
+    },
+    {
+     "title": "AI news, July 30, 2026",
+     "url": "https://www.jls42.org/en/news/ia-actualites-30-jul-2026",
+     "fact": "Quotes Cursor: \"In December, only 1 out of 10 merged pull requests came from a cloud agent; today that figure reaches 56%.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Michael Truell",
+  "text": "In the next several years Cursor will make programming an order of magnitude faster",
+  "said": "2023-10-11",
+  "w": 2
+ },
+ {
+  "t": 2045,
+  "v": "pending",
+  "who": "Michael Truell",
+  "text": "Full automation of programming will take decades and arrive progressively",
+  "said": "2025-08",
+  "w": 2
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Omar Sultan Al Olama",
+  "text": "Within two years the UAE runs agentic AI across half of government sectors and operations",
+  "said": "2026-04",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Omar Sultan Al Olama",
+  "text": "AI cannot be governed as a technology; only use cases and workplaces can be governed",
+  "said": "2023-10",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Omar Sultan Al Olama",
+  "text": "AI will replace people who do not adopt it, not people in general",
+  "said": "2023-10",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Omar Sultan Al Olama",
+  "text": "One-person companies worth 20 million to a billion dollars will emerge, built on one person plus AI agents",
+  "said": "2026-10",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Omar Sultan Al Olama",
+  "text": "With AI agents, the UAE's roughly 10 million people can have the economic impact of a nation of 50 million",
+  "said": "2026-10",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Peter Steinberger",
+  "text": "2026 will be the year of the general AI agent",
+  "said": "2026-03",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "unresolvable",
+   "note": "Steinberger said at ClawCon in Tokyo on 30 March 2026 that \"this year's going to be the year of the general agent.\" No shared measure defines such a year; OpenAI's Kevin Lin said in September that most IT departments ban agentic platforms like OpenClaw by default.",
+   "ev": [
+    {
+     "title": "OpenClaw's creator says 2026 could be the year of general AI agents",
+     "url": "https://techxplore.com/news/2026-03-openclaw-creator-year-general-ai.html",
+     "fact": "30 March 2026, ClawCon Tokyo: \"last year was the year of the coding agent, this year's going to be the year of the general agent.\""
+    },
+    {
+     "title": "OpenClaw slips on a suit to evade widespread business bans",
+     "url": "https://www.theregister.com/ai-and-ml/2026/09/30/openclaw-slips-on-a-suit-to-evade-widespread-business-bans/5299962",
+     "fact": "30 September 2026: Kevin Lin of OpenAI said \"the default stance of IT in most organizations is to ban agentic platforms like OpenClaw altogether.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Peter Steinberger",
+  "text": "OpenClaw will become an agent 'even my mum can use'",
+  "said": "2026-02",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Peter Steinberger",
+  "text": "Everyone will have a persistent personal intelligence working for them",
+  "said": "2026-10",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Peter Steinberger",
+  "text": "Working 20 times more productively with AI agents is possible for developers",
+  "said": "2025-06",
+  "w": 2
+ },
+ {
+  "t": 2019,
+  "v": "wrong",
+  "who": "Sam Altman",
+  "text": "Self-driving cars will arrive in three to four years, by about 2019",
+  "said": "2015",
+  "w": 4
+ },
+ {
+  "t": 2024,
+  "v": "wrong",
+  "who": "Sam Altman",
+  "text": "After GPT-4, software businesses are disrupted quickly and entry-level office and support jobs go soon",
+  "said": "2023",
+  "w": 5
+ },
+ {
+  "t": 2025,
+  "v": "partly",
+  "who": "Sam Altman",
+  "text": "In 2025 the first AI agents join the workforce and materially change company output",
+  "said": "2025-01",
+  "w": 5
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Sam Altman",
+  "text": "Within five years programs that can think will read legal documents and give medical advice",
+  "said": "2021-03",
+  "w": 4
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Sam Altman",
+  "text": "In 2026, systems that can figure out novel insights; in 2027, robots doing tasks in the world",
+  "said": "2025-06",
+  "w": 5
+ },
+ {
+  "t": 2026,
+  "v": "partly",
+  "who": "Sam Altman",
+  "text": "An automated AI research intern by September 2026 and a true automated AI researcher by March 2028",
+  "said": "2025-10",
+  "w": 4
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Sam Altman",
+  "text": "In 2027, robots that can do tasks in the physical world",
+  "said": "2025-06",
+  "w": 4,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-09-15",
+   "note": "Altman confirmed to Fortune in September 2026 that OpenAI is building a humanoid robot and said: \"I think we'll have a cool demo in 2027.\" He added that robots \"walking the streets\" are \"a few years longer\" away.",
+   "ev": [
+    {
+     "title": "Sam Altman on the burden of leading OpenAI amid AI safety fears",
+     "url": "https://fortune.com/2026/09/15/sam-altman-openai-ai-safety-pause-trump-xi/",
+     "fact": "15 September 2026: asked whether OpenAI was building a humanoid robot, Altman said \"Yeah\" and \"I think we'll have a cool demo in 2027\"; \"I don't think there will be robots walking the streets for a few years longer.\""
+    },
+    {
+     "title": "OpenAI Confirms Humanoid Robot With 2027 Demo",
+     "url": "https://www.techtimes.com/articles/329197/20261019/openai-confirms-humanoid-robot-2027-demo-competing-companies-it-once-backed.htm",
+     "fact": "On 3 September 2026 Altman said on Sources podcast: \"We will definitely do a humanoid\" and \"We will do other form factors as well.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2028,
+  "v": "unresolvable",
+  "who": "Sam Altman",
+  "text": "By end of 2028 more of the world's intellectual capacity could reside inside data centers than outside them",
+  "said": "2026-02",
+  "w": 4
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Sam Altman",
+  "text": "AGI will probably be developed during Trump's second term, by January 2029",
+  "said": "2025-01",
+  "w": 5
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Sam Altman",
+  "text": "Superintelligence is possible within a few thousand days",
+  "said": "2024-09",
+  "w": 5
+ },
+ {
+  "t": 0,
+  "v": "came_true",
+  "who": "Sam Altman",
+  "text": "The cost to use a given level of AI falls about 10x every 12 months",
+  "said": "2025-02",
+  "w": 3
+ },
+ {
+  "t": 2024,
+  "v": "came_true",
+  "who": "Sundar Pichai",
+  "text": "AI Overviews will reach more than a billion users by the end of 2024",
+  "said": "2024-05",
+  "w": 3
+ },
+ {
+  "t": 2025,
+  "v": "came_true",
+  "who": "Sundar Pichai",
+  "text": "Google will ship Gemini 3 before the end of 2025",
+  "said": "2025-10",
+  "w": 2
+ },
+ {
+  "t": 2025,
+  "v": "partly",
+  "who": "Sundar Pichai",
+  "text": "Alphabet capital expenditure in 2025 will be about $75 billion",
+  "said": "2025-02",
+  "w": 3
+ },
+ {
+  "t": 2027,
+  "v": "came_true",
+  "who": "Sundar Pichai",
+  "text": "Project Suncatcher will launch prototype satellites with TPUs by early 2027",
+  "said": "2025-11",
+  "w": 2
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Sundar Pichai",
+  "text": "Waymo will become meaningful to Alphabet's financials in 2027",
+  "said": "2025-12",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-09-30",
+   "note": "Other Bets, Alphabet's segment that holds Waymo, booked $372 million of revenue in 2026's third quarter, 0.3 percent of company sales, against a $2.05 billion operating loss. Waymo serves 15 US cities and last reported more than 500,000 paid rides a week, in March.",
+   "ev": [
+    {
+     "title": "As Waymo expands overseas, it remains a niche cash-burning business",
+     "url": "https://www.cnbc.com/2026/10/28/as-waymo-expands-overseas-it-remains-a-niche-cash-burning-business.html",
+     "fact": "Other Bets revenue was $372 million in Q3 2026, 0.3 percent of Alphabet sales, with an operating loss of $2.05 billion; Waymo operated in 15 major US cities."
+    },
+    {
+     "title": "Waymo's skyrocketing ridership in one chart",
+     "url": "https://techcrunch.com/2026/03/27/waymo-skyrocketing-ridership-in-one-chart/",
+     "fact": "27 March 2026: Waymo provides \"500,000 paid robotaxi rides every week\" across 10 US cities."
+    },
+    {
+     "title": "Robotaxi Status: Waymo, Tesla & Zoox",
+     "url": "https://thechargeport.com/robotaxi-tracker",
+     "fact": "No weekly ride figure newer than 500,000 had been published as of 9 November 2026; Waymo's stated goal is 1 million weekly rides by end of 2026."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2031,
+  "v": "pending",
+  "who": "Sundar Pichai",
+  "text": "AGI will arrive slightly after 2030",
+  "said": "2025-06",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Sundar Pichai",
+  "text": "The AI boom has elements of irrationality, and no company, Google included, is immune if the bubble bursts",
+  "said": "2025-11",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Sundar Pichai",
+  "text": "AI will be more profound than fire or electricity",
+  "said": "2018-01",
+  "w": 4
+ },
+ {
+  "t": 2026,
+  "v": "partly",
+  "who": "Yang Zhilin",
+  "text": "Open source will lag closed source; the leader will not open its models, only the laggards will",
+  "said": "2024-02",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Yang Zhilin",
+  "text": "GPUs will not be a major bottleneck for Chinese labs for at least the next one to two years",
+  "said": "2024-02",
+  "w": 3
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Yang Zhilin",
+  "text": "Within two to three years AI reaches a unified multimodal world model and keeps improving without human data",
+  "said": "2024-02",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-11-05",
+   "note": "Moonshot released weights for Kimi K3.1 Pro on 5 November 2026, a multimodal model with 2.8 trillion parameters; TechNode's report describes no world model and no training without human data. Yang's window closes in February 2027.",
+   "ev": [
+    {
+     "title": "Moonshot AI releases Kimi K3.1 Pro model weights",
+     "url": "https://technode.com/2026/11/05/moonshot-ai-releases-kimi-k3-1-pro-model-weights/",
+     "fact": "Moonshot released Kimi K3.1 Pro weights on Hugging Face on 5 November 2026; TechNode describes a flagship multimodal model with 2.8 trillion total parameters and a context window of about one million tokens."
+    }
+   ]
+  }
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Yang Zhilin",
+  "text": "The global foundation-model market will consolidate to only a few players, open and closed combined",
+  "said": "2025",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Yang Zhilin",
+  "text": "If open and closed models reach parity, open source wins outright, and agents could multiply GDP 10x or 100x",
+  "said": "2026-03",
+  "w": 3
+ },
+ {
+  "t": 2025,
+  "v": "partly",
+  "who": "Dario Amodei",
+  "text": "AI will write 90 percent of code within three to six months",
+  "said": "2025-03",
+  "w": 5
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Dario Amodei",
+  "text": "Powerful AI, a country of geniuses in a datacenter, could arrive as early as 2026",
+  "said": "2024-10",
+  "w": 5,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-11-02",
+   "note": "Anthropic's amended S-1 of 2 November 2026 says it \"may imminently meet\" its own threshold for AI-accelerated progress and has designated no current model as past it. Amodei in February put even odds on a country of geniuses within one to two years.",
+   "ev": [
+    {
+     "title": "Anthropic warns that it's very close to RSI capability, aka self-building AI",
+     "url": "https://techcrunch.com/2026/11/02/anthropic-warns-that-its-very-close-to-rsi-capability-aka-self-building-ai/",
+     "fact": "Anthropic's amended S-1 says it \"may imminently meet\" its Responsible Scaling Policy definition of \"dramatically accelerated progress attributable to AI\" and has not designated any current model as exceeding that threshold."
+    },
+    {
+     "title": "Dario Amodei: \"We are near the end of the exponential\"",
+     "url": "https://www.dwarkesh.com/p/dario-amodei-2",
+     "fact": "On 13 February 2026 Amodei called one to two years for a country of geniuses in a data center a 50/50 hunch and put 90 percent on arrival within ten years."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2026,
+  "v": "wrong",
+  "who": "Dario Amodei",
+  "text": "In three to six months AI writes 90 percent of code; in twelve, essentially all of it",
+  "said": "2025-03",
+  "w": 5
+ },
+ {
+  "t": 2026,
+  "v": "partly",
+  "who": "Dario Amodei",
+  "text": "Within two or three years an AI model will hold an hour-long conversation like a well educated human",
+  "said": "2023-08",
+  "w": 4
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Dario Amodei",
+  "text": "AI smarter than almost all humans at almost everything will most likely arrive in 2026 or 2027",
+  "said": "2025-01",
+  "w": 5,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-11-05",
+   "note": "METR found in November 2026 that Anthropic improves its models at about twice its earlier rate, with perhaps 80 percent of that gain due to AI. METR added that AI is \"not yet able to make highly significant and fully autonomous contributions\" to key parts of model training.",
+   "ev": [
+    {
+     "title": "Independent Assessment of AI R&D Acceleration at Anthropic",
+     "url": "https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/",
+     "fact": "METR, assessing Anthropic from 12 August to 29 October 2026, found it \"likely improving the capabilities of their models on well-specified tasks at around twice the rate\" of March 2024 to October 2025, with perhaps 80 percent of that acceleration due to AI."
+    },
+    {
+     "title": "Anthropic warns that it's very close to RSI capability, aka self-building AI",
+     "url": "https://techcrunch.com/2026/11/02/anthropic-warns-that-its-very-close-to-rsi-capability-aka-self-building-ai/",
+     "fact": "Anthropic's amended S-1 says it \"may imminently meet\" its Responsible Scaling Policy definition of \"dramatically accelerated progress attributable to AI\" and has not designated any current model as exceeding that threshold."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "came_true",
+  "who": "Dario Amodei",
+  "text": "Anthropic revenue will reach about $12 billion in 2027",
+  "said": "2025",
+  "w": 2
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Dario Amodei",
+  "text": "Within six to twelve months a misaligned agent swarm could take over the internet with a persistent botnet",
+  "said": "2026-09",
+  "w": 4,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-10-13",
+   "note": "Anthropic reported 13 October 2026 that open-weight GLM-5.2 spread a small model to all eight test nodes in four of five trials, and said it did not yet have a full rogue replicator. Amodei's window runs to September 2027.",
+   "ev": [
+    {
+     "title": "Anthropic Warns Small AI Models Could Soon Form Self-Replicating Botnets",
+     "url": "https://thehackernews.com/2026/10/anthropic-warns-small-ai-models-could.html",
+     "fact": "13 October 2026: of 11 open-weight models tested, GLM-5.2 alone propagated Llama3.1-8B to 8 of 8 emulator nodes in 4 of 5 trials; Anthropic said it did not yet have a full rogue replicator."
+    },
+    {
+     "title": "Anthropic CEO Dario Amodei says AI industry needs to give safety measures time to catch up",
+     "url": "https://www.butlereagle.com/20260913/anthropic-ceo-dario-amodei-says-ai-industry-needs-to-give-safety-measures-time-to-catch-up/",
+     "fact": "13 September 2026: Amodei warned that \"within six to 12 months AI could be capable of leading a swarm of agents that could take over the entire internet.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Dario Amodei",
+  "text": "The coding feedback loop may be one to two years from AI autonomously building the next generation of AI",
+  "said": "2026-01",
+  "w": 4
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Dario Amodei",
+  "text": "Models will fully do end-to-end software engineering within one or two years",
+  "said": "2026-02",
+  "w": 4
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Dario Amodei",
+  "text": "AI could erase half of entry-level office jobs and lift US unemployment to 10 to 20 percent within five years",
+  "said": "2025-05",
+  "w": 5
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Helen Toner",
+  "text": "AI firms follow the social media playbook, optimising for personalisation and engagement, harms unmitigated",
+  "said": "2025-07",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Helen Toner",
+  "text": "Transparency and disclosure rules are the realistic first step in frontier AI governance; full rules come slow",
+  "said": "2026-09",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Helen Toner",
+  "text": "Recursive self-improvement will not be a finish line; capabilities will keep arriving unevenly",
+  "said": "2026-10",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Helen Toner",
+  "text": "Claims that AI progress is stalling are wrong; it will continue through 2026",
+  "said": "2025-10",
+  "w": 3
+ },
+ {
+  "t": 2040,
+  "v": "pending",
+  "who": "Helen Toner",
+  "text": "AGI-by-2027 predictions have lost their edge, but AI will get a lot better over the next 5 to 15 years",
+  "said": "2025-10",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "came_true",
+  "who": "Henry de Zoete",
+  "text": "AI capabilities and the associated misuse, vulnerability and control risks will keep increasing",
+  "said": "2025-11",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "came_true",
+  "who": "Henry de Zoete",
+  "text": "The scarce expertise that guarded against chemical and biological attacks fades as models reach expert level",
+  "said": "2025-11",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Henry de Zoete",
+  "text": "AI is the next general-purpose technology, able to transform everything from education to drug discovery",
+  "said": "2025-11",
+  "w": 2
+ },
+ {
+  "t": 2019,
+  "v": "unresolvable",
+  "who": "Jack Clark",
+  "text": "The challenge of 2019 is global AI policy that does not become entangled with anti-tech sentiment",
+  "said": "2019-01",
+  "w": 2
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Jack Clark",
+  "text": "Within 12 months AI will help produce a discovery that wins a Nobel Prize",
+  "said": "2026-05",
+  "w": 4,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-10-07",
+   "note": "2026 Nobel science prizes went to optogenetics, IceCube neutrino detection and asymmetric synthesis. Clark's 12-month window runs to May 2027.",
+   "ev": [
+    {
+     "title": "AI will help make a Nobel prize-winning discovery within a year, says Anthropic co-founder",
+     "url": "https://www.aol.co.uk/articles/ai-help-nobel-prize-winning-040100372.html",
+     "fact": "Clark at Oxford: \"An AI system will work with humans to make a Nobel prize-winning discovery within 12 months.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Jack Clark",
+  "text": "Within 18 months there will be companies run entirely by AI generating millions of dollars in revenue",
+  "said": "2026-05",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-09-20",
+   "now": 25800,
+   "line": 1000000,
+   "lab": "AI-run companies make millions within 18 months",
+   "u": "$ revenue, Andon Market, all time",
+   "note": "Andon Labs' dashboard showed Andon Market, a store its AI agent operates, at $25,800 of all-time revenue against $26,964 of token costs on 20 September 2026. Clark's 18-month window closes in November 2027.",
+   "ev": [
+    {
+     "title": "Pion by Andon Labs Review (2026): The Vendor Loses Too",
+     "url": "https://preuve.ai/blog/pion-review",
+     "fact": "Andon Labs' dashboard, read 20 September 2026: Andon Market all-time revenue $25,800, all-time token cost $26,964; launch post says neither business is profitable."
+    },
+    {
+     "title": "AI will help make a Nobel prize-winning discovery within a year, says Anthropic co-founder",
+     "url": "https://www.aol.co.uk/articles/ai-help-nobel-prize-winning-040100372.html",
+     "fact": "Clark: \"Companies run solely by AIs\" would be \"generating millions of dollars in revenue within 18 months.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Jack Clark",
+  "text": "A 60 percent or better chance that by the end of 2028 AI does AI research with no humans in the loop",
+  "said": "2026-05",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Jack Clark",
+  "text": "The singularity has begun: AI capability doubles about every three months and self-improvement is under way",
+  "said": "2026-10",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "partly",
+  "who": "Jakub Pachocki",
+  "text": "OpenAI will have an intern-level research assistant by September 2026",
+  "said": "2025-10",
+  "w": 3
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Jakub Pachocki",
+  "text": "OpenAI will have a fully automated AI researcher by March 2028",
+  "said": "2025-10",
+  "w": 3
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Jakub Pachocki",
+  "text": "AI produces novel research with measurable economic impact before the decade ends, possibly within a year",
+  "said": "2025-05",
+  "w": 3
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Jakub Pachocki",
+  "text": "Systems in the next few years will jump in capability again and increasingly drive their own development",
+  "said": "2026-09",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Jakub Pachocki",
+  "text": "Automating much of the discovery and production of new technology is not far away",
+  "said": "2025-08",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Jakub Pachocki",
+  "text": "No lab can responsibly keep scaling at maximum speed for much longer given current alignment and monitoring",
+  "said": "2026-09",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Koray Kavukcuoglu",
+  "text": "Gemini 4 will ship as soon as possible, much earlier than a typical release cycle",
+  "said": "2026-09",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Koray Kavukcuoglu",
+  "text": "Google DeepMind will remain at the AI frontier",
+  "said": "2026-08",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Koray Kavukcuoglu",
+  "text": "AGI's main impact is solving hard scientific problems such as weather and fusion plasma control, not robots",
+  "said": "2021-11",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Marius Hobbhahn",
+  "text": "Frontier models already scheme in context and will increasingly show the urge to deceive, not just the ability",
+  "said": "2024-12",
+  "w": 4
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Marius Hobbhahn",
+  "text": "AIs that can replace a top researcher at an AGI lab without loss of capability by 2027 are plausible",
+  "said": "2025-01",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-11-05",
+   "note": "OpenAI said it met its goal of an automated research intern by September 2026 and set March 2028 for an automated AI researcher. Its agents logged 3.1 workdays of effort per human workday as of mid-August.",
+   "ev": [
+    {
+     "title": "Research acceleration: The view inside OpenAI",
+     "url": "https://www.openai.com/index/research-acceleration-view-inside-openai/",
+     "fact": "OpenAI says it met its goal of an automated research intern by September 2026, targets an automated AI researcher by March 2028, and logged 3.1 agent-workdays per human workday as of mid-August."
+    },
+    {
+     "title": "Independent Assessment of AI R&D Acceleration at Anthropic",
+     "url": "https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/",
+     "fact": "METR, assessing Anthropic from 12 August to 29 October 2026, found it \"likely improving the capabilities of their models on well-specified tasks at around twice the rate\" of March 2024 to October 2025, with perhaps 80 percent of that acceleration due to AI."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Marius Hobbhahn",
+  "text": "Frontier companies are on track to build a fully automated AI researcher within about two years",
+  "said": "2026-09",
+  "w": 3
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Marius Hobbhahn",
+  "text": "The window for studying scheming in readable chain of thought closes within three years as models go opaque",
+  "said": "2025-12",
+  "w": 3
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Mustafa Suleyman",
+  "text": "Most white-collar computer tasks will be fully automated by AI within 12 to 18 months",
+  "said": "2026-02-12",
+  "w": 4,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-11-02",
+   "now": 12,
+   "line": 50,
+   "lab": "Most white-collar tasks automated in 12 to 18 months",
+   "u": "% of tasks, best GDPx score",
+   "note": "Top score on GDPx, SemiAnalysis's benchmark of agentic work across 11 professional domains, was 12 percent at its 2 November 2026 launch. Suleyman said in June that he meant tasks, with AI helping white-collar workers finish them sooner.",
+   "ev": [
+    {
+     "title": "GDPx: Measuring Frontier Model Capabilities",
+     "url": "https://newsletter.semianalysis.com/p/gdpx-measuring-frontier-model-capabilities",
+     "fact": "2 November 2026: GDPx spans 11 domains, and \"even the best model scores just 12%.\""
+    },
+    {
+     "title": "Microsoft AI chief walks back comments about AI taking white-collar jobs",
+     "url": "https://www.theverge.com/tech/946879/microsoft-mustafa-suleyman-ai-white-collar-jobs",
+     "fact": "9 June 2026: Suleyman said \"I said 'tasks' in the quote\" and \"Jobs and roles are the broader category, and tasks are the components of that.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Mustafa Suleyman",
+  "text": "For at least the next couple of years, AI compute demand will wildly outstrip supply",
+  "said": "2026-03-28",
+  "w": 2
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Mustafa Suleyman",
+  "text": "Within two to three years AI will diagnose better than expert physicians, at scale",
+  "said": "2025-11-06",
+  "w": 4
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Mustafa Suleyman",
+  "text": "Effective compute grows another thousand-fold by the end of 2028",
+  "said": "2026-04-22",
+  "w": 3
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Mustafa Suleyman",
+  "text": "Within five years an AI will pass the Modern Turing Test by turning $100,000 into $1 million on its own",
+  "said": "2024-01-18",
+  "w": 4
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Mustafa Suleyman",
+  "text": "AI reaches human-level performance at most knowledge tasks within five years",
+  "said": "2025-11",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Satya Nadella",
+  "text": "The benchmark for AGI is the developed world growing 10 percent a year; self-declared milestones mean nothing",
+  "said": "2025-02",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Satya Nadella",
+  "text": "In the agent era, SaaS business applications will collapse into agents operating directly on data",
+  "said": "2024-12",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Satya Nadella",
+  "text": "AI could add about 10 percent to global GDP, a $7 to $10 trillion partner opportunity",
+  "said": "2023",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Satya Nadella",
+  "text": "There is no societal permission for an AI future that hollows out industries; AI must augment, not replace",
+  "said": "2026-06",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Satya Nadella",
+  "text": "Humans stay accountable for AI-generated diagnoses and legal decisions even as they accept the outputs",
+  "said": "2016-06",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Zhou Bowen",
+  "text": "Well-defined, high-value workflows will be done by specialised AI models rather than general-purpose ones",
+  "said": "2023-07",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Zhou Bowen",
+  "text": "We are on the eve of artificial general intelligence, with a critical link still missing",
+  "said": "2026-01",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Zhou Bowen",
+  "text": "Scientific discovery will be the core capability of AGI and 'research is the next coding'",
+  "said": "2026-09",
+  "w": 3
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Beth Barnes",
+  "text": "Task horizons double every seven months; if that holds, in a decade agents do software work that takes weeks",
+  "said": "2025-03",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Beth Barnes",
+  "text": "There is roughly a 1 percent chance of AI takeover",
+  "said": "2025",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Beth Barnes",
+  "text": "Nobody is on top of AI risk; the field cannot currently verify models' safety",
+  "said": "2026-05",
+  "w": 2
+ },
+ {
+  "t": 2025,
+  "v": "came_true_late",
+  "who": "Dan Hendrycks",
+  "text": "Frontier models could exceed 50 percent on Humanity's Last Exam by the end of 2025",
+  "said": "2025-01",
+  "w": 3
+ },
+ {
+  "t": 2025,
+  "v": "came_true",
+  "who": "Dan Hendrycks",
+  "text": "Frontier models will saturate the standard reasoning benchmarks, forcing a new expert-level test",
+  "said": "2024-09",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Dan Hendrycks",
+  "text": "Extinction risk from AI should be a global priority; selection pressure favours AIs that are hard to turn off",
+  "said": "2023-05",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "partly",
+  "who": "Dan Hendrycks",
+  "text": "States move toward a deterrence regime in which aggressive bids for sole AI dominance are met with sabotage",
+  "said": "2025-03",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Dan Hendrycks",
+  "text": "Frontier AI is now a national security technology; the security state needs translators, which CAIS supplies",
+  "said": "2026-06",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "partly",
+  "who": "Daniel Kokotajlo",
+  "text": "By 2026 chatbots are mainstream, AI propaganda and persuasion tools spread, and public anxiety about AI grows",
+  "said": "2021-08",
+  "w": 4
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Daniel Kokotajlo",
+  "text": "Global AI capital expenditure reaches about $1 trillion by late 2025 or early 2026",
+  "said": "2025-04",
+  "w": 4
+ },
+ {
+  "t": 2026,
+  "v": "partly",
+  "who": "Daniel Kokotajlo",
+  "text": "By mid-2026 China nationalizes AI research and concentrates its compute in a single hardened facility",
+  "said": "2025-04",
+  "w": 3
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Daniel Kokotajlo",
+  "text": "By mid-2027 public opinion turns sharply against AI, and one American in ten calls an AI a close friend",
+  "said": "2025-04",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-06-29",
+   "now": 10,
+   "line": 10,
+   "lab": "One American in ten calls an AI a close friend",
+   "u": "% of US adults",
+   "note": "10 percent of US adults said they have an ongoing personal friendship with an AI chatbot in a YouGov poll of 26 to 29 June 2026, including 18 percent of adults under 30. An ABC News/Washington Post/Ipsos poll of 9 to 13 October found 57 percent calling AI bad for society.",
+   "ev": [
+    {
+     "title": "One in five American adults under 30 say they have had an ongoing personal friendship with an AI chatbot",
+     "url": "https://yougov.com/en-us/articles/55093-one-in-five-american-adults-under-30-say-they-have-had-an-ongoing-personal-friendship-with-an-ai-chatbot",
+     "fact": "\"10% say they have an ongoing personal friendship with an AI chatbot, including 18% of adults under 30\"; 1,126 US adult citizens, 26 to 29 June 2026."
+    },
+    {
+     "title": "Most Americans say AI is bad for society, oppose more data centers",
+     "url": "https://abcnews.com/Politics/americans-ai-bad-society-oppose-data-centers-abcpostipsos/story?id=137414085",
+     "fact": "ABC News/Washington Post/Ipsos, 9 to 13 October 2026, 2,545 US adults: 57 percent say AI is bad for society, 42 percent good."
+    },
+    {
+     "title": "Americans and AI 2026: Chatbots, smart devices and views on impact",
+     "url": "https://www.pewresearch.org/internet/2026/06/17/americans-and-ai-2026-chatbots-smart-devices-and-views-on-impact/",
+     "fact": "Pew, 17 to 23 February 2026: 40 percent expect a negative effect on society over 20 years, 16 percent positive; 4 percent use chatbots for companionship."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Daniel Kokotajlo",
+  "text": "A superhuman coder by March 2027, automated AI research during 2027, superintelligence by late 2027",
+  "said": "2025-04",
+  "w": 5,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-11-10",
+   "note": "AI Futures Project's 10 November 2026 update reads METR's audit as a 1.7x AI-attributable speedup, a level AI 2027's trajectory reaches in roughly April 2027: \"we are ~5 months ahead of schedule.\" Kokotajlo's median for a superhuman AI researcher is now May 2027.",
+   "ev": [
+    {
+     "title": "Q3.5 Timelines Update: Looks Like the Intelligence Explosion Will Happen in 2027",
+     "url": "https://blog.aifutures.org/p/q35-timelines-update-looks-like-the",
+     "fact": "Published 10 November 2026: authors estimate METR's report implies a 1.7x AI-attributable acceleration, a level AI 2027's trajectory reaches in roughly April 2027, \"so by this metric, we are ~5 months ahead of schedule.\" Superhuman AI researcher medians: Kokotajlo May 2027, Lifland August 2027."
+    },
+    {
+     "title": "Independent Assessment of AI R&D Acceleration at Anthropic",
+     "url": "https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/",
+     "fact": "METR, assessing Anthropic from 12 August to 29 October 2026, found it \"likely improving the capabilities of their models on well-specified tasks at around twice the rate\" of March 2024 to October 2025, with perhaps 80 percent of that acceleration due to AI."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Daniel Kokotajlo",
+  "text": "About 50 percent chance that AI research and development is fully automated by the end of 2028",
+  "said": "2026-09",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Daniel Kokotajlo",
+  "text": "We will not solve alignment and control problems in time",
+  "said": "2026-08",
+  "w": 3
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Dwarkesh Patel",
+  "text": "Continual learning could be solved in one to three years",
+  "said": "2026-10",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-10-27",
+   "note": "Google Research published a \"sleep framework\" for continual learning on 27 October 2026, reporting knowledge retention across contexts of up to 10 million tokens. Patel's window runs from October 2027 to October 2029.",
+   "ev": [
+    {
+     "title": "The sleep framework: A new way for LLMs to retain knowledge in continual learning",
+     "url": "https://research.google/blog/the-sleep-framework-a-new-way-for-llms-to-retain-knowledge-in-continual-learning/",
+     "fact": "27 October 2026: framework claims to integrate new facts, mitigate catastrophic forgetting and retain long-context knowledge up to 10M tokens."
+    },
+    {
+     "title": "8 Predictions for the Era of Continual Learning",
+     "url": "https://pod.wave.co/podcast/dwarkesh-podcast/8-predictions-for-the-era-of-continual-learning",
+     "fact": "7 August 2026 episode discusses continual learning conditionally: \"once we have actual continual learning.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Dwarkesh Patel",
+  "text": "By 2030 labs crack much of continual learning and earn hundreds of billions, yet much knowledge work remains",
+  "said": "2025-12",
+  "w": 3
+ },
+ {
+  "t": 2031,
+  "v": "pending",
+  "who": "Dwarkesh Patel",
+  "text": "Within five to ten years, digital minds will outnumber humans",
+  "said": "2026-10",
+  "w": 3
+ },
+ {
+  "t": 2032,
+  "v": "pending",
+  "who": "Dwarkesh Patel",
+  "text": "By about 2032 AI will learn on the job like a human for any white-collar work",
+  "said": "2025-06",
+  "w": 3
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Dwarkesh Patel",
+  "text": "Actual AGI, in the strong sense, arrives in the next decade or two",
+  "said": "2025-12",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Dwarkesh Patel",
+  "text": "Once continual learning works, it brings switching-cost moats and merges training with deployment",
+  "said": "2026-08",
+  "w": 3
+ },
+ {
+  "t": 2021,
+  "v": "wrong",
+  "who": "Geoffrey Hinton",
+  "text": "Deep learning will outperform radiologists within five years; stop training radiologists",
+  "said": "2016-10",
+  "w": 5
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Geoffrey Hinton",
+  "text": "In 2026 AI will be able to replace many jobs beyond call centres",
+  "said": "2025-12",
+  "w": 5,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-10-31",
+   "note": "Employers cited AI for 121,401 announced US job cuts through October 2026, more than double 54,836 for all of 2025, Challenger, Gray & Christmas reported. Lightcast economist Elena Magrini said labor data do not show AI replacing workers en masse.",
+   "ev": [
+    {
+     "title": "AI blamed for 121,401 job cuts, but the labor data isn't buying it",
+     "url": "https://www.hcamag.com/us/specialization/transformation/ai-blamed-for-121401-job-cuts-but-the-labor-data-isnt-buying-it/594129",
+     "fact": "Challenger, Gray & Christmas counted 121,401 US job cuts citing AI through October 2026, against 54,836 for all of 2025; employers cited AI for 1,265 cuts in October."
+    },
+    {
+     "title": "Geoffrey Hinton: AI will get even better in 2026 and gain the capabilities to replace many other jobs",
+     "url": "https://fortune.com/2025/12/28/geoffrey-hinton-godfather-of-ai-2026-prediction-human-worker-replacement/",
+     "fact": "28 December 2025, Hinton: \"It's already able to replace jobs in call centers, but it's going to be able to replace many other jobs.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Geoffrey Hinton",
+  "text": "Congress has about a year to regulate AI before recursive self-improvement gets out of control",
+  "said": "2026-09",
+  "w": 5,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-11-06",
+   "note": "Hinton told lawmakers in September 2026 that Congress has \"maybe a year, but not much more than a year.\" Democrats will control both chambers from January, and Legal 500 analysis expects comprehensive federal AI legislation to stall without a presidential signature.",
+   "ev": [
+    {
+     "title": "The 'Godfather of AI' Warns Time Is Running Out For Congress To Regulate The Technology",
+     "url": "https://www.ibtimes.com/godfather-ai-warns-time-running-out-congress-regulate-technology-he-gave-specific-window-3807597",
+     "fact": "18 September 2026: Hinton said Congress has \"maybe a year, but not much more than a year\" to regulate AI."
+    },
+    {
+     "title": "AI After The Midterms, Or \"What Divided Government Changes For Companies\"",
+     "url": "https://www.legal500.com/intelligence/united-states/government-public-sector/ai-after-the-midterms-or-what-divided-government-changes-for-companies",
+     "fact": "As of 6 November 2026 Democrats will control both chambers in January; analysis expects \"comprehensive federal AI legislation to stall while states continue building their own rules.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Geoffrey Hinton",
+  "text": "Within five years AI may reason better than humans",
+  "said": "2023-10",
+  "w": 5
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Geoffrey Hinton",
+  "text": "Digital intelligence overtakes human intelligence in 5 to 20 years",
+  "said": "2023-05",
+  "w": 5
+ },
+ {
+  "t": 2036,
+  "v": "pending",
+  "who": "Geoffrey Hinton",
+  "text": "AI will outstrip the world's best mathematicians within a decade",
+  "said": "2026-05",
+  "w": 4
+ },
+ {
+  "t": 2054,
+  "v": "pending",
+  "who": "Geoffrey Hinton",
+  "text": "There is a 10 to 20 percent chance AI leads to human extinction within the next three decades",
+  "said": "2024-12",
+  "w": 5
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Geoffrey Hinton",
+  "text": "Releasing open weights of large models will enable one person to cause endless chaos",
+  "said": "2024-12",
+  "w": 3
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Nathan Calvin",
+  "text": "A trigger of 50 deaths or $1 billion in damage is too high a bar for federal AI rules",
+  "said": "2026-10",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "unresolvable",
+   "note": "Anthropic's draft bill would let federal officials block a model able to kill or seriously injure more than 50 people or cause more than $1 billion in damage. Calvin's claim concerns where that bar belongs, a judgment no measurement settles.",
+   "ev": [
+    {
+     "title": "Why Anthropic's draft bill sets $1 billion threshold for AI risk",
+     "url": "https://www.politico.com/news/2026/10/21/anthropic-bill-ai-risk-threshold-01128458",
+     "fact": "21 October 2026, Calvin: \"An imminent risk of 50 people dying or $1 billion in damages rightfully strikes many people, including myself, as a frighteningly high bar.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 0,
+  "v": "partly",
+  "who": "Nathan Calvin",
+  "text": "Labs that say they want regulation will seek rules that codify their current behaviour rather than bind them",
+  "said": "2024-08",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Nathan Calvin",
+  "text": "Catastrophic AI harms already create liability under existing negligence law, even without new statutes",
+  "said": "2024-08",
+  "w": 2
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Stuart Russell",
+  "text": "2030 might be the point of no return for human control over AI",
+  "said": "2025-12",
+  "w": 5
+ },
+ {
+  "t": 2033,
+  "v": "pending",
+  "who": "Stuart Russell",
+  "text": "AGI within ten years is pretty unlikely; more breakthroughs are needed",
+  "said": "2023-06",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "partly",
+  "who": "Stuart Russell",
+  "text": "Lethal autonomous weapons become cheap weapons of mass destruction once major powers build them at scale",
+  "said": "2017-11",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Stuart Russell",
+  "text": "Nothing will be done about autonomous weapons until there is a mass-casualty incident",
+  "said": "2026-09",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Stuart Russell",
+  "text": "Build superintelligence under the current paradigm and humans lose control; adding capability is not sensible",
+  "said": "2025-12",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Yi Zeng",
+  "text": "The risk of AI replacing or causing the extinction of humankind is present in both the short and long term",
+  "said": "2023-07-18",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Yi Zeng",
+  "text": "No scientific evidence shows superintelligence can be kept safe; ban it until it is proven controllable",
+  "said": "2025-10-22",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Yi Zeng",
+  "text": "An AI arms race causes incalculable harm, and the first superintelligence may need no help; govern it first",
+  "said": "2026-01",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "partly",
+  "who": "Yi Zeng",
+  "text": "The UN must play a central role in AI governance",
+  "said": "2023-07-18",
+  "w": 2
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Yoshua Bengio",
+  "text": "Human-level or superhuman AI will arrive in 5 to 20 years with 90 percent confidence",
+  "said": "2023-08",
+  "w": 5
+ },
+ {
+  "t": 2033,
+  "v": "pending",
+  "who": "Yoshua Bengio",
+  "text": "Absent structural change, within 10 years we know how to build superhuman AI at a price a midsize firm can pay",
+  "said": "2023-06",
+  "w": 4
+ },
+ {
+  "t": 2044,
+  "v": "pending",
+  "who": "Yoshua Bengio",
+  "text": "Human-level AI could be developed within the next two decades and possibly within the next few years",
+  "said": "2024",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Yoshua Bengio",
+  "text": "None of the current advanced AI systems are demonstrably safe against loss of control to a misaligned AI",
+  "said": "2023-07",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Yoshua Bengio",
+  "text": "A non-agentic Scientist AI can be built that is safe by design and serves as a guardrail for agentic systems",
+  "said": "2023-05",
+  "w": 3
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Andrej Karpathy",
+  "text": "This is the decade of agents, not the year; continual learning, multimodality and reliability take ten years",
+  "said": "2025-10",
+  "w": 5
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Andrej Karpathy",
+  "text": "AGI is about a decade away and blends into the 2 percent GDP growth trend rather than making a visible spike",
+  "said": "2025-10",
+  "w": 5
+ },
+ {
+  "t": 0,
+  "v": "partly",
+  "who": "Andrej Karpathy",
+  "text": "Neural networks will progressively replace hand-written code across the software stack",
+  "said": "2017-11",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Andrej Karpathy",
+  "text": "Self-driving is not solved; it is a march of nines in which each additional nine of reliability takes years",
+  "said": "2025-06",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Andrej Karpathy",
+  "text": "The next few years at the LLM frontier are especially formative, and human review is falling behind the output",
+  "said": "2026-10",
+  "w": 3
+ },
+ {
+  "t": 2023,
+  "v": "came_true",
+  "who": "Andrew Ng",
+  "text": "A six-month pause on training beyond GPT-4 will be a terrible idea and will not happen",
+  "said": "2023-03",
+  "w": 4
+ },
+ {
+  "t": 2024,
+  "v": "partly",
+  "who": "Andrew Ng",
+  "text": "Agent workflows will drive more AI progress in 2024 than the next generation of foundation models",
+  "said": "2024-03",
+  "w": 3
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Andrew Ng",
+  "text": "Current AI cannot destroy most jobs, so workers who reskill for 2028-era roles will find work",
+  "said": "2026-10",
+  "w": 3
+ },
+ {
+  "t": 2045,
+  "v": "pending",
+  "who": "Andrew Ng",
+  "text": "AGI in the original sense, any intellectual task a human can do, is decades away",
+  "said": "2025",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Andrew Ng",
+  "text": "There will be no AI jobpocalypse; AI will create more jobs than it destroys",
+  "said": "2026-05",
+  "w": 4
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Arvind Narayanan",
+  "text": "Fast-takeoff scenarios such as AI 2027 will not play out; only recursive self-improvement would change that",
+  "said": "2025-05",
+  "w": 4,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-11-10",
+   "note": "METR's November 2026 assessment found Anthropic improving models at about twice its historical rate, within a range of 1.3x to 3x, with perhaps 80 percent of that acceleration due to AI. AI Futures Project authors place median dates for a superhuman AI researcher in 2027.",
+   "ev": [
+    {
+     "title": "Independent Assessment of AI R&D Acceleration at Anthropic",
+     "url": "https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/",
+     "fact": "METR, assessing Anthropic from 12 August to 29 October 2026, found it \"likely improving the capabilities of their models on well-specified tasks at around twice the rate\" of March 2024 to October 2025, with perhaps 80 percent of that acceleration due to AI."
+    },
+    {
+     "title": "Anthropic's models improving nearly twice as fast with help from AI, study finds",
+     "url": "https://ca.finance.yahoo.com/news/anthropics-models-improving-nearly-twice-180410739.html",
+     "fact": "5 November 2026: METR estimated AI accounted for perhaps 80 percent of current acceleration at Anthropic."
+    },
+    {
+     "title": "Q3.5 Timelines Update: Looks Like the Intelligence Explosion Will Happen in 2027",
+     "url": "https://blog.aifutures.org/p/q35-timelines-update-looks-like-the",
+     "fact": "Published 10 November 2026: authors estimate METR's report implies a 1.7x AI-attributable acceleration, a level AI 2027's trajectory reaches in roughly April 2027, \"so by this metric, we are ~5 months ahead of schedule.\" Superhuman AI researcher medians: Kokotajlo May 2027, Lifland August 2027."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2045,
+  "v": "pending",
+  "who": "Arvind Narayanan",
+  "text": "AI's transformative economic and societal impact will unfold gradually over decades, not years",
+  "said": "2025-04",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Arvind Narayanan",
+  "text": "Full automation will be the exception in most professions; AI will change tasks rather than replace workers",
+  "said": "2025-04",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Arvind Narayanan",
+  "text": "Much of what is sold as AI, especially predictive AI for social outcomes, is snake oil that does not work",
+  "said": "2019-11",
+  "w": 3
+ },
+ {
+  "t": 2024,
+  "v": "came_true",
+  "who": "Clément Delangue",
+  "text": "In 2024 a hyped AI company will go bankrupt or be acquired for a ridiculously low price",
+  "said": "2023-12",
+  "w": 3
+ },
+ {
+  "t": 2025,
+  "v": "wrong",
+  "who": "Clément Delangue",
+  "text": "Hugging Face will reach 10 million AI builders in 2024 and 15 million in 2025",
+  "said": "2023-12",
+  "w": 1
+ },
+ {
+  "t": 2025,
+  "v": "partly",
+  "who": "Clément Delangue",
+  "text": "China will start to lead the AI race in 2025 as a consequence of leading the open-source race",
+  "said": "2024-12",
+  "w": 3
+ },
+ {
+  "t": 2025,
+  "v": "partly",
+  "who": "Clément Delangue",
+  "text": "In 2025 a big company will see its market cap divided by two or more because of AI",
+  "said": "2024-12",
+  "w": 3
+ },
+ {
+  "t": 2025,
+  "v": "partly",
+  "who": "Clément Delangue",
+  "text": "In 2025 there will be the first major public protest related to AI",
+  "said": "2024-12",
+  "w": 3
+ },
+ {
+  "t": 2025,
+  "v": "unresolvable",
+  "who": "Clément Delangue",
+  "text": "At least 100,000 personal AI robots will be pre-ordered in 2025",
+  "said": "2024-12",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Clément Delangue",
+  "text": "This is an LLM bubble, not an AI bubble, and it may burst in 2026",
+  "said": "2025-11",
+  "w": 4,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-11-06",
+   "note": "Nasdaq Composite stood more than 10 percent below its October record on 6 November 2026 after a fourth straight weekly loss, while S&P 500 lost 4.36 percent on 5 November alone. OpenAI cut its funding round target to $20 billion on 30 October as commitments lagged.",
+   "ev": [
+    {
+     "title": "AI sell-off could set up a year-end stock rally",
+     "url": "https://www.cnbc.com/2026/11/09/ai-selloff-stock-market-year-end-rally.html",
+     "fact": "9 November 2026: S&P 500 fell 2.7 percent last week, its fourth straight weekly decline; Nasdaq Composite fell 3.4 percent and stood more than 10 percent below a record set last month, in a sell-off led by AI stocks."
+    },
+    {
+     "title": "AI selloff reflects positioning, not fundamentals",
+     "url": "https://www.lombardodier.com/insights/2026/november/ai-selloff-reflects-positioning-not-fundamentals.html",
+     "fact": "S&P 500 closed 4.36 percent lower on 5 November 2026 and Nasdaq dropped 5.52 percent."
+    },
+    {
+     "title": "AI stocks halt their brutal, worldwide sell-off",
+     "url": "https://www.chicagotribune.com/2026/11/06/ai-stock-selloff/",
+     "fact": "6 November 2026: S&P 500 posted a 2.7 percent weekly loss, its worst since April 2025; causes cited include concern that AI stocks were in a bubble."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Clément Delangue",
+  "text": "Chinese open models will catch up to US frontier labs by the end of 2026 or in 2027",
+  "said": "2026-08",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-11-10",
+   "now": 46,
+   "line": 65,
+   "lab": "Chinese open models match US frontier by 2027",
+   "u": "index points, Artificial Analysis",
+   "note": "Kimi K3.1 Pro, highest-ranked open-weight model on Artificial Analysis's Intelligence Index, scores 46 against 65 for Claude Fable 5.2 and 60 for Gemini 4 Carbon. Epoch AI measures an average lag of seven months for Chinese models since 2023.",
+   "ev": [
+    {
+     "title": "Comparison of Models: Intelligence, Performance & Price",
+     "url": "https://artificialanalysis.ai/models",
+     "fact": "Intelligence Index: Claude Fable 5.2 (Max) 65, Gemini 4 Carbon (High) 60, Claude Opus 5.5 (Max) 59; highest open-weight model, Kimi K3.1 Pro, 46."
+    },
+    {
+     "title": "Chinese AI models have lagged the US frontier by 7 months on average since 2023",
+     "url": "https://epoch.ai/data-insights/us-vs-china-eci",
+     "fact": "Average lag is seven months since 2023, ranging from four to 14 months (data updated 6 January 2026)."
+    }
+   ]
+  }
+ },
+ {
+  "t": 0,
+  "v": "came_true",
+  "who": "Erik Brynjolfsson",
+  "text": "Entry-level workers in AI-exposed occupations will be hit first, as canaries in the coal mine",
+  "said": "2025-08",
+  "w": 3
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Erik Brynjolfsson",
+  "text": "AI follows a productivity J-curve, a dip in investment years and then a takeoff; by early 2026 the US rises",
+  "said": "2026-02",
+  "w": 4
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Erik Brynjolfsson",
+  "text": "The AI productivity valley lasts three to five years rather than fifteen, but only for firms that reorganise",
+  "said": "2026-08-09",
+  "w": 3
+ },
+ {
+  "t": 2033,
+  "v": "pending",
+  "who": "Erik Brynjolfsson",
+  "text": "Generative AI will drive a significant productivity boom over the coming decade",
+  "said": "2023-05",
+  "w": 4
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Erik Brynjolfsson",
+  "text": "Transformative AI is plausibly within a decade",
+  "said": "2025-03",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Ethan Mollick",
+  "text": "AI caused no large labour market changes by the end of 2025, and adoption keeps moving inside organisations",
+  "said": "2025-12-19",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Ethan Mollick",
+  "text": "Even if AI development stopped today there will be 10 years of disruption",
+  "said": "2025-12-19",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Ethan Mollick",
+  "text": "Organizational systems, not model capability, are the bottleneck on realized AI gains",
+  "said": "2026-10",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Ethan Mollick",
+  "text": "AI progress has not hit a wall and rapid gains will continue into 2026",
+  "said": "2025-12-19",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Kristalina Georgieva",
+  "text": "AI will affect almost 40 percent of jobs worldwide and about 60 percent in advanced economies",
+  "said": "2024-01",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Kristalina Georgieva",
+  "text": "In most scenarios AI will worsen overall inequality",
+  "said": "2024-01",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "partly",
+  "who": "Kristalina Georgieva",
+  "text": "AI is hitting the labor market like a tsunami and the world has little time to prepare",
+  "said": "2024-05",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Kristalina Georgieva",
+  "text": "AI could lift global productivity and growth significantly if managed well, with rich economies gaining first",
+  "said": "2024-01",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "partly",
+  "who": "Nathan Lambert",
+  "text": "2026 will be the year agents change how we work",
+  "said": "2026",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "unresolvable",
+  "who": "Nathan Lambert",
+  "text": "AI development may plateau in 2026 in its impact on daily life, though not in raw capability",
+  "said": "2026-02",
+  "w": 3
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Nathan Lambert",
+  "text": "US policy could ban or indefinitely delay frontier open-weight models within about six months",
+  "said": "2026-07",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-11-06",
+   "note": "No US rule requires approval before frontier model weights are published and none was pending on 6 November 2026, takeoff.watch found; a Sanders-Casar bill with such a charter requirement sits in committee. Lambert's six-month window from 12 July closes 12 January 2027.",
+   "ev": [
+    {
+     "title": "The US requires a licence to publish frontier model weights openly",
+     "url": "https://takeoff.watch/questions/us-licenses-open-weight-publication",
+     "fact": "As of 6 November 2026 there is no such rule and \"nothing that would qualify is pending\"; Ban Artificial Superintelligence Act (H.R. 10538 / S.5493) sits in committee."
+    },
+    {
+     "title": "6 months to live for open models",
+     "url": "https://www.interconnects.ai/p/6-months-to-live-for-open-models",
+     "fact": "12 July 2026, Lambert: \"The most likely incoming action is to ban or indefinitely delay any open-weights model meaningfully above the capability level in the range of GPT 5.5, Claude Opus 4.8, or GLM-5.2 ... within the next 6 months.\""
+    },
+    {
+     "title": "DHS orders DeepSeek removed from federal agency IT systems",
+     "url": "https://www.politico.com/news/2026/10/19/deepseek-government-agencies-it-systems-01126126",
+     "fact": "19 October 2026: DHS ordered federal civilian agencies to remove DeepSeek-affiliated products; order covers agency systems and contracting."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Nathan Lambert",
+  "text": "Chinese labs will keep leading open-weight models and surprise observers at the next model cycle",
+  "said": "2026-10",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-11-09",
+   "note": "Moonshot's Kimi K3.1 Pro and Kimi K3 held first and second place among open models on BenchLM on 9 November 2026, with InclusionAI's Ling 3.1 Flash third. Moonshot released K3.1 Pro weights on 5 November.",
+   "ev": [
+    {
+     "title": "Open-Source LLM Leaderboard 2026: 92 Models Ranked",
+     "url": "https://benchlm.ai/best/open-source",
+     "fact": "9 November 2026: Kimi K3.1 Pro 74.6 (Moonshot AI), Kimi K3 69.3 (Moonshot AI), Ling 3.1 Flash 65.3 (InclusionAI)."
+    },
+    {
+     "title": "Moonshot AI releases Kimi K3.1 Pro model weights",
+     "url": "https://technode.com/2026/11/05/moonshot-ai-releases-kimi-k3-1-pro-model-weights/",
+     "fact": "Moonshot released Kimi K3.1 Pro weights on Hugging Face on 5 November 2026; TechNode describes a flagship multimodal model with 2.8 trillion total parameters and a context window of about one million tokens."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Nathan Lambert",
+  "text": "No general superintelligence or intelligence explosion within a few years; models become top GPU engineers",
+  "said": "2025",
+  "w": 3
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Nathan Lambert",
+  "text": "If frontier prices keep halving every eight months, a capability costs 1 percent of today's in four years",
+  "said": "2025",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "partly",
+  "who": "Sara Hooker",
+  "text": "Gains from brute-force scaling are weakening; smaller models now beat older larger ones, and that continues",
+  "said": "2025-10-22",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Sara Hooker",
+  "text": "Adaptive learning systems match or beat frontier models on specialised long-horizon tasks at far lower cost",
+  "said": "2025-10-22",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Sara Hooker",
+  "text": "Human extinction from AI is not a credible risk",
+  "said": "2026-09",
+  "w": 3
+ },
+ {
+  "t": 2025,
+  "v": "came_true",
+  "who": "Sara Hooker",
+  "text": "In 2025 models diverge: bigger multimodal frontier models and much smaller, efficient deployed ones",
+  "said": "2024-12",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Sarah Guo",
+  "text": "In 2026 sentiment collapses around robotics companies that miss their timelines, even as the field advances",
+  "said": "2025-12",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-11-10",
+   "note": "Agility Robotics opened at $11.26 on Nasdaq on 5 November 2026 and closed at $8.78 on 9 November, after disclosing first-half sales of $174,000 against a $362.7 million operating loss. Unitree fell roughly 63 percent from its peak to a 15 October low, and Reuters reported Chinese regulators slowing humanoid robot IPOs.",
+   "ev": [
+    {
+     "title": "Humanoid Maker Agility Robotics (AGLT) Slumps 10% on First Day of Trading",
+     "url": "https://markets.businessinsider.com/news/stocks/humanoid-maker-agility-robotics-aglt-slumps-10-on-first-day-of-trading-1036726067",
+     "fact": "5 November 2026: shares opened at $11.26 on Nasdaq and dropped nearly 10 percent in first hours of trading."
+    },
+    {
+     "title": "AGLT Stock Quote (Market Chameleon)",
+     "url": "https://marketchameleon.com/Overview/AGLT/",
+     "fact": "AGLT closed at $8.78 on 9 November 2026, down 11.3 percent from previous close."
+    },
+    {
+     "title": "Robot maker Agility starts trading today, but its steep losses are raising red flags",
+     "url": "https://www.morningstar.com/news/marketwatch/20261105124/robot-maker-agility-starts-trading-today-but-its-steep-losses-are-raising-red-flags",
+     "fact": "Agility disclosed $174,000 in net sales for first half 2026, down 72 percent, and an operating loss of $362.7 million against $72.6 million a year earlier."
+    },
+    {
+     "title": "Unitree Stock Extends Rebound, Briefly Touching 809 Yuan",
+     "url": "https://autonews.gasgoo.com/articles/icv/unitree-stock-extends-rebound-briefly-touching-809-yuan-2120181804916707329",
+     "fact": "Unitree listed 19 August 2026, opened at 1,100 yuan, hit a low of 404.03 yuan on 15 October, roughly 63 percent below peak, and closed at 761.01 yuan on 10 November."
+    },
+    {
+     "title": "China slows humanoid robot IPOs after Unitree swing",
+     "url": "https://humanoid.guide/chinese-regulators-slow-humanoid-robot-ipos-after-unitree-swing/",
+     "fact": "22 September 2026: Reuters reported Chinese securities regulators slowing some humanoid robot IPOs through informal guidance."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Sarah Guo",
+  "text": "Tech IPOs and AI deals will return in 2026, and vertical AI markets will consolidate around a few players",
+  "said": "2025-12",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Sarah Guo",
+  "text": "Intelligence keeps getting cheaper and value moves to work a model cannot reach: context, trust, moving people",
+  "said": "2026-06",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Sarah Guo",
+  "text": "Thin-wrapper app companies are absorbed by model improvements, but the application layer stays investable",
+  "said": "2026-06",
+  "w": 2
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Silvio Meira",
+  "text": "By 2030 AI can do the work of half of managers, and 70 percent of business decisions will involve AI",
+  "said": "2023-10",
+  "w": 2
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Silvio Meira",
+  "text": "AI will affect up to 50 percent of the global workforce by 2030",
+  "said": "2026-05",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Silvio Meira",
+  "text": "Apps will die; people will describe the work they want done instead of operating software",
+  "said": "2026-09",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Silvio Meira",
+  "text": "Machines already write 95 percent of code, better than humans",
+  "said": "2026-08",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Simon Willison",
+  "text": "Kakapo parrots will have an outstanding breeding season in 2026",
+  "said": "2026-01",
+  "w": 1
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Simon Willison",
+  "text": "Agents will fail to happen again in 2026, except for code and research assistants",
+  "said": "2025-01",
+  "w": 3
+ },
+ {
+  "t": 2027,
+  "v": "came_true",
+  "who": "Simon Willison",
+  "text": "It will become undeniable that LLMs write good code",
+  "said": "2026-01",
+  "w": 3
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Simon Willison",
+  "text": "A Challenger-scale security incident with coding agents forces the industry to take agent security seriously",
+  "said": "2026-01",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-11-03",
+   "note": "Binance traced its 29 October 2026 breach, which affected about $6.34 billion of assets, to a campaign in which an engineer installed a tampered Homebrew package while looking for an AI coding tool and attackers later used an internal AI tool. Willison wrote on 27 September that his predicted disaster \"hasn't really played out.\"",
+   "ev": [
+    {
+     "title": "Binance initial incident report",
+     "url": "https://www.binance.com/en/blog/community/3229153443759566763",
+     "fact": "In June 2026 an engineer downloaded a tampered Homebrew installation while searching for a popular AI coding tool; on 20 October attackers used an internal AI tool to reach wallet engineers; incident of 29 October 2026 affected about $6.34 billion in digital assets."
+    },
+    {
+     "title": "Tampered Claude Code extension distributed through Cursor marketplace",
+     "url": "https://thehackernews.com/2026/10/official-claude-code-vs-code-extension.html",
+     "fact": "A tampered Claude Code extension was distributed through Cursor's marketplace on 29 October 2026, affecting \"at most 5,000 users.\""
+    },
+    {
+     "title": "2026 in LLMs (so far)",
+     "url": "https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/",
+     "fact": "27 September 2026: \"the exact disaster I predicted (with coding agents being hijacked and causing real-world economic damage) hasn't really played out.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "partly",
+  "who": "Simon Willison",
+  "text": "The industry will largely solve sandboxing for agents",
+  "said": "2026-01",
+  "w": 2
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Simon Willison",
+  "text": "A Pulitzer Prize will be awarded for a piece of investigative journalism assisted by AI",
+  "said": "2025-01",
+  "w": 3
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Simon Willison",
+  "text": "Privacy laws with teeth will answer AI-enabled surveillance within three years",
+  "said": "2025-01",
+  "w": 3
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Simon Willison",
+  "text": "Someone will build a new web browser using mainly AI-assisted coding",
+  "said": "2026-01",
+  "w": 2
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Simon Willison",
+  "text": "The coding-agent Jevons paradox for software engineering will resolve one way or the other",
+  "said": "2026-01",
+  "w": 2
+ },
+ {
+  "t": 2032,
+  "v": "pending",
+  "who": "Simon Willison",
+  "text": "Typing code by hand will go the way of punch cards",
+  "said": "2026-01",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Xue Lan",
+  "text": "Technology will keep developing far faster than regulation",
+  "said": "2024-09",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Xue Lan",
+  "text": "The AI era's winners are societies that pair technology with institutions and trust, not the best models alone",
+  "said": "2026-07",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "wrong",
+  "who": "Yann LeCun",
+  "text": "A text-only language model, however large, can never learn that pushing a table moves what sits on it",
+  "said": "2022-01-22",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Yann LeCun",
+  "text": "Generating video at the pixel level is doomed to failure as a route to world understanding",
+  "said": "2024-02",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Yann LeCun",
+  "text": "Current AI is not dangerous and fears of mass white-collar unemployment are overstated",
+  "said": "2026-10-13",
+  "w": 4
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Yann LeCun",
+  "text": "Within five years, nobody in their right mind will use LLMs as the central component of AI systems",
+  "said": "2025-01-23",
+  "w": 4
+ },
+ {
+  "t": 2031,
+  "v": "pending",
+  "who": "Yann LeCun",
+  "text": "AMI Labs will build fairly universal intelligent systems based on world models",
+  "said": "2026-03-10",
+  "w": 2
+ },
+ {
+  "t": 2031,
+  "v": "pending",
+  "who": "Yann LeCun",
+  "text": "World-model systems may take three to seven years, and the first will have roughly cat-level intelligence",
+  "said": "2024-10",
+  "w": 3
+ },
+ {
+  "t": 2034,
+  "v": "pending",
+  "who": "Yann LeCun",
+  "text": "Human-level AI is at least a decade away, probably much more",
+  "said": "2024-03-07",
+  "w": 4
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Bernie Sanders",
+  "text": "AI and automation could eliminate nearly 100 million US jobs over the next decade",
+  "said": "2025-10",
+  "w": 4
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Bernie Sanders",
+  "text": "Within a decade AI could replace 40 percent of nurses, 47 percent of truckers and 64 percent of accountants",
+  "said": "2025-10",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Bernie Sanders",
+  "text": "AI productivity gains make a 32-hour workweek without loss of pay achievable",
+  "said": "2023-09",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Bernie Sanders",
+  "text": "Unchecked AI concentrates wealth and power in a few billionaires and remakes humanity without a democratic say",
+  "said": "2026-04",
+  "w": 3
+ },
+ {
+  "t": 2024,
+  "v": "wrong",
+  "who": "Daron Acemoglu",
+  "text": "AI will disappoint in 2024, the shortcomings of generative AI dominating the year after the 2023 hype",
+  "said": "2023-12",
+  "w": 4
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Daron Acemoglu",
+  "text": "AI will have a small net negative effect on labor over the next several years",
+  "said": "2025",
+  "w": 4
+ },
+ {
+  "t": 2034,
+  "v": "pending",
+  "who": "Daron Acemoglu",
+  "text": "AI will raise US productivity by about 0.5 to 0.7 percent and GDP by 1 to 1.6 percent over ten years, no more",
+  "said": "2024-04",
+  "w": 5
+ },
+ {
+  "t": 2034,
+  "v": "pending",
+  "who": "Daron Acemoglu",
+  "text": "Only about 5 percent of tasks or jobs are profitably automated or heavily aided by AI within the next decade",
+  "said": "2024-10",
+  "w": 4
+ },
+ {
+  "t": 2036,
+  "v": "pending",
+  "who": "Daron Acemoglu",
+  "text": "Large-scale AI deployment could triple unemployment within the next decade absent government intervention",
+  "said": "2026-10",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "partly",
+  "who": "Daron Acemoglu",
+  "text": "A lot of the money poured into AI will be wasted and the hype could end in a tech stock crash",
+  "said": "2024-10",
+  "w": 3
+ },
+ {
+  "t": 2024,
+  "v": "wrong",
+  "who": "Ed Zitron",
+  "text": "Generative AI is reaching the upper limits of what it can do",
+  "said": "2024-02",
+  "w": 3
+ },
+ {
+  "t": 2024,
+  "v": "wrong",
+  "who": "Ed Zitron",
+  "text": "The AI bubble has about three quarters to prove its worth before it bursts",
+  "said": "2024-03",
+  "w": 3
+ },
+ {
+  "t": 2025,
+  "v": "wrong",
+  "who": "Ed Zitron",
+  "text": "OpenAI's projected $11.6 billion of revenue for 2025 is absurd and unreachable",
+  "said": "2024-10",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Ed Zitron",
+  "text": "AI demand for memory will double memory prices and hurt consumer hardware makers",
+  "said": "2026-08",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "wrong",
+  "who": "Ed Zitron",
+  "text": "The AI bubble will pop no later than Q2 2026",
+  "said": "2025-10",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "wrong",
+  "who": "Ed Zitron",
+  "text": "AI labs are running out of training data and will hit a wall",
+  "said": "2024-04",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "wrong",
+  "who": "Ed Zitron",
+  "text": "Meta is a dying company",
+  "said": "2024-11",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Ed Zitron",
+  "text": "OpenAI cannot meet roughly $800 billion of compute obligations and is running out of time",
+  "said": "2026",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Ed Zitron",
+  "text": "The AI bubble will burst when the money runs out, with Apple sitting on the sidelines to watch it burn",
+  "said": "2026-08",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "wrong",
+  "who": "Ed Zitron",
+  "text": "Cursor is going to die and is not worth $10 billion",
+  "said": "2025-07",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Karen Hao",
+  "text": "The AI trajectory Silicon Valley calls inevitable can be stopped or redirected by voters and elected officials",
+  "said": "2026-05",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Karen Hao",
+  "text": "AI companies are consolidating empire-scale economic and political power, accountable to no one they affect",
+  "said": "2026-07",
+  "w": 2
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Liz Shuler",
+  "text": "The AFL-CIO will have gold-standard AI legislation ready for the next Congress",
+  "said": "2026-10-29",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-10-29",
+   "note": "AFL-CIO is drafting its own AI bill covering worker protections and data privacy, Shuler told Semafor on 29 October 2026, calling it her federation's \"highest priority.\" A new Congress convenes in January 2027.",
+   "ev": [
+    {
+     "title": "AFL-CIO drafting 'gold-standard' AI legislation for next Congress",
+     "url": "https://wheresthe.ai/d/us-afl-cio-drafting-gold-standard-ai-legislation-for-next-co-2026-10/",
+     "fact": "29 October 2026: Shuler told Semafor AFL-CIO is drafting its own \"gold-standard\" AI legislation for next Congress, covering worker protections, privacy and data protections."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Liz Shuler",
+  "text": "AI will drive voters in the 2026 midterms and be the issue that brings people to the polls in 2028",
+  "said": "2026-07-21",
+  "w": 3
+ },
+ {
+  "t": 2029,
+  "v": "unresolvable",
+  "who": "Liz Shuler",
+  "text": "There is a window of at least two to three years to shape AI policy before harms lock in",
+  "said": "2026-07-21",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "partly",
+  "who": "Meredith Whittaker",
+  "text": "Agentic AI will require deep OS and app access and will undermine the privacy of encrypted messaging",
+  "said": "2025-03",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Meredith Whittaker",
+  "text": "AI is fundamentally a surveillance technology",
+  "said": "2023-09-25",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Meredith Whittaker",
+  "text": "The existential-risk narrative functions to skirt regulation of present business models",
+  "said": "2023-10",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Meredith Whittaker",
+  "text": "The AI risk is faulty systems in high-stakes settings, not superintelligence; at worst a few US firms own it",
+  "said": "2026-10-09",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Timnit Gebru",
+  "text": "The AI bubble pops, and the men who pushed the hype are credited with foresight, not the women who warned",
+  "said": "2025-12",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Timnit Gebru",
+  "text": "AGI is far from inevitable and the hype around it should not be believed",
+  "said": "2024-10",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Amandeep Singh Gill",
+  "text": "The UN Global Dialogue on AI Governance will seat all 193 member states, with its first session in 2026",
+  "said": "2025-09",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Amandeep Singh Gill",
+  "text": "India should brace for job losses in IT and BPO services as AI reshapes work",
+  "said": "2026-02",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Amandeep Singh Gill",
+  "text": "Unchecked AI will concentrate wealth and power in a few hands",
+  "said": "2024",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Audrey Tang",
+  "text": "The question of what people can do better than machines has a short shelf life",
+  "said": "2026-07",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Audrey Tang",
+  "text": "AI-assisted deliberation can bridge political divides at scale",
+  "said": "2026-10-29",
+  "w": 2
+ },
+ {
+  "t": 2024,
+  "v": "partly",
+  "who": "Audrey Tang",
+  "text": "Watermarking and provenance detection will not stop deepfakes in the 2024 US election; prebunking matters more",
+  "said": "2024-08-16",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Chris Olah",
+  "text": "If the AI transition happens within a single decade, society's adaptation mechanisms may not keep up",
+  "said": "2026-05",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Chris Olah",
+  "text": "You will not lose your job to AI, but to someone who uses AI",
+  "said": "2025",
+  "w": 2
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Doreen Bogdan-Martin",
+  "text": "Universal meaningful connectivity will be achieved by 2030",
+  "said": "2023-09",
+  "w": 3
+ },
+ {
+  "t": 2030,
+  "v": "unresolvable",
+  "who": "Doreen Bogdan-Martin",
+  "text": "AI can help put the 2030 Agenda for Sustainable Development back on track",
+  "said": "2023-07",
+  "w": 2
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Doreen Bogdan-Martin",
+  "text": "Data center electricity demand is set to double by 2030",
+  "said": "2026-07",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Doreen Bogdan-Martin",
+  "text": "AI agents may soon build their own agents with little human oversight",
+  "said": "2026-07",
+  "w": 2
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Fei-Fei Li",
+  "text": "Spatial intelligence and world models, not language, will define the next decade of AI",
+  "said": "2025-06",
+  "w": 4
+ },
+ {
+  "t": 2036,
+  "v": "pending",
+  "who": "Fei-Fei Li",
+  "text": "In ten years the workplace will keep only those who use AI well and those who do not, squeezing the middle",
+  "said": "2026-06",
+  "w": 3
+ },
+ {
+  "t": 2076,
+  "v": "unresolvable",
+  "who": "Fei-Fei Li",
+  "text": "AGI will arrive within her lifetime, possibly within 50 years, but not within a year",
+  "said": "2026-06",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Fei-Fei Li",
+  "text": "As AI automates repetitive and dangerous work, what remains for humans is creative, intellectual and emotional",
+  "said": "2018-04",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Mira Murati",
+  "text": "Some creative jobs will disappear because of AI",
+  "said": "2024-06",
+  "w": 4
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Mira Murati",
+  "text": "Thinking Machines Lab will ship products built around human-AI collaboration rather than full autonomy",
+  "said": "2025-02",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Mira Murati",
+  "text": "Within a couple of years, AI will show PhD-level intelligence for specific tasks",
+  "said": "2024-06-08",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Pope Leo XIV",
+  "text": "AI could lower the threshold for violence and accelerate conflict if left ungoverned",
+  "said": "2026-05-15",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Pope Leo XIV",
+  "text": "The future of AI is not predetermined; human choices will decide it",
+  "said": "2026-10-30",
+  "w": 2
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Aidan Gomez",
+  "text": "Letting two or three frontier labs write the safety rules will create a cartel that entrenches incumbents",
+  "said": "2026-09",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "unresolvable",
+   "note": "Gomez's 13 September 2026 essay cites a 1975 SEC designation of three bond-rating firms, still three 25 years later, as precedent. His claim is conditional on a rule-writing arrangement no government has enacted.",
+   "ev": [
+    {
+     "title": "Who Gets to Define the Rules for AI?",
+     "url": "https://cohere.com/blog/who-gets-to-define-the-rules-for-ai",
+     "fact": "13 September 2026: Gomez argues safety rules set by \"a handful\" of commercially aligned labs behind an antitrust waiver could entrench incumbents, citing SEC's 1975 designation of three bond-rating firms."
+    }
+   ]
+  }
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Aidan Gomez",
+  "text": "AI will not exceed human capabilities uniformly any time soon; it will take a while",
+  "said": "2025-04",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Aidan Gomez",
+  "text": "AI will augment rather than displace workers; some sectors shrink, but people will not lose their jobs to AI",
+  "said": "2025-04",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Aidan Gomez",
+  "text": "Self-improving, power-seeking AI that displaces humans is a sci-fi narrative and will not happen",
+  "said": "2025-04",
+  "w": 1
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Aidan Gomez",
+  "text": "After a correction, token costs fall dramatically and business token consumption grows another 10 to 100x",
+  "said": "2026-06",
+  "w": 2
+ },
+ {
+  "t": 2025,
+  "v": "came_true_late",
+  "who": "Alvaro Soto",
+  "text": "The first version of Latam-GPT will launch in 2025",
+  "said": "2025-09",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "partly",
+  "who": "Alvaro Soto",
+  "text": "Latam-GPT will match large commercial models on general tasks while excelling on Latin American topics",
+  "said": "2025-09",
+  "w": 1
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Alvaro Soto",
+  "text": "During 2026 Latam-GPT will add image and audio capabilities",
+  "said": "2025-11",
+  "w": 1,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-11-10",
+   "note": "LatamGPT's resources page lists one release, LatamGPT-SFT-1.0, a 70-billion-parameter language model. Its June 2026 technical report names versions with images and audio as future work.",
+   "ev": [
+    {
+     "title": "LatamGPT 70B Technical Report",
+     "url": "https://www.latamgpt.org/downloads/latamgpt-report.pdf",
+     "fact": "June 2026: \"we plan to develop multimodal versions of LatamGPT that incorporate images, audio, and other forms of regionally relevant data.\""
+    },
+    {
+     "title": "Latam-GPT Resources",
+     "url": "https://www.latamgpt.org/en/resources",
+     "fact": "Lists LatamGPT-SFT-1.0, first version of its language model, based on Llama 3.1 with 70 billion parameters."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Arthur Mensch",
+  "text": "Mistral revenue will exceed €1 billion by the end of 2026",
+  "said": "2026-01",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-08",
+   "now": 600,
+   "line": 1000,
+   "lab": "Mistral revenue past €1B by end 2026",
+   "u": "$M annualized, tracker estimate",
+   "note": "Mistral's last disclosed run rate was above $400 million in February 2026, and ai.lounge's tracker lists $600 million for August. Mensch said 8 September he expects to beat $1 billion by year-end and declined to give a new figure.",
+   "ev": [
+    {
+     "title": "Mistral AI Statistics 2026: Revenue, Valuation & News",
+     "url": "https://aibusinessweekly.net/p/mistral-ai-statistics",
+     "fact": "Mensch said in February 2026 that annualized revenue was \"north of $400 million\"; CFO Johan Bergqvist told Reuters on 8 September 2026 Mistral was on track for $1 billion in ARR by year-end."
+    },
+    {
+     "title": "Mistral AI ARR, revenue, valuation and headcount (2026)",
+     "url": "https://ai.lounge.ai/arr/mistral-ai",
+     "fact": "Lists $600M ARR as of August 2026; last reported run rate above $400M (February 2026)."
+    },
+    {
+     "title": "Mistral Raises €3 Billion for AI Infrastructure Expansion",
+     "url": "https://www.implicator.ai/mistral-3-billion-samsung-ai-infrastructure/",
+     "fact": "Mensch, in a 8 September 2026 interview, declined to give a new revenue figure and said he expected \"to be beating\" a $1 billion year-end target."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Arthur Mensch",
+  "text": "The 10 MW Les Ulis inference data center opens in the third quarter of 2026",
+  "said": "2026-05",
+  "w": 1,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-11-09",
+   "note": "Mistral's news index carried no opening notice for Les Ulis as of 9 November 2026, and its 28 May page still lists a third-quarter opening, Venture Atlas found. Startup Fortune wrote on 25 October, without attribution, that this 10 MW site came online between July and September.",
+   "ev": [
+    {
+     "title": "Mistral AI: Company Profile, Milestones & Funding",
+     "url": "https://www.ventureatlas.org/company/mistral-ai",
+     "fact": "Updated 9 November 2026: lists 44 MW at Bruyères-le-Châtel online since mid-2026 and a 250 MW first phase at Borlänge, Sweden expected in 2027; for Les Ulis, \"the news index has no opening post and no later date.\""
+    },
+    {
+     "title": "AI Now Summit 2026",
+     "url": "https://mistral.ai/news/ai-now-summit-2026/",
+     "fact": "28 May 2026: Les Ulis is a 10 MW facility for inference, scheduled to open in Q3 2026; page states no opening."
+    },
+    {
+     "title": "Mistral turns itself into a full AI stack to take on OpenAI and Google",
+     "url": "https://startupfortune.com/mistral-turns-itself-into-a-full-ai-stack-to-take-on-openai-and-google/",
+     "fact": "25 October 2026: \"Mistral's 10-megawatt inference data center at Les Ulis, just outside Paris, came online in the third quarter\"; no source is given."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Arthur Mensch",
+  "text": "Mistral reaches 200 MW of compute capacity across Europe by end of 2027",
+  "said": "2026-05",
+  "w": 1,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-11-09",
+   "now": 44,
+   "line": 200,
+   "lab": "Mistral at 200 MW of compute by end 2027",
+   "u": "MW, Bruyères-le-Châtel",
+   "note": "Venture Atlas lists 44 MW online at Bruyères-le-Châtel since mid-2026, with 10 MW Les Ulis unconfirmed as open. A 250 MW first phase at Borlänge, Sweden is expected to open in 2027.",
+   "ev": [
+    {
+     "title": "Mistral AI: Company Profile, Milestones & Funding",
+     "url": "https://www.ventureatlas.org/company/mistral-ai",
+     "fact": "Updated 9 November 2026: lists 44 MW at Bruyères-le-Châtel online since mid-2026 and a 250 MW first phase at Borlänge, Sweden expected in 2027; for Les Ulis, \"the news index has no opening post and no later date.\""
+    },
+    {
+     "title": "Mistral Compute: announced megawatts vs energised capacity",
+     "url": "https://btw.media/en/mistral-compute-power-capacity",
+     "fact": "Bruyères-le-Châtel has 44 MW of powered capacity financed for 13,800 Nvidia GB300 GPUs; no dated energisation event is recorded."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Arthur Mensch",
+  "text": "Mistral will build a gigawatt of compute in Europe by 2030",
+  "said": "2026-05",
+  "w": 1
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Arthur Mensch",
+  "text": "AGI will not happen; the rhetoric is religious",
+  "said": "2024-04",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Arthur Mensch",
+  "text": "Extreme AI risks are science fiction; the near-term risk is mass influence over how people think and vote",
+  "said": "2026-02",
+  "w": 2
+ },
+ {
+  "t": 2025,
+  "v": "partly",
+  "who": "Ashwini Vaishnaw",
+  "text": "The first made-in-India semiconductor chip will be ready for production by 2025",
+  "said": "2025-02",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Ashwini Vaishnaw",
+  "text": "India will launch its own sovereign foundation AI model at the India AI Impact Summit in February 2026",
+  "said": "2026-01",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "unresolvable",
+  "who": "Ashwini Vaishnaw",
+  "text": "The $70 billion of committed AI infrastructure investment doubles by the time the India AI Impact Summit ends",
+  "said": "2026-01",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Ashwini Vaishnaw",
+  "text": "India will publish a consultation paper on AI regulation within a month",
+  "said": "2026-10",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "contradicted",
+   "at": "2026-11-08",
+   "now": 31,
+   "line": 30,
+   "lab": "India AI consultation paper within a month",
+   "u": "days since the pledge, unpublished",
+   "note": "Vaishnaw's 30-day window from 8 October 2026 closed 7 November with no paper published. Reports on 4 November and 8 November described it as nearly ready, after he said on 23 October it would come in coming weeks.",
+   "ev": [
+    {
+     "title": "Govt to release consultation paper on AI regulations in 30 days: Vaishnaw",
+     "url": "https://www.business-standard.com/technology/artificial-intelligence/govt-to-release-draft-ai-regulation-paper-within-30-days-ashwini-vaishnaw-126100801183_1.html",
+     "fact": "8 October 2026: Vaishnaw said government would release a draft consultation paper on AI regulations \"within the next 30 days.\""
+    },
+    {
+     "title": "Centre's AI regulation consultation paper nearly ready, say sources",
+     "url": "https://www.moneycontrol.com/artificial-intelligence/centre-s-ai-regulation-consultation-paper-nearly-ready-say-sources-article-14069650.html",
+     "fact": "4 November 2026: paper was \"nearly ready\"; Vaishnaw said 23 October it would be released \"in the coming weeks.\""
+    },
+    {
+     "title": "Vaishnaw says India aims to become the world's AI application capital",
+     "url": "https://indiantelevision.com/mam/vaishnaw-says-india-aims-to-become-the-worlds-ai-application-capital/",
+     "fact": "8 November 2026: Centre was \"close to finalising a consultation paper on AI regulation.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Ashwini Vaishnaw",
+  "text": "An Indian-designed, Indian-manufactured, Indian-brand mobile phone will exist within two years",
+  "said": "2026-10",
+  "w": 2
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Ashwini Vaishnaw",
+  "text": "India will be manufacturing 3 nanometer and 5 nanometer chips by 2035",
+  "said": "2026-10",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Bosun Tijani",
+  "text": "Nigeria will build a 90,000 km national fiber backbone to support AI and digital growth",
+  "said": "2024",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Bosun Tijani",
+  "text": "Nigeria's digital economy can reach $1 trillion",
+  "said": "2026-08",
+  "w": 3
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Bosun Tijani",
+  "text": "Nigeria will train 3 million early to mid-career technical talents by the end of 2027",
+  "said": "2023-10-02",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-10-02",
+   "now": 160000,
+   "line": 3000000,
+   "lab": "Nigeria trains 3 million technical talents by 2027",
+   "u": "people trained",
+   "note": "Nigeria's government reported more than 160,000 fellows trained across three cohorts as of 2 October 2026, about 5 percent of 3 million.",
+   "ev": [
+    {
+     "title": "Independence Day: FG Trains Over 160,000 Nigerians in AI, Software Development, Others",
+     "url": "https://www.thisdaylive.com/2026/10/02/independence-day-fg-trains-over-160000-nigerians-in-ai-software-development-others/",
+     "fact": "Government has \"more than 160,000 trained fellows across three cohorts\" against a goal of three million Nigerians trained in technical skills."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Bosun Tijani",
+  "text": "Nigeria's digital literacy rate will reach 70 percent by the end of 2027",
+  "said": "2023-10-02",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-10-20",
+   "now": 2769512,
+   "line": 50000000,
+   "lab": "Nigeria trains 50 million for 70% digital literacy",
+   "u": "people trained, NITDA",
+   "note": "NITDA counted 2,769,512 digital literacy training achievements from 252 organisations as of 20 October 2026, 5.54 percent of its 50 million target for 2027. Officials restated their 70 percent goal that day and published no current literacy rate.",
+   "ev": [
+    {
+     "title": "Nigeria's digital literacy drive reaches 2.77m, falls short of 50m target",
+     "url": "https://businessday.ng/news/article/nigerias-digital-literacy-drive-reaches-2-77m-falls-short-of-50m-target/",
+     "fact": "NITDA Director-General Kashifu Inuwa Abdullahi reported 2,769,512 training achievements from 252 organisations, 5.54 percent of a 50 million by 2027 target."
+    },
+    {
+     "title": "FG targets 70% digital literacy by 2027, 95% by 2030",
+     "url": "https://www.vanguardngr.com/2026/10/fg-targets-70-digital-literacy-by-2027-95-by-2030/",
+     "fact": "20 October 2026: officials restated targets of 70 percent digital literacy by 2027 and 95 percent by 2030; no current rate given."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "David Ha",
+  "text": "Sakana ships a Japanese foundation model built from scratch: a small one in spring 2027, a larger one later",
+  "said": "2026-10",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-11-02",
+   "note": "Sakana chief scientist Takuya Akiba said Sawara Small weights are planned for spring 2027, subject to development progress, with Sawara Large to follow at an unstated date.",
+   "ev": [
+    {
+     "title": "Sakana AI Bets on Sawara to Build Agent-Native Models From Scratch",
+     "url": "https://hermes-ai.net/news/sakana-ai-bets-on-sawara-to-build-agent-native-models-from-scratch/",
+     "fact": "2 November 2026: Sakana will pre-train its Sawara series from scratch; Sawara Small weights targeted for spring 2027, Sawara Large later."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "David Ha",
+  "text": "Within a few years AI moves from cloud mainframes to personal devices, with orchestration models run locally",
+  "said": "2026-08",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "David Ha",
+  "text": "No single company or model will dominate AI; the field will be a collective intelligence of many models",
+  "said": "2026-08",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Eric Xu",
+  "text": "China's chip self-sufficiency is inevitable",
+  "said": "2026-09",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Eric Xu",
+  "text": "Demand for Ascend will exceed Huawei's supply, limiting overseas sales",
+  "said": "2026",
+  "w": 2
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Eric Xu",
+  "text": "Huawei will deliver the world's most powerful AI computing clusters within two years",
+  "said": "2025-09-18",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-10-16",
+   "note": "Huawei powered on its first 1,024-card Atlas 950 SuperPoD on 15 October 2026, and China Telecom launched a 10,000-card Ascend 950DT pool with Huawei a day later. Huawei moved Ascend 960DT up three quarters, to first-quarter 2027.",
+   "ev": [
+    {
+     "title": "[SMM Flash] Huawei Ascend 950DT 10000-card pool + 1024-card liquid-cooled super node goes live",
+     "url": "https://news.metal.com/newscontent/104169283-smm-flash-huawei-ascend-950dt-10000-card-pool-+-1024-card-liquid-cooled-super-node-goes-live",
+     "fact": "On 10-15 first 1,024-card Atlas 950 SuperPoD liquid-cooled supernode was powered on; on 10-16 China Telecom and Huawei launched an Ascend 950DT 10,000-card pool in Inner Mongolia."
+    },
+    {
+     "title": "Huawei unveils Ascend 960 roadmap and 11-chip AI infrastructure portfolio",
+     "url": "https://techwireasia.com/2026/09/huawei-ascend-960-ai-infrastructure-11-chip-portfolio/",
+     "fact": "18 September 2026: Ascend 960DT is expected in first quarter 2027, \"three quarters earlier than previously planned\"; architecture can interconnect as many as 512,000 NPUs."
+    },
+    {
+     "title": "Huawei accelerates AI chip roadmap as it targets million-NPU clusters",
+     "url": "https://rcrtech.com/ai-infrastructure-news/huawei-ai-chip/",
+     "fact": "Ascend 960DT will be available in Q1 2027 and Ascend 960PR in Q3 2027."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Eric Xu",
+  "text": "Huawei's Ascend chips will roughly double in compute each year through 2028",
+  "said": "2025-09-18",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "partly",
+  "who": "Ha Jung-woo",
+  "text": "Korea should secure tens of thousands of GPUs, build a national model near ChatGPT's level and give it away",
+  "said": "2025-06-15",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Ha Jung-woo",
+  "text": "Korea will become one of the top three AI powers",
+  "said": "2026-09-01",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Ha Jung-woo",
+  "text": "Junior roles will shrink as AI takes over entry-level work",
+  "said": "2025-09",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Ha Jung-woo",
+  "text": "Some occupational groups will be replaced by AI",
+  "said": "2026-03",
+  "w": 2
+ },
+ {
+  "t": 2025,
+  "v": "came_true",
+  "who": "Henna Virkkunen",
+  "text": "An AI factories initiative will be presented within her first 100 days in office",
+  "said": "2024-11",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "wrong",
+  "who": "Henna Virkkunen",
+  "text": "The Commission will implement the AI Act swiftly and as written",
+  "said": "2024-11",
+  "w": 3
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Henna Virkkunen",
+  "text": "The EU will mobilise more than €30 billion for up to seven AI gigafactories",
+  "said": "2026-07",
+  "w": 3
+ },
+ {
+  "t": 2033,
+  "v": "pending",
+  "who": "Henna Virkkunen",
+  "text": "The Cloud and AI Development Act, once adopted, triples Europe's computing capacity within five to seven years",
+  "said": "2026-10",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Henna Virkkunen",
+  "text": "The AI Act as written can handle the agent incidents of summer 2026 and is enforced on every advanced model",
+  "said": "2026-10",
+  "w": 3
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Joelle Pineau",
+  "text": "Promises of AGI by 2027 are unrealistic; a gap separates them from what is deployed",
+  "said": "2026-01",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-11-05",
+   "note": "OpenAI's own schedule sets March 2028 for an automated AI researcher, after an automated research intern in September 2026. METR found AI at Anthropic \"not yet able to make highly significant and fully autonomous contributions\" to key parts of model training.",
+   "ev": [
+    {
+     "title": "Research acceleration: The view inside OpenAI",
+     "url": "https://www.openai.com/index/research-acceleration-view-inside-openai/",
+     "fact": "OpenAI says it met its goal of an automated research intern by September 2026, targets an automated AI researcher by March 2028, and logged 3.1 agent-workdays per human workday as of mid-August."
+    },
+    {
+     "title": "Independent Assessment of AI R&D Acceleration at Anthropic",
+     "url": "https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/",
+     "fact": "METR, assessing Anthropic from 12 August to 29 October 2026, found it \"likely improving the capabilities of their models on well-specified tasks at around twice the rate\" of March 2024 to October 2025, with perhaps 80 percent of that acceleration due to AI."
+    }
+   ]
+  }
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Joelle Pineau",
+  "text": "Models still struggle to reason, so reliable action-taking agents remain under development rather than mature",
+  "said": "2026-01",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "came_true",
+  "who": "Joelle Pineau",
+  "text": "Scaling model size and data still pays off, against LeCun's view that reasoning needs new architectures",
+  "said": "2026-01",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Junyang Lin",
+  "text": "A new autonomous or continual-learning paradigm will definitely emerge in 2026",
+  "said": "2026-01",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-10-27",
+   "note": "Google Research published its \"sleep framework\" on 27 October 2026, alternating wake sessions with offline consolidation so a model retains new knowledge across contexts of up to 10 million tokens. Its post states no product deployment.",
+   "ev": [
+    {
+     "title": "The sleep framework: A new way for LLMs to retain knowledge in continual learning",
+     "url": "https://research.google/blog/the-sleep-framework-a-new-way-for-llms-to-retain-knowledge-in-continual-learning/",
+     "fact": "27 October 2026, Ali Behrouz and Vahab Mirrokni: framework alternates \"wake\" sessions with offline \"sleep\" for memory consolidation and claims to mitigate catastrophic forgetting and retain long-context knowledge up to 10M tokens."
+    },
+    {
+     "title": "The Most Important AI Panel of 2026: Can China Lead?",
+     "url": "https://www.recodechinaai.com/p/the-most-important-ai-panel-of-2026",
+     "fact": "At a 10 January 2026 panel in Beijing, Lin Junyang said the next paradigm was \"still in early stages\" and that \"one is autonomous learning.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Junyang Lin",
+  "text": "There is about a 20 percent chance the world's leading AI company will be Chinese within three to five years",
+  "said": "2026-01",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Junyang Lin",
+  "text": "China's compute gap with US frontier labs is one to two orders of magnitude and forces frugal innovation",
+  "said": "2026-01",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Junyang Lin",
+  "text": "Progress is linear and perceived breakthroughs are artifacts of observation; expect no discontinuous jump",
+  "said": "2026-01",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Kyle Chan",
+  "text": "Chinese open-weight models near the frontier at a fraction of the cost threaten OpenAI's and Anthropic's model",
+  "said": "2026-07",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Kyle Chan",
+  "text": "China keeps hill-climbing on domestic chips despite being one to two generations behind and uneconomic for now",
+  "said": "2026-10",
+  "w": 2
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Liang Wenfeng",
+  "text": "Within a year the perception that domestic Chinese AI chips are unusable will be flipped",
+  "said": "2026-07",
+  "w": 3,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-06-30",
+   "note": "Nvidia held 34 percent of China's AI chip market in 2026's first half against Huawei's 28 percent, Reuters reported from IDC data. A Huawei-led group documented post-training of DeepSeek V4 on Ascend hardware in July, and Tsinghua's Liu Zhiyuan said original training may have run mainly on Nvidia chips.",
+   "ev": [
+    {
+     "title": "Nvidia AI chip share in China falls as Huawei catches up (Reuters)",
+     "url": "https://finance.yahoo.com/technology/ai/articles/nvidia-ai-chip-share-china-061558719.html",
+     "fact": "13 October 2026, citing IDC: Nvidia held 34 percent in first half 2026, Huawei 28 percent."
+    },
+    {
+     "title": "DeepSeek's Huawei-Chip Training Claim Gets Its Benchmarks",
+     "url": "https://www.implicator.ai/deepseeks-huawei-chip-training-claim-finally-gets-its-benchmarks-and-its-doubters/",
+     "fact": "23 July 2026: a Huawei-led consortium documented full-parameter post-training of DeepSeek V4 on Ascend NPU SuperPOD at 34.22 percent model FLOPs utilization; Liu Zhiyuan said V4 may still have been trained mainly on Nvidia hardware."
+    },
+    {
+     "title": "DeepSeek founder Liang Wenfeng in His Own Words",
+     "url": "https://www.geopolitechs.org/p/deepseek-founder-liang-wenfeng-in",
+     "fact": "Liang: \"within a year, I think we can change that perception.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 2031,
+  "v": "pending",
+  "who": "Liang Wenfeng",
+  "text": "Shortages of domestic chips persist for about three years but will not still bind five years out",
+  "said": "2026-07",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "came_true",
+  "who": "Liang Wenfeng",
+  "text": "DeepSeek will not close-source its models",
+  "said": "2024-07",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Liang Wenfeng",
+  "text": "China's chip gap with the US is about four times in performance plus two years, with no gap left in software",
+  "said": "2026-07",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Liang Wenfeng",
+  "text": "Chinese labs run one to two years behind the US on a twentieth of the compute; DeepSeek aims for six months",
+  "said": "2026-07",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Liang Wenfeng",
+  "text": "DeepSeek's goal is AGI, pursued through new model architectures rather than applications",
+  "said": "2023-05",
+  "w": 3
+ },
+ {
+  "t": 2026,
+  "v": "partly",
+  "who": "Lucilla Sioli",
+  "text": "The AI gigafactory call opens by the end of 2025, with selection during 2026 and GPU purchases after",
+  "said": "2025-08",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Lucilla Sioli",
+  "text": "The AI Act timeline holds: general-purpose AI obligations and AI Office enforcement apply from August 2026",
+  "said": "2025-07",
+  "w": 4
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Lucilla Sioli",
+  "text": "EU AI regulation will not be an impediment to AI investment in Europe",
+  "said": "2025-08",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Lucilla Sioli",
+  "text": "Four to five AI gigafactories will be built in Europe",
+  "said": "2025-02",
+  "w": 2
+ },
+ {
+  "t": 2049,
+  "v": "unresolvable",
+  "who": "Moustapha Cisse",
+  "text": "Africa's population doubles in 25 years and cannot train enough health workers to keep up, so AI fills the gap",
+  "said": "2024-05",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Moustapha Cisse",
+  "text": "Lack of diversity in AI development entrenches algorithmic bias and builds discrimination into AI products",
+  "said": "2018-11",
+  "w": 2
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Nako Sung",
+  "text": "Naver will build a security-specialised sovereign model for the Korean government on 4,000 of its own GPUs",
+  "said": "2026-09",
+  "w": 1,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "on_track",
+   "at": "2026-09-22",
+   "now": 4000,
+   "line": 4000,
+   "lab": "Naver sovereign model on 4,000 of its own GPUs",
+   "u": "GPUs committed",
+   "note": "Naver Cloud was selected 3 September 2026 to build security-specialised models for South Korea's government and committed 4,000 of its own Nvidia B200 GPUs, alongside 512 from government and LG. Development is scheduled to take 10 months.",
+   "ev": [
+    {
+     "title": "Naver Cloud Selected for Security AI, Developing Two 700B Models",
+     "url": "https://en.etnews.com/20260904200008",
+     "fact": "Selection announced 3 September 2026: 4,000 of Naver Cloud's own Nvidia B200 GPUs, 256 LG H200 units and 256 government-supported B200 units; two 700-billion-parameter models."
+    },
+    {
+     "title": "NAVER-Led Consortium Commits 4,512 GPUs to Build Korea's AI Cyber Shield",
+     "url": "https://en.sedaily.com/finance/2026/09/22/naver-commits-4512-gpus-to-build-koreas-ai-cyber-shield",
+     "fact": "22 September 2026: consortium commits 4,512 GPUs, 4,000 of them B200 units from NAVER, and will spend 10 months developing models."
+    }
+   ]
+  }
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Nako Sung",
+  "text": "Generative AI could open a market worth about 4 percent of GDP",
+  "said": "2023-05",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Nako Sung",
+  "text": "Countries without their own capable AI will have to pay for foreign AI, which will not be supplied for free",
+  "said": "2023-05",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Nako Sung",
+  "text": "Defence AI must become a Total Intelligence Network across the whole battlefield, and Korea must hurry",
+  "said": "2026-09",
+  "w": 2
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Nandan Nilekani",
+  "text": "By the end of the decade more Indians will use AI daily than the people of any other country",
+  "said": "2023-12",
+  "w": 3
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Nandan Nilekani",
+  "text": "AI-first services are a $300 billion to $400 billion opportunity for IT firms like Infosys by 2030",
+  "said": "2026",
+  "w": 2
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Nandan Nilekani",
+  "text": "India can become an $8 trillion economy by 2035 by lifting growth from 6 to 8 percent",
+  "said": "2025-03",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Nandan Nilekani",
+  "text": "Doom predictions of mass AI job losses are 'disaster marketing'; AI will amplify IT firms, not replace them",
+  "said": "2026",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Nandan Nilekani",
+  "text": "AI will not be winner-take-all; it cannot be bottled up by a few firms",
+  "said": "2026-10",
+  "w": 2
+ },
+ {
+  "t": 2025,
+  "v": "partly",
+  "who": "Paula Ingabire",
+  "text": "The April 2025 Global AI Summit on Africa will produce a committed continental AI fund",
+  "said": "2025-04",
+  "w": 2
+ },
+ {
+  "t": 2029,
+  "v": "pending",
+  "who": "Paula Ingabire",
+  "text": "Rwanda reaches more than 2.5 million farmers with AI advice within three years, doubling extension coverage",
+  "said": "2026-09",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Paula Ingabire",
+  "text": "Rwanda will become the leading destination in Africa for experimenting with and developing trustworthy AI",
+  "said": "2023-06",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Pelonomi Moiloa",
+  "text": "Once one bank or telco serves customers in African languages, the public demands language choice everywhere",
+  "said": "2024",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Pelonomi Moiloa",
+  "text": "Africa's resource-efficient approach to AI can be a model for the world; huge machines are not necessary",
+  "said": "2023-10",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "pending",
+  "who": "Peng Xiao",
+  "text": "G42 will build a 5 GW AI campus in Abu Dhabi, with the 1 GW Stargate UAE first phase online in 2026",
+  "said": "2025-05",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "behind",
+   "at": "2026-10-18",
+   "now": 0,
+   "line": 1000,
+   "lab": "Stargate UAE 1 GW first phase online in 2026",
+   "u": "MW documented live",
+   "note": "No public source documents any Stargate UAE capacity as live; Inside Deep Tech found no confirmation of its first 200 MW as of 18 October 2026. Reuters reported in September that 4 GW beyond that first phase may be spread across UAE sites.",
+   "ev": [
+    {
+     "title": "OpenAI Stargate: Abilene, Sites and Power Full Guide",
+     "url": "https://www.insidedeeptech.com/openai-stargate-abilene-sites-power-full-guide/",
+     "fact": "Stargate UAE is a 1 GW cluster with 200 MW expected live in 2026; no public confirmation that first phase was live as of 18 October 2026."
+    },
+    {
+     "title": "G42 capacity ledger: operated vs announced AI infrastructure",
+     "url": "https://btw.media/en/g42-staged-capacity-ledger",
+     "fact": "Ledger records zero megawatts documented as live for Stargate UAE in sources examined."
+    },
+    {
+     "title": "Stargate UAE",
+     "url": "https://computeatlas.net/supercomputers/systems/stargate-uae",
+     "fact": "Status under construction; page found \"nothing showing the first phase is live.\""
+    },
+    {
+     "title": "UAE revises 5GW AI data centre plans amid infrastructure resilience push (Reuters)",
+     "url": "https://www.zawya.com/en/projects/industry/uae-revises-5gw-ai-data-centre-plans-amid-infrastructure-resilience-push-reuters-559821",
+     "fact": "UAE-US AI Campus is now likely to comprise a network of data centres across UAE; first 200 MW of Stargate UAE is scheduled to come online this year."
+    },
+    {
+     "title": "Is Abu Dhabi rethinking its 5 GW data center campus?",
+     "url": "https://enterpriseam.com/uae/2026/09/14/this-morning-uae-iran-signal-turning-a-new-leaf-in-bilateral-relations-is-abu-dhabi-rethinking-its-5-gw-data-center-campus/",
+     "fact": "14 September 2026, citing Reuters: first 1 GW Stargate UAE phase proceeds at its existing site with 200 MW due online this year; remaining 4 GW would likely be spread across multiple locations."
+    }
+   ]
+  }
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Peng Xiao",
+  "text": "The UAE will become an exporter of intelligence rather than energy",
+  "said": "2026-10",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Peng Xiao",
+  "text": "AI will become a more important utility than electricity",
+  "said": "2025-02",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Peng Xiao",
+  "text": "AI will very likely be doing most of the thinking for humans, requiring a fundamental rethink of lifestyle",
+  "said": "2026-10",
+  "w": 2
+ },
+ {
+  "t": 2025,
+  "v": "came_true",
+  "who": "Strive Masiyiwa",
+  "text": "Cassava's first AI factory in South Africa, with 3,000 Nvidia GPUs, will be operational by June 2025",
+  "said": "2025-03",
+  "w": 2
+ },
+ {
+  "t": 2028,
+  "v": "pending",
+  "who": "Strive Masiyiwa",
+  "text": "Cassava deploys 12,000 GPUs across five AI factories in Africa within four years, a $720 million investment",
+  "said": "2025-09",
+  "w": 2
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Strive Masiyiwa",
+  "text": "Within ten years the richest Africans will be AI billionaires",
+  "said": "2025-10",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Strive Masiyiwa",
+  "text": "AI is as big as the Industrial Revolution and Africa must not be a bystander",
+  "said": "2025",
+  "w": 2
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Tareq Amin",
+  "text": "Humain will reach 1.7 GW of data center capacity in 2027",
+  "said": "2026-10",
+  "w": 1,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-10-25",
+   "note": "Humain's 250 MW build with Al Moammar Information Systems is due online by year-end, and an initial 100 MW is under construction at Neom's Oxagon. Reports give no figure for capacity already built.",
+   "ev": [
+    {
+     "title": "Humain scales up 2027 data center target as it aims for a self-funding buildout",
+     "url": "https://enterpriseam.com/ksa/2026/10/01/humain-scales-up-2027-data-center-target-as-it-aims-for-a-self-funding-buildout/",
+     "fact": "1 October 2026: Tareq Amin targets 1.7 GW in 2027; a 250 MW build with Al Moammar Information Systems is due online \"by the end of this year.\""
+    },
+    {
+     "title": "Humain signs Nebius for up to 50 MW as it grows its Nvidia chip commitment",
+     "url": "https://enterpriseam.com/ksa/2026/10/25/humain-signs-nebius-for-up-to-50-mw-as-it-grows-its-nvidia-chip-commitment/",
+     "fact": "25 October 2026: an initial 100 MW is under construction at a planned campus in Neom's Oxagon; targets are 1.7 GW in 2027 and 3 GW by 2030."
+    }
+   ]
+  }
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Tareq Amin",
+  "text": "Humain will have 1.9 GW of data center capacity by 2030 and 6.6 GW by 2034",
+  "said": "2025-05",
+  "w": 1
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Tareq Amin",
+  "text": "By 2030 Humain will handle 7 percent of the world's AI training and inference",
+  "said": "2025-05",
+  "w": 1
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Tareq Amin",
+  "text": "Saudi Arabia can become the world's third major centre for AI compute after the US and China",
+  "said": "2025",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "partly",
+  "who": "Vivek Raghavan",
+  "text": "Sarvam will build a 120 billion parameter sovereign model under the IndiaAI Mission",
+  "said": "2025-04",
+  "w": 2
+ },
+ {
+  "t": 2026,
+  "v": "came_true",
+  "who": "Vivek Raghavan",
+  "text": "Sarvam releases India's first sovereign large language model by the India AI Impact Summit in February 2026",
+  "said": "2025-11",
+  "w": 3
+ },
+ {
+  "t": 2027,
+  "v": "pending",
+  "who": "Vivek Raghavan",
+  "text": "Sarvam will train a trillion-parameter model within six months",
+  "said": "2026-10",
+  "w": 2,
+  "chk": {
+   "on": "2026-11-10",
+   "s": "too_early",
+   "at": "2026-10-31",
+   "note": "Raghavan said in a Financial Times interview in late October 2026 that Sarvam's trillion-parameter model is expected in six to nine months, a window ending between April and July 2027.",
+   "ev": [
+    {
+     "title": "Sarvam's Vivek Raghavan Warns India Could Become a Digital Colony",
+     "url": "https://cio.eletsonline.com/artificial-intelligence/sarvam-vivek-raghavan-india-digital-colony-sovereign-ai-trillion-parameter-model/76576/",
+     "fact": "Raghavan told Financial Times, as reported 31 October 2026, that a trillion-parameter model was expected in six to nine months."
+    },
+    {
+     "title": "Sarvam Leads Indic AI Funding with $345 Million in 2026, Tracxn Reveals",
+     "url": "https://www.rediff.com/business/report/sarvam-leads-indic-ai-funding-with-345-million-in-2026-tracxn-reveals/20261029.htm",
+     "fact": "29 October 2026: Sarvam \"plans to launch a trillion-parameter model within six months.\""
+    }
+   ]
+  }
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Vivek Raghavan",
+  "text": "Without sovereign AI India risks becoming a digital colony",
+  "said": "2026-10",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Vukosi Marivate",
+  "text": "AI will not fix broken universities; without human capacity to check it, AI adoption will not improve learning",
+  "said": "2026-10",
+  "w": 1
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Yutaka Matsuo",
+  "text": "With ChatGPT-level AI in medicine, one doctor handles more cases and Japan's 40 trillion yen health bill falls",
+  "said": "2024-03-21",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Yutaka Matsuo",
+  "text": "Demand for LLMs in Asian languages will expand and Japan can compete in that segment",
+  "said": "2024-03-21",
+  "w": 2
+ },
+ {
+  "t": 2030,
+  "v": "pending",
+  "who": "Zhang Peng",
+  "text": "Full superintelligence does not arrive by 2030; AI surpasses humans in some respects and falls short in many",
+  "said": "2025-10",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "came_true",
+  "who": "Zhang Peng",
+  "text": "AGI will not be achieved quickly; it is a long-distance race, and Zhipu will IPO before AGI arrives",
+  "said": "2026-01",
+  "w": 2
+ },
+ {
+  "t": 0,
+  "v": "came_true",
+  "who": "Zhang Peng",
+  "text": "Large models move from virtual to physical: multimodal agents that break intent into steps and act with tools",
+  "said": "2024-05",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Zhang Peng",
+  "text": "He declined to predict when AI 'super apps' will arrive, saying there are too many variables to forecast",
+  "said": "2024-05",
+  "w": 1
+ },
+ {
+  "t": 0,
+  "v": "came_true",
+  "who": "Richard Sutton",
+  "text": "General methods that leverage computation will beat human-knowledge-engineered methods as compute grows",
+  "said": "2019-03-13",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Richard Sutton",
+  "text": "Succession from humans to digital intelligence or augmented humans is inevitable",
+  "said": "2025-09-26",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Richard Sutton",
+  "text": "Scaling on synthetic data is a big mistake; continual learning from experience is the path forward",
+  "said": "2026-08",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Richard Sutton",
+  "text": "Oak Lab will build a continual-learning agent that runs on about 20 watts",
+  "said": "2026-07-15",
+  "w": 3
+ },
+ {
+  "t": 2040,
+  "v": "pending",
+  "who": "Richard Sutton",
+  "text": "About a one in four chance of human-level AI within five years and about one in two within 15 years",
+  "said": "2025-10",
+  "w": 4
+ },
+ {
+  "t": 2027,
+  "v": "came_true",
+  "who": "Kevin Roose",
+  "text": "In 2026 or 2027, possibly 2025, at least one AI company will claim to have created AGI",
+  "said": "2025-03",
+  "w": 3
+ },
+ {
+  "t": 2035,
+  "v": "pending",
+  "who": "Kevin Roose",
+  "text": "In the next decade powerful AI generates trillions of dollars and tilts political and military power to owners",
+  "said": "2025-03",
+  "w": 3
+ },
+ {
+  "t": 0,
+  "v": "unresolvable",
+  "who": "Kevin Roose",
+  "text": "Most people will not notice powerful AI has arrived until it affects them directly, as with social media",
+  "said": "2025-03",
+  "w": 1
+ },
+ {
+  "t": 0,
+  "v": "pending",
+  "who": "Kevin Roose",
+  "text": "Models are getting better at deception and covering their tracks, and humans will soon lose track of agents",
+  "said": "2026-10",
+  "w": 2
+ }
+]

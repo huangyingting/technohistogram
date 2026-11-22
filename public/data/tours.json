@@ -1,0 +1,893 @@
+{
+ "_note": "Guided tours. Each step references an event id in events.json; narration is written only from that event summary. Each step carries a label of five words or fewer for the sheet rail (Vision 4 addendum). A step may name a parent (an earlier step’s event id) for the genealogy sheet; otherwise the latest earlier step the record links, else the step before. Arrivals of a technique split from the technique’s line. color is the tour’s hue family from the History palette (pale steps for early events, the saturated step for the current one); family names the domain family it comes from.",
+ "tours": [
+  {
+   "id": "print",
+   "title": "Printing, copying and copyright",
+   "years": "1040 to 2025",
+   "color": "#5b3a7e",
+   "dek": "A thousand years of permission to copy, from clay type in Song China to a Munich court on song lyrics in training data.",
+   "steps": [
+    {
+     "event": "bi-sheng-movable-type-1040",
+     "view": "stream",
+     "y0": 1026,
+     "y1": 1140,
+     "narration": "During the Song dynasty, Bi Sheng made individual characters from baked clay that could be arranged, inked and reused.",
+     "label": "Bi Sheng, clay type"
+    },
+    {
+     "event": "jikji-metal-type-1377-1377",
+     "view": "stream",
+     "y0": 1300,
+     "y1": 1420,
+     "narration": "Jikji was published using movable metal type at Heungdeok Temple in Cheongju in July 1377.",
+     "label": "Jikji, metal type"
+    },
+    {
+     "event": "gutenberg-press-1450",
+     "view": "columns",
+     "y0": 1400,
+     "y1": 1500,
+     "narration": "Johannes Gutenberg combined cast metal type, oil-based ink and a screw press.",
+     "label": "Gutenberg, Mainz"
+    },
+    {
+     "event": "ottoman-printing-ban-1483",
+     "view": "columns",
+     "y0": 1440,
+     "y1": 1540,
+     "narration": "According to some sources, Sultan Bayezid II and his successors prohibited printing in Arabic script in the Ottoman Empire from 1483, reportedly on penalty of death.",
+     "label": "Arabic-script printing restricted"
+    },
+    {
+     "event": "spread-of-printing-1500",
+     "view": "stream",
+     "y0": 1450,
+     "y1": 1550,
+     "narration": "By 1500, an estimated 220 printing presses were operating across Western Europe and had produced about 8 million books.",
+     "label": "220 presses, 8 million books"
+    },
+    {
+     "event": "index-librorum-prohibitorum-1559",
+     "view": "stream",
+     "y0": 1500,
+     "y1": 1600,
+     "narration": "A new Roman Index was published in 1559 under Pope Paul IV.",
+     "label": "Pauline Index"
+    },
+    {
+     "event": "statute-of-anne-1710",
+     "view": "columns",
+     "y0": 1660,
+     "y1": 1760,
+     "narration": "It was the first statute to provide for copyright regulated by government and courts, and it vested copyright in authors for a limited term.",
+     "label": "Statute of Anne"
+    },
+    {
+     "event": "muteferrika-press-1729",
+     "view": "columns",
+     "y0": 1680,
+     "y1": 1780,
+     "narration": "After receiving permission to publish non-religious books, Ibrahim Muteferrika's press published its first book in Istanbul in 1729.",
+     "label": "Muteferrika’s press, Istanbul",
+     "parent": "gutenberg-press-1450"
+    },
+    {
+     "event": "radio-act-1927",
+     "view": "stream",
+     "y0": 1900,
+     "y1": 1950,
+     "narration": "President Calvin Coolidge signed the Radio Act of 1927 on February 23, 1927.",
+     "label": "Radio Act"
+    },
+    {
+     "event": "photocopier-xerox-914-1959",
+     "view": "stream",
+     "y0": 1940,
+     "y1": 1980,
+     "narration": "The Xerox 914 made its public debut on September 16, 1959, during a demonstration at the Sherry-Netherland Hotel in New York.",
+     "label": "Xerox 914"
+    },
+    {
+     "event": "dmca-1998",
+     "view": "columns",
+     "y0": 1980,
+     "y1": 2010,
+     "narration": "President Bill Clinton signed the Digital Millennium Copyright Act on October 28, 1998.",
+     "label": "DMCA"
+    },
+    {
+     "event": "napster-1999",
+     "view": "columns",
+     "y0": 1985,
+     "y1": 2010,
+     "narration": "Napster, a peer-to-peer file-sharing application specializing in MP3s, was launched in June 1999 by Shawn Fanning and Sean Parker.",
+     "label": "Napster"
+    },
+    {
+     "event": "bartz-v-anthropic-fair-use-2025",
+     "view": "stream",
+     "y0": 2010,
+     "y1": 2026,
+     "narration": "On June 23, 2025, Judge William Alsup ruled Anthropic's use of books to train Claude was fair use, including books it had legally obtained and digitized.",
+     "label": "Bartz v Anthropic, fair use"
+    },
+    {
+     "event": "gema-v-openai-2025",
+     "view": "stream",
+     "y0": 2010,
+     "y1": 2026,
+     "narration": "Munich Regional Court I ruled OpenAI infringed copyright by memorising and reproducing song lyrics represented by GEMA.",
+     "label": "GEMA v OpenAI"
+    }
+   ],
+   "family": "knowledge: violet (media)",
+   "caption": "Selected episodes, 1040 to 2025"
+  },
+  {
+   "id": "automation",
+   "title": "Automation anxiety",
+   "years": "1930 to 2026",
+   "color": "#7a2e5a",
+   "dek": "A century of warnings that machines would take the work, from Keynes to payroll data on young workers.",
+   "steps": [
+    {
+     "event": "keynes-economic-possibilities-1930",
+     "view": "stream",
+     "y0": 1926,
+     "y1": 1940,
+     "narration": "In 1930 John Maynard Keynes named \"technological unemployment\": labor-saving advances outpacing new uses for labor. He described it as a temporary phase of maladjustment.",
+     "label": "Keynes, technological unemployment"
+    },
+    {
+     "event": "modern-times-1936",
+     "view": "stream",
+     "y0": 1926,
+     "y1": 1946,
+     "narration": "Charlie Chaplin's Modern Times premiered in 1936. The Tramp works an assembly line whose pace and repetition lead to a nervous breakdown.",
+     "label": "Modern Times"
+    },
+    {
+     "event": "automation-term-ford-1947",
+     "view": "columns",
+     "y0": 1937,
+     "y1": 1957,
+     "narration": "In April 1947 Ford vice president Delmar Harder created an Automation Department and is credited with coining the word \"automation.\"",
+     "label": "Ford’s Automation Department"
+    },
+    {
+     "event": "wiener-letter-reuther-1949",
+     "view": "columns",
+     "y0": 1939,
+     "y1": 1959,
+     "narration": "Norbert Wiener wrote to UAW president Walter Reuther warning that automated manufacturing could cause large-scale unemployment. He urged labor to form a policy on automation.",
+     "label": "Wiener warns Reuther"
+    },
+    {
+     "event": "automation-hearings-1955",
+     "view": "stream",
+     "y0": 1945,
+     "y1": 1965,
+     "narration": "In October 1955 a congressional subcommittee held hearings on automation and technological change, examining their effects on employment, investment and the economy.",
+     "label": "Automation hearings"
+    },
+    {
+     "event": "time-automation-jobless-1961",
+     "view": "wheel",
+     "y0": 1951,
+     "y1": 1971,
+     "narration": "TIME warned in 1961 that automation could both eliminate jobs and keep enough new ones from being created. It reported 5,400,000 people unemployed.",
+     "label": "“The Automation Jobless”"
+    },
+    {
+     "event": "triple-revolution-memo-1964",
+     "view": "wheel",
+     "y0": 1954,
+     "y1": 1974,
+     "narration": "In March 1964 activists and academics calling themselves the Ad Hoc Committee on the Triple Revolution told President Johnson that automation could reduce demand for manual labor, proposing public works and income redistribution.",
+     "label": "Triple Revolution memo"
+    },
+    {
+     "event": "national-commission-automation-1966",
+     "view": "columns",
+     "y0": 1956,
+     "y1": 1976,
+     "narration": "A national commission on technology and automation reported in 1966, recommending public service employment and an income floor for families.",
+     "label": "Technology commission report"
+    },
+    {
+     "event": "leontief-horses-1983",
+     "view": "stream",
+     "y0": 1973,
+     "y1": 1993,
+     "narration": "Wassily Leontief argued in 1983 that computerization, automation and robotization could reduce labor's role in production, much as machinery had displaced horses.",
+     "label": "Leontief on human labor"
+    },
+    {
+     "event": "rifkin-end-of-work-1995",
+     "view": "stream",
+     "y0": 1985,
+     "y1": 2005,
+     "narration": "Jeremy Rifkin's The End of Work, published in 1995, argued that technological advances would reduce jobs across economic sectors.",
+     "label": "Rifkin, The End of Work"
+    },
+    {
+     "event": "frey-osborne-future-of-employment-2013",
+     "view": "columns",
+     "y0": 2003,
+     "y1": 2023,
+     "narration": "Carl Benedikt Frey and Michael Osborne estimated that about 47% of US employment was in occupations at high risk of computerisation. The study did not estimate how many jobs would be automated.",
+     "label": "Frey and Osborne"
+    },
+    {
+     "event": "goldman-sachs-300-million-jobs-2023",
+     "view": "wheel",
+     "y0": 2017,
+     "y1": 2026,
+     "narration": "In March 2023 Goldman Sachs economists estimated that generative AI could expose the equivalent of 300 million full-time jobs worldwide to automation.",
+     "label": "Goldman: 300 million jobs"
+    },
+    {
+     "event": "dario-white-collar-warning-2025",
+     "view": "wheel",
+     "y0": 2019,
+     "y1": 2026,
+     "narration": "Anthropic CEO Dario Amodei warned in 2025 that AI could eliminate half of entry-level white-collar jobs within one to five years, with unemployment possibly reaching 10% to 20%.",
+     "label": "Amodei: half of entry jobs"
+    },
+    {
+     "event": "ai-jobs-entry-level-stanford-2025",
+     "view": "columns",
+     "y0": 2019,
+     "y1": 2026,
+     "narration": "Stanford researchers using ADP payroll data found a 13% relative employment decline for workers aged 22 to 25 in occupations most exposed to AI. Employment for more experienced workers in those jobs held stable or grew.",
+     "label": "Young workers, 13% decline"
+    }
+   ],
+   "family": "knowledge: plum (society)"
+  },
+  {
+   "id": "winters",
+   "title": "AI winters and booms",
+   "years": "1956 to 2025",
+   "color": "#9b1b30",
+   "dek": "How enthusiasm and funding for AI rose and fell twice before deep learning and chatbots.",
+   "steps": [
+    {
+     "event": "dartmouth-workshop-1956",
+     "view": "strata",
+     "y0": 1946,
+     "y1": 1966,
+     "narration": "John McCarthy, Marvin Minsky, Nathaniel Rochester and Claude Shannon organized a summer workshop at Dartmouth in 1956 that ran roughly eight weeks.",
+     "label": "Dartmouth workshop"
+    },
+    {
+     "event": "nyt-perceptron-hype-1958",
+     "view": "strata",
+     "y0": 1948,
+     "y1": 1968,
+     "narration": "Frank Rosenblatt presented his perceptron at a 1958 press conference organized by America's Navy. New York Times coverage called it “the embryo of an electronic computer” expected to walk, talk, see and be conscious of its existence.",
+     "label": "Navy perceptron in the Times"
+    },
+    {
+     "event": "alpac-report-1966",
+     "view": "strata",
+     "y0": 1956,
+     "y1": 1976,
+     "narration": "The ALPAC report found no immediate or predictable prospect of useful machine translation. Its publication ended substantial US funding for that research.",
+     "label": "ALPAC report"
+    },
+    {
+     "event": "perceptrons-book-1969",
+     "view": "strata",
+     "y0": 1959,
+     "y1": 1979,
+     "narration": "Marvin Minsky and Seymour Papert published Perceptrons, a theoretical account of perceptrons and their limitations.",
+     "label": "Perceptrons"
+    },
+    {
+     "view": "predictions",
+     "y0": 1955,
+     "y1": 1975,
+     "event": "minsky-life-prediction-1970",
+     "pred": "minsky-life-1970",
+     "narration": "In 1970 Marvin Minsky told Life magazine that machines matching average human general intelligence were three to eight years away; he later said he was misquoted. The Ledger records this forecast as wrong.",
+     "label": "Minsky: human-level AI soon"
+    },
+    {
+     "event": "lighthill-report-1973",
+     "view": "strata",
+     "y0": 1963,
+     "y1": 1983,
+     "narration": "James Lighthill's report criticized AI research in robotics and language processing, arguing that its methods did not scale to realistic problems because of combinatorial explosion.",
+     "label": "Lighthill report"
+    },
+    {
+     "event": "first-ai-winter-1974",
+     "view": "strata",
+     "y0": 1964,
+     "y1": 1984,
+     "narration": "Lighthill's 1973 report led Britain to dismantle most of its AI research, and DARPA shifted toward projects with identifiable goals. By 1974 funding for AI projects was hard to find.",
+     "label": "UK and DARPA cuts"
+    },
+    {
+     "event": "expert-systems-boom-1980s",
+     "view": "strata",
+     "y0": 1970,
+     "y1": 1990,
+     "narration": "From 1980 to 1987 expert systems spread through corporations and investment in AI increased. By late in that decade AI had grown into a billion-dollar industry.",
+     "label": "Expert systems boom"
+    },
+    {
+     "event": "fifth-generation-project-1982",
+     "view": "strata",
+     "y0": 1972,
+     "y1": 1992,
+     "narration": "Japan's Ministry of International Trade and Industry launched its Fifth Generation Computer Systems project in 1982, a 10-year effort built on massively parallel computing and logic programming.",
+     "label": "Fifth Generation project"
+    },
+    {
+     "event": "aaai-winter-warning-1984",
+     "view": "wheel",
+     "y0": 1974,
+     "y1": 1994,
+     "narration": "At AAAI in 1984 Roger Schank and Marvin Minsky warned the business community that enthusiasm for AI had spiraled out of control and that disappointment would follow.",
+     "label": "AI winter warning, AAAI"
+    },
+    {
+     "event": "backprop-rumelhart-1986",
+     "view": "strata",
+     "y0": 1976,
+     "y1": 1996,
+     "narration": "Rumelhart, Hinton and Williams published an analysis of backpropagation in Nature in 1986, helping to popularize the method.",
+     "label": "Backpropagation in Nature"
+    },
+    {
+     "event": "lisp-machine-collapse-1987",
+     "view": "strata",
+     "y0": 1977,
+     "y1": 1997,
+     "narration": "In 1987 demand for specialized LISP machines collapsed as workstations from companies such as Sun Microsystems proved powerful alternatives. Half a billion dollars of industry was replaced within one year.",
+     "label": "LISP machine collapse"
+    },
+    {
+     "event": "alexnet-2012",
+     "view": "strata",
+     "y0": 2002,
+     "y1": 2022,
+     "narration": "AlexNet, from Krizhevsky, Sutskever and Hinton, won ImageNet 2012 with 15.3% top-5 error, more than 10.8 percentage points below its runner-up.",
+     "label": "AlexNet wins ImageNet"
+    },
+    {
+     "event": "chatgpt-launch-2022",
+     "view": "strata",
+     "y0": 2016,
+     "y1": 2026,
+     "narration": "OpenAI launched ChatGPT on November 30, 2022, as a freely available research preview.",
+     "label": "ChatGPT launches"
+    },
+    {
+     "event": "altman-ai-bubble-2025",
+     "view": "wheel",
+     "y0": 2019,
+     "y1": 2026,
+     "narration": "In 2025 Sam Altman said investors were overexcited about AI and compared it to the 1990s dot-com bubble. He said some investors would lose substantial money.",
+     "label": "Altman: a bubble"
+    }
+   ],
+   "family": "AI: crimson"
+  },
+  {
+   "id": "compute",
+   "title": "Compute scaling",
+   "years": "1946 to 2025",
+   "color": "#1f4e79",
+   "dek": "From vacuum tubes to gigawatt campuses: the hardware curve behind modern AI.",
+   "steps": [
+    {
+     "event": "eniac-1946",
+     "view": "stream",
+     "y0": 1936,
+     "y1": 1956,
+     "narration": "ENIAC was announced to the public with a demonstration on the evening of February 14, 1946.",
+     "label": "ENIAC"
+    },
+    {
+     "event": "transistor-1947",
+     "view": "columns",
+     "y0": 1937,
+     "y1": 1957,
+     "narration": "At Bell Labs a point-contact germanium transistor was demonstrated working as a speech amplifier with a power gain of 18.",
+     "label": "Transistor at Bell Labs"
+    },
+    {
+     "event": "integrated-circuit-1958",
+     "view": "columns",
+     "y0": 1948,
+     "y1": 1968,
+     "narration": "Jack Kilby demonstrated the first working integrated circuit at Texas Instruments on September 12, 1958.",
+     "label": "Kilby’s integrated circuit"
+    },
+    {
+     "event": "moores-law-1965",
+     "view": "columns",
+     "y0": 1955,
+     "y1": 1975,
+     "narration": "Gordon Moore predicted that component counts on integrated circuits would roughly double each year for at least ten years, reaching 65,000 by 1975.",
+     "label": "Moore’s law"
+    },
+    {
+     "event": "intel-4004-1971",
+     "view": "columns",
+     "y0": 1961,
+     "y1": 1981,
+     "narration": "Intel released the 4004, described as the first commercially available microprocessor for general use. It was priced at US$60.",
+     "label": "Intel 4004"
+    },
+    {
+     "event": "end-of-dennard-scaling-2004",
+     "view": "columns",
+     "y0": 1994,
+     "y1": 2014,
+     "narration": "The power wall led Intel to cancel Tejas in 2004. As Dennard scaling broke down, chipmakers turned to multicore processors because clock frequencies could no longer rise significantly.",
+     "label": "Intel cancels Tejas"
+    },
+    {
+     "event": "cuda-2007",
+     "view": "columns",
+     "y0": 1997,
+     "y1": 2017,
+     "narration": "Nvidia released CUDA in February 2007, letting software use certain Nvidia GPUs for general-purpose accelerated processing.",
+     "label": "CUDA"
+    },
+    {
+     "event": "alexnet-2012",
+     "view": "strata",
+     "y0": 2002,
+     "y1": 2022,
+     "narration": "AlexNet won the 2012 ImageNet challenge with a top-5 error rate of 15.3%, more than 10.8 percentage points lower than the runner-up.",
+     "label": "AlexNet wins ImageNet"
+    },
+    {
+     "event": "scaling-laws-2020",
+     "view": "strata",
+     "y0": 2014,
+     "y1": 2026,
+     "narration": "OpenAI researchers reported in January 2020 that language-model loss follows power laws in model size, dataset size and training compute, with trends spanning more than seven orders of magnitude.",
+     "label": "Scaling laws"
+    },
+    {
+     "event": "chinchilla-2022",
+     "view": "strata",
+     "y0": 2016,
+     "y1": 2026,
+     "narration": "DeepMind found that model size and training tokens should scale equally for compute-optimal training. Its 70-billion-parameter Chinchilla outperformed Gopher, four times its size, on the same compute budget.",
+     "label": "Chinchilla scaling"
+    },
+    {
+     "event": "openai-o3-arc-cost-2024",
+     "view": "benchmarks",
+     "y0": 2010,
+     "y1": 2026,
+     "narration": "ARC-AGI-1 appeared in November 2019; in December 2024 OpenAI's o3 preview scored 75.7%, past the 64.2% human panel average. Its successor, ARC-AGI-2, launched in March 2025 and was passed within twelve months.",
+     "bench": "arc-agi-1",
+     "label": "o3 on ARC-AGI"
+    },
+    {
+     "event": "h100-launch-2022",
+     "view": "anatomy",
+     "y0": 2016,
+     "y1": 2026,
+     "narration": "NVIDIA announced the Hopper architecture and the H100 GPU in March 2022, with 80 billion transistors and a Transformer Engine for large AI models.",
+     "label": "Hopper and H100"
+    },
+    {
+     "event": "xai-colossus-2024",
+     "view": "anatomy",
+     "y0": 2018,
+     "y1": 2026,
+     "narration": "xAI brought its Colossus supercomputer online in Memphis with 100,000 NVIDIA H100 GPUs. Elon Musk said it was built in 122 days.",
+     "label": "Colossus, 100,000 GPUs"
+    },
+    {
+     "event": "stargate-announcement-2025",
+     "view": "capital",
+     "y0": 2024,
+     "y1": 2026,
+     "narration": "SoftBank, OpenAI, Oracle and MGX announced Stargate, planning to invest up to $500 billion over four years in US AI infrastructure.",
+     "deal": "softbank-stargate-llc-2025-01",
+     "label": "Stargate, $500 billion"
+    }
+   ],
+   "family": "signal: blue (computing, chips)"
+  },
+  {
+   "id": "open",
+   "title": "Open versus closed",
+   "years": "1976 to 2025",
+   "color": "#8c2d62",
+   "dek": "Who may copy and run the code, from hobbyist software to open-weight models.",
+   "steps": [
+    {
+     "event": "open-letter-hobbyists-1976",
+     "view": "columns",
+     "y0": 1966,
+     "y1": 1986,
+     "narration": "Bill Gates's Open Letter to Hobbyists criticized the copying of Altair BASIC without payment, arguing that it discouraged investment in software development.",
+     "label": "Gates’s Open Letter"
+    },
+    {
+     "event": "gnu-project-1983",
+     "view": "columns",
+     "y0": 1973,
+     "y1": 1993,
+     "narration": "Richard Stallman announced the GNU Project on September 27, 1983.",
+     "label": "GNU Project"
+    },
+    {
+     "event": "linux-1991",
+     "view": "columns",
+     "y0": 1981,
+     "y1": 2001,
+     "narration": "Linus Torvalds publicly released the first version of the Linux kernel on the Internet on 17 September 1991.",
+     "label": "Linux kernel"
+    },
+    {
+     "event": "tensorflow-2015",
+     "view": "columns",
+     "y0": 2005,
+     "y1": 2025,
+     "narration": "Google released TensorFlow, built by the Google Brain team for internal research and production, as open-source software under the Apache License 2.0.",
+     "label": "TensorFlow open-sourced"
+    },
+    {
+     "event": "openai-founded-2015",
+     "view": "strata",
+     "y0": 2005,
+     "y1": 2025,
+     "narration": "OpenAI was founded as a nonprofit in December 2015, with $1 billion in capital pledged.",
+     "label": "OpenAI founded, nonprofit"
+    },
+    {
+     "event": "gpt-2-2019",
+     "view": "genealogy",
+     "y0": 2017,
+     "y1": 2021,
+     "narration": "OpenAI withheld the full 1.5-billion-parameter GPT-2, citing concerns that it could generate deceptive or abusive text at scale, and released it in stages.",
+     "label": "GPT-2 withheld"
+    },
+    {
+     "event": "stable-diffusion-2022",
+     "view": "genealogy",
+     "y0": 2020,
+     "y1": 2024,
+     "narration": "Stability AI released Stable Diffusion with model weights, a model card and code, under a license that allowed commercial and non-commercial use.",
+     "label": "Stable Diffusion"
+    },
+    {
+     "event": "llama-1-2023",
+     "view": "genealogy",
+     "y0": 2021,
+     "y1": 2025,
+     "narration": "Meta offered LLaMA to approved researchers under a noncommercial research license. Within days the full weights appeared on BitTorrent.",
+     "label": "LLaMA weights leak"
+    },
+    {
+     "event": "google-we-have-no-moat-2023",
+     "view": "wheel",
+     "y0": 2017,
+     "y1": 2026,
+     "narration": "A leaked internal Google memo argued that open-source AI was advancing quickly and could outpace both Google and OpenAI.",
+     "label": "“No Moat” memo"
+    },
+    {
+     "event": "llama-3-1-405b-2024",
+     "view": "genealogy",
+     "y0": 2022,
+     "y1": 2026,
+     "narration": "Meta released Llama 3.1, including a 405-billion-parameter model it described as its first frontier-level openly available model.",
+     "label": "Llama 3.1 405B"
+    },
+    {
+     "event": "mistral-seed-2023",
+     "view": "talent",
+     "y0": 2015,
+     "y1": 2026,
+     "narration": "Open-weight labs were founded by people leaving the big labs. Mistral AI was started in Paris in 2023 by Arthur Mensch from DeepMind and Guillaume Lample and Timothée Lacroix from Meta, and its seed round was reported as Europe's largest.",
+     "person": "arthur-mensch",
+     "label": "Mistral’s seed round"
+    },
+    {
+     "event": "deepseek-r1-2025",
+     "view": "genealogy",
+     "y0": 2023,
+     "y1": 2026,
+     "narration": "DeepSeek released R1 with a technical report under the MIT License, describing its math, code and reasoning performance as comparable to OpenAI o1.",
+     "label": "DeepSeek R1"
+    },
+    {
+     "event": "china-open-models-downloads-2025",
+     "view": "columns",
+     "y0": 2019,
+     "y1": 2026,
+     "narration": "ATOM tracking found that Chinese open models overtook US models in cumulative Hugging Face downloads in late July 2025.",
+     "label": "Chinese models lead downloads"
+    },
+    {
+     "event": "gpt-oss-2025",
+     "view": "genealogy",
+     "y0": 2023,
+     "y1": 2026,
+     "narration": "OpenAI released gpt-oss-120b and gpt-oss-20b, two open-weight reasoning models under the Apache 2.0 license.",
+     "label": "gpt-oss"
+    }
+   ],
+   "family": "knowledge: magenta (software)"
+  },
+  {
+   "id": "privacy",
+   "title": "Privacy to surveillance",
+   "years": "1949 to 2026",
+   "color": "#3f3d7a",
+   "dek": "How personal data moved from filing cabinets to search logs, social graphs, face databases and chat histories.",
+   "steps": [
+    {
+     "event": "orwell-nineteen-eighty-four-1949",
+     "view": "stream",
+     "y0": 1939,
+     "y1": 1959,
+     "narration": "George Orwell's Nineteen Eighty-Four was published in June 1949, with Big Brother as the symbol of the Party's control and surveillance.",
+     "label": "Nineteen Eighty-Four"
+    },
+    {
+     "event": "national-data-center-1966",
+     "view": "columns",
+     "y0": 1956,
+     "y1": 1976,
+     "narration": "Congressional hearings on a proposed federal data bank began in 1966, amid public concern that the government could know everything about individuals.",
+     "label": "Federal data bank hearings"
+    },
+    {
+     "event": "privacy-act-1974",
+     "view": "columns",
+     "y0": 1964,
+     "y1": 1984,
+     "narration": "The Privacy Act of 1974 set rules for how federal agencies collect, maintain, use and share personal information in their records.",
+     "label": "US Privacy Act"
+    },
+    {
+     "event": "clipper-chip-1993",
+     "view": "columns",
+     "y0": 1983,
+     "y1": 2003,
+     "narration": "America's NSA promoted its Clipper chip, an encryption device with key escrow so law enforcement could decode intercepted communications. EFF, EPIC and other groups opposed it.",
+     "label": "Clipper Chip"
+    },
+    {
+     "event": "mcnealy-zero-privacy-1999",
+     "view": "wheel",
+     "y0": 1989,
+     "y1": 2009,
+     "narration": "Sun Microsystems CEO Scott McNealy dismissed consumer privacy concerns, saying, \"You have zero privacy anyway. Get over it.\"",
+     "label": "McNealy: zero privacy"
+    },
+    {
+     "event": "patriot-act-2001",
+     "view": "columns",
+     "y0": 1991,
+     "y1": 2011,
+     "narration": "The USA PATRIOT Act, signed in October 2001, expanded federal surveillance and intelligence-gathering authorities, including roving surveillance.",
+     "label": "USA PATRIOT Act"
+    },
+    {
+     "event": "aol-search-data-leak-2006",
+     "view": "columns",
+     "y0": 1996,
+     "y1": 2016,
+     "narration": "AOL released search records linked to numeric user IDs. New York Times reporters used those queries to identify searcher No. 4417749 as Thelma Arnold of Lilburn, Georgia.",
+     "label": "AOL search logs"
+    },
+    {
+     "event": "snowden-nsa-revelations-2013",
+     "view": "stream",
+     "y0": 2003,
+     "y1": 2023,
+     "narration": "Edward Snowden's first disclosure came via Guardian journalists on 5 June 2013. It exposed a secret court order under which Verizon had been passing phone records from over 120 million subscribers to the NSA daily.",
+     "label": "Snowden revealed"
+    },
+    {
+     "event": "zuboff-surveillance-capitalism-2014",
+     "view": "columns",
+     "y0": 2004,
+     "y1": 2024,
+     "narration": "Shoshana Zuboff first presented surveillance capitalism as a concept in her 2014 essay, later describing it as power built on extraction, commodification and control.",
+     "label": "Surveillance capitalism"
+    },
+    {
+     "event": "cambridge-analytica-2018",
+     "view": "wheel",
+     "y0": 2012,
+     "y1": 2026,
+     "narration": "Reports in March 2018 revealed that Facebook data collected through Aleksandr Kogan's app was used without informed consent. Facebook later confirmed potentially over 87 million users were involved.",
+     "label": "Cambridge Analytica"
+    },
+    {
+     "event": "gdpr-2018",
+     "view": "columns",
+     "y0": 2012,
+     "y1": 2026,
+     "narration": "The GDPR became applicable across the EU on 25 May 2018, including for companies based outside the EU that operate there.",
+     "label": "GDPR in force"
+    },
+    {
+     "event": "eu-ai-act-in-force-2024",
+     "view": "policy",
+     "y0": 2016,
+     "y1": 2026,
+     "narration": "Privacy law came first and AI law followed. GDPR took effect in May 2018 and gave people a right not to be subject to solely automated decisions; the EU AI Act entered into force on 1 August 2024.",
+     "policy": "eu-gdpr-2016",
+     "label": "EU AI Act in force"
+    },
+    {
+     "event": "clearview-ai-2020",
+     "view": "anatomy",
+     "y0": 2014,
+     "y1": 2026,
+     "narration": "The New York Times reported that Clearview AI had built a face-matching app from more than 3 billion images taken from sites including Facebook, YouTube and Venmo. More than 600 law enforcement agencies were using it.",
+     "label": "Clearview AI revealed"
+    },
+    {
+     "event": "italy-chatgpt-ban-2023",
+     "view": "anatomy",
+     "y0": 2017,
+     "y1": 2026,
+     "narration": "Italy's data protection authority temporarily restricted ChatGPT's processing of Italian users' data, citing transparency, legal basis for training data and missing age verification.",
+     "label": "Italy blocks ChatGPT"
+    },
+    {
+     "event": "chatgpt-ads-2026",
+     "view": "anatomy",
+     "y0": 2020,
+     "y1": 2026,
+     "narration": "OpenAI announced tests of labeled ads in ChatGPT for free and Go users in the US. It said ads would not influence answers and that it would not sell user data to advertisers.",
+     "label": "ChatGPT ad tests"
+    }
+   ],
+   "family": "knowledge: indigo (society, policy)"
+  },
+  {
+   "id": "hype",
+   "title": "Hype cycles and bubbles",
+   "years": "1929 to 2026",
+   "color": "#b4531f",
+   "dek": "Booms and crashes from Wall Street in 1929 to the AI build-out.",
+   "steps": [
+    {
+     "event": "wall-street-crash-1929",
+     "view": "stream",
+     "y0": 1926,
+     "y1": 1939,
+     "narration": "Stock prices on the New York Stock Exchange collapsed in October 1929, and the crash cascaded into the Great Depression.",
+     "label": "Wall Street crash"
+    },
+    {
+     "event": "too-cheap-to-meter-1954",
+     "view": "wheel",
+     "y0": 1944,
+     "y1": 1964,
+     "narration": "Atomic Energy Commission chairman Lewis Strauss said in 1954 that children could expect to enjoy electricity \"too cheap to meter.\"",
+     "label": "“Too cheap to meter”"
+    },
+    {
+     "event": "amaras-law-1978",
+     "view": "stream",
+     "y0": 1968,
+     "y1": 1988,
+     "narration": "Roy Amara's 1978 adage holds we overestimate the effect of a technology in the short run and underestimate it in the long run.",
+     "label": "Amara’s Law"
+    },
+    {
+     "event": "video-game-crash-1983",
+     "view": "columns",
+     "y0": 1973,
+     "y1": 1993,
+     "narration": "North American home video game revenue fell from about $3.2 billion in 1983 to about $100 million in 1985.",
+     "label": "Video game crash"
+    },
+    {
+     "event": "gartner-hype-cycle-1995",
+     "view": "stream",
+     "y0": 1985,
+     "y1": 2005,
+     "narration": "Gartner analyst Jackie Fenn introduced the Hype Cycle in 1995, a five-stage curve from Technology Trigger to Plateau of Productivity.",
+     "label": "Gartner hype cycle"
+    },
+    {
+     "event": "netscape-ipo-1995",
+     "view": "columns",
+     "y0": 1985,
+     "y1": 2005,
+     "narration": "Netscape's August 1995 IPO closed its first day at a $2.9 billion market value and helped kickstart widespread investment in Internet companies.",
+     "label": "Netscape IPO"
+    },
+    {
+     "view": "predictions",
+     "y0": 1990,
+     "y1": 2005,
+     "event": "krugman-fax-machine-1998",
+     "pred": "krugman-fax-1998",
+     "narration": "In 1998 Paul Krugman wrote in Red Herring that by 2005 or so the internet would prove to have had no greater economic impact than fax machines. The Ledger records his forecast as wrong.",
+     "label": "Krugman’s fax machine"
+    },
+    {
+     "event": "dot-com-crash-2000",
+     "view": "stream",
+     "y0": 1990,
+     "y1": 2010,
+     "narration": "The Nasdaq peaked on March 10, 2000. By October 2002 it had fallen 78%, giving up all its gains during the bubble.",
+     "label": "Dot-com bubble bursts"
+    },
+    {
+     "event": "ico-bubble-2017",
+     "view": "columns",
+     "y0": 2007,
+     "y1": 2026,
+     "narration": "Initial coin offerings raised billions of dollars in 2017, then fundraising fell sharply amid regulatory scrutiny and falling cryptocurrency prices.",
+     "label": "ICO boom and bust"
+    },
+    {
+     "event": "nvidia-trillion-2023",
+     "view": "rates",
+     "y0": 2017,
+     "y1": 2026,
+     "narration": "Nvidia briefly passed a $1 trillion market capitalization on May 30, 2023, the first chipmaker to reach the milestone.",
+     "label": "Nvidia at $1 trillion"
+    },
+    {
+     "view": "predictions",
+     "y0": 2015,
+     "y1": 2026,
+     "event": "altman-intelligence-age-2024",
+     "pred": "altman-superintelligence-thousand-days-2024",
+     "narration": "In The Intelligence Age (2024) Sam Altman wrote that superintelligence was possible “in a few thousand days”. The Ledger marks it pending; as Fortune noted, 2,000 to 5,000 days runs roughly 5.5 to 14 years from 2024, so that window stays open.",
+     "label": "“The Intelligence Age”"
+    },
+    {
+     "event": "deepseek-nvidia-selloff-2025",
+     "view": "wheel",
+     "y0": 2019,
+     "y1": 2026,
+     "narration": "Nvidia shares fell 17% on January 27, 2025, erasing $589 billion in market value, as DeepSeek's lower-cost model raised questions about AI infrastructure spending.",
+     "label": "Nvidia loses $589 billion"
+    },
+    {
+     "event": "circular-deals-ai-2025",
+     "view": "capital",
+     "y0": 2024,
+     "y1": 2026,
+     "narration": "Nvidia's plan to invest up to $100 billion in OpenAI, which buys its chips, raised concerns that some of the money could flow back to Nvidia, intensifying bubble fears.",
+     "deal": "nvidia-openai-2025-09",
+     "label": "Circular-financing concerns"
+    },
+    {
+     "event": "ai-bubble-fears-michael-burry-2025",
+     "view": "wheel",
+     "y0": 2019,
+     "y1": 2026,
+     "narration": "Michael Burry alleged that major AI companies were understating depreciation on computing equipment. Nvidia disputed his claims in a private memo.",
+     "label": "Burry on chip depreciation"
+    },
+    {
+     "event": "ai-bubble-2026",
+     "view": "wheel",
+     "y0": 2020,
+     "y1": 2026,
+     "narration": "On October 15, 2026, global tech stocks sold off on worries about borrowing costs, Chinese competition and whether AI investments would earn sufficient returns.",
+     "label": "Tech sell-off deepens"
+    }
+   ],
+   "family": "power: burnt orange (money, society)"
+  }
+ ]
+}
