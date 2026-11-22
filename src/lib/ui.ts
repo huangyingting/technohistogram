@@ -37,6 +37,7 @@ import {
   rgba as rgbaOf,
 } from './spectrum';
 import { assetUrl } from './basePath';
+import { isZh, onLangChange, SIG_ZH, KIND_ZH, TAG_ZH } from './i18n';
 
 const clampY = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 const recCol = (y: number | string) => heat(slotOf(clampY(+y || 2026, YEAR_MIN, YEAR_MAX)) / SLOT_MAX);
@@ -91,8 +92,10 @@ export const tip = {
 
 export function eventTip(e: any): string {
   const d = DOMAIN[e.domain];
-  return `<div class="k"><i style="background:${recCol(e.year)}"></i>${esc(d ? d.short : e.domain)} &middot; ${esc(e.type)} &middot; ${esc(fmtDate(e))}${e.region && REGION[e.region] ? ` &middot; <i style="background:${regionColor(e.region)};border-radius:50%"></i>${esc(REGION[e.region].label)}` : ''}</div>
-  <div class="h">${esc(e.title)}</div>${(e.connects && e.connects.length) || (db.in.get(e.id) || []).length ? `<div class="m">${neighbors(e.id).length} connections</div>` : ''}`;
+  const tp = TYPE[e.type]?.label || e.type;
+  const nConn = neighbors(e.id).length;
+  return `<div class="k"><i style="background:${recCol(e.year)}"></i>${esc(d ? d.short : e.domain)} &middot; ${esc(tp)} &middot; ${esc(fmtDate(e))}${e.region && REGION[e.region] ? ` &middot; <i style="background:${regionColor(e.region)};border-radius:50%"></i>${esc(REGION[e.region].label)}` : ''}</div>
+  <div class="h">${esc(e.title)}</div>${(e.connects && e.connects.length) || (db.in.get(e.id) || []).length ? `<div class="m">${isZh() ? `${nConn} 条因果关联` : `${nConn} connections`}</div>` : ''}`;
 }
 
 /* ---------- Arc helper ---------- */
@@ -112,17 +115,29 @@ export function fillTypes() {
   const counts = new Map<string, number>();
   const pool = db.events.filter((e) => e.kind !== 'overlay');
   pool.forEach((e) => counts.set(e.type, (counts.get(e.type) || 0) + 1));
-  const groups: [string, string][] = [
-    ['', 'All types'],
-    ['invention,discovery,product,milestone', 'Making: inventions, products'],
-    ['concept,person', 'Ideas and people'],
-    ['market', 'Money and markets'],
-    ['policy', 'Policy'],
-    ['culture,moment', 'Culture and moments'],
-    ['hope', 'Hopes'],
-    ['fear', 'Fears'],
-    ['failure,incident', 'Failures and incidents'],
-  ];
+  const groups: [string, string][] = isZh()
+    ? [
+        ['', '全部类型'],
+        ['invention,discovery,product,milestone', '创造：发明、发现与产品'],
+        ['concept,person', '思想与人物'],
+        ['market', '资本与市场'],
+        ['policy', '政策与法规'],
+        ['culture,moment', '文化与历史瞬间'],
+        ['hope', '技术愿景'],
+        ['fear', '技术隐忧'],
+        ['failure,incident', '挫折与事故'],
+      ]
+    : [
+        ['', 'All types'],
+        ['invention,discovery,product,milestone', 'Making: inventions, products'],
+        ['concept,person', 'Ideas and people'],
+        ['market', 'Money and markets'],
+        ['policy', 'Policy'],
+        ['culture,moment', 'Culture and moments'],
+        ['hope', 'Hopes'],
+        ['fear', 'Fears'],
+        ['failure,incident', 'Failures and incidents'],
+      ];
   ts.innerHTML =
     groups
       .map(([v, l]) => {
@@ -130,7 +145,7 @@ export function fillTypes() {
         return `<option value="${v}">${esc(l)} (${n.toLocaleString('en-US')})</option>`;
       })
       .join('') +
-    '<optgroup label="Single type">' +
+    `<optgroup label="${isZh() ? '按单一类型筛选' : 'Single type'}">` +
     TYPES.filter((t) => counts.get(t.id))
       .map((t) => `<option value="${t.id}">${t.label} (${(counts.get(t.id) || 0).toLocaleString('en-US')})</option>`)
       .join('') +
@@ -143,7 +158,7 @@ export function fillThreads() {
   if (!th) return;
   const cur = th.value;
   th.innerHTML =
-    '<option value="">All threads</option>' +
+    `<option value="">${isZh() ? '全部技术脉络' : 'All threads'}</option>` +
     db.tags
       .filter((t) => t.n >= 2)
       .slice(0, 80)
@@ -152,13 +167,25 @@ export function fillThreads() {
   th.value = cur;
 }
 
-export function initFilters() {
+export function renderDomainChips() {
   const chips = $('#chips');
   if (!chips) return;
   chips.innerHTML = DOMAINS.map(
     (d) =>
-      `<button class="chip" type="button" data-d="${d.id}" style="--c:${d.color}" aria-pressed="true" title="Only this domain: double click or Shift+Enter"><i></i>${esc(d.short)}</button>`,
+      `<button class="chip" type="button" data-d="${d.id}" style="--c:${d.color}" aria-pressed="${String(
+        state.domains.has(d.id),
+      )}" title="${
+        isZh()
+          ? `仅看「${d.label}」：双击或按 Shift+Enter`
+          : 'Only this domain: double click or Shift+Enter'
+      }"><i></i>${esc(d.short)}</button>`,
   ).join('');
+}
+
+export function initFilters() {
+  const chips = $('#chips');
+  if (!chips) return;
+  renderDomainChips();
   let clickTimer: any = null;
   const edge = () => chips.classList.toggle('at-end', chips.scrollLeft + chips.clientWidth >= chips.scrollWidth - 2);
   chips.addEventListener('scroll', edge, { passive: true });
@@ -267,7 +294,7 @@ export function initFilters() {
       if (ev.key === 'Escape' && fb.classList.contains('open') && !state.sel) {
         fb.classList.remove('open');
         fab.setAttribute('aria-expanded', 'false');
-        fab.textContent = 'Filters';
+        fab.textContent = isZh() ? '筛选' : 'Filters';
         fab.focus();
       }
     });
@@ -275,7 +302,7 @@ export function initFilters() {
       const open = !fb.classList.contains('open');
       fb.classList.toggle('open', open);
       fab.setAttribute('aria-expanded', String(open));
-      fab.textContent = open ? 'Close filters' : 'Filters';
+      fab.textContent = open ? (isZh() ? '收起筛选' : 'Close filters') : isZh() ? '筛选' : 'Filters';
     });
   }
 }
@@ -316,9 +343,13 @@ export function syncFilters() {
   if (countEl) {
     if (regView && registerFor(state) === 'landmarks') {
       const k = db.events.filter((e) => drawn(e) && e.year >= state.y0 && e.year <= state.y1).length;
-      countEl.innerHTML = `<b>${k.toLocaleString('en-US')}</b> landmarks of ${n.toLocaleString('en-US')} events`;
+      countEl.innerHTML = isZh()
+        ? `呈现 <b>${k.toLocaleString('en-US')}</b> 个地标 / 共 ${n.toLocaleString('en-US')} 条`
+        : `<b>${k.toLocaleString('en-US')}</b> landmarks of ${n.toLocaleString('en-US')} events`;
     } else {
-      countEl.innerHTML = `<b>${n.toLocaleString('en-US')}</b> of ${total} events`;
+      countEl.innerHTML = isZh()
+        ? `当前 <b>${n.toLocaleString('en-US')}</b> / 共 ${total} 条史料`
+        : `<b>${n.toLocaleString('en-US')}</b> of ${total} events`;
     }
   }
   if (sw) {
@@ -337,13 +368,25 @@ export function syncFilters() {
     pill.hidden = !active;
     pill.classList.toggle('show', !!active);
     pill.innerHTML = active
-      ? `${active} filter${active === 1 ? '' : 's'} on, <b>${n}</b> events <button type="button" id="fpill-reset">Reset</button>`
+      ? isZh()
+        ? `已启用 ${active} 项筛选 · <b>${n}</b> 条记录 <button type="button" id="fpill-reset">重置</button>`
+        : `${active} filter${active === 1 ? '' : 's'} on, <b>${n}</b> events <button type="button" id="fpill-reset">Reset</button>`
       : '';
   }
   const fab = $('#fab');
   const fb = $('#filterbar');
   if (fab && fb) {
-    fab.textContent = fb.classList.contains('open') ? 'Close filters' : active ? `Filters (${active})` : 'Filters';
+    fab.textContent = fb.classList.contains('open')
+      ? isZh()
+        ? '收起筛选'
+        : 'Close filters'
+      : active
+        ? isZh()
+          ? `筛选 (${active})`
+          : `Filters (${active})`
+        : isZh()
+          ? '筛选'
+          : 'Filters';
   }
 }
 
@@ -392,20 +435,29 @@ export function initSearch() {
         return `<line class="tk${i >= 0 ? ' on' : ''}"${i >= 0 ? ` data-i="${i}"` : ''} x1="${tlx(e.year + 0.5).toFixed(1)}" x2="${tlx(e.year + 0.5).toFixed(1)}" y1="${i >= 0 ? 2 : 7}" y2="20" stroke="${recCol(e.year)}"><title>${fmtYear(e.year)} ${esc(e.title)}</title></line>`;
       })
       .join('');
-    return `<div class="sr-tl"><div class="sr-n"><span><b>${all.length}</b> match${all.length === 1 ? '' : 'es'}</span><span>${ext[0] === ext[1] ? fmtYear(ext[0]) : `${fmtYear(ext[0])} to ${fmtYear(ext[1])}`}</span></div>
-      <svg viewBox="0 0 400 32" aria-label="Matches by year, ${fmtYear(YEAR_MIN)} to ${YEAR_MAX}"><line class="ax" x1="6" x2="394" y1="20.5" y2="20.5"/>${ticks}<text class="yr" x="6" y="30">${fmtYear(YEAR_MIN)}</text><text class="yr" x="394" y="30" text-anchor="end">${YEAR_MAX}</text></svg></div>`;
+    return `<div class="sr-tl"><div class="sr-n"><span>${
+      isZh()
+        ? `共匹配 <b>${all.length}</b> 条史料`
+        : `<b>${all.length}</b> match${all.length === 1 ? '' : 'es'}`
+    }</span><span>${ext[0] === ext[1] ? fmtYear(ext[0]) : `${fmtYear(ext[0])} ${isZh() ? '—' : 'to'} ${fmtYear(ext[1])}`}</span></div>
+      <svg viewBox="0 0 400 32" aria-label="${
+        isZh() ? '匹配结果年份分布' : `Matches by year, ${fmtYear(YEAR_MIN)} to ${YEAR_MAX}`
+      }"><line class="ax" x1="6" x2="394" y1="20.5" y2="20.5"/>${ticks}<text class="yr" x="6" y="30">${fmtYear(YEAR_MIN)}</text><text class="yr" x="394" y="30" text-anchor="end">${YEAR_MAX}</text></svg></div>`;
   };
 
   interface EntRow {
     k: 'who' | 'org' | 'tag';
     n: string;
+    disp: string;
     ids: string[];
     lc: string;
   }
   let ENT: EntRow[] | null = null;
   let entN = 0;
+  let entLang = '';
   const entities = (): EntRow[] => {
-    if (ENT && entN === db.events.length) return ENT;
+    const curLang = isZh() ? 'zh' : 'en';
+    if (ENT && entN === db.events.length && entLang === curLang) return ENT;
     const who = new Map<string, string[]>();
     const org = new Map<string, string[]>();
     const tag = new Map<string, string[]>();
@@ -422,15 +474,28 @@ export function initSearch() {
       for (const x of e.tags || []) add(tag, x, e.id);
     }
     ENT = [
-      ...[...who].map(([n, ids]) => ({ k: 'who' as const, n, ids })),
-      ...[...org].map(([n, ids]) => ({ k: 'org' as const, n, ids })),
-      ...[...tag].map(([n, ids]) => ({ k: 'tag' as const, n, ids })),
-    ].map((x) => ({ ...x, lc: x.n.toLowerCase() }));
+      ...[...who].map(([n, ids]) => ({ k: 'who' as const, n, disp: n, ids })),
+      ...[...org].map(([n, ids]) => ({ k: 'org' as const, n, disp: n, ids })),
+      ...[...tag].map(([n, ids]) => ({
+        k: 'tag' as const,
+        n,
+        disp: prettyTag(n),
+        ids,
+      })),
+    ].map((x) => ({
+      ...x,
+      lc: `${x.n} ${x.disp} ${TAG_ZH[x.n] || ''}`.toLowerCase(),
+    }));
     entN = db.events.length;
+    entLang = curLang;
     return ENT;
   };
-  const ENT_WORD: Record<string, string> = { who: 'Person', org: 'Organization', tag: 'Tag' };
+  const entWord = (k: string) =>
+    isZh()
+      ? ({ who: '人物', org: '机构', tag: '脉络标签' } as Record<string, string>)[k] || k
+      : ({ who: 'Person', org: 'Organization', tag: 'Tag' } as Record<string, string>)[k] || k;
   let ents: EntRow[] = [];
+  const hasCjk = (s: string) => /[\u3400-\u9fff]/.test(s);
   const render = () => {
     const v = q.value.trim().toLowerCase();
     if (!v) {
@@ -441,14 +506,20 @@ export function initSearch() {
     ensureTxt();
     ents = db.loaded.has('meta')
       ? entities()
-          .filter((x) => terms.every((tm) => x.lc.startsWith(tm) || x.lc.includes(' ' + tm) || x.lc.includes('-' + tm)))
+          .filter((x) =>
+            terms.every((tm) =>
+              hasCjk(tm)
+                ? x.lc.includes(tm)
+                : x.lc.startsWith(tm) || x.lc.includes(' ' + tm) || x.lc.includes('-' + tm),
+            ),
+          )
           .sort((a, b) => b.ids.length - a.ids.length || a.n.localeCompare(b.n))
           .slice(0, 5)
       : [];
     const all = db.events
       .map((e) => {
         if (!terms.every((x) => e._txt.includes(x))) return null;
-        const tl = e.title.toLowerCase();
+        const tl = `${e.title} ${e._en?.title || ''}`.toLowerCase();
         const inTitle = terms.every((x) => tl.includes(x));
         const phrase = terms.length > 1 ? (tl.includes(v) ? 6 : e._txt.includes(v) ? 3 : 0) : 0;
         return [e, (inTitle ? 10 : 0) + phrase + e.significance] as const;
@@ -459,11 +530,13 @@ export function initSearch() {
     items = all.slice(0, 12);
     idx = -1;
     const entRows = ents.length
-      ? `<div class="sr-h" aria-hidden="true"><span></span><span>Events</span><span>Person, organization or tag</span><span>Kind</span></div>` +
+      ? `<div class="sr-h" aria-hidden="true"><span></span><span>${isZh() ? '相关' : 'Events'}</span><span>${
+          isZh() ? '人物、机构或技术脉络' : 'Person, organization or tag'
+        }</span><span>${isZh() ? '类别' : 'Kind'}</span></div>` +
         ents
           .map(
             (x, i) =>
-              `<button type="button" role="option" class="sr-ent" data-ent="${i}"><span class="n"></span><span class="y"></span><span class="t">${esc(x.n)}</span><span class="d">${ENT_WORD[x.k]}</span></button>`,
+              `<button type="button" role="option" class="sr-ent" data-ent="${i}"><span class="n"></span><span class="y">${x.ids.length}</span><span class="t">${esc(x.disp)}</span><span class="d">${entWord(x.k)}</span></button>`,
           )
           .join('')
       : '';
@@ -471,18 +544,35 @@ export function initSearch() {
       items.length || ents.length
         ? entRows +
           (items.length
-            ? miniTimeline(all, items) + `<div class="sr-h" aria-hidden="true"><span>No.</span><span>Date</span><span>Record</span><span>Domain</span></div>`
+            ? miniTimeline(all, items) +
+              `<div class="sr-h" aria-hidden="true"><span>${isZh() ? '序号' : 'No.'}</span><span>${
+                isZh() ? '年份' : 'Date'
+              }</span><span>${isZh() ? '史料记录' : 'Record'}</span><span>${
+                isZh() ? '领域' : 'Domain'
+              }</span></div>`
             : '') +
           items
             .map(
               (e, i) =>
-                `<button type="button" role="option" data-i="${i}" style="--rec:${recCol(e.year)}"><span class="n"></span><span class="y">${e.year}</span><span class="t"><i style="background:${recCol(e.year)}"></i>${esc(e.title)}</span><span class="d">${esc(DOMAIN[e.domain]?.short || e.domain)}</span></button>`,
+                `<button type="button" role="option" data-i="${i}" style="--rec:${recCol(e.year)}"><span class="n"></span><span class="y">${
+                  e.year < 0 ? fmtYear(e.year) : e.year
+                }</span><span class="t"><i style="background:${recCol(e.year)}"></i>${esc(e.title)}</span><span class="d">${esc(DOMAIN[e.domain]?.short || e.domain)}</span></button>`,
             )
             .join('') +
           (items.length
-            ? `<button type="button" data-all="1" class="sr-all"><span class="n"></span><span class="y">all</span><span class="t">Mark every match for "${esc(q.value.trim())}" on the coil${all.length > items.length ? ` (${all.length} records)` : ''}</span><span class="d"></span></button>`
+            ? `<button type="button" data-all="1" class="sr-all"><span class="n"></span><span class="y">${
+                isZh() ? '全部' : 'all'
+              }</span><span class="t">${
+                isZh()
+                  ? `在螺旋上高亮「${esc(q.value.trim())}」的全部匹配项${all.length > items.length ? `（共 ${all.length} 条）` : ''}`
+                  : `Mark every match for "${esc(q.value.trim())}" on the coil${all.length > items.length ? ` (${all.length} records)` : ''}`
+              }</span><span class="d"></span></button>`
             : '')
-        : `<div class="empty">Nothing matches "${esc(q.value)}". A name or a word like transistor finds records.</div>`;
+        : `<div class="empty">${
+            isZh()
+              ? `未找到与「${esc(q.value)}」匹配的记录。可尝试搜索「活字」「晶体管」「阿波罗」或英文关键词（如 Transformer）。`
+              : `Nothing matches "${esc(q.value)}". A name or a word like transistor finds records.`
+          }</div>`;
     placeBox();
     box.hidden = false;
   };
@@ -566,7 +656,14 @@ export interface WordEntry {
 }
 
 export function selectEntity(kind: string, name: string, ids?: string[]) {
-  const [word, field] = ENT_KIND[kind] || ENT_KIND.tag;
+  const [enWord, field] = ENT_KIND[kind] || ENT_KIND.tag;
+  const word = isZh()
+    ? kind === 'who'
+      ? '历史人物'
+      : kind === 'org'
+        ? '相关机构'
+        : '技术脉络'
+    : enWord;
   const list = (ids || db.events.filter((e) => (e[field] || []).includes(name)).map((e) => e.id))
     .map((id) => db.byId.get(id))
     .filter(Boolean)
@@ -574,10 +671,14 @@ export function selectEntity(kind: string, name: string, ids?: string[]) {
     .map((e) => e.id);
   const ys = list.map((id) => db.byId.get(id).year);
   openList(`${kind}:${name}`, {
-    title: name,
+    title: kind === 'tag' ? prettyTag(name) : name,
     kicker: `<span class="ki">${word}</span>`,
     ids: list,
-    sub: ys.length ? `${Math.min(...ys)} to ${Math.max(...ys)}` : '',
+    sub: ys.length
+      ? isZh()
+        ? `${Math.min(...ys)} 年 — ${Math.max(...ys)} 年`
+        : `${Math.min(...ys)} to ${Math.max(...ys)}`
+      : '',
     words: kind === 'who' ? wordsOf(name) : null,
   });
 }
@@ -714,7 +815,9 @@ function folio(e: any): string {
   const w = db.events.filter((x) => x.year >= state.y0 && x.year <= state.y1);
   if (!w.length || e.year < state.y0 || e.year > state.y1) return '';
   const n = w.filter((x) => x.t < e.t || (x.t === e.t && x.id <= e.id)).length;
-  return `${fmtN(n)} of ${fmtN(w.length)} in ${state.y0} to ${state.y1}`;
+  return isZh()
+    ? `第 ${fmtN(n)} / ${fmtN(w.length)} 条`
+    : `${fmtN(n)} of ${fmtN(w.length)} in ${state.y0} to ${state.y1}`;
 }
 
 const fmtN = (n: number) => n.toLocaleString('en-US');
@@ -749,7 +852,9 @@ function hoistDrawer() {
     bk.type = 'button';
     bk.className = 'ls-back';
     bk.dataset.list = listReturn.key;
-    bk.innerHTML = `<span aria-hidden="true">&larr;</span> Back to the list: ${esc(listReturn.title)}`;
+    bk.innerHTML = `<span aria-hidden="true">&larr;</span> ${
+      isZh() ? `返回列表：${esc(listReturn.title)}` : `Back to the list: ${esc(listReturn.title)}`
+    }`;
     dt.appendChild(bk);
   }
   const pic = body.querySelector(':scope > .mo-pic');
@@ -1125,8 +1230,10 @@ export function goWhere(key: string, e?: any) {
   set(patch);
 }
 
-const SCALE_NOTE =
-  'Significance 1 to 5 and mood are editorial classifications of each record\u2019s reach and reception, not measurements of public opinion.';
+const scaleNote = () =>
+  isZh()
+    ? '权重等级（1 至 5 级）与情绪倾向由编纂团队依据每条史料的历史影响范围与社会反响核定，并非民意统计数据。'
+    : 'Significance 1 to 5 and mood are editorial classifications of each record\u2019s reach and reception, not measurements of public opinion.';
 
 export function renderDrawer() {
   const dr = $('#drawer') as (HTMLElement & { inert?: boolean }) | null;
@@ -1297,41 +1404,48 @@ export function renderDrawer() {
   }
   const fo = folio(e);
   tint(recCol(e.year));
-  dk.innerHTML = `<span class="rhd"><span class="no">No. ${fmtN(recordNo(e.id))}</span><i style="background:${recCol(e.year)}"></i><span class="ki">${esc(d ? d.label : e.domain)}</span><span class="ki">${esc(TYPE[e.type]?.label || e.type)}</span>${era ? `<span class="ki">${esc(era.label)}</span>` : ''}</span>`;
+  dk.innerHTML = `<span class="rhd"><span class="no">${isZh() ? `编号 ${fmtN(recordNo(e.id))}` : `No. ${fmtN(recordNo(e.id))}`}</span><i style="background:${recCol(e.year)}"></i><span class="ki">${esc(d ? d.label : e.domain)}</span><span class="ki">${esc(TYPE[e.type]?.label || e.type)}</span>${era ? `<span class="ki">${esc(era.label)}</span>` : ''}</span>`;
   const out = (e.connects || []).map((id: string) => db.byId.get(id)).filter(Boolean);
   const inc = (db.in.get(e.id) || []).map((id: string) => db.byId.get(id)).filter(Boolean);
   const linkRow = (x: any) =>
-    `<li${x.id === cameFrom ? ' class="mark"' : ''}><button type="button" data-id="${esc(x.id)}"${x.id === cameFrom ? ' title="Record you came from"' : ''}><span class="y">${x.year}</span><span class="tt"><i style="background:${recCol(x.year)}"></i>${esc(nameOf(x))}</span></button></li>`;
+    `<li${x.id === cameFrom ? ' class="mark"' : ''}><button type="button" data-id="${esc(x.id)}"${x.id === cameFrom ? ` title="${isZh() ? '上一条浏览记录' : 'Record you came from'}"` : ''}><span class="y">${x.year}</span><span class="tt"><i style="background:${recCol(x.year)}"></i>${esc(nameOf(x))}</span></button></li>`;
   const byYear = (a: any, b: any) => a.t - b.t;
   const linkList = (label: string, rows: any[], graph: boolean) =>
-    `<div class="sect-h"><span>${label}</span><span>${rows.length}</span></div>${graph ? '<svg class="minigraph" id="mg" role="img" aria-label="Graph of connected records"></svg>' : ''}<ul class="links ix">${rows.sort(byYear).map(linkRow).join('')}</ul>`;
-  const people = (e.people || []).map(esc).join(', ');
-  const orgs = (e.orgs || []).map(esc).join(', ');
+    `<div class="sect-h"><span>${label}</span><span>${rows.length}</span></div>${graph ? `<svg class="minigraph" id="mg" role="img" aria-label="${isZh() ? '因果关联图谱' : 'Graph of connected records'}"></svg>` : ''}<ul class="links ix">${rows.sort(byYear).map(linkRow).join('')}</ul>`;
+  const people = (e.people || []).map(esc).join(isZh() ? '、' : ', ');
+  const orgs = (e.orgs || []).map(esc).join(isZh() ? '、' : ', ');
   const tags = (e.tags || [])
     .map(
       (t: string) =>
-        `<button class="tagbtn" type="button" data-tag="${esc(t)}" title="Thread, across every view"><span style="color:${threadColor(t)}">&#9632;</span> ${esc(prettyTag(t))}</button>`,
+        `<button class="tagbtn" type="button" data-tag="${esc(t)}" title="${isZh() ? '按该技术脉络筛选' : 'Thread, across every view'}"><span style="color:${threadColor(t)}">&#9632;</span> ${esc(prettyTag(t))}</button>`,
     )
     .join('');
   const srcs = e.sources || [];
+  const sigLabel = isZh() ? SIG_ZH[e.significance] || '' : cap(SIG_WORD[e.significance] || '');
+  const enTitleHint =
+    isZh() && e._en?.title && e._en.title !== nameOf(e)
+      ? `<p class="en-sub">${esc(e._en.title)}</p>`
+      : '';
   body.innerHTML = `
     <h3>${esc(nameOf(e))}</h3>
-    <div class="date"><span>${esc(fmtDate(e))}</span><span>${cap(SIG_WORD[e.significance] || '')}</span><button type="button" class="scale-k" aria-expanded="false" aria-controls="scale-note">editorial</button>${fo ? `<span class="folio" title="Position in the years shown">${fo}</span>` : ''}</div>
-    <p class="scales" id="scale-note" hidden>${SCALE_NOTE}</p>
+    <div class="date"><span>${esc(fmtDate(e))}</span><span>${esc(sigLabel)}</span><button type="button" class="scale-k" aria-expanded="false" aria-controls="scale-note">${isZh() ? '编纂说明' : 'editorial'}</button>${fo ? `<span class="folio" title="${isZh() ? '在当前时间跨度中的序列位置' : 'Position in the years shown'}">${fo}</span>` : ''}</div>
+    <p class="scales" id="scale-note" hidden>${scaleNote()}</p>
     ${trailHtml}
+    ${enTitleHint}
     ${picFigure(e)}
+    ${isZh() && !e._hasZhSummary && e.summary ? `<div class="sect-h"><span>英文原始文献摘录</span><span>Archival Note</span></div>` : ''}
     <p class="summary">${esc(e.summary)}</p>
     ${detailBlock(e)}
     <dl class="dl">
-      ${people ? `<dt>People</dt><dd>${people}</dd>` : ''}
-      ${orgs ? `<dt>Orgs</dt><dd>${orgs}</dd>` : ''}
-      ${tags ? `<dt>Threads</dt><dd>${tags}</dd>` : ''}
+      ${people ? `<dt>${isZh() ? '相关人物' : 'People'}</dt><dd>${people}</dd>` : ''}
+      ${orgs ? `<dt>${isZh() ? '相关机构' : 'Orgs'}</dt><dd>${orgs}</dd>` : ''}
+      ${tags ? `<dt>${isZh() ? '技术脉络' : 'Threads'}</dt><dd>${tags}</dd>` : ''}
     </dl>
-    ${out.length + inc.length ? linkList('Connected records', [...out, ...inc.filter((x: any) => !out.includes(x))], true) : ''}
+    ${out.length + inc.length ? linkList(isZh() ? '因果关联记录' : 'Connected records', [...out, ...inc.filter((x: any) => !out.includes(x))], true) : ''}
     ${whereBlock(e)}
-    <div class="sect-h"><span>Sources</span><span>${srcs.filter((s: any) => s.kind !== 'background').length}</span></div>
+    <div class="sect-h"><span>${isZh() ? '文献与史料来源' : 'Sources'}</span><span>${srcs.filter((s: any) => s.kind !== 'background').length}</span></div>
     <ol class="sources ix">${srcs.filter((s: any) => s.kind !== 'background').map(sourceRow).join('')}</ol>
-    ${srcs.some((s: any) => s.kind === 'background') ? `<p class="bg-read"><span>Background</span> ${srcs.filter((s: any) => s.kind === 'background').map((s: any) => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(host(s.url))}</a>`).join(', ')}</p>` : ''}
+    ${srcs.some((s: any) => s.kind === 'background') ? `<p class="bg-read"><span>${isZh() ? '延伸背景' : 'Background'}</span> ${srcs.filter((s: any) => s.kind === 'background').map((s: any) => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(host(s.url))}</a>`).join(', ')}</p>` : ''}
     ${verifBlock(e)}`;
   body.scrollTop = 0;
   if (out.length + inc.length) {
@@ -1368,7 +1482,8 @@ function sourceRow(s: any): string {
   const doi = s.doi
     ? `<a class="doi" href="https://doi.org/${esc(s.doi)}" target="_blank" rel="noopener">doi:${esc(s.doi)}</a>`
     : '';
-  const kind = s.kind && KIND_WORD[s.kind] ? `<span class="kind k-${esc(s.kind)}">${KIND_WORD[s.kind]}</span>` : '';
+  const kw = isZh() ? KIND_ZH[s.kind] || KIND_WORD[s.kind] : KIND_WORD[s.kind];
+  const kind = s.kind && kw ? `<span class="kind k-${esc(s.kind)}">${kw}</span>` : '';
   const says =
     s.confirms || s.qualifies
       ? `<span class="says">${s.confirms ? esc(s.confirms) : ''}${s.qualifies ? ` <em>${esc(s.qualifies)}</em>` : ''}</span>`
@@ -1380,14 +1495,24 @@ const noteHtml = (e: any) => `<p>${esc(e.verification_note || '').split(' || ').
 
 export function verifBlock(e: any): string {
   if (!db.loaded.has('meta')) return '';
-  if (e.verification === 'supported') return `<p class="verif ok"><span>Fact checked</span> Claims match the cited sources.</p>`;
+  if (e.verification === 'supported') {
+    return isZh()
+      ? `<p class="verif ok"><span>已核查考证</span> 事实陈述与所引文献一致。</p>`
+      : `<p class="verif ok"><span>Fact checked</span> Claims match the cited sources.</p>`;
+  }
   if (e.verification === 'partially') {
-    return `<details class="verif part"><summary><span>Partly confirmed</span> Some details did not match a source</summary>${noteHtml(e)}</details>`;
+    return `<details class="verif part"><summary><span>${isZh() ? '部分证实' : 'Partly confirmed'}</span> ${
+      isZh() ? '部分细节与原始文献存在出入或限定' : 'Some details did not match a source'
+    }</summary>${noteHtml(e)}</details>`;
   }
   if (e.verification === 'unsupported') {
-    return `<details class="verif bad" open><summary><span>Corrected</span> The check contradicts this record's title or date</summary>${noteHtml(e)}</details>`;
+    return `<details class="verif bad" open><summary><span>${isZh() ? '已勘误修正' : 'Corrected'}</span> ${
+      isZh() ? '文献考证修正了本条目的原始标题或年份' : "The check contradicts this record's title or date"
+    }</summary>${noteHtml(e)}</details>`;
   }
-  return `<p class="verif no"><span>Not yet fact checked</span> Sources listed; claims not yet matched to them.</p>`;
+  return isZh()
+    ? `<p class="verif no"><span>待进一步核查</span> 已列出参考来源，具体细节尚待逐一比对。</p>`
+    : `<p class="verif no"><span>Not yet fact checked</span> Sources listed; claims not yet matched to them.</p>`;
 }
 
 const MONTH_LONG = [
@@ -1409,9 +1534,13 @@ function momentDrawer(e: any, trailHtml: string) {
   const dk = $('#dk')!;
   const body = $('#db')!;
   const d = DOMAIN[e.domain];
-  const when = e.month ? `${e.day ? `${e.day} ` : ''}${MONTH_LONG[e.month - 1]} ${e.year}` : String(e.year);
+  const when = isZh()
+    ? fmtDate(e)
+    : e.month
+      ? `${e.day ? `${e.day} ` : ''}${MONTH_LONG[e.month - 1]} ${e.year}`
+      : String(e.year);
   tint(recCol(e.year));
-  dk.innerHTML = `<i style="background:${recCol(e.year)}"></i><span class="ki">Moment</span><span class="ki">${esc(d ? d.label : e.domain)}</span><span class="ki">${esc(when)}</span>`;
+  dk.innerHTML = `<i style="background:${recCol(e.year)}"></i><span class="ki">${isZh() ? '历史瞬间' : 'Moment'}</span><span class="ki">${esc(d ? d.label : e.domain)}</span><span class="ki">${esc(when)}</span>`;
   const pic = e.picture;
   const contain = !!pic && /nokia_3310/.test(pic.src || '');
   const head = e.title.length > 48 && e.title_short ? e.title_short : e.title;
@@ -1427,9 +1556,23 @@ function momentDrawer(e: any, trailHtml: string) {
     <h3 class="mo-h">${esc(head)}</h3>
     ${trailHtml}
     <p class="mo-fact">${esc(e.summary || '')}</p>
-    ${src ? `<p class="mo-src">Source: ${src}${e.verification === 'partially' ? ', partly confirmed' : e.verification === 'unsupported' ? ', corrected below' : e.verification ? '' : ', not yet fact checked'}</p>` : ''}
-    ${e.verification === 'unsupported' ? `<p class="mo-src verif bad"><span>Corrected</span> ${esc((e.verification_note || '').split(' || ')[0])}</p>` : ''}
-    ${also.length ? `<div class="mo-also"><p class="mo-also-h">Also in ${e.year}</p><ul>${also.map((x) => `<li><button type="button" data-id="${esc(x.id)}">${esc(x.title_short)}</button></li>`).join('')}</ul></div>` : ''}`;
+    ${src ? `<p class="mo-src">${isZh() ? '文献来源：' : 'Source: '}${src}${
+      e.verification === 'partially'
+        ? isZh()
+          ? '（部分证实）'
+          : ', partly confirmed'
+        : e.verification === 'unsupported'
+          ? isZh()
+            ? '（见下方勘误）'
+            : ', corrected below'
+          : e.verification
+            ? ''
+            : isZh()
+              ? '（待核查）'
+              : ', not yet fact checked'
+    }</p>` : ''}
+    ${e.verification === 'unsupported' ? `<p class="mo-src verif bad"><span>${isZh() ? '勘误' : 'Corrected'}</span> ${esc((e.verification_note || '').split(' || ')[0])}</p>` : ''}
+    ${also.length ? `<div class="mo-also"><p class="mo-also-h">${isZh() ? `${e.year}年同期大事` : `Also in ${e.year}`}</p><ul>${also.map((x) => `<li><button type="button" data-id="${esc(x.id)}">${esc(x.title_short)}</button></li>`).join('')}</ul></div>` : ''}`;
   body.scrollTop = 0;
 }
 
@@ -1463,13 +1606,27 @@ function detailBlock(e: any): string {
     .map((x) => x.trim())
     .filter(Boolean);
   if (!paras.length) return '';
-  return `<details class="detail"><summary>Supporting detail</summary>${paras.map((x) => `<p>${esc(x)}</p>`).join('')}</details>`;
+  return `<details class="detail"><summary>${isZh() ? '延伸考证细节' : 'Supporting detail'}</summary>${paras.map((x) => `<p>${esc(x)}</p>`).join('')}</details>`;
 }
 
 function verif(x: any): string {
-  if (x.verification === 'supported') return `<p class="verif ok"><span>Fact checked</span> Claims match the cited source.</p>`;
+  if (x.verification === 'supported') {
+    return isZh()
+      ? `<p class="verif ok"><span>已核查考证</span> 事实陈述与所引文献一致。</p>`
+      : `<p class="verif ok"><span>Fact checked</span> Claims match the cited source.</p>`;
+  }
   if (x.verification === 'partially' || x.verification === 'unsupported') {
-    return `<details class="verif part"><summary><span>${x.verification === 'unsupported' ? 'Corrected' : 'Partly confirmed'}</span> The fact check changed or qualified this record</summary><p>${esc(x.verification_note || '')}</p></details>`;
+    return `<details class="verif part"><summary><span>${
+      x.verification === 'unsupported'
+        ? isZh()
+          ? '已勘误修正'
+          : 'Corrected'
+        : isZh()
+          ? '部分证实'
+          : 'Partly confirmed'
+    }</span> ${
+      isZh() ? '文献核查对本记录作出了限定或修正' : 'The fact check changed or qualified this record'
+    }</summary><p>${esc(x.verification_note || '')}</p></details>`;
   }
   return '';
 }
@@ -1543,9 +1700,13 @@ export const OUTCOME: Record<string, (typeof OUTCOMES)[number]> = Object.fromEnt
 
 function claimKind(p: any): string {
   const k = p.kind || '';
-  if (p.predicted_for || k === 'prediction' || k === 'prophecy' || k === 'hope') return 'Prediction';
-  if (k === 'warning' || k === 'fear' || (!k && p.direction === 'pessimistic')) return 'Fear';
-  return 'Statement';
+  if (p.predicted_for || k === 'prediction' || k === 'prophecy' || k === 'hope') {
+    return isZh() ? '历史预测' : 'Prediction';
+  }
+  if (k === 'warning' || k === 'fear' || (!k && p.direction === 'pessimistic')) {
+    return isZh() ? '警示与隐忧' : 'Fear';
+  }
+  return isZh() ? '历史论断' : 'Statement';
 }
 
 function predDrawer(p: any) {
@@ -1553,15 +1714,24 @@ function predDrawer(p: any) {
   const body = $('#db')!;
   const o0 = OUTCOME[p.outcome] || OUTCOMES[4];
   const c = p.chk;
-  const w0 = c ? STATUS_WORD[c.s] || STATUS_WORD.unresolvable : '';
-  const o = c ? { color: STATUS_NIGHT[c.s] || STATUS_NIGHT.unresolvable, label: w0[0].toUpperCase() + w0.slice(1) } : o0;
+  const w0 = c ? STATUS_WORD[c.s] || STATUS_WORD.unresolvable : VERDICT_WORD[p.outcome] || o0.label;
+  const o = {
+    color: c ? STATUS_NIGHT[c.s] || STATUS_NIGHT.unresolvable : o0.color,
+    label: w0[0].toUpperCase() + w0.slice(1),
+  };
   const mis = p.outcome === 'misattributed';
   const dom = DOMAIN[p.domain];
   const horizon = p.predicted_for
     ? p.predicted_for === p.year_made
-      ? `within ${p.year_made}`
-      : `by ${p.predicted_for}`
-    : 'no date given';
+      ? isZh()
+        ? `${p.year_made}年当年`
+        : `within ${p.year_made}`
+      : isZh()
+        ? `${p.predicted_for}年前`
+        : `by ${p.predicted_for}`
+    : isZh()
+      ? '未设定年限'
+      : 'no date given';
   tint(o.color);
   dk.innerHTML = `<i style="background:${o.color}"></i><span class="ki">${claimKind(p)}</span><span class="ki rec">${esc(o.label)}</span><span class="ki">${esc(dom ? dom.label : p.domain)}</span>`;
   const rel = (p.related_event_ids || [])
@@ -1573,22 +1743,24 @@ function predDrawer(p: any) {
   const who = String(p.who || '').replace(/\s*\(attributed\)\s*$/i, '');
   body.innerHTML = `
     <h3>${esc(p.claim)}</h3>
-    <div class="date"><span>Made ${p.year_made}</span><span>Horizon ${esc(horizon)}</span><span>${p.direction === 'pessimistic' ? 'Pessimistic' : 'Optimistic'}</span>${c && c.on ? `<span>Checked ${esc(dayOf(c.on))}</span>` : ''}</div>
-    ${mis ? `<p class="pr-mis"><span class="sc">Misattributed</span> The sources below find no reliable record that ${esc(who)} said it. It is kept as a myth about prediction.</p>` : ''}
+    <div class="date"><span>${isZh() ? `提出于 ${p.year_made}年` : `Made ${p.year_made}`}</span><span>${isZh() ? `目标期限：${esc(horizon)}` : `Horizon ${esc(horizon)}`}</span><span>${
+      p.direction === 'pessimistic' ? (isZh() ? '悲观预警' : 'Pessimistic') : isZh() ? '乐观展望' : 'Optimistic'
+    }</span>${c && c.on ? `<span>${isZh() ? `核查于 ${esc(dayOf(c.on))}` : `Checked ${esc(dayOf(c.on))}`}</span>` : ''}</div>
+    ${mis ? `<p class="pr-mis"><span class="sc">${isZh() ? '伪托误传' : 'Misattributed'}</span> ${isZh() ? `文献考证未发现 ${esc(who)} 曾发表此言论的可靠证据，此处作为著名历史误传收录。` : `The sources below find no reliable record that ${esc(who)} said it. It is kept as a myth about prediction.`}</p>` : ''}
     ${
       p.quote
-        ? `<figure class="pr-quote${mis ? ' mis' : ''}"><blockquote><p>&ldquo;${esc(p.quote)}&rdquo;</p></blockquote><figcaption>${mis ? 'Attributed to ' : ''}${esc(who)}${p.role ? `, ${esc(p.role)}` : ''}, ${p.year_made}</figcaption></figure>
+        ? `<figure class="pr-quote${mis ? ' mis' : ''}"><blockquote><p>&ldquo;${esc(p.quote)}&rdquo;</p></blockquote><figcaption>${mis ? (isZh() ? '坊间托名于 ' : 'Attributed to ') : ''}${esc(who)}${p.role ? `，${esc(p.role)}` : ''}，${p.year_made}</figcaption></figure>
     <p class="summary">${esc(p.paraphrase)}</p>`
-        : `<p class="pr-para"><span class="sc">Paraphrase, no exact quote on record</span>${esc(p.paraphrase)}</p><p class="pr-by">${esc(who)}${p.role ? `, ${esc(p.role)}` : ''}, ${p.year_made}</p>`
+        : `<p class="pr-para"><span class="sc">${isZh() ? '大意综述（无原话逐字记录）' : 'Paraphrase, no exact quote on record'}</span>${esc(p.paraphrase)}</p><p class="pr-by">${esc(who)}${p.role ? `，${esc(p.role)}` : ''}，${p.year_made}</p>`
     }
     ${
       c
         ? `<div class="pr-verdict fc-verdict" style="--oc:${o.color}"><span class="sc"><i aria-hidden="true"></i>${esc(o.label)}</span>${c.note ? `<p>${esc(c.note)}</p>` : ''}</div>
-    ${c.ev && c.ev.length ? `<div class="sect-h"><span>Read for the check</span><span>${c.ev.length}</span></div><ol class="sources">${c.ev.map((x: any) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title || host(x.url))}</a><span class="host">${esc(host(x.url))}</span></li>`).join('')}</ol>` : ''}`
-        : `<div class="pr-verdict" style="--oc:${o.color}"><span class="sc"><i aria-hidden="true"></i>Outcome, ${esc(o.label).toLowerCase()}</span><p>${esc(p.outcome_note)}</p></div>`
+    ${c.ev && c.ev.length ? `<div class="sect-h"><span>${isZh() ? '核查参考资料' : 'Read for the check'}</span><span>${c.ev.length}</span></div><ol class="sources">${c.ev.map((x: any) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title || host(x.url))}</a><span class="host">${esc(host(x.url))}</span></li>`).join('')}</ol>` : ''}`
+        : `<div class="pr-verdict" style="--oc:${o.color}"><span class="sc"><i aria-hidden="true"></i>${isZh() ? `历史结局：${esc(o.label)}` : `Outcome, ${esc(o.label).toLowerCase()}`}</span><p>${esc(p.outcome_note)}</p></div>`
     }
-    ${rel.length ? `<div class="sect-h"><span>Related events on the map</span><span>${rel.length}</span></div><ul class="links">${rel.map(row).join('')}</ul>` : ''}
-    <div class="sect-h"><span>Sources</span><span>${(p.sources || []).length}</span></div>
+    ${rel.length ? `<div class="sect-h"><span>${isZh() ? '图谱中的关联事件' : 'Related events on the map'}</span><span>${rel.length}</span></div><ul class="links">${rel.map(row).join('')}</ul>` : ''}
+    <div class="sect-h"><span>${isZh() ? '文献来源' : 'Sources'}</span><span>${(p.sources || []).length}</span></div>
     <ol class="sources">${(p.sources || []).map((x: any) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title || host(x.url))}</a><span class="host">${esc(host(x.url))}</span></li>`).join('')}</ol>`;
   body.scrollTop = 0;
 }
@@ -1611,6 +1783,7 @@ const MONTH = [
 function saidWhen(said: string | number | null | undefined): string {
   const m = /^(\d{4})(?:-(\d{2}))?/.exec(String(said || ''));
   if (!m) return '';
+  if (isZh()) return m[2] ? `${m[1]}年${+m[2]}月` : `${m[1]}年`;
   return m[2] && MONTH[+m[2] - 1] ? `${MONTH[+m[2] - 1]} ${m[1]}` : m[1];
 }
 
@@ -1631,15 +1804,18 @@ const fmtV = (v: any): string =>
 function dayOf(s: string | null | undefined): string {
   const m = /^(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?/.exec(String(s || ''));
   if (!m) return '';
+  if (isZh()) return `${m[1]}年${m[2] ? `${+m[2]}月` : ''}${m[3] ? `${+m[3]}日` : ''}`;
   return `${m[3] ? `${+m[3]} ` : ''}${m[2] && MONTH[+m[2] - 1] ? `${MONTH[+m[2] - 1]} ` : ''}${m[1]}`;
 }
 
 function checkNote(c: any): string {
   const num =
     typeof c.now === 'number' && typeof c.line === 'number'
-      ? `${fmtV(c.now)} now, ${fmtV(c.line)} forecast${c.u ? `, ${c.u}` : ''}.`
+      ? isZh()
+        ? `当前实测 ${fmtV(c.now)} / 预测基准 ${fmtV(c.line)}${c.u ? `（${c.u}）` : ''}。`
+        : `${fmtV(c.now)} now, ${fmtV(c.line)} forecast${c.u ? `, ${c.u}` : ''}.`
       : '';
-  const when = c.at ? `Measure of ${dayOf(c.at)}.` : '';
+  const when = c.at ? (isZh() ? `统计截至 ${dayOf(c.at)}。` : `Measure of ${dayOf(c.at)}.`) : '';
   return [num, when].filter(Boolean).join(' ');
 }
 
@@ -1653,17 +1829,17 @@ function forecastDrawer(f: any) {
   const when = saidWhen(f.said) || String(f.y0);
   const others = wordsOf(f.who).filter((w) => w.t !== f.text);
   const row = (w: WordEntry) =>
-    `<li>${w.id ? `<button type="button" class="ls-word" data-id="${esc(w.id)}">` : '<div class="ls-row ls-word">'}<i style="background:${VERDICT_NIGHT[w.v] || VERDICT_NIGHT.unresolvable}"></i><span class="y">${esc(String(w.y))}</span><span>${esc(w.t)}<span class="ls-sub">${esc(w.when)}, ${esc(VERDICT_WORD[w.v] || VERDICT_WORD.unresolvable)}</span></span>${w.id ? '</button>' : '</div>'}</li>`;
+    `<li>${w.id ? `<button type="button" class="ls-word" data-id="${esc(w.id)}">` : '<div class="ls-row ls-word">'}<i style="background:${VERDICT_NIGHT[w.v] || VERDICT_NIGHT.unresolvable}"></i><span class="y">${esc(String(w.y))}</span><span>${esc(w.t)}<span class="ls-sub">${esc(w.when)} · ${esc(VERDICT_WORD[w.v] || VERDICT_WORD.unresolvable)}</span></span>${w.id ? '</button>' : '</div>'}</li>`;
   const ev = c && c.ev ? c.ev : [];
   tint(col);
-  dk.innerHTML = `<i style="background:${col}"></i><span class="ki">Forecast</span><span class="ki rec">${esc(word)}</span><span class="ki">For ${f.t}</span>`;
+  dk.innerHTML = `<i style="background:${col}"></i><span class="ki">${isZh() ? '远景预测' : 'Forecast'}</span><span class="ki rec">${esc(word)}</span><span class="ki">${isZh() ? `目标 ${f.t}年` : `For ${f.t}`}</span>`;
   body.innerHTML = `
     <h3>${esc(f.text)}</h3>
-    <div class="date"><span>Said ${esc(when)}</span><span>For ${f.t}</span>${c && c.on ? `<span>Checked ${esc(dayOf(c.on))}</span>` : ''}</div>
+    <div class="date"><span>${isZh() ? `提出于 ${esc(when)}` : `Said ${esc(when)}`}</span><span>${isZh() ? `目标 ${f.t}年` : `For ${f.t}`}</span>${c && c.on ? `<span>${isZh() ? `核查于 ${esc(dayOf(c.on))}` : `Checked ${esc(dayOf(c.on))}`}</span>` : ''}</div>
     <p class="fc-by"><button type="button" class="fc-who" data-id="who:${esc(f.who)}">${esc(f.who)}</button></p>
     <div class="pr-verdict fc-verdict" style="--oc:${col}"><span class="sc"><i aria-hidden="true"></i>${esc(word)}</span>${c ? `${checkNote(c) ? `<p>${esc(checkNote(c))}</p>` : ''}${c.note ? `<p>${esc(c.note)}</p>` : ''}` : `<p>${esc(standingNote(f))}</p>`}</div>
-    ${ev.length ? `<div class="sect-h"><span>Read for the check</span><span>${ev.length}</span></div><ol class="sources">${ev.map((x: any) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title || host(x.url))}</a><span class="host">${esc(host(x.url))}</span></li>`).join('')}</ol>` : ''}
-    ${others.length ? `<div class="sect-h"><span>Other words from ${esc(f.who)}</span><span>${others.length}</span></div><ul class="links ls-list ls-words">${others.map(row).join('')}</ul>` : ''}`;
+    ${ev.length ? `<div class="sect-h"><span>${isZh() ? '核查参考来源' : 'Read for the check'}</span><span>${ev.length}</span></div><ol class="sources">${ev.map((x: any) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title || host(x.url))}</a><span class="host">${esc(host(x.url))}</span></li>`).join('')}</ol>` : ''}
+    ${others.length ? `<div class="sect-h"><span>${isZh() ? `${esc(f.who)} 的其他预测` : `Other words from ${esc(f.who)}`}</span><span>${others.length}</span></div><ul class="links ls-list ls-words">${others.map(row).join('')}</ul>` : ''}`;
   body.scrollTop = 0;
 }
 
@@ -1844,6 +2020,24 @@ function forecastsDrawer() {
 
 function standingNote(f: any): string {
   const y = f.t;
+  if (isZh()) {
+    switch (f.v) {
+      case 'came_true':
+        return `已于 ${y} 年前实现。`;
+      case 'came_true_late':
+        return `已实现，但晚于原定 ${y} 年期限。`;
+      case 'partly':
+        return `部分内容已在 ${y} 年前实现，或以不同形态呈现。`;
+      case 'wrong':
+        return `未能在 ${y} 年期限内实现。`;
+      case 'pending':
+        return y > 2026 ? `距离 ${y} 年尚有时日。` : y === 2026 ? '2026 年尚未结束。' : '尚待定论。';
+      case 'misattributed':
+        return '无可靠文献证明曾发表该言论。';
+      default:
+        return '属于价值判断而非可按日期检验的量化预测。';
+    }
+  }
   switch (f.v) {
     case 'came_true':
       return `Happened by ${y}.`;
@@ -2122,6 +2316,17 @@ export function initDrawer() {
     setHover(b ? b.dataset.id || null : null);
   });
   body.addEventListener('mouseleave', () => setHover(null));
+  onLangChange(() => {
+    renderDomainChips();
+    fillTypes();
+    fillThreads();
+    syncFilters();
+    if (state.sel) renderDrawer();
+    if (scrub) {
+      scrub.layout();
+      scrub.setRange();
+    }
+  });
 }
 
 /* ---------- Scrubber ---------- */

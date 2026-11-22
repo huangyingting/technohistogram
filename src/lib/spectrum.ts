@@ -264,7 +264,9 @@ export const VERDICT_NIGHT: Record<string, string> = {
   unresolvable: '#7a80a8',
 };
 
-export const VERDICT_WORD: Record<string, string> = {
+import { isZh, VERDICT_ZH, STATUS_ZH } from './i18n';
+
+const VERDICT_WORD_EN: Record<string, string> = {
   came_true: 'came true',
   came_true_late: 'came true late',
   partly: 'partly',
@@ -273,6 +275,13 @@ export const VERDICT_WORD: Record<string, string> = {
   misattributed: 'misattributed',
   unresolvable: 'unresolvable',
 };
+
+export const VERDICT_WORD: Record<string, string> = new Proxy(VERDICT_WORD_EN, {
+  get(target, prop: string) {
+    if (typeof prop === 'string' && isZh() && VERDICT_ZH[prop]) return VERDICT_ZH[prop];
+    return target[prop];
+  },
+});
 
 export const STATUS_NIGHT: Record<string, string> = {
   came_true: '#3fe0a0',
@@ -283,7 +292,7 @@ export const STATUS_NIGHT: Record<string, string> = {
   unresolvable: '#7a80a8',
 };
 
-export const STATUS_WORD: Record<string, string> = {
+const STATUS_WORD_EN: Record<string, string> = {
   came_true: 'came true',
   on_track: 'on track',
   behind: 'behind',
@@ -291,3 +300,10 @@ export const STATUS_WORD: Record<string, string> = {
   too_early: 'too early to tell',
   unresolvable: 'no measure',
 };
+
+export const STATUS_WORD: Record<string, string> = new Proxy(STATUS_WORD_EN, {
+  get(target, prop: string) {
+    if (typeof prop === 'string' && isZh() && STATUS_ZH[prop]) return STATUS_ZH[prop];
+    return target[prop];
+  },
+});

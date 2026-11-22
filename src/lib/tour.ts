@@ -1,7 +1,8 @@
 import { state as S, set, subscribe, VIEWS } from './store';
-import { db, modelEvents, fmtDate } from './data';
+import { db, modelEvents, fmtDate, ensureNow } from './data';
 import { esc, select, scrubMark } from './ui';
 import { DOMAINS, DOMAIN } from './palette';
+import { isZh, onLangChange } from './i18n';
 
 export const WALK_VIEWS = ['spiral', 'stream', 'columns', 'wheel', 'strata'];
 const BASE_MS = 5600;
@@ -58,18 +59,25 @@ export function walkLit() {
 }
 
 export function startTour(id: string, step = 0, { autoplay = true } = {}) {
-  autoStart = autoplay;
-  const patch: any = {
-    tour: id,
-    step,
-    domains: new Set(DOMAINS.map((d) => d.id)),
-    types: null,
-    thread: '',
-    q: '',
-    sel: '',
+  const launch = () => {
+    autoStart = autoplay;
+    const patch: any = {
+      tour: id,
+      step,
+      domains: new Set(DOMAINS.map((d) => d.id)),
+      types: null,
+      thread: '',
+      q: '',
+      sel: '',
+    };
+    if (!WALK_VIEWS.includes(S.view)) patch.view = lastMap;
+    set(patch);
   };
-  if (!WALK_VIEWS.includes(S.view)) patch.view = lastMap;
-  set(patch);
+  if (!db.loaded.has('tours')) {
+    ensureNow('tours', 'past').then(launch);
+  } else {
+    launch();
+  }
 }
 export function endTour() {
   set({ tour: '', step: 0 });
@@ -130,6 +138,12 @@ function applyStep() {
   const { s } = c;
   set({ mode: '', sel: '' });
   slideTo(s.y0, s.y1);
+  if (S.view === 'spiral' && typeof window !== 'undefined' && (window as any).__helix) {
+    const ev = db.byId.get(s.event);
+    const yr = ev ? ev.year : Math.round(((s.y0 || 1950) + (s.y1 || 2000)) / 2);
+    (window as any).__helix.pullBack?.(false);
+    (window as any).__helix.travelTo?.(yr, { dur: 1150 });
+  }
 }
 
 function stepMs() {
@@ -162,10 +176,16 @@ function syncPlayUI() {
   const b = bar.querySelector('[data-a="pp"]') as HTMLButtonElement | null;
   if (!b) return;
   b.setAttribute('aria-pressed', String(playing));
-  b.title = playing ? 'Pause (space)' : 'Play (space)';
+  b.title = playing
+    ? isZh()
+      ? '暂停自动漫游（空格键）'
+      : 'Pause (space)'
+    : isZh()
+      ? '自动漫游（空格键）'
+      : 'Play (space)';
   b.innerHTML = playing
-    ? '<svg width="11" height="12" viewBox="0 0 11 12" aria-hidden="true"><path d="M1 1h3v10H1zM7 1h3v10H7z" fill="currentColor"/></svg><span>Pause</span>'
-    : '<svg width="11" height="12" viewBox="0 0 11 12" aria-hidden="true"><path d="M1.5 1l8.5 5-8.5 5z" fill="currentColor"/></svg><span>Play</span>';
+    ? `<svg width="11" height="12" viewBox="0 0 11 12" aria-hidden="true"><path d="M1 1h3v10H1zM7 1h3v10H7z" fill="currentColor"/></svg><span>${isZh() ? '暂停' : 'Pause'}</span>`
+    : `<svg width="11" height="12" viewBox="0 0 11 12" aria-hidden="true"><path d="M1.5 1l8.5 5-8.5 5z" fill="currentColor"/></svg><span>${isZh() ? '播放' : 'Play'}</span>`;
   bar.classList.toggle('playing', playing);
   const rail = bar.querySelector('.tb-prog') as HTMLElement | null;
   if (rail) rail.style.setProperty('--step-ms', `${stepMs()}ms`);
@@ -214,21 +234,21 @@ function renderBar() {
   bar.style.setProperty('--tc', t.color);
   const sentence = s.argument || s.narration || '';
   bar.innerHTML = `
-    <div class="tb-head"><span class="sc"><i></i>Walk <span aria-hidden="true">&middot;</span> ${esc(t.title)}</span><span class="tb-ct"><span class="lg">Step </span>${k + 1} of ${n}</span>
-      <button type="button" class="tb-story" data-a="r" title="Read this thread as a story">Story</button>
-      <button type="button" class="tb-x" data-a="c" aria-expanded="${!collapsed}" aria-label="${collapsed ? 'Expand' : 'Collapse'} caption" title="${collapsed ? 'Expand' : 'Collapse'}"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="${collapsed ? 'M2 8L6 4L10 8' : 'M2 4L6 8L10 4'}" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></button>
-      <button type="button" class="tb-x" data-a="x" aria-label="End walk" title="End walk (Esc)"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
-    <div class="tb-prog" role="progressbar" aria-label="Walk progress" aria-valuemin="1" aria-valuemax="${n}" aria-valuenow="${k + 1}">${t.steps.map((st: any, i: number) => { const ee = db.byId.get(st.event); return `<button type="button" data-i="${i}" class="${i < k ? 'done' : i === k ? 'on' : ''}" aria-label="Step ${i + 1}: ${esc(ee ? ee.title : st.event)}" title="${ee ? esc(ee.year + ': ' + ee.title) : ''}"><i></i></button>`; }).join('')}</div>
+    <div class="tb-head"><span class="sc"><i></i>${isZh() ? '主题导览' : 'Walk'} <span aria-hidden="true">&middot;</span> ${esc(t.title)}</span><span class="tb-ct">${
+      isZh() ? `第 ${k + 1} / ${n} 站` : `<span class="lg">Step </span>${k + 1} of ${n}`
+    }</span>
+      <button type="button" class="tb-x" data-a="c" aria-expanded="${!collapsed}" aria-label="${collapsed ? (isZh() ? '展开解说' : 'Expand') : isZh() ? '折叠解说' : 'Collapse'}" title="${collapsed ? (isZh() ? '展开' : 'Expand') : isZh() ? '折叠' : 'Collapse'}"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="${collapsed ? 'M2 8L6 4L10 8' : 'M2 4L6 8L10 4'}" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></button>
+      <button type="button" class="tb-x" data-a="x" aria-label="${isZh() ? '结束导览' : 'End walk'}" title="${isZh() ? '结束导览 (Esc)' : 'End walk (Esc)'}"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+    <div class="tb-prog" role="progressbar" aria-label="${isZh() ? '导览进度' : 'Walk progress'}" aria-valuemin="1" aria-valuemax="${n}" aria-valuenow="${k + 1}">${t.steps.map((st: any, i: number) => { const ee = db.byId.get(st.event); return `<button type="button" data-i="${i}" class="${i < k ? 'done' : i === k ? 'on' : ''}" aria-label="${isZh() ? `第 ${i + 1} 站` : `Step ${i + 1}`}: ${esc(ee ? ee.title : st.event)}" title="${ee ? esc(ee.year + ': ' + ee.title) : ''}"><i></i></button>`; }).join('')}</div>
     <div class="tb-body" aria-live="polite">
-      <div class="tb-meta"><span class="yr">${e ? esc(fmtDate(e)) : ''}</span>${e ? `<span><i style="background:${DOMAIN[e.domain]?.color || '#888'}"></i>${esc(DOMAIN[e.domain]?.short || e.domain)}</span>` : ''}<button type="button" class="vw" data-a="o" title="Open the record">${esc(e ? e.title : s.event)}</button></div>
+      <div class="tb-meta"><span class="yr">${e ? esc(fmtDate(e)) : ''}</span>${e ? `<span><i style="background:${DOMAIN[e.domain]?.color || '#888'}"></i>${esc(DOMAIN[e.domain]?.short || e.domain)}</span>` : ''}<button type="button" class="vw" data-a="o" title="${isZh() ? '查看详细考证' : 'Open the record'}">${esc(e ? e.title : s.event)}</button></div>
       <p class="tb-say">${esc(sentence)}</p>
     </div>
     <div class="tb-ctl">
-      <button type="button" data-a="p" ${k === 0 ? 'disabled' : ''} aria-label="Previous step" title="Previous (left arrow)"><span aria-hidden="true">&larr;</span></button>
+      <button type="button" data-a="p" ${k === 0 ? 'disabled' : ''} aria-label="${isZh() ? '上一站' : 'Previous step'}" title="${isZh() ? '上一站（←）' : 'Previous (left arrow)'}"><span aria-hidden="true">&larr;</span></button>
       <button type="button" data-a="pp" class="pri" aria-pressed="${playing}"></button>
-      <button type="button" data-a="n" aria-label="${k === n - 1 ? 'Finish walk' : 'Next step'}" title="${k === n - 1 ? 'Finish' : 'Next (right arrow)'}"><span aria-hidden="true">&rarr;</span></button>
-      <span class="tb-speed" role="group" aria-label="Speed">${SPEEDS.map((v) => `<button type="button" data-s="${v}" aria-pressed="${v === speed}">${v === 1 ? '1' : v}&times;</button>`).join('')}</span>
-      <label class="tb-on"><span class="lg">on</span><select data-a="v" aria-label="Walk on which map">${WALK_VIEWS.map((v) => { const x = VIEWS.find((y) => y.id === v); return `<option value="${v}" ${v === S.view ? 'selected' : ''}>${esc(x ? x.label : v)}</option>`; }).join('')}${onMap ? '' : `<option value="${esc(S.view)}" selected>${esc(vl ? vl.label : S.view)}</option>`}</select></label>
+      <button type="button" data-a="n" aria-label="${k === n - 1 ? (isZh() ? '完成导览' : 'Finish walk') : isZh() ? '下一站' : 'Next step'}" title="${k === n - 1 ? (isZh() ? '完成' : 'Finish') : isZh() ? '下一站（→）' : 'Next (right arrow)'}"><span aria-hidden="true">&rarr;</span></button>
+      <span class="tb-speed" role="group" aria-label="${isZh() ? '播放倍速' : 'Speed'}">${SPEEDS.map((v) => `<button type="button" data-s="${v}" aria-pressed="${v === speed}">${v === 1 ? '1' : v}&times;</button>`).join('')}</span>
     </div>`;
   syncPlayUI();
 }
@@ -309,6 +329,9 @@ export function initTour() {
       if (timer) clearTimeout(timer);
       timer = null;
     } else schedule();
+  });
+  onLangChange(() => {
+    if (S.tour) renderBar();
   });
   subscribe((s, ch) => {
     if (WALK_VIEWS.includes(s.view)) lastMap = s.view;

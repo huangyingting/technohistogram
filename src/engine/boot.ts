@@ -54,6 +54,7 @@ import { DOMAINS } from '../lib/palette';
 import { initTour, tourHi, walkLit } from '../lib/tour';
 import { initIntro } from '../lib/intro';
 import { initPoster } from '../lib/poster';
+import { isZh, onLangChange } from '../lib/i18n';
 
 interface MountedView {
   el: HTMLElement;
@@ -238,7 +239,9 @@ export function bootHistomap(): void {
     if (!stage) return;
     stage.innerHTML = `<div class="state-msg"><div><div class="loading-bars">${DOMAINS.slice(0, 9)
       .map((d, i) => `<span style="--c:${d.color};animation-delay:${i * 0.09}s"></span>`)
-      .join('')}</div><h2>Loading the map</h2><p>Reading events, measures and sources.</p></div></div>`;
+      .join('')}</div><h2>${isZh() ? '正在展开技术演进螺旋…' : 'Loading the map'}</h2><p>${
+      isZh() ? '正在读取 4,828 条历史考证记录、影像与文献来源。' : 'Reading events, measures and sources.'
+    }</p></div></div>`;
   }
 
   function emptyState() {
@@ -249,7 +252,9 @@ export function bootHistomap(): void {
     root.dataset.tab = 'map';
     root.dataset.view = 'spiral';
     document.body.dataset.page = 'map';
-    stage.innerHTML = `<div class="state-msg"><div><h2>Nothing loaded</h2><p>The record did not load.</p><button type="button" class="reload">Reload the page</button></div></div>`;
+    stage.innerHTML = `<div class="state-msg"><div><h2>${isZh() ? '未能加载史料数据' : 'Nothing loaded'}</h2><p>${
+      isZh() ? '请检查网络连接后重新加载。' : 'The record did not load.'
+    }</p><button type="button" class="reload">${isZh() ? '重新加载页面' : 'Reload the page'}</button></div></div>`;
     stage.querySelector('.reload')?.addEventListener('click', () => location.reload());
     root.dataset.ready = '1';
   }
@@ -271,22 +276,35 @@ export function bootHistomap(): void {
   const sub = document.getElementById('subnav') as HTMLElement;
   const screensEl = document.getElementById('screens') as HTMLElement | null;
 
-  nav.innerHTML =
-    TABS.map(
-      (t) =>
-        `<button type="button" data-tab="${t.id}" title="${t.label}: ${t.sub}"><span class="lg">${t.label}</span><span class="sub">${t.sub}</span></button>`,
-    ).join('') + '<i class="tab-ind" aria-hidden="true"></i>';
+  const renderNavTabs = () => {
+    nav.innerHTML =
+      TABS.map(
+        (t) =>
+          `<button type="button" data-tab="${t.id}" title="${t.label}: ${t.sub}" aria-current="${
+            tabOf(state.view) === t.id ? 'page' : 'false'
+          }"><span class="lg">${t.label}</span><span class="sub">${t.sub}</span></button>`,
+      ).join('') + '<i class="tab-ind" aria-hidden="true"></i>';
+  };
+  renderNavTabs();
 
-  const tabInd = nav.querySelector('.tab-ind') as HTMLElement | null;
-  function placeTabInd() {
+  const placeTabInd = () => {
+    const tabInd = nav.querySelector('.tab-ind') as HTMLElement | null;
     const b = nav.querySelector("button[aria-current='page']") as HTMLElement | null;
     if (!b || !tabInd) return;
     const pad = parseFloat(getComputedStyle(b).paddingLeft) || 0;
     tabInd.style.left = `${b.offsetLeft + pad}px`;
     tabInd.style.width = `${Math.max(0, b.offsetWidth - 2 * pad)}px`;
     nav.classList.add('has-ind');
-  }
+  };
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeTabInd);
+  onLangChange(() => {
+    renderNavTabs();
+    drawSubnav();
+    placeTabInd();
+    document.title = isZh()
+      ? '技术演进全图 · Technology Histomap'
+      : 'Technology Histomap — 3.3 million BCE to 2026';
+  });
 
   nav.addEventListener('click', (ev) => {
     const b = (ev.target as HTMLElement | null)?.closest('button') as HTMLElement | null;
@@ -616,7 +634,7 @@ export function bootHistomap(): void {
       .then((ok) => {
         if (ok || state.sel !== id) return;
         set({ view: 'spiral', sel: '', mode: '', at: '' });
-        noteSel('No record by that name.');
+        noteSel(isZh() ? '未找到对应史料条目。' : 'No record by that name.');
       })
       .catch(() => {});
   }
@@ -725,17 +743,27 @@ export function bootHistomap(): void {
     const mq = window.matchMedia('(max-width: 1100px)');
     if (qEl) {
       const syncPlaceholder = () => {
+        const zh = isZh();
         qEl.placeholder =
-          qEl.getBoundingClientRect().width < 200
-            ? 'Search'
+          qEl.getBoundingClientRect().width < 145
+            ? zh
+              ? '搜索…'
+              : 'Search'
             : tabOf(state.view) === 'map'
-              ? 'Search people, companies, ideas'
+              ? zh
+                ? '搜索史料、人物、机构…'
+                : 'Search people, companies…'
               : mq.matches
-                ? 'Search'
-                : 'Search the record';
+                ? zh
+                  ? '搜索'
+                  : 'Search'
+                : zh
+                  ? '搜索 4,828 条史料'
+                  : 'Search the record';
       };
       syncPlaceholder();
       mq.addEventListener('change', syncPlaceholder);
+      onLangChange(() => syncPlaceholder());
       subscribe((_s, ch) => {
         if (ch.has('view')) syncPlaceholder();
       });

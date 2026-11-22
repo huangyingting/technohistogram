@@ -1,31 +1,43 @@
 import { SPECTRUM, domainBase, domainLit } from './spectrum';
+import { isZh, DOMAIN_ZH, TYPE_ZH, AI_ERA_ZH, tagLabel } from './i18n';
 
 const sp = (id: string) => (SPECTRUM[id] || SPECTRUM.computing)[2];
 
 export interface DomainInfo {
   id: string;
-  label: string;
-  short: string;
+  readonly label: string;
+  readonly short: string;
   color: string;
 }
 
+const mkDom = (id: string, enLabel: string, enShort: string): DomainInfo => ({
+  id,
+  get label() {
+    return isZh() && DOMAIN_ZH[id] ? DOMAIN_ZH[id].label : enLabel;
+  },
+  get short() {
+    return isZh() && DOMAIN_ZH[id] ? DOMAIN_ZH[id].short : enShort;
+  },
+  color: sp(id),
+});
+
 export const DOMAINS: DomainInfo[] = [
-  { id: 'ai', label: 'Artificial intelligence', short: 'AI', color: sp('ai') },
-  { id: 'computing', label: 'Computing', short: 'Computing', color: sp('computing') },
-  { id: 'semiconductors', label: 'Semiconductors', short: 'Chips', color: sp('semiconductors') },
-  { id: 'software', label: 'Software', short: 'Software', color: sp('software') },
-  { id: 'internet', label: 'Internet', short: 'Internet', color: sp('internet') },
-  { id: 'communications', label: 'Communications', short: 'Comms', color: sp('communications') },
-  { id: 'media', label: 'Media', short: 'Media', color: sp('media') },
-  { id: 'society', label: 'Society', short: 'Society', color: sp('society') },
-  { id: 'energy', label: 'Energy', short: 'Energy', color: sp('energy') },
-  { id: 'transport', label: 'Transport', short: 'Transport', color: sp('transport') },
-  { id: 'biotech', label: 'Biotech', short: 'Biotech', color: sp('biotech') },
-  { id: 'space', label: 'Space', short: 'Space', color: sp('space') },
-  { id: 'materials', label: 'Materials', short: 'Materials', color: sp('materials') },
-  { id: 'agriculture', label: 'Agriculture and food', short: 'Agriculture', color: sp('agriculture') },
-  { id: 'health', label: 'Health and sanitation', short: 'Health', color: sp('health') },
-  { id: 'home', label: 'Home', short: 'Home', color: sp('home') },
+  mkDom('ai', 'Artificial intelligence', 'AI'),
+  mkDom('computing', 'Computing', 'Computing'),
+  mkDom('semiconductors', 'Semiconductors', 'Chips'),
+  mkDom('software', 'Software', 'Software'),
+  mkDom('internet', 'Internet', 'Internet'),
+  mkDom('communications', 'Communications', 'Comms'),
+  mkDom('media', 'Media', 'Media'),
+  mkDom('society', 'Society', 'Society'),
+  mkDom('energy', 'Energy', 'Energy'),
+  mkDom('transport', 'Transport', 'Transport'),
+  mkDom('biotech', 'Biotech', 'Biotech'),
+  mkDom('space', 'Space', 'Space'),
+  mkDom('materials', 'Materials', 'Materials'),
+  mkDom('agriculture', 'Agriculture and food', 'Agriculture'),
+  mkDom('health', 'Health and sanitation', 'Health'),
+  mkDom('home', 'Home', 'Home'),
 ];
 
 export const DOMAIN: Record<string, DomainInfo> = Object.fromEntries(DOMAINS.map((d) => [d.id, d]));
@@ -34,26 +46,34 @@ export const domainInk = (id: string): string => (DOMAIN[id] ? domainLit(id) : '
 
 export interface TypeInfo {
   id: string;
-  label: string;
+  readonly label: string;
   color: string;
 }
 
+const mkType = (id: string, enLabel: string, color: string): TypeInfo => ({
+  id,
+  get label() {
+    return isZh() && TYPE_ZH[id] ? TYPE_ZH[id] : enLabel;
+  },
+  color,
+});
+
 export const TYPES: TypeInfo[] = [
-  { id: 'invention', label: 'Invention', color: '#1f4e8c' },
-  { id: 'discovery', label: 'Discovery', color: '#5b8fd0' },
-  { id: 'product', label: 'Product', color: '#9cc3e6' },
-  { id: 'milestone', label: 'Milestone', color: '#2a2f3a' },
-  { id: 'concept', label: 'Concept', color: '#8a63b5' },
-  { id: 'person', label: 'Person', color: '#c9a7dd' },
-  { id: 'market', label: 'Market', color: '#e9b22c' },
-  { id: 'policy', label: 'Policy', color: '#4c8a5a' },
-  { id: 'culture', label: 'Culture', color: '#e48ea4' },
-  { id: 'moment', label: 'Moment', color: '#e8a0b4' },
-  { id: 'hope', label: 'Hope', color: '#f2d04a' },
-  { id: 'fear', label: 'Fear', color: '#d23a2f' },
-  { id: 'failure', label: 'Failure', color: '#7a2420' },
-  { id: 'incident', label: 'Incident', color: '#f08a5d' },
-  { id: 'era', label: 'Era', color: '#9b958a' },
+  mkType('invention', 'Invention', '#1f4e8c'),
+  mkType('discovery', 'Discovery', '#5b8fd0'),
+  mkType('product', 'Product', '#9cc3e6'),
+  mkType('milestone', 'Milestone', '#2a2f3a'),
+  mkType('concept', 'Concept', '#8a63b5'),
+  mkType('person', 'Person', '#c9a7dd'),
+  mkType('market', 'Market', '#e9b22c'),
+  mkType('policy', 'Policy', '#4c8a5a'),
+  mkType('culture', 'Culture', '#e48ea4'),
+  mkType('moment', 'Moment', '#e8a0b4'),
+  mkType('hope', 'Hope', '#f2d04a'),
+  mkType('fear', 'Fear', '#d23a2f'),
+  mkType('failure', 'Failure', '#7a2420'),
+  mkType('incident', 'Incident', '#f08a5d'),
+  mkType('era', 'Era', '#9b958a'),
 ];
 
 export const TYPE: Record<string, TypeInfo> = Object.fromEntries(TYPES.map((t) => [t.id, t]));
@@ -61,24 +81,35 @@ export const typeColor = (id: string): string => (TYPE[id] ? TYPE[id].color : '#
 
 export interface AiEraInfo {
   id: string;
-  label: string;
+  readonly label: string;
   start: number;
   end: number;
   level: number;
   winter?: boolean;
 }
 
+const mkEra = (id: string, enLabel: string, start: number, end: number, level: number, winter?: boolean): AiEraInfo => ({
+  id,
+  get label() {
+    return isZh() && AI_ERA_ZH[id] ? AI_ERA_ZH[id] : enLabel;
+  },
+  start,
+  end,
+  level,
+  ...(winter ? { winter: true } : {}),
+});
+
 export const AI_ERAS: AiEraInfo[] = [
-  { id: 'cybernetics', label: 'Cybernetics', start: 1943, end: 1956, level: 1 },
-  { id: 'symbolic', label: 'Symbolic AI', start: 1956, end: 1974, level: 2 },
-  { id: 'winter1', label: 'First AI winter', start: 1974, end: 1980, level: 0.9, winter: true },
-  { id: 'expert', label: 'Expert systems', start: 1980, end: 1987, level: 2.7 },
-  { id: 'winter2', label: 'Second AI winter', start: 1987, end: 1993, level: 1.5, winter: true },
-  { id: 'statistical', label: 'Statistical learning', start: 1993, end: 2012, level: 3.2 },
-  { id: 'deep', label: 'Deep learning', start: 2012, end: 2017, level: 4.3 },
-  { id: 'transformer', label: 'Transformers', start: 2017, end: 2020, level: 5.3 },
-  { id: 'foundation', label: 'Foundation models', start: 2020, end: 2024, level: 6.4 },
-  { id: 'agentic', label: 'Agentic systems', start: 2024, end: 2026, level: 7.5 },
+  mkEra('cybernetics', 'Cybernetics', 1943, 1956, 1),
+  mkEra('symbolic', 'Symbolic AI', 1956, 1974, 2),
+  mkEra('winter1', 'First AI winter', 1974, 1980, 0.9, true),
+  mkEra('expert', 'Expert systems', 1980, 1987, 2.7),
+  mkEra('winter2', 'Second AI winter', 1987, 1993, 1.5, true),
+  mkEra('statistical', 'Statistical learning', 1993, 2012, 3.2),
+  mkEra('deep', 'Deep learning', 2012, 2017, 4.3),
+  mkEra('transformer', 'Transformers', 2017, 2020, 5.3),
+  mkEra('foundation', 'Foundation models', 2020, 2024, 6.4),
+  mkEra('agentic', 'Agentic systems', 2024, 2026, 7.5),
 ];
 
 export const AI_ERA: Record<string, AiEraInfo> = Object.fromEntries(AI_ERAS.map((e) => [e.id, e]));
@@ -122,4 +153,4 @@ export const threadColor = (t: string): string => {
   for (const c of t) h = (h * 31 + c.charCodeAt(0)) >>> 0;
   return extra[h % extra.length];
 };
-export const prettyTag = (t: string): string => t.replace(/-/g, ' ');
+export const prettyTag = (t: string): string => tagLabel(t);

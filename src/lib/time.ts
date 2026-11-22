@@ -34,25 +34,59 @@ export function yearOfSlotF(s: number): number {
   return Y_MID + (s - S_MID) * 1000;
 }
 
+import { isZh, AGE_ZH, REGION_ZH } from './i18n';
+
 export function fmtYear(y: number | null | undefined): string {
   if (y == null || !Number.isFinite(y)) return '';
-  if (y > 0) return String(Math.round(y));
-  const b = 1 - Math.round(y);
-  return `${b.toLocaleString('en-US')} BCE`;
+  const ry = Math.round(y);
+  if (!isZh()) {
+    if (ry > 0) return String(ry);
+    const b = 1 - ry;
+    return `${b.toLocaleString('en-US')} BCE`;
+  }
+  if (ry > 0) return ry < 1000 ? `公元${ry}年` : `${ry}年`;
+  const b = 1 - ry;
+  if (b >= 100000) {
+    const wan = Math.round(b / 10000);
+    return `公元前${wan.toLocaleString('en-US')}万年`;
+  }
+  if (b >= 10000) {
+    const wan = +(b / 10000).toFixed(1);
+    return `公元前${wan}万年`;
+  }
+  return `公元前${b.toLocaleString('en-US')}年`;
 }
 
 export function fmtTick(y: number | null | undefined): string {
   if (y == null || !Number.isFinite(y)) return '';
-  if (y > 0) return y < 1000 ? `${Math.round(y)} CE` : String(Math.round(y));
-  let b = 1 - Math.round(y);
+  const ry = Math.round(y);
+  if (!isZh()) {
+    if (ry > 0) return ry < 1000 ? `${ry} CE` : String(ry);
+    let b = 1 - ry;
+    if (b >= 20000) b = Math.round(b / 1000) * 1000;
+    else if (b >= 100) b = Math.round(b / 10) * 10;
+    return `${b.toLocaleString('en-US')} BCE`;
+  }
+  if (ry > 0) return ry < 1000 ? `公元${ry}年` : String(ry);
+  let b = 1 - ry;
   if (b >= 20000) b = Math.round(b / 1000) * 1000;
   else if (b >= 100) b = Math.round(b / 10) * 10;
-  return `${b.toLocaleString('en-US')} BCE`;
+  if (b >= 10000) {
+    const wan = +(b / 10000).toFixed(1);
+    return `前${wan}万年`;
+  }
+  return `前${b.toLocaleString('en-US')}年`;
 }
 
 export function fmtSpan(y0: number, y1: number): string {
-  if (y0 > 0 && y1 > 0) return y1 - y0 <= 9 && y0 % 10 === 0 ? `The ${y0}s` : `${y0} to ${y1}`;
-  return `${fmtTick(y0)} to ${fmtTick(y1)}`;
+  if (!isZh()) {
+    if (y0 > 0 && y1 > 0) return y1 - y0 <= 9 && y0 % 10 === 0 ? `The ${y0}s` : `${y0} to ${y1}`;
+    return `${fmtTick(y0)} to ${fmtTick(y1)}`;
+  }
+  if (y0 > 0 && y1 > 0) {
+    return y1 - y0 <= 9 && y0 % 10 === 0 ? `${y0}年代` : `${y0} — ${y1}年`;
+  }
+  return `${fmtTick(y0)} — ${fmtTick(y1)}`;
 }
 
 const KNOTS: [number, number][] = [
@@ -168,34 +202,57 @@ export function timeScale({
   return s;
 }
 
+const mkAge = (id: string, enLabel: string, enShort: string, start: number, end: number) => ({
+  id,
+  get label() {
+    return isZh() && AGE_ZH[id] ? AGE_ZH[id].label : enLabel;
+  },
+  get short() {
+    return isZh() && AGE_ZH[id] ? AGE_ZH[id].short : enShort;
+  },
+  start,
+  end,
+});
+
 export const AGES = [
-  { id: 'medieval', label: 'Paper, type, water clocks', short: '1026 to 1450', start: 1026, end: 1450 },
-  { id: 'print', label: 'Press, cannon, silver', short: '1450 to 1760', start: 1450, end: 1760 },
-  { id: 'industrial', label: 'Coal, steam, telegraph', short: '1760 to 1914', start: 1760, end: 1914 },
-  { id: 'electric', label: 'Electronics and the transistor', short: '1914 to 1990', start: 1914, end: 1990 },
-  { id: 'network', label: 'The web', short: '1990 to 2017', start: 1990, end: 2017 },
-  { id: 'ai', label: 'Transformer models', short: '2017 to 2026', start: 2017, end: 2027 },
+  mkAge('medieval', 'Paper, type, water clocks', '1026 to 1450', 1026, 1450),
+  mkAge('print', 'Press, cannon, silver', '1450 to 1760', 1450, 1760),
+  mkAge('industrial', 'Coal, steam, telegraph', '1760 to 1914', 1760, 1914),
+  mkAge('electric', 'Electronics and the transistor', '1914 to 1990', 1914, 1990),
+  mkAge('network', 'The web', '1990 to 2017', 1990, 2017),
+  mkAge('ai', 'Transformer models', '2017 to 2026', 2017, 2027),
 ];
 
 export const ageForYear = (y: number) => AGES.find((a) => y >= a.start && y < a.end) || AGES[AGES.length - 1];
 
 export interface RegionInfo {
   id: string;
-  label: string;
-  short: string;
+  readonly label: string;
+  readonly short: string;
   color: string;
 }
 
+const mkRegion = (id: string, enLabel: string, enShort: string, color: string): RegionInfo => ({
+  id,
+  get label() {
+    return isZh() && REGION_ZH[id] ? REGION_ZH[id].label : enLabel;
+  },
+  get short() {
+    return isZh() && REGION_ZH[id] ? REGION_ZH[id].short : enShort;
+  },
+  color,
+});
+
 export const REGIONS: RegionInfo[] = [
-  { id: 'europe', label: 'Europe', short: 'Europe', color: '#2d5a88' },
-  { id: 'middle-east', label: 'Middle East and North Africa', short: 'MENA', color: '#c99a1e' },
-  { id: 'east-asia', label: 'East Asia', short: 'E Asia', color: '#b8282e' },
-  { id: 'south-asia', label: 'South Asia', short: 'S Asia', color: '#d8603c' },
-  { id: 'africa', label: 'Sub-Saharan Africa', short: 'Africa', color: '#6f8f4a' },
-  { id: 'latin-america', label: 'Latin America and the Caribbean', short: 'Lat America', color: '#7a9a3a' },
-  { id: 'north-america', label: 'North America', short: 'N America', color: '#3c4180' },
-  { id: 'oceania', label: 'Oceania and the Pacific', short: 'Oceania', color: '#2f8a9a' },
-  { id: 'global', label: 'Global', short: 'Global', color: '#8f6aa0' },
+  mkRegion('europe', 'Europe', 'Europe', '#2d5a88'),
+  mkRegion('middle-east', 'Middle East and North Africa', 'MENA', '#c99a1e'),
+  mkRegion('east-asia', 'East Asia', 'E Asia', '#b8282e'),
+  mkRegion('south-asia', 'South Asia', 'S Asia', '#d8603c'),
+  mkRegion('africa', 'Sub-Saharan Africa', 'Africa', '#6f8f4a'),
+  mkRegion('latin-america', 'Latin America and the Caribbean', 'Lat America', '#7a9a3a'),
+  mkRegion('north-america', 'North America', 'N America', '#3c4180'),
+  mkRegion('oceania', 'Oceania and the Pacific', 'Oceania', '#2f8a9a'),
+  mkRegion('global', 'Global', 'Global', '#8f6aa0'),
 ];
 
 export const REGION: Record<string, RegionInfo> = Object.fromEntries(REGIONS.map((r) => [r.id, r]));

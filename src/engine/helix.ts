@@ -25,13 +25,21 @@ import {
   toOklab,
   fromOklab,
 } from '../lib/spectrum';
-import { DOMAIN } from '../lib/palette';
+import { DOMAIN, TYPE } from '../lib/palette';
 import { REGION, YEAR_MIN, YEAR_MAX, fmtYear, fmtSpan, fmtTick } from '../lib/time';
 import { esc, tip, select as selectRecord, openEvidence } from '../lib/ui';
 import { assetUrl } from '../lib/basePath';
 import { state, hashParams } from '../lib/store';
 import { POSTER } from '../lib/poster';
 import { HelixGpuRenderer } from './helixGpu';
+import {
+  isZh,
+  onLangChange,
+  FONT_STACK_DISPLAY,
+  FONT_STACK_SANS,
+  ROOT_LINEAGE_ZH,
+} from '../lib/i18n';
+import { tokenizeText, joinToken } from '../lib/text';
 
 const T0 = 1026;
 const T1 = YEAR_MAX;
@@ -112,9 +120,10 @@ const GROUND = ['#06081a', '#0a0c2e', '#140f3e'];
 const FRINGE_BLUE = '#2f6dff';
 const FRINGE_RED = '#ff5a2a';
 const CORE = '#fff8ec';
-const FONT_DISPLAY = '"Instrument Serif", Georgia, serif';
-const FONT_TEXT = '"Instrument Sans", system-ui, sans-serif';
-const capW = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+const FONT_DISPLAY = FONT_STACK_DISPLAY;
+const FONT_TEXT = FONT_STACK_SANS;
+const linName = (en: string) => (isZh() ? ROOT_LINEAGE_ZH[en] || en : en);
+const capW = (s: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : '');
 const MIN_TEXT = 15;
 
 interface StagePreset {
@@ -141,20 +150,20 @@ const DESK: StagePreset = {
   vert: false,
   el: 22,
   az: 32,
-  dist: 2.95,
+  dist: 2.98,
   fov: 1.05,
-  ox: 0.41,
+  ox: 0.385,
   oy: 0.48,
-  picMax: 84,
+  picMax: 82,
   lines: 6,
   claims: 3,
-  head: 26,
+  head: 25,
   line: 15,
   year: 15,
-  cent: 36,
-  readout: 96,
+  cent: 34,
+  readout: 88,
   card: 15,
-  colW: 400,
+  colW: 404,
 };
 
 const VERT: StagePreset = {
@@ -292,12 +301,35 @@ const unitEnd = (u0: number) =>
   u0 < T0 ? RB[rootBin(u0) + 1] - 1 : early(u0) ? Math.floor(u0 / 10) * 10 + 9 : u0;
 const unitLabel = (u0: number) => {
   if (u0 < T0) return fmtSpan(u0, unitEnd(u0));
+  if (isZh()) {
+    if (u0 === T0) return '1026\u20131029年';
+    return early(u0) ? `${u0}年代` : `${u0}年`;
+  }
   if (u0 === T0) return '1026\u20131029';
   return early(u0) ? `${u0}s` : String(u0);
 };
 const fmtReadout = (u0: number): [string, string] => {
-  if (u0 >= T0) return [unitLabel(u0), ''];
+  if (u0 >= T0) {
+    if (isZh()) {
+      if (u0 === T0) return ['1026\u20131029', '年'];
+      return early(u0) ? [String(u0), '年代'] : [String(u0), '年'];
+    }
+    return [unitLabel(u0), ''];
+  }
   const y = Math.round(u0);
+  if (isZh()) {
+    if (y > 0) return [String(y), '公元'];
+    const b = 1 - y;
+    if (b >= 1e6) {
+      const wan = Math.round(b / 1e5) * 10;
+      return [`${wan}万`, '公元前'];
+    }
+    if (b >= 1e4) {
+      const w = b / 1e4;
+      return [`${Number.isInteger(w) ? w : w.toFixed(1)}万`, '公元前'];
+    }
+    return [b.toLocaleString('en-US'), '公元前'];
+  }
   if (y > 0) return [String(y), 'CE'];
   const b = 1 - y;
   if (b >= 1e6) {
@@ -679,7 +711,9 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const prs = db.predictions || [];
     const fcs = db.forecasts || [];
     const hlSize = db.highlights ? db.highlights.size : 0;
-    const key = `${evs.length}:${prs.length}:${fcs.length}:${hlSize}:${picState}:${picById.size}:${momentImg.size}:${[...momentImg.values()].filter((v) => v && typeof v === 'object').length}`;
+    const domSet = state.domains && state.domains.size > 0 && state.domains.size < ORDER.length ? state.domains : null;
+    const domKey = domSet ? [...domSet].sort().join(',') : 'all';
+    const key = `${evs.length}:${prs.length}:${fcs.length}:${hlSize}:${picState}:${picById.size}:${momentImg.size}:${[...momentImg.values()].filter((v) => v && typeof v === 'object').length}:${domKey}:${isZh() ? 'zh' : 'en'}`;
     if (key === geomKey) return;
     geomKey = key;
 
@@ -698,6 +732,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     for (const e of evs) {
       if (e.period) continue;
       if (e.year < Y_LO || e.year > T1) continue;
+      if (domSet && !domSet.has(e.domain)) continue;
       const li = laneIx[e.domain];
       if (li === undefined) continue;
       const si = sl(e.year);
@@ -716,13 +751,15 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       ulist.push(e);
     }
 
-    rootTicks = [
-      [-2000000, '2M BCE'],
-      [-100000, '100k'],
-      [-10000, '10k'],
-      [-3000, '3000'],
-      [1, '1 CE'],
-    ].map(([y, lbl]) => ({ f: rootF(y as number), y: y as number, lbl: lbl as string }));
+    rootTicks = (
+      [
+        [-2000000, isZh() ? '前200万年' : '2M BCE'],
+        [-100000, isZh() ? '前10万年' : '100k'],
+        [-10000, isZh() ? '前1万年' : '10k'],
+        [-3000, isZh() ? '前3000年' : '3000'],
+        [1, isZh() ? '公元元年' : '1 CE'],
+      ] as [number, string][]
+    ).map(([y, lbl]) => ({ f: rootF(y), y, lbl }));
 
     for (const [un, ulist] of evByUnit.entries()) {
       const hKey = un < 2000 ? `d${un}` : `y${un}`;
@@ -1245,12 +1282,20 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   const ahead = (y: number) =>
     cam.pull > 0.5 ? 1 : clamp(1 - (y - cam.year) / 6, 0, 1);
 
-  const ROOT_AGES: [number, string][] = [
-    [-2000000, 'Stone'],
-    [-10000, 'Farming'],
-    [-3000, 'Bronze'],
-    [-500, 'Iron'],
-  ];
+  const getRootAges = (): [number, string][] =>
+    isZh()
+      ? [
+          [-2000000, '石器时代'],
+          [-10000, '农耕起源'],
+          [-3000, '青铜时代'],
+          [-500, '铁器时代'],
+        ]
+      : [
+          [-2000000, 'Stone'],
+          [-10000, 'Farming'],
+          [-3000, 'Bronze'],
+          [-500, 'Iron'],
+        ];
 
   function drawRoots(x: CanvasRenderingContext2D, V: ViewState, headY: number) {
     const o = new Float32Array(3);
@@ -1293,7 +1338,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     let lastAgeBox: [number, number, number, number] | null = null;
     const clipTop = V.P.vert ? headY + 6 : -1e9;
 
-    for (const [ry, name] of ROOT_AGES) {
+    for (const [ry, name] of getRootAges()) {
       const f = rootF(ry);
       const rr = rootRad(f);
       const wx = ROOT_X - (1 - f) * ROOT_LEN;
@@ -1440,7 +1485,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       }
       const side = p.sx >= cx0 ? 1 : -1;
       placed.push({
-        name: LIN[li][0],
+        name: linName(LIN[li][0]),
         ax: p.sx,
         ay: p.sy,
         tx: p.sx + side * 14,
@@ -1497,7 +1542,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       if (fade <= 0.02) return null;
       const fs = MIN_TEXT;
       x.font = `400 ${fs}px ${FONT_TEXT}`;
-      const t = '3.3M BCE';
+      const t = isZh() ? '公元前330万年' : '3.3M BCE';
       const tw = x.measureText(t).width;
       const lx = clamp(p.sx - tw / 2, BAND.x0 + 10, BAND.x1 - 10 - tw);
       const ly = p.sy + 18;
@@ -1529,8 +1574,8 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
 
     const fade = (0.4 + 0.55 * p.near) * (1 - cam.pull * 0.5);
     if (fade <= 0.05) return null;
-    const l1 = 'First stone tools';
-    const l2 = '3.3 million BCE';
+    const l1 = isZh() ? '最早的石器遗存' : 'First stone tools';
+    const l2 = isZh() ? '公元前330万年' : '3.3 million BCE';
     x.font = `400 ${MIN_TEXT}px ${FONT_TEXT}`;
     const w = Math.max(x.measureText(l1).width, x.measureText(l2).width);
     const side = p.sx > 180 ? -1 : 1;
@@ -2126,19 +2171,27 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       recKey = k;
       recN = census().events;
     }
-    return recN ? `${recN.toLocaleString('en-US')} records` : '';
+    return recN
+      ? isZh()
+        ? `共收录 ${recN.toLocaleString('en-US')} 条技术史料`
+        : `${recN.toLocaleString('en-US')} records`
+      : '';
   };
-  const FC_T1 = 'Forecasts to 2076';
+  const fcT1 = () => (isZh() ? '远景展望至 2076' : 'Forecasts to 2076');
   const fcT2 = () => {
     const c = forecastCount();
-    return c.n ? `${c.n.toLocaleString('en-US')} dated, ${c.voices} voices` : '';
+    return c.n
+      ? isZh()
+        ? `${c.n.toLocaleString('en-US')} 条定年预测 · ${c.voices} 位学者`
+        : `${c.n.toLocaleString('en-US')} dated, ${c.voices} voices`
+      : '';
   };
 
   function fcSeat(V: ViewState, x: CanvasRenderingContext2D) {
     const size = MIN_TEXT + (V.P.vert ? 3 : 5);
     const f0 = x.font;
     x.font = `500 ${size}px ${FONT_TEXT}`;
-    const w1 = x.measureText(FC_T1).width;
+    const w1 = x.measureText(fcT1()).width;
     x.font = `400 ${MIN_TEXT}px ${FONT_TEXT}`;
     const w2 = x.measureText(fcT2()).width;
     x.font = f0;
@@ -2320,7 +2373,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
           x.font = `500 ${size}px ${FONT_TEXT}`;
           x.fillStyle = INK;
           x.globalAlpha = 0.92;
-          x.fillText(FC_T1, sx, sy);
+          x.fillText(fcT1(), sx, sy);
           x.strokeStyle = INK;
           x.lineWidth = 1;
           x.globalAlpha = 0.5;
@@ -2337,7 +2390,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
           x.font = `500 ${size}px ${FONT_TEXT}`;
           x.fillStyle = INK;
           x.globalAlpha = 0.88;
-          x.fillText(FC_T1, sx, sy);
+          x.fillText(fcT1(), sx, sy);
           x.strokeStyle = INK;
           x.lineWidth = 1;
           x.globalAlpha = 0.5;
@@ -2552,21 +2605,30 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     maxW: number,
     maxL: number,
   ): string[] {
-    const words = String(s || '').split(/\s+/).filter(Boolean);
+    const tokens = tokenizeText(String(s || ''));
     const out: string[] = [];
     let line = '';
-    for (let i = 0; i < words.length; i++) {
-      const w = words[i];
-      const tryL = line ? line + ' ' + w : w;
-      if (x.measureText(tryL).width <= maxW) {
+    let prevCjk = false;
+    for (let i = 0; i < tokens.length; i++) {
+      const w = tokens[i];
+      const tryL = joinToken(line, prevCjk, w);
+      if (x.measureText(tryL).width <= maxW || !line) {
         line = tryL;
+        prevCjk = w.cjk;
       } else {
         if (out.length === maxL - 1) {
-          out.push(trimText(x, line + ' ' + words.slice(i).join(' '), maxW));
+          let rest = line;
+          let rc = prevCjk;
+          for (let j = i; j < tokens.length; j++) {
+            rest = joinToken(rest, rc, tokens[j]);
+            rc = tokens[j].cjk;
+          }
+          out.push(trimText(x, rest, maxW));
           return out;
         }
         if (line) out.push(line);
-        line = w;
+        line = w.t;
+        prevCjk = w.cjk;
       }
     }
     if (line) out.push(line);
@@ -2877,20 +2939,24 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     if (openFilter && !counts.get(openFilter)) openFilter = null;
     const evs = openFilter ? allEvs.filter((e) => e.domain === openFilter) : allEvs;
     const cl = openFilter ? allCl.filter((p) => p.domain === openFilter) : allCl;
-    const headTxt = openFcast ? FC_T1 : unitLabel(un!);
+    const headTxt = openFcast ? fcT1() : unitLabel(un!);
     const col = openFcast ? INK : vert ? typeOfPhone(un!) : typeOf(un!);
     const countTxt = openFcast
-      ? `${allCl.length} dated forecasts \u00b7 ${fcastVoices} voices`
-      : `${allEvs.length} record${allEvs.length === 1 ? '' : 's'}${
-          allCl.length ? ` \u00b7 ${allCl.length} claim${allCl.length === 1 ? '' : 's'}` : ''
-        }`;
+      ? isZh()
+        ? `收录 ${allCl.length} 条定年预测 · ${fcastVoices} 位学者与思想者`
+        : `${allCl.length} dated forecasts \u00b7 ${fcastVoices} voices`
+      : isZh()
+        ? `共 ${allEvs.length} 条史料${allCl.length ? ` · ${allCl.length} 条历史论断` : ''}`
+        : `${allEvs.length} record${allEvs.length === 1 ? '' : 's'}${
+            allCl.length ? ` \u00b7 ${allCl.length} claim${allCl.length === 1 ? '' : 's'}` : ''
+          }`;
     uEl.setAttribute('aria-label', headTxt);
 
     const chips =
       doms.length > 1
-        ? `<div class="hx-uchips"><button type="button" data-f="" class="${!openFilter ? 'on' : ''}">All ${
-            allEvs.length + allCl.length
-          }</button>${doms
+        ? `<div class="hx-uchips"><button type="button" data-f="" class="${!openFilter ? 'on' : ''}">${
+            isZh() ? '全部' : 'All'
+          } ${allEvs.length + allCl.length}</button>${doms
             .map((d) => {
               const dm = DOMAIN[d];
               const nm = dm ? dm.short || dm.label : d;
@@ -2911,7 +2977,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         g.push(pr);
       }
       for (const d of [...byD.keys()].sort((a, b) => a - b)) {
-        groups.push({ label: `${d}s`, items: byD.get(d)!, kind: 'fcast' });
+        groups.push({ label: isZh() ? `${d}年代` : `${d}s`, items: byD.get(d)!, kind: 'fcast' });
       }
     } else if (un! >= 2000) {
       groups.push({ label: '', items: evs });
@@ -2924,7 +2990,10 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         g.push(e);
       }
       for (const yr of [...byY.keys()].sort((a, b) => a - b)) {
-        groups.push({ label: span ? fmtYear(yr) : String(yr), items: byY.get(yr)! });
+        groups.push({
+          label: span ? fmtYear(yr) : isZh() ? `${yr}年` : String(yr),
+          items: byY.get(yr)!,
+        });
       }
     }
 
@@ -2935,7 +3004,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       if (showYr) sub.push(e.date ? fmtDate(e.date) : fmtYear(e.year));
       if (dm) sub.push(dm.label);
       if (e.who) sub.push(e.who);
-      else if (reg && reg !== 'Global') sub.push(reg);
+      else if (reg && reg !== 'Global' && reg !== '全球') sub.push(reg);
       if (e.status && STATUS_WORD[e.status]) sub.push(capW(STATUS_WORD[e.status]));
       const pic = unitPic(e);
       const dot = e.status
@@ -2959,14 +3028,22 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         pr.by,
         pr.year_made != null
           ? fcast
-            ? `said ${pr.year_made}`
+            ? isZh()
+              ? `${pr.year_made}年提出`
+              : `said ${pr.year_made}`
             : fmtYear(pr.year_made)
           : '',
       ]
         .filter(Boolean)
-        .join(', ');
+        .join(isZh() ? ' · ' : ', ');
       const tgt =
-        pr.target_year != null ? `${fcast ? 'for' : '\u2192'} ${pr.target_year}` : '';
+        pr.target_year != null
+          ? fcast
+            ? isZh()
+              ? `目标 ${pr.target_year}年`
+              : `for ${pr.target_year}`
+            : `\u2192 ${pr.target_year}`
+          : '';
       const q = String(pr.claim || '').replace(/^[\u201c"]|[\u201d"]$/g, '');
       return `<button type="button" class="hx-urow pr" data-id="${esc(
         pr.id,
@@ -2990,7 +3067,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         )
         .join('') +
       (!openFcast && cl.length
-        ? `<div class="hx-ug">Claims (${cl.length})</div>` +
+        ? `<div class="hx-ug">${isZh() ? `历史预测与论断 (${cl.length})` : `Claims (${cl.length})`}</div>` +
           cl.map((p) => rowPr(p, false)).join('')
         : '');
 
@@ -2998,7 +3075,9 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       vert ? '<i class="hx-ugrip"></i>' : ''
     }<div class="hx-utop"><h3 style="color:${col}">${esc(
       headTxt,
-    )}</h3><button type="button" class="hx-ux" data-close="1" aria-label="Close">\u00d7 Close</button></div><div class="hx-usub">${esc(
+    )}</h3><button type="button" class="hx-ux" data-close="1" aria-label="${
+      isZh() ? '关闭' : 'Close'
+    }">\u00d7 ${isZh() ? '关闭' : 'Close'}</button></div><div class="hx-usub">${esc(
       countTxt,
     )}</div>${chips}</div><div class="hx-ubody">${bodyHtml}</div>`;
 
@@ -3038,8 +3117,8 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     let cCell = selEv ? evCell.get(selEv.id) : null;
     if (!cEv && hov) {
       if (hov.kind === 'cell') {
-        cCell = hov.cell;
-        cEv = cCell.e;
+        cCell = hov.cell || (hov.e ? evCell.get(hov.e.id) : null);
+        cEv = cCell ? cCell.e : hov.e || null;
       } else if (hov.kind === 'pic') {
         cEv = hov.it.e;
         cCell = hov.it.cell || evCell.get(cEv.id);
@@ -3136,7 +3215,19 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     x.font = `600 ${MIN_TEXT + 1}px ${FONT_TEXT}`;
     const tLines = wrapLines(x, e.title, PW, 2);
     x.font = `400 ${MIN_TEXT}px ${FONT_TEXT}`;
-    const sum = e.summary ? wrapLines(x, e.summary, PW, hasPic ? 2 : 3) : [];
+    const sumSource =
+      isZh() && !e._hasZhSummary
+        ? [
+            DOMAIN[e.domain]?.label,
+            TYPE[e.type]?.label,
+            REGION[e.region]?.label,
+            ...(e.people || []).slice(0, 2),
+            ...(e.orgs || []).slice(0, 2),
+          ]
+            .filter(Boolean)
+            .join(' · ')
+        : e.summary;
+    const sum = sumSource ? wrapLines(x, sumSource, PW, hasPic ? 2 : 3) : [];
     const CH =
       PAD +
       (hasPic ? PH + 9 : 0) +
@@ -3238,7 +3329,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       x.font = `400 ${MIN_TEXT}px ${FONT_TEXT}`;
       x.fillStyle = SOFT;
       x.globalAlpha = 0.58 * a;
-      x.fillText('Click to open record \u2192', xx, cy0 + CH - PAD + 1);
+      x.fillText(isZh() ? '点击展开详细考证 \u2192' : 'Click to open record \u2192', xx, cy0 + CH - PAD + 1);
     }
     if (want) {
       satHits.push({ e, x0: cx0, y0: cy0, x1: cx0 + CW, y1: cy0 + CH });
@@ -3341,7 +3432,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         }
       }
     }
-    if (hov && hov.kind === 'cell') {
+    if (hov && hov.kind === 'cell' && hov.q) {
       octx.strokeStyle = INK;
       octx.lineWidth = 1.6;
       const q = hov.q;
@@ -3395,33 +3486,55 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     if (P.vert) {
       drawPhoneOverlay(octx, V, f, roU, roNum, roEra, fieldA, linesA, pullFade);
     } else {
-      const rx = 24;
+      const rx = 28;
+      const ry = BAND.stripY - 36;
+      octx.save();
       octx.textAlign = 'left';
       octx.textBaseline = 'alphabetic';
-      octx.fillStyle = INK;
-      octx.globalAlpha = 0.94;
-      octx.font = `400 ${P.readout}px ${FONT_DISPLAY}`;
-      const numW = octx.measureText(roNum).width;
-      const ry = BAND.stripY - 34;
-      octx.fillText(roNum, rx, ry);
-      if (roEra) {
-        octx.font = `400 ${Math.round(P.readout * 0.34)}px ${FONT_DISPLAY}`;
-        octx.globalAlpha = 0.78;
-        octx.fillText(roEra, rx + numW + 10, ry);
+      octx.shadowColor = 'rgba(4, 7, 22, 0.85)';
+      octx.shadowBlur = 18;
+      if (isZh() && roEra === '公元前') {
+        octx.font = `600 ${Math.round(P.readout * 0.30)}px ${FONT_DISPLAY}`;
+        octx.fillStyle = SOFT;
+        octx.globalAlpha = 0.86;
+        const ew = octx.measureText(roEra).width;
+        octx.fillText(roEra, rx, ry - Math.round(P.readout * 0.42));
+        octx.font = `400 ${Math.round(P.readout * 0.82)}px ${FONT_DISPLAY}`;
+        octx.fillStyle = INK;
+        octx.globalAlpha = 0.96;
+        const nw = octx.measureText(roNum).width;
+        octx.fillText(roNum, rx + ew + 6, ry);
+        octx.font = `500 ${Math.round(P.readout * 0.32)}px ${FONT_DISPLAY}`;
+        octx.globalAlpha = 0.84;
+        octx.fillText('年', rx + ew + nw + 8, ry);
+      } else {
+        octx.fillStyle = INK;
+        octx.globalAlpha = 0.96;
+        octx.font = `400 ${P.readout}px ${FONT_DISPLAY}`;
+        const numW = octx.measureText(roNum).width;
+        octx.fillText(roNum, rx, ry);
+        if (roEra) {
+          octx.font = `500 ${Math.round(P.readout * (isZh() ? 0.36 : 0.34))}px ${FONT_DISPLAY}`;
+          octx.fillStyle = isZh() ? mix(INK, SOFT, 0.35) : INK;
+          octx.globalAlpha = 0.82;
+          octx.fillText(roEra, rx + numW + (isZh() ? 6 : 10), ry);
+        }
       }
+      octx.shadowBlur = 0;
       octx.font = `400 ${MIN_TEXT}px ${FONT_TEXT}`;
       octx.fillStyle = SOFT;
-      octx.globalAlpha = 0.72;
+      octx.globalAlpha = 0.78;
       const sub = V.pull > 0.5 ? recCount() : '';
-      if (sub) octx.fillText(sub, rx + 2, BAND.stripY - 12);
+      if (sub) octx.fillText(sub, rx + 2, BAND.stripY - 13);
+      octx.restore();
 
       if (pullFade > 0.02) {
-        const fx = BAND.x1 + 12;
-        const fw = W - fx - 20;
+        const fx = BAND.x1 + 10;
+        const fw = W - fx - 18;
         if (openFcast || openUnit !== null) renderUnitDom(V);
         else {
           renderUnitDom(V);
-          drawFeed(octx, fx, 18, fw, BAND.stripY - 26, P, f, fieldA * pullFade, linesA * pullFade);
+          drawFeed(octx, fx, 14, fw, BAND.stripY - 26, P, f, fieldA * pullFade, linesA * pullFade);
         }
       } else {
         renderUnitDom(V);
@@ -3502,20 +3615,34 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     x.textBaseline = 'alphabetic';
     x.textAlign = 'left';
 
-    const dateStr = roEra ? `${roNum} ${roEra}` : roNum;
+    const dateStr = isZh()
+      ? roEra === '公元前'
+        ? `公元前${roNum}年`
+        : `${roNum}${roEra}`
+      : roEra
+        ? `${roNum} ${roEra}`
+        : roNum;
     const cnt = f.fcast
-      ? `${f.total} forecasts`
+      ? isZh()
+        ? `${f.total} 条远景预测`
+        : `${f.total} forecasts`
       : f.total
-        ? `${f.total} record${f.total === 1 ? '' : 's'}${
-            f.claimsTotal ? ` \u00b7 ${f.claimsTotal}` : ''
-          }`
-        : 'No records';
+        ? isZh()
+          ? `${f.total} 条记录${f.claimsTotal ? ` · ${f.claimsTotal} 条论断` : ''}`
+          : `${f.total} record${f.total === 1 ? '' : 's'}${
+              f.claimsTotal ? ` \u00b7 ${f.claimsTotal}` : ''
+            }`
+        : isZh()
+          ? '暂无记录'
+          : 'No records';
     x.font = `500 ${MIN_TEXT}px ${FONT_TEXT}`;
     x.fillStyle = typeOfPhone(roU);
     x.globalAlpha = a;
     x.fillText(dateStr, lx, yy + 15);
 
-    const openStr = hasMore ? `${cnt} \u00b7 All \u2192` : cnt;
+    const openStr = hasMore
+      ? `${cnt} \u00b7 ${isZh() ? '全部' : 'All'} \u2192`
+      : cnt;
     x.font = `400 ${MIN_TEXT}px ${FONT_TEXT}`;
     x.fillStyle = SOFT;
     x.globalAlpha = 0.88 * a;
@@ -3539,7 +3666,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     yy += READ.date;
 
     const lead = f.fcast
-      ? FC_T1
+      ? fcT1()
       : cards[0]
         ? cards[0].title
         : claims[0]
@@ -3624,41 +3751,84 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
 
   function drawFeed(
     x: CanvasRenderingContext2D,
-    fx: number,
-    fy: number,
-    fw: number,
-    fh: number,
+    fx0: number,
+    fy0: number,
+    fw0: number,
+    fh0: number,
     P: StagePreset,
     f: ReturnType<typeof fieldData>,
     headA: number,
     linesA: number,
   ) {
-    if (fw < 120) return;
+    if (fw0 < 140) return;
+    const padX = 18;
+    const padY = 16;
+    const fx = fx0 + padX;
+    const fy = fy0 + padY;
+    const fw = fw0 - padX * 2;
+    const fh = fh0 - padY * 2;
+
     x.save();
+    // Frosted dark-sapphire reading card behind the desktop right-side rail
+    const cardA = clamp(Math.max(headA, linesA), 0, 1);
+    const bgGrad = x.createLinearGradient(fx0, fy0, fx0, fy0 + fh0);
+    bgGrad.addColorStop(0, `rgba(9, 13, 36, ${(0.82 * cardA).toFixed(3)})`);
+    bgGrad.addColorStop(1, `rgba(6, 9, 27, ${(0.90 * cardA).toFixed(3)})`);
+    x.fillStyle = bgGrad;
+    x.shadowColor = `rgba(2, 4, 14, ${(0.55 * cardA).toFixed(3)})`;
+    x.shadowBlur = 24;
+    x.shadowOffsetY = 8;
     x.beginPath();
-    x.rect(fx - 4, fy - 4, fw + 8, fh + 8);
+    if (x.roundRect) x.roundRect(fx0, fy0, fw0, fh0, 14);
+    else x.rect(fx0, fy0, fw0, fh0);
+    x.fill();
+    x.shadowBlur = 0;
+    x.shadowOffsetY = 0;
+
+    const accentCol = f.fcast ? INK : typeOf(f.un);
+    x.strokeStyle = `rgba(205, 216, 255, ${(0.14 * cardA).toFixed(3)})`;
+    x.lineWidth = 1;
+    x.stroke();
+
+    // Subtle top accent bar matching current era's spectrum hue
+    x.save();
+    x.clip();
+    const topGlow = x.createLinearGradient(fx0, fy0, fx0 + fw0 * 0.7, fy0);
+    topGlow.addColorStop(0, hexA(accentCol, 0.65 * cardA));
+    topGlow.addColorStop(1, hexA(accentCol, 0));
+    x.fillStyle = topGlow;
+    x.fillRect(fx0, fy0, fw0, 2);
+    x.restore();
+
+    x.beginPath();
+    if (x.roundRect) x.roundRect(fx0 + 2, fy0 + 2, fw0 - 4, fh0 - 4, 12);
+    else x.rect(fx - 4, fy - 4, fw + 8, fh + 8);
     x.clip();
     x.textAlign = 'left';
     x.textBaseline = 'alphabetic';
 
-    let y = fy + P.head;
-    x.font = `400 ${P.head}px ${FONT_DISPLAY}`;
-    x.fillStyle = f.fcast ? INK : typeOf(f.un);
-    x.globalAlpha = 0.96 * headA;
-    const headTxt = f.fcast ? FC_T1 : unitLabel(f.un);
+    let y = fy + P.head - 2;
+    x.font = `600 ${P.head}px ${FONT_DISPLAY}`;
+    x.fillStyle = accentCol;
+    x.globalAlpha = 0.98 * headA;
+    const headTxt = f.fcast ? fcT1() : unitLabel(f.un);
     x.fillText(headTxt, fx, y);
 
     const cntTxt = f.fcast
-      ? `${f.total} dated \u00b7 ${fcastVoices} voices`
-      : `${f.total} record${f.total === 1 ? '' : 's'}${
-          f.claimsTotal
-            ? ` \u00b7 ${f.claimsTotal} claim${f.claimsTotal === 1 ? '' : 's'}`
-            : ''
-        }`;
-    y += 19;
-    x.font = `400 ${MIN_TEXT}px ${FONT_TEXT}`;
+      ? isZh()
+        ? `${f.total} 条定年预测 · ${fcastVoices} 位学者`
+        : `${f.total} dated \u00b7 ${fcastVoices} voices`
+      : isZh()
+        ? `本时段收录 ${f.total} 条史料${f.claimsTotal ? ` · ${f.claimsTotal} 条历史论断` : ''}`
+        : `${f.total} record${f.total === 1 ? '' : 's'}${
+            f.claimsTotal
+              ? ` \u00b7 ${f.claimsTotal} claim${f.claimsTotal === 1 ? '' : 's'}`
+              : ''
+          }`;
+    y += 21;
+    x.font = `400 ${MIN_TEXT - 1}px ${FONT_TEXT}`;
     x.fillStyle = SOFT;
-    x.globalAlpha = 0.72 * headA;
+    x.globalAlpha = 0.78 * headA;
     x.fillText(cntTxt, fx, y);
 
     if (f.total + f.claimsTotal > 0) {
@@ -3669,15 +3839,15 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       );
     }
 
-    y += 10;
-    x.strokeStyle = 'rgba(238,240,250,0.14)';
+    y += 11;
+    x.strokeStyle = 'rgba(205, 216, 255, 0.12)';
     x.lineWidth = 1;
     x.globalAlpha = headA;
     x.beginPath();
     x.moveTo(fx, y + 0.5);
     x.lineTo(fx + fw, y + 0.5);
     x.stroke();
-    y += 10;
+    y += 12;
 
     if (linesA <= 0.02) {
       x.restore();
@@ -3686,7 +3856,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
 
     const cards = f.evs.slice(0, P.lines);
     const claims = f.fcast ? f.claims : pickClaims(f.claims, P.claims);
-    const reserveFoot = !f.fcast && f.un >= FC_FROM && fcastTotal > 0 ? 50 : 26;
+    const reserveFoot = !f.fcast && f.un >= FC_FROM && fcastTotal > 0 ? 52 : 28;
     y = drawFeedItems(x, fx, y, fw, fy + fh - reserveFoot, P, f, cards, claims, linesA);
 
     const shown = f.fcast ? claims.length : cards.length;
@@ -3694,15 +3864,19 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       ? f.total - shown
       : f.total - cards.length + Math.max(0, f.claimsTotal - claims.length);
     if (more > 0 && y < fy + fh - 4) {
-      const my = Math.min(y + 6, fy + fh - (reserveFoot > 26 ? 44 : 20));
+      const my = Math.min(y + 6, fy + fh - (reserveFoot > 28 ? 46 : 22));
       const lbl = f.fcast
-        ? `See all ${f.total} forecasts \u2192`
-        : `See all ${f.total} records${
-            f.claimsTotal ? ` & ${f.claimsTotal} claims` : ''
-          } \u2192`;
-      x.font = `500 ${MIN_TEXT}px ${FONT_TEXT}`;
-      x.fillStyle = f.fcast ? INK : typeOf(f.un);
-      x.globalAlpha = 0.9 * linesA;
+        ? isZh()
+          ? `展开全部 ${f.total} 条远景预测 \u2192`
+          : `See all ${f.total} forecasts \u2192`
+        : isZh()
+          ? `展开本时段全部 ${f.total} 条史料${f.claimsTotal ? `与 ${f.claimsTotal} 条论断` : ''} \u2192`
+          : `See all ${f.total} records${
+              f.claimsTotal ? ` & ${f.claimsTotal} claims` : ''
+            } \u2192`;
+      x.font = `500 ${MIN_TEXT - 1}px ${FONT_TEXT}`;
+      x.fillStyle = accentCol;
+      x.globalAlpha = 0.94 * linesA;
       x.fillText(trimText(x, lbl, fw), fx, my + 14);
       feedHits.push(
         f.fcast
@@ -3720,10 +3894,12 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     }
     if (!f.fcast && f.un >= FC_FROM && fcastTotal > 0 && y < fy + fh - 16) {
       const fy2 = Math.min(y + 4, fy + fh - 20);
-      const fcLbl = `Forecasts to 2076 (${fcastTotal} dated) \u2192`;
-      x.font = `500 ${MIN_TEXT}px ${FONT_TEXT}`;
+      const fcLbl = isZh()
+        ? `浏览 2076 远景展望（${fcastTotal} 条定年预测）\u2192`
+        : `Forecasts to 2076 (${fcastTotal} dated) \u2192`;
+      x.font = `500 ${MIN_TEXT - 1}px ${FONT_TEXT}`;
       x.fillStyle = SOFT;
-      x.globalAlpha = 0.86 * linesA;
+      x.globalAlpha = 0.88 * linesA;
       x.fillText(trimText(x, fcLbl, fw), fx, fy2 + 14);
       feedHits.push({ kind: 'openFcast', x0: fx, y0: fy2 - 2, x1: fx + fw, y1: fy2 + 22 });
     }
@@ -3853,18 +4029,24 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         const vw = capW(prWord(pr));
         const tgt =
           pr.target_year != null
-            ? `${f.fcast ? 'for' : '\u2192'} ${pr.target_year}`
+            ? f.fcast
+              ? isZh()
+                ? `目标 ${pr.target_year}年`
+                : `for ${pr.target_year}`
+              : `\u2192 ${pr.target_year}`
             : '';
         const who = [
           pr.by,
           pr.year_made != null
             ? f.fcast
-              ? `said ${pr.year_made}`
+              ? isZh()
+                ? `${pr.year_made}年提出`
+                : `said ${pr.year_made}`
               : fmtYear(pr.year_made)
             : '',
         ]
           .filter(Boolean)
-          .join(', ');
+          .join(isZh() ? ' · ' : ', ');
         x.font = `500 ${MIN_TEXT}px ${FONT_TEXT}`;
         x.fillStyle = vc;
         x.globalAlpha = 0.92 * a;
@@ -3978,7 +4160,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     if (P.vert) {
       x.globalAlpha = 0.72;
       x.textAlign = 'left';
-      x.fillText('3.3M BCE', b.x0, ty);
+      x.fillText(isZh() ? '前330万年' : '3.3M BCE', b.x0, ty);
       x.textAlign = 'center';
       if (rx1 - b.x0 > 84 && b.x1 - rx1 > 84) x.fillText('1026', rx1, ty);
       x.textAlign = 'right';
@@ -3994,7 +4176,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         x.fillText(txt, lx, ty);
         lastRight = left + tw;
       };
-      putLbl(b.x0, '3.3M BCE', 'left');
+      putLbl(b.x0, isZh() ? '公元前330万年' : '3.3M BCE', 'left');
       for (const rt of rootTicks) {
         if (rt.y === -2000000) continue;
         putLbl(b.x0 + rt.f * rShare * b.w, rt.lbl);
@@ -4443,7 +4625,9 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         const pr = h.pr;
         const when =
           pr.target_year != null
-            ? `${pr.year_made}, for ${pr.target_year}`
+            ? isZh()
+              ? `${pr.year_made}年提出 · 目标 ${pr.target_year}年`
+              : `${pr.year_made}, for ${pr.target_year}`
             : String(pr.year_made || '');
         tip.show(
           ev,
@@ -4454,7 +4638,11 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       } else if (h && h.kind === 'openFcast' && fcastTotal > 0) {
         tip.show(
           ev,
-          `<div class="h">All ${fcastTotal} dated forecasts (${fcastVoices} voices)</div>`,
+          `<div class="h">${
+            isZh()
+              ? `查看全部 ${fcastTotal} 条远景预测（${fcastVoices} 位学者）`
+              : `All ${fcastTotal} dated forecasts (${fcastVoices} voices)`
+          }</div>`,
         );
       } else {
         tip.hide();
@@ -4661,9 +4849,18 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
 
   const offData = onData((name?: string) => {
     if (name === 'text') ensureMomentPics();
+    recKey = '';
     geomKey = '';
     sceneKey = '';
     unitDomKey = '';
+    invalidate();
+  });
+  const offLang = onLangChange(() => {
+    recKey = '';
+    geomKey = '';
+    sceneKey = '';
+    unitDomKey = '';
+    if (V_LAST) renderUnitDom(V_LAST);
     invalidate();
   });
 
@@ -4896,6 +5093,11 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   activeHooks = hooks;
 
   function applyState(s: typeof state, ch?: Set<string>) {
+    if (ch && ch.has('domains')) {
+      geomKey = '';
+      recKey = '';
+      unitDomKey = '';
+    }
     if (ch && ch.has('at') && s.at) {
       const y = +s.at;
       if (Number.isFinite(y)) {
@@ -4926,6 +5128,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     if (landingRaf) cancelAnimationFrame(landingRaf);
     ro.disconnect();
     offData();
+    offLang();
     window.removeEventListener('pointermove', onPointerMove);
     window.removeEventListener('pointerup', onPointerUp);
     window.removeEventListener('pointercancel', onPointerUp);
@@ -4951,7 +5154,12 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         return;
       }
       const hit = visCells.find((vc) => vc.cell.e.id === id);
-      hov = hit ? { kind: 'cell', e: hit.cell.e, cx: hit.cx, cy: hit.cy } : null;
+      if (hit) {
+        hov = { kind: 'cell', cell: hit.cell, q: hit.q };
+      } else {
+        const ev = db.byId.get(id);
+        hov = ev ? { kind: 'feedEv', e: ev } : null;
+      }
       invalidate();
     },
     onData(name: string) {

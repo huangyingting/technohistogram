@@ -19,6 +19,7 @@ import { slotOf, SLOT_MAX } from '../lib/time';
 import { heat, sunk, mix } from '../lib/spectrum';
 import { POSTER } from '../lib/poster';
 import { assetUrl } from '../lib/basePath';
+import { isZh } from '../lib/i18n';
 import { createWebGPURenderer, loadGpuTexture } from './webgpu';
 
 const BASE = `${assetUrl('/arrival')}/`;
@@ -109,7 +110,9 @@ export function runArrival({ targets, ready, onReveal, onDone }: RunArrivalOpts)
     '<canvas class="ar-gl"></canvas><canvas class="ar-ov"></canvas>' +
     (pre
       ? ''
-      : '<h2 class="ar-lines" aria-live="polite"><span>Technology <em>Histomap</em></span><small>3.3 million BCE to 2026</small></h2>');
+      : isZh()
+        ? '<h2 class="ar-lines" aria-live="polite"><span>技术演进<em>全图</em></span><small>公元前 330 万年 — 2026 年 · 人类技术谱系</small></h2>'
+        : '<h2 class="ar-lines" aria-live="polite"><span>Technology <em>Histomap</em></span><small>3.3 million BCE to 2026</small></h2>');
   document.body.appendChild(host);
   if (pre) pre.classList.add('live');
   requestAnimationFrame(() => document.documentElement.classList.remove('arrival-mode'));

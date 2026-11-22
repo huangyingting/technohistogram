@@ -1,6 +1,15 @@
 import * as d3Module from 'd3';
 import { fmtYear } from './time';
 import { state, viewOf, hashParams, AppState } from './store';
+import {
+  isZh,
+  onLangChange,
+  ZhBundle,
+  DOMAIN_ZH,
+  TYPE_ZH,
+  REGION_ZH,
+  TAG_ZH,
+} from './i18n';
 
 export interface HistomapDB {
   events: any[];
@@ -213,22 +222,41 @@ function applyPolicy(policy: any) {
 }
 
 function applyPreds(preds: any) {
-  db.predictions = (Array.isArray(preds) ? preds : preds?.predictions || []).map((p: any) => ({
-    ...p,
-    key: p.id,
-    id: 'pred:' + p.id,
-    _txt: [p.who, p.claim, p.quote, p.paraphrase, p.role].join(' ').toLowerCase(),
-  }));
+  db.predictions = (Array.isArray(preds) ? preds : preds?.predictions || []).map((p: any) => {
+    const _en = {
+      role: p.role || '',
+      claim: p.claim || '',
+      quote: p.quote || '',
+      paraphrase: p.paraphrase || '',
+      outcome_note: p.outcome_note || '',
+    };
+    return {
+      ...p,
+      _en,
+      key: p.id,
+      id: 'pred:' + p.id,
+      _txt: [p.who, p.claim, p.quote, p.paraphrase, p.role].join(' ').toLowerCase(),
+    };
+  });
   db.predById = new Map(db.predictions.map((p: any) => [p.id, p]));
+  applyZhOverlay();
 }
 
 function applyForecasts(j: any) {
   db.forecasts = (Array.isArray(j) ? j : []).map((f: any, i: number) => ({
     ...f,
+    _idx: i,
+    _en: {
+      text: f.text || '',
+      lab: f.chk?.lab || '',
+      note: f.chk?.note || '',
+    },
     id: 'fc:' + i,
     y0: +String(f.said || '2025').slice(0, 4) || 2025,
   }));
   db.forecastById = new Map(db.forecasts.map((f: any) => [f.id, f]));
+  fcCountOf = null;
+  applyZhOverlay();
 }
 
 let fcCountOf: any[] | null = null;
@@ -272,10 +300,30 @@ export function pickForecasts(list: any[], n: number): any[] {
 }
 
 function applyCards(j: any) {
-  db.decadeCards = new Map(((j && j.cards) || []).map((c: any) => [c.decade, c]));
+  db.decadeCards = new Map(
+    ((j && j.cards) || []).map((c: any) => [
+      c.decade,
+      {
+        ...c,
+        _en: {
+          kind: c.kind,
+          subject: c.subject,
+          fact: c.fact,
+          labels: (c.chart?.labels || []).map((l: any) => l.text || l.label || ''),
+        },
+      },
+    ]),
+  );
+  applyZhOverlay();
 }
 function applyCenturies(j: any) {
-  db.centuryLines = new Map(((j && j.lines) || []).map((l: any) => [l.century, l]));
+  db.centuryLines = new Map(
+    ((j && j.lines) || []).map((l: any) => [
+      l.century,
+      { ...l, _en: { label: l.label, line: l.line } },
+    ]),
+  );
+  applyZhOverlay();
 }
 function applyHighlights(j: any) {
   db.highlights = new Map(Object.entries((j && j.units) || {}));
@@ -303,8 +351,221 @@ function applyFlows(flows: any) {
   db.dealById = new Map(db.flowList!.map((f: any) => [f.id, f]));
 }
 
+let zhBundle: ZhBundle | null = null;
+let zhPredMap: Map<string, NonNullable<ZhBundle['predictions']>[number]> | null = null;
+let zhFcMap: Map<number, NonNullable<ZhBundle['forecasts']>[number]> | null = null;
+let zhTourMap: Map<string, NonNullable<ZhBundle['tours']>[number]> | null = null;
+
+export function setZhBundle(b: ZhBundle | null) {
+  zhBundle = b;
+  zhPredMap = b?.predictions ? new Map(b.predictions.map((p) => [p.id, p])) : null;
+  zhFcMap = b?.forecasts ? new Map(b.forecasts.map((f) => [f.idx, f])) : null;
+  zhTourMap = b?.tours ? new Map(b.tours.map((t) => [t.id, t])) : null;
+  applyZhOverlay();
+}
+
 const txtOf = (e: any) =>
-  [e.title, e.summary, ...(e.people || []), ...(e.orgs || []), ...(e.tags || [])].join(' ').toLowerCase();
+  [
+    e._en?.title || e.title,
+    e._zh?.title || '',
+    DOMAIN_ZH[e.domain]?.label || '',
+    DOMAIN_ZH[e.domain]?.short || '',
+    TYPE_ZH[e.type] || '',
+    REGION_ZH[e.region]?.label || '',
+    e._en?.summary || e.summary || '',
+    e._zh?.summary || '',
+    ...(e.people || []),
+    ...(e.orgs || []),
+    ...(e.tags || []),
+    ...(e.tags || []).map((t: string) => TAG_ZH[t] || ''),
+  ]
+    .join(' ')
+    .toLowerCase();
+
+export function applyZhOverlay() {
+  const zh = isZh();
+  const evMap = zhBundle?.events || null;
+  const sumMap = zhBundle?.summaries || null;
+
+  for (const e of db.events) {
+    if (!e._en) {
+      e._en = {
+        title: e.title,
+        title_short: e.title_short || e.title,
+        summary: e.summary || '',
+      };
+    }
+    const zt = evMap ? evMap[e.id] : undefined;
+    const zs = sumMap ? sumMap[e.id] : undefined;
+    if (zt || zs) {
+      e._zh = {
+        title: zt || e._zh?.title || '',
+        summary: zs || e._zh?.summary || '',
+      };
+    }
+    if (zh) {
+      e.title = e._zh?.title || e._en.title;
+      e.title_short = e._zh?.title || e._en.title_short;
+      e.summary = e._zh?.summary || e._en.summary;
+      e._hasZhSummary = !!e._zh?.summary;
+    } else {
+      e.title = e._en.title;
+      e.title_short = e._en.title_short;
+      e.summary = e._en.summary;
+      e._hasZhSummary = false;
+    }
+    e._txt = txtOf(e);
+  }
+
+  if (db.predictions && db.predictions.length) {
+    for (const p of db.predictions) {
+      if (!p._en) {
+        p._en = {
+          role: p.role || '',
+          claim: p.claim || '',
+          quote: p.quote || '',
+          paraphrase: p.paraphrase || '',
+          outcome_note: p.outcome_note || '',
+        };
+      }
+      const zp = zhPredMap ? zhPredMap.get(p.key) : null;
+      if (zh && zp) {
+        p.role = zp.role || p._en.role;
+        p.quote = zp.quote || p._en.quote;
+        p.paraphrase = zp.paraphrase || p._en.paraphrase;
+        p.outcome_note = zp.outcome_note || p._en.outcome_note;
+        p.claim = zp.paraphrase || zp.quote || p._en.claim;
+      } else {
+        p.role = p._en.role;
+        p.quote = p._en.quote;
+        p.paraphrase = p._en.paraphrase;
+        p.outcome_note = p._en.outcome_note;
+        p.claim = p._en.claim;
+      }
+      p._txt = [p.who, p._en.claim, p.claim, p._en.quote, p.quote, p._en.paraphrase, p.paraphrase, p.role]
+        .join(' ')
+        .toLowerCase();
+    }
+  }
+
+  if (db.forecasts && db.forecasts.length) {
+    for (const f of db.forecasts) {
+      if (!f._en) {
+        f._en = {
+          text: f.text || '',
+          lab: f.chk?.lab || '',
+          note: f.chk?.note || '',
+        };
+      }
+      const zf = zhFcMap ? zhFcMap.get(f._idx) : null;
+      if (zh && zf) {
+        f.text = zf.text || f._en.text;
+        if (f.chk) {
+          if (zf.lab) f.chk.lab = zf.lab;
+          if (zf.note) f.chk.note = zf.note;
+        }
+      } else {
+        f.text = f._en.text;
+        if (f.chk) {
+          f.chk.lab = f._en.lab;
+          f.chk.note = f._en.note;
+        }
+      }
+    }
+    fcCountOf = null;
+  }
+
+  if (db.centuryLines && zhBundle?.century_lines) {
+    const cm = new Map(zhBundle.century_lines.map((c) => [c.century, c]));
+    for (const [k, l] of db.centuryLines.entries()) {
+      const zl = cm.get(k);
+      if (zh && zl) {
+        l.label = zl.label;
+        l.line = zl.line;
+      } else if (l._en) {
+        l.label = l._en.label;
+        l.line = l._en.line;
+      }
+    }
+  }
+
+  if (db.decadeCards && zhBundle?.decade_cards) {
+    const dm = new Map(zhBundle.decade_cards.map((d) => [d.decade, d]));
+    for (const [k, c] of db.decadeCards.entries()) {
+      const zd = dm.get(k);
+      if (zh && zd) {
+        c.kind = zd.kind;
+        c.subject = zd.subject;
+        c.fact = zd.fact;
+        if (zd.labels && c.chart?.labels) {
+          c.chart.labels.forEach((lbl: any, idx: number) => {
+            if (zd.labels![idx]) {
+              if ('text' in lbl) lbl.text = zd.labels![idx];
+              else lbl.label = zd.labels![idx];
+            }
+          });
+        }
+      } else if (c._en) {
+        c.kind = c._en.kind;
+        c.subject = c._en.subject;
+        c.fact = c._en.fact;
+        if (c._en.labels && c.chart?.labels) {
+          c.chart.labels.forEach((lbl: any, idx: number) => {
+            if (c._en.labels[idx]) {
+              if ('text' in lbl) lbl.text = c._en.labels[idx];
+              else lbl.label = c._en.labels[idx];
+            }
+          });
+        }
+      }
+    }
+  }
+
+  if (db.tours && db.tours.length) {
+    for (const t of db.tours) {
+      if (!t._en) {
+        t._en = {
+          title: t.title,
+          years: t.years,
+          dek: t.dek,
+          steps: (t.steps || []).map((st: any) => ({
+            label: st.label,
+            narration: st.narration,
+          })),
+        };
+      }
+      const zt = zhTourMap ? zhTourMap.get(t.id) : null;
+      if (zh && zt) {
+        t.title = zt.title || t._en.title;
+        t.years = zt.years || t._en.years;
+        t.dek = zt.dek || t._en.dek;
+        const sm = new Map((zt.steps || []).map((s) => [s.event, s]));
+        (t.steps || []).forEach((st: any, idx: number) => {
+          const zs = sm.get(st.event) || zt.steps?.[idx];
+          if (zs) {
+            st.label = zs.label || t._en.steps[idx]?.label || st.label;
+            st.narration = zs.narration || t._en.steps[idx]?.narration || st.narration;
+          }
+        });
+      } else if (t._en) {
+        t.title = t._en.title;
+        t.years = t._en.years;
+        t.dek = t._en.dek;
+        (t.steps || []).forEach((st: any, idx: number) => {
+          if (t._en.steps[idx]) {
+            st.label = t._en.steps[idx].label;
+            st.narration = t._en.steps[idx].narration;
+          }
+        });
+      }
+    }
+  }
+}
+
+onLangChange(() => {
+  applyZhOverlay();
+  emit('lang');
+});
 
 export function ensureTxt() {
   for (const e of db.events) if (e._txt == null) e._txt = txtOf(e);
@@ -323,13 +584,16 @@ function applyText(text: any) {
   for (const e of db.events) {
     const x = T[e.id];
     if (!x) continue;
-    if (x.summary) e.summary = x.summary;
+    if (!e._en) {
+      e._en = { title: e.title, title_short: e.title_short || e.title, summary: '' };
+    }
+    if (x.summary) e._en.summary = x.summary;
     if (x.sources) e.sources = x.sources;
     if (x.verification_note) e.verification_note = x.verification_note;
     if (x.detail) e.detail = x.detail;
     if (x.picture) e.picture = x.picture;
-    e._txt = txtOf(e);
   }
+  applyZhOverlay();
 }
 
 function applyMeta(meta: any) {
@@ -361,7 +625,13 @@ const LOADERS: Record<string, LoaderSpec> = {
   past: { file: 'events_past.json', apply: (p) => mergePast(p) },
   meta: { file: 'events_meta.json', apply: applyMeta },
   text: { file: 'events_text.json', parts: /^events_text(_\d+)?\.json$/, apply: applyText },
-  tours: { file: 'tours.json', apply: (t) => { db.tours = (t && (t.tours || t)) || []; } },
+  tours: {
+    file: 'tours.json',
+    apply: (t) => {
+      db.tours = (t && (t.tours || t)) || [];
+      applyZhOverlay();
+    },
+  },
   rhymes: { file: 'rhymes.json', apply: (r) => { db.rhymes = (r && (Array.isArray(r) ? r : r.rhymes || r.pairs)) || []; } },
   flows: { file: 'capital_flows.json', apply: applyFlows },
   predictions: { file: 'predictions.json', apply: applyPreds },
@@ -647,6 +917,7 @@ async function mergePast(pack: any) {
   performance.mark('past-indexed');
   if (db.loaded.has('meta')) applyMeta(db._metaJson);
   if (db.loaded.has('text')) applyText(db._textJson);
+  applyZhOverlay();
   await breathe();
 }
 
@@ -679,13 +950,15 @@ export async function load(): Promise<HistomapDB> {
     }
     const seriesP = SERIES_FIRST.has(view) ? ensureNow('series') : ensure('series');
     const coreFile = (man.core || []).includes('events_core.json') ? 'events_core.json' : 'events.json';
-    const [pack, models, amap] = await Promise.all([
+    const [pack, models, amap, zhJson] = await Promise.all([
       getJSON(vurl(coreFile), []),
       getJSON(vurl('ai_models.json'), null),
       home && (man.optional || []).includes('anatomy_map.json') ? getJSON(vurl('anatomy_map.json'), null) : Promise.resolve(null),
+      getJSON(vurl('zh_i18n.json'), null),
       SERIES_FIRST.has(view) ? seriesP : Promise.resolve(),
       home && (man.optional || []).includes('policy_core.json') ? ensureNow('policy_core') : Promise.resolve(),
     ]);
+    if (zhJson) setZhBundle(zhJson);
     db.anatomyMap = amap && amap.map ? new Map(Object.entries(amap.map)) : null;
     const mark = (n: string) => {
       if (typeof performance !== 'undefined' && performance.mark) performance.mark(n);
@@ -709,6 +982,7 @@ export async function load(): Promise<HistomapDB> {
       });
     }
     await index(recent);
+    applyZhOverlay();
     mark('core-indexed');
     emit('core');
     db.models = models;
@@ -737,7 +1011,13 @@ export const draw: { register: string; overlays: boolean } = { register: 'auto',
 export const registerFor = (s: AppState = state): string =>
   draw.register !== 'auto' ? draw.register : s.y1 - s.y0 > 300 ? 'landmarks' : 'all';
 export const registerLabel = (s: AppState = state): string =>
-  registerFor(s) === 'landmarks' ? 'Landmarks: one entry per episode at significance 5' : 'All: the whole record';
+  isZh()
+    ? registerFor(s) === 'landmarks'
+      ? '地标模式：每个历史阶段精选最高权重（5级）事件'
+      : '全量模式：展示全部历史考证记录'
+    : registerFor(s) === 'landmarks'
+      ? 'Landmarks: one entry per episode at significance 5'
+      : 'All: the whole record';
 
 export function ensureD3(): Promise<typeof d3Module | null> {
   if (typeof window === 'undefined') return Promise.resolve(null);
@@ -861,6 +1141,30 @@ export async function hasRecord(id: string): Promise<boolean> {
 export const filtered = (s: AppState = state) => db.events.filter((e) => passes(e, s));
 
 export function fmtDate(e: any): string {
+  if (!e) return '';
+  if (typeof e === 'string' || typeof e === 'number') {
+    const m = /^(-?\d+)(?:-(\d{1,2}))?(?:-(\d{1,2}))?$/.exec(String(e).trim());
+    if (!m) return String(e);
+    const yr = +m[1];
+    const mo = m[2] ? +m[2] : null;
+    const dy = m[3] ? +m[3] : null;
+    if (isZh()) {
+      const ys = yr > 0 ? `${yr}年` : fmtYear(yr);
+      return `${ys}${mo ? `${mo}月` : ''}${dy ? `${dy}日` : ''}`;
+    }
+    const M = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return `${dy ? dy + ' ' : ''}${mo && M[mo - 1] ? M[mo - 1] + ' ' : ''}${fmtYear(yr)}`;
+  }
+  if (isZh()) {
+    const approx = /^(radiocarbon|typological|stratigraphy|luminescence|mixed)$/.test(e.dating_basis || '') ? '约' : '';
+    const ys = e.year > 0 ? `${e.year}年` : fmtYear(e.year);
+    let s = approx + ys;
+    if (e.month) s += `${e.month}月${e.day ? `${e.day}日` : ''}`;
+    if (e.end_year && e.end_year !== e.year) {
+      s += ' — ' + (e.end_year > 0 ? `${e.end_year}年` : fmtYear(e.end_year));
+    }
+    return s;
+  }
   const M = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   let s = '';
   if (e.month) s += (e.day ? e.day + ' ' : '') + M[e.month - 1] + ' ';
@@ -898,7 +1202,7 @@ export function modelEvents(m: any): any[] {
   for (const e of db.events) {
     if (Math.abs(e.year - m.year) > 1) continue;
     if (!(e.domain === 'ai' || e.domain === 'semiconductors' || e.domain === 'software')) continue;
-    const t = e.title.replace(/\u00b7/g, '-');
+    const t = (e._en?.title || e.title).replace(/\u00b7/g, '-');
     let hit: { n: string; at: number } | null = null;
     res.forEach((r, i) => {
       const mm = r.exec(t);

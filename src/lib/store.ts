@@ -1,20 +1,21 @@
 import { DOMAINS } from './palette';
 import { YEAR_MIN, YEAR_MAX } from './time';
+import { isZh } from './i18n';
 
 export { YEAR_MIN, YEAR_MAX } from './time';
 
 export interface TabDef {
   id: string;
-  label: string;
-  sub?: string;
+  readonly label: string;
+  readonly sub?: string;
   view: string;
 }
 
 export interface ViewDef {
   id: string;
   tab: string;
-  label: string;
-  sh: string;
+  readonly label: string;
+  readonly sh: string;
   module: string;
   budget: number;
   screens?: string[];
@@ -22,10 +23,32 @@ export interface ViewDef {
   nav?: boolean;
 }
 
-export const TABS: TabDef[] = [{ id: 'map', label: 'Histomap', sub: '1026 to 2026, with roots', view: 'spiral' }];
+export const TABS: TabDef[] = [
+  {
+    id: 'map',
+    get label() {
+      return isZh() ? '螺旋长卷' : 'Histomap';
+    },
+    get sub() {
+      return isZh() ? '1026 至 2026 · 远溯八脉根系' : '1026 to 2026, with roots';
+    },
+    view: 'spiral',
+  },
+];
 
 export const VIEWS: ViewDef[] = [
-  { id: 'spiral', tab: 'map', label: 'The Histomap', sh: 'Histomap', module: 'helix', budget: 1 },
+  {
+    id: 'spiral',
+    tab: 'map',
+    get label() {
+      return isZh() ? '科技长卷' : 'The Histomap';
+    },
+    get sh() {
+      return isZh() ? '长卷' : 'Histomap';
+    },
+    module: 'helix',
+    budget: 1,
+  },
 ];
 
 export const PLATES = ['anatomy', 'strata', 'genealogy', 'capital', 'benchmarks', 'policy', 'lineage'];

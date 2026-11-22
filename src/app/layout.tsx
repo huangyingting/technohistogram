@@ -4,14 +4,14 @@ import { BASE_PATH, assetUrl } from '../lib/basePath';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
-  title: 'Technology Histomap',
+  title: '技术演进全图 · Technology Histomap',
   description:
-    '4,823 records of technology on one spiral timeline, from 3.3 million BCE to 2026, each with its source. One turn per century since 1026; eight roots reach further back.',
+    '从公元前 330 万年到 2026 年：在一座三维螺旋星图上呈现 4,828 条附有原始文献出处的世界技术史记录。自公元 1026 年起每世纪旋转一圈，八条远古根脉追溯人类技术起源。',
   manifest: assetUrl('/app.webmanifest'),
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Histomap',
+    title: '技术演进全图',
   },
   icons: {
     icon: [
@@ -22,24 +22,24 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    siteName: 'Technology Histomap',
-    title: 'Technology Histomap',
+    siteName: '技术演进全图 · Technology Histomap',
+    title: '技术演进全图 · Technology Histomap',
     description:
-      '4,823 records of technology on one spiral timeline, from 3.3 million BCE to 2026, each with its source. One turn per century since 1026; eight roots reach further back.',
+      '从公元前 330 万年到 2026 年：三维 WebGPU 螺旋星图呈现 4,828 条技术史考证记录，支持中英双语即时切换。',
     images: [
       {
         url: assetUrl('/assets/og-spiral.png'),
         width: 1200,
         height: 630,
-        alt: 'Spiral timeline of 4,823 technology records, one turn per century from 1026 to 2026, roots reaching back to 3.3 million BCE, drawn on a dark ground',
+        alt: '技术演进全图：涵盖公元前 330 万年至 2026 年共 4,828 条技术史记录的三维螺旋时间轴',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Technology Histomap',
+    title: '技术演进全图 · Technology Histomap',
     description:
-      '4,823 records of technology on one spiral timeline, from 3.3 million BCE to 2026, each with its source. One turn per century since 1026; eight roots reach further back.',
+      '从公元前 330 万年到 2026 年：三维 WebGPU 螺旋星图呈现 4,828 条技术史考证记录，支持中英双语即时切换。',
     images: [assetUrl('/assets/og-spiral.png')],
   },
 };
@@ -62,6 +62,16 @@ const FONT_FACE_CSS = `
 const PREBOOT_SCRIPT = `(function(){
   try {
     var B = ${JSON.stringify(BASE_PATH)};
+    var lang = 'zh';
+    try {
+      var sp = new URLSearchParams(location.search);
+      var qLang = sp.get('lang');
+      var saved = localStorage.getItem('histomap_lang');
+      if (qLang === 'en' || qLang === 'zh') lang = qLang;
+      else if (saved === 'en' || saved === 'zh') lang = saved;
+    } catch (e) {}
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.documentElement.dataset.lang = lang;
     var h = location.hash.slice(1);
     if (!h || /(^|&)intro=1(&|$)/.test(h) || !/(^|&)(v|e|tr|m)=/.test(h)) {
       document.documentElement.classList.add('arrive', 'arrival-mode');
@@ -69,6 +79,7 @@ const PREBOOT_SCRIPT = `(function(){
     }
     var P = (window.__pre = {});
     var f = function(u) { P[u] = fetch(u); P[u].catch(function(){}); return P[u]; };
+    f(B + '/data/zh_i18n.json');
     f(B + '/data/manifest.json')
       .then(function(r) { return r.clone().json(); })
       .then(function(m) {
@@ -103,10 +114,16 @@ const PREBOOT_SCRIPT = `(function(){
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="zh-CN" data-lang="zh" suppressHydrationWarning>
       <head>
         <meta name="mobile-web-app-capable" content="yes" />
         <style dangerouslySetInnerHTML={{ __html: FONT_FACE_CSS }} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+          rel="stylesheet"
+        />
         <link
           rel="preload"
           href={assetUrl('/assets/fonts/instrument-serif-1.ttf')}

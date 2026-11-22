@@ -2,6 +2,7 @@
 import { db, census, onData } from './data';
 import { set, TABS } from './store';
 import { assetUrl } from './basePath';
+import { isZh } from './i18n';
 
 const esc = (v: any) =>
   String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
@@ -82,15 +83,15 @@ async function loadPalette() {
   }
 }
 
-const OBJECTS: { id: string; year: number; name: string; short?: string; d: string; s?: number }[] = [
-  { id: 'su-song-astronomical-clock-1092', year: 1092, name: "Su Song's clock", d: 'clock' },
-  { id: 'jikji-metal-type-1377-1377', year: 1377, name: 'Jikji, printed with movable metal type in Goryeo Korea', short: 'Jikji \u00b7 Goryeo Korea', d: 'book' },
-  { id: 'gutenberg-press-1450', year: 1450, name: "Gutenberg's press", d: 'press' },
-  { id: 'newcomen-engine-1712', year: 1712, name: 'Newcomen engine', d: 'engine' },
-  { id: 'morse-telegraph-1844', year: 1844, name: 'telegraph', d: 'key' },
-  { id: 'transistor-1947', year: 1947, name: 'transistor', d: 'transistor' },
-  { id: 'www-public-1991', year: 1991, name: 'World Wide Web', d: 'web' },
-  { id: 'gpt-6-astra-2026', year: 2026, name: 'GPT-6 Astra', d: 'model' },
+const OBJECTS: { id: string; year: number; name: string; nameZh: string; short?: string; d: string; s?: number }[] = [
+  { id: 'su-song-astronomical-clock-1092', year: 1092, name: "Su Song's clock", nameZh: '苏颂水运仪象台', d: 'clock' },
+  { id: 'jikji-metal-type-1377-1377', year: 1377, name: 'Jikji, printed with movable metal type in Goryeo Korea', nameZh: '《直指心体要节》金属活字本', short: 'Jikji \u00b7 Goryeo Korea', d: 'book' },
+  { id: 'gutenberg-press-1450', year: 1450, name: "Gutenberg's press", nameZh: '古腾堡活字印刷机', d: 'press' },
+  { id: 'newcomen-engine-1712', year: 1712, name: 'Newcomen engine', nameZh: '纽科门大气蒸汽机', d: 'engine' },
+  { id: 'morse-telegraph-1844', year: 1844, name: 'telegraph', nameZh: '莫尔斯电报', d: 'key' },
+  { id: 'transistor-1947', year: 1947, name: 'transistor', nameZh: '点接触晶体管', d: 'transistor' },
+  { id: 'www-public-1991', year: 1991, name: 'World Wide Web', nameZh: '万维网（WWW）', d: 'web' },
+  { id: 'gpt-6-astra-2026', year: 2026, name: 'GPT-6 Astra', nameZh: 'GPT-6 Astra', d: 'model' },
 ];
 
 const DRAW_OBJ: Record<string, string> = {
@@ -113,20 +114,25 @@ export function tabKey() {
 }
 
 function html(F: { N: number; sourced: boolean }) {
-  const word = F.sourced ? 'sourced' : 'dated';
-  const objs = OBJECTS.map(
-    (o, i) =>
-      `<g class="sp-obj" data-i="${i}" style="--i:${i}"><line class="sp-lead"/><circle class="sp-pin" r="4.5"/><g class="sp-ic">${DRAW_OBJ[o.d]}</g><text class="sp-nm"><tspan class="y">${o.year}</tspan><tspan class="n" dx="7">${esc(o.name)}</tspan></text><title>${esc(o.name)}, ${o.year}</title></g>`,
-  ).join('');
+  const zh = isZh();
+  const word = zh ? (F.sourced ? '条考证史料' : '条编年记录') : F.sourced ? 'sourced' : 'dated';
+  const objs = OBJECTS.map((o, i) => {
+    const nm = zh ? o.nameZh : o.name;
+    return `<g class="sp-obj" data-i="${i}" style="--i:${i}"><line class="sp-lead"/><circle class="sp-pin" r="4.5"/><g class="sp-ic">${DRAW_OBJ[o.d]}</g><text class="sp-nm"><tspan class="y">${o.year}</tspan><tspan class="n" dx="7">${esc(nm)}</tspan></text><title>${esc(nm)}, ${o.year}</title></g>`;
+  }).join('');
   return `
-  <h2 id="intro-h" class="sp-hl"><span class="ln" style="--i:0">Technology</span><span class="ln" style="--i:1">Histomap</span></h2>
+  <h2 id="intro-h" class="sp-hl"><span class="ln" style="--i:0">${zh ? '技术演进' : 'Technology'}</span><span class="ln" style="--i:1">${zh ? '全图' : 'Histomap'}</span></h2>
   <canvas class="sp-cv" aria-hidden="true"></canvas>
   <svg class="sp-svg" aria-hidden="true">${objs}</svg>
-  <p class="ar-vh">A spiral timeline of ${fmt(F.N)} from ${Y0} to ${Y1}, one turn per century, with roots reaching back to 3.3 million BCE, with eight objects marked: ${OBJECTS.map((o) => `${o.name} ${o.year}`).join(', ')}.</p>
+  <p class="ar-vh">${
+    zh
+      ? `涵盖 ${fmt(F.N)} 条技术史记录的螺旋年表，${Y0} 至 ${Y1} 年每世纪旋转一圈，八条远古根脉追溯至公元前 330 万年。`
+      : `A spiral timeline of ${fmt(F.N)} from ${Y0} to ${Y1}, one turn per century, with roots reaching back to 3.3 million BCE.`
+  }</p>
   <div class="sp-tb">
     <div class="sp-tb-n"><b>${fmt(F.N)}</b> <span>${word}</span></div>
-    <div class="sp-tb-k">${Y0} to ${Y1}, one turn per century, with its roots</div>
-    <button type="button" class="sp-start" data-a="enter">Start <span aria-hidden="true">&rarr;</span></button>
+    <div class="sp-tb-k">${zh ? `${Y0}—${Y1} 每世纪一圈 · 八脉溯源远古` : `${Y0} to ${Y1}, one turn per century, with its roots`}</div>
+    <button type="button" class="sp-start" data-a="enter">${zh ? '进入星图' : 'Start'} <span aria-hidden="true">&rarr;</span></button>
   </div>`;
 }
 

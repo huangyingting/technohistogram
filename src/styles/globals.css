@@ -588,9 +588,9 @@ html.arrival-mode .ar-pre, .ar-pre.live { display: grid; }
   --chalk-2: #d3d4d1;
   --chalk-3: #b9bbb8; /* 70% brightness floor for text on dark (DESIGN_BRIEF.md) */
   --accent: #b9292f;
-  --font-display: 'Instrument Serif', Georgia, serif;
-  --font-text: 'Instrument Sans', system-ui, sans-serif;
-  --font-mono: 'Instrument Sans', system-ui, sans-serif;
+  --font-display: 'Instrument Serif', 'Noto Serif SC', 'Noto Serif CJK SC', 'Source Han Serif SC', 'Songti SC', 'STSong', Georgia, serif;
+  --font-text: 'Instrument Sans', 'Noto Sans SC', 'PingFang SC', 'HarmonyOS Sans SC', 'Noto Sans CJK SC', 'Hiragino Sans GB', 'Microsoft YaHei UI', system-ui, sans-serif;
+  --font-mono: 'Instrument Sans', 'Noto Sans SC', 'PingFang SC', 'HarmonyOS Sans SC', 'Noto Sans CJK SC', 'Hiragino Sans GB', 'Microsoft YaHei UI', system-ui, sans-serif;
   --text-xs: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
   --text-sm: clamp(0.8125rem, 0.78rem + 0.2vw, 0.9375rem);
   --text-base: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
@@ -3345,7 +3345,690 @@ html.arrival-mode .ar-pre, .ar-pre.live { display: grid; }
 .hx-udot { flex: 0 0 8px; width: 8px; height: 8px; border-radius: 50%; margin-top: 7px; }
 .hx-udot.ring { background: transparent; border: 1.8px solid currentColor; box-sizing: border-box; width: 9px; height: 9px; }
 .hx-utxt { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 auto; }
-.hx-ut { font: 500 14.5px/1.35 'Instrument Sans', system-ui, sans-serif; color: #eef0fa; }
+.hx-ut { font: 500 14.5px/1.42 var(--font-text); color: #eef0fa; }
 .hx-urow.pr .hx-ut { font-weight: 400; }
-.hx-um { font: 400 13px/1.3 'Instrument Sans', system-ui, sans-serif; color: #aeb6dc; }
+.hx-um { font: 400 13px/1.35 var(--font-text); color: #aeb6dc; }
+
+/* ============================================================================
+   2026 Bilingual Editorial Edition — Typography, Layout & Glassmorphic Chrome
+   ============================================================================ */
+
+/* 1. Editorial Font Stacks across Arrival, Intro, Unit Sheet & Drawers */
+.ar-pre,
+.arrival .ar-lines,
+.sp-hl,
+.sp-tb-n b,
+.sp-start,
+.hx-utop h3 {
+  font-family: var(--font-display) !important;
+}
+.ar-pre small,
+.arrival .ar-lines small,
+.hx-ux,
+.hx-usub,
+.hx-uchips button,
+.hx-ug {
+  font-family: var(--font-text) !important;
+}
+
+/* Upright editorial gold emphasis for Chinese display glyphs (no synthetic oblique slant) */
+html[data-lang='zh'] .ar-pre em,
+html[data-lang='zh'] .arrival .ar-lines em,
+html[data-lang='zh'] .brand h1 em {
+  font-style: normal;
+  font-weight: 600;
+  color: #ffe2a8;
+}
+html[data-lang='en'] .brand h1 em {
+  color: #ffe2a8;
+}
+
+/* Chinese editorial reading rhythm & dual-language reference subtitles */
+html[data-lang='zh'] body {
+  line-height: 1.58;
+}
+html[data-lang='zh'] .drawer-title h3 {
+  font-weight: 600;
+  line-height: 1.32 !important;
+}
+.drawer-title .en-sub {
+  margin: 4px 0 8px;
+  font: 400 13.5px/1.4 var(--font-text);
+  color: rgba(186, 196, 236, 0.72);
+}
+html[data-lang='zh'] .drawer-body .summary,
+html[data-lang='zh'] .drawer-body p {
+  line-height: 1.72;
+  text-align: justify;
+}
+html[data-lang='zh'] .drawer .sect-h,
+html[data-lang='zh'] .drawer-body dt,
+html[data-lang='zh'] .drawer .where .k,
+html[data-lang='zh'] .drawer .verif span {
+  font-style: normal !important;
+}
+
+/* 2. Unified Glassmorphic Topbar on the 3D Spiral Page */
+html[data-tab='map'] body .topbar {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 58px;
+  padding: 6px clamp(14px, 2.2vw, 32px) !important;
+  background: linear-gradient(180deg, rgba(10, 14, 42, 0.90) 0%, rgba(8, 12, 36, 0.78) 100%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.35);
+  backdrop-filter: blur(22px) saturate(1.35);
+  border-bottom: 1px solid rgba(184, 198, 255, 0.14) !important;
+  box-shadow: 0 8px 32px rgba(2, 4, 18, 0.42);
+  z-index: 25;
+}
+
+html[data-tab='map'] body .topbar .brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding-top: 0 !important;
+  cursor: pointer;
+  flex: 0 0 auto;
+  border-radius: 8px;
+  padding: 4px 6px;
+  margin-left: -6px;
+  transition: opacity 160ms ease;
+}
+html[data-tab='map'] body .topbar .brand:hover {
+  opacity: 0.9;
+}
+html[data-tab='map'] body .topbar .brand-main {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+html[data-tab='map'] body .topbar .brand h1 {
+  font-size: 23px !important;
+  line-height: 1.1;
+  color: #f4f6ff;
+  text-shadow: 0 2px 16px rgba(6, 8, 26, 0.65);
+}
+html[data-tab='map'] body .topbar .brand .yrs {
+  font-size: 12.5px !important;
+  color: rgba(182, 194, 238, 0.78) !important;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(140, 162, 255, 0.10);
+  border: 1px solid rgba(184, 198, 255, 0.14);
+}
+
+/* 3. Center Quick Epoch & Camera Control Rail */
+.hx-quickrail {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  flex: 1 1 auto;
+  justify-content: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 2px 4px;
+}
+.hx-quickrail::-webkit-scrollbar {
+  display: none;
+}
+.hx-epochs,
+.hx-cam-btns {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background: rgba(18, 24, 62, 0.58);
+  border: 1px solid rgba(190, 204, 255, 0.12);
+  border-radius: 999px;
+  padding: 3px;
+}
+.hx-rail-sep {
+  width: 1px;
+  height: 18px;
+  background: rgba(190, 204, 255, 0.16);
+  flex: 0 0 auto;
+}
+.hx-ep-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: rgba(206, 215, 248, 0.84);
+  font: 500 12px/1 var(--font-text);
+  padding: 5px 8.5px;
+  border-radius: 999px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+.hx-ep-btn:hover {
+  color: #ffffff;
+  background: rgba(154, 174, 255, 0.14);
+}
+.hx-ep-btn.active {
+  color: #0b102d;
+  background: linear-gradient(180deg, #f7f4eb 0%, #e7dec8 100%);
+  box-shadow: 0 2px 10px rgba(255, 226, 168, 0.28);
+  font-weight: 600;
+}
+.hx-ep-btn.cam.accent {
+  color: #ffe2a8;
+}
+.hx-ep-btn.cam.accent:hover {
+  background: rgba(255, 226, 168, 0.16);
+  color: #fff0cf;
+}
+
+/* 4. Right Action Toolbar: Domains, Guided Tours, Search, Language Switcher, Help */
+.hx-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  position: relative;
+}
+.hx-pop-wrap {
+  position: relative;
+  display: inline-flex;
+}
+.hx-tool-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(190, 204, 255, 0.16);
+  background: rgba(24, 32, 78, 0.56);
+  color: #eef1fc;
+  font: 500 13px/1 var(--font-text);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+.hx-tool-btn:hover,
+.hx-tool-btn.active {
+  background: rgba(127, 152, 255, 0.22);
+  border-color: rgba(190, 208, 255, 0.38);
+}
+.hx-dot-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 5px);
+  gap: 2px;
+}
+.hx-dot-grid i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  display: block;
+}
+.hx-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #ffe2a8;
+  color: #0b102d;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* Search Pill Upgrade */
+html[data-tab='map'] body .topbar .search {
+  width: 196px !important;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+@media (min-width: 1540px) {
+  html[data-tab='map'] body .topbar .search {
+    width: 244px !important;
+  }
+}
+html[data-tab='map'] body .topbar .search input {
+  height: 34px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(190, 204, 255, 0.16) !important;
+  background: rgba(20, 27, 68, 0.62) !important;
+  padding: 0 28px 0 32px !important;
+  font-size: 13px !important;
+  color: #f2f4ff !important;
+  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+html[data-tab='map'] body .topbar .search input:focus {
+  background: rgba(26, 35, 86, 0.88) !important;
+  border-color: rgba(160, 182, 255, 0.55) !important;
+  box-shadow: 0 0 0 3px rgba(127, 152, 255, 0.16);
+  outline: none !important;
+}
+html[data-tab='map'] body .topbar .search > svg {
+  left: 11px !important;
+  width: 14px;
+  height: 14px;
+  color: rgba(190, 204, 255, 0.72);
+  pointer-events: none;
+}
+.hx-kbd {
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+  font: 500 11px/1 var(--font-text);
+  color: rgba(184, 198, 246, 0.6);
+  border: 1px solid rgba(184, 198, 246, 0.2);
+  border-radius: 4px;
+  padding: 2px 5px;
+}
+.search:focus-within .hx-kbd,
+.search.has-q .hx-kbd {
+  display: none;
+}
+
+/* Search Results Glass Upgrade */
+html[data-tab='map'] body .search-results {
+  top: calc(100% + 8px);
+  border-radius: 14px !important;
+  border: 1px solid rgba(195, 209, 255, 0.18) !important;
+  background: rgba(9, 13, 38, 0.94) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  backdrop-filter: blur(24px) saturate(1.3);
+  box-shadow: 0 22px 56px rgba(2, 4, 18, 0.68) !important;
+}
+html[data-tab='map'] body .search-results button {
+  grid-template-columns: 62px minmax(0, 1fr) auto !important;
+  gap: 0 10px;
+  padding: 9px 14px;
+}
+
+/* Segmented Language Switcher (中 / EN) */
+.hx-lang-sw {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  height: 34px;
+  border-radius: 999px;
+  background: rgba(18, 24, 62, 0.68);
+  border: 1px solid rgba(190, 204, 255, 0.18);
+}
+.hx-lang-sw button {
+  border: 0;
+  background: transparent;
+  color: rgba(196, 206, 244, 0.76);
+  font: 600 12.5px/1 var(--font-text);
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+.hx-lang-sw button:hover {
+  color: #ffffff;
+}
+.hx-lang-sw button.on {
+  background: rgba(238, 242, 255, 0.94);
+  color: #090d28;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+}
+
+/* Help (?) Pill */
+.hx-icon-pill {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(190, 204, 255, 0.18);
+  background: rgba(20, 27, 68, 0.56);
+  color: rgba(214, 222, 252, 0.88);
+  font: 600 13.5px/1 var(--font-text);
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+.hx-icon-pill:hover,
+.hx-icon-pill.active {
+  background: rgba(127, 152, 255, 0.24);
+  border-color: rgba(190, 208, 255, 0.4);
+  color: #ffffff;
+}
+
+/* 5. Floating Glassmorphic Popovers (Domains, Guided Tours, Help) */
+.hx-pop {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 45;
+  background: rgba(10, 14, 40, 0.95);
+  -webkit-backdrop-filter: blur(26px) saturate(1.35);
+  backdrop-filter: blur(26px) saturate(1.35);
+  border: 1px solid rgba(198, 212, 255, 0.18);
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  color: #eef1fc;
+  box-shadow: 0 24px 64px rgba(2, 4, 18, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  animation: hx-pop-in 160ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes hx-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hx-pop.dom-pop {
+  width: min(420px, calc(100vw - 24px));
+  right: -80px;
+}
+.hx-pop.tour-pop {
+  width: min(390px, calc(100vw - 24px));
+  right: -40px;
+  max-height: min(72vh, 560px);
+  overflow-y: auto;
+}
+.hx-pop.help-pop {
+  width: min(340px, calc(100vw - 24px));
+  right: 0;
+}
+.hx-pop-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(198, 212, 255, 0.12);
+}
+.hx-pop-head strong {
+  display: block;
+  font: 600 15px/1.3 var(--font-text);
+  color: #f6f7ff;
+}
+.hx-pop-head small {
+  display: block;
+  margin-top: 2px;
+  font: 400 12.5px/1.35 var(--font-text);
+  color: rgba(182, 194, 238, 0.78);
+}
+.hx-pop-link {
+  border: 1px solid rgba(198, 212, 255, 0.22);
+  background: rgba(127, 152, 255, 0.12);
+  color: #e4e9ff;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font: 500 12px/1.2 var(--font-text);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.hx-pop-link:hover:not(:disabled) {
+  background: rgba(127, 152, 255, 0.26);
+}
+.hx-pop-link:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* 16-Domain Spectrum Grid */
+.hx-dom-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+.hx-dom-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(198, 212, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: #eef1fc;
+  font: 500 13px/1.25 var(--font-text);
+  text-align: left;
+  cursor: pointer;
+  transition: background 140ms ease, border-color 140ms ease, opacity 140ms ease;
+}
+.hx-dom-chip i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: 0 0 9px;
+  box-shadow: 0 0 8px currentColor;
+}
+.hx-dom-chip:hover {
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(198, 212, 255, 0.28);
+}
+.hx-dom-chip.selected {
+  background: rgba(143, 168, 255, 0.20);
+  border-color: rgba(210, 222, 255, 0.52);
+  color: #ffffff;
+}
+.hx-dom-chip.off {
+  opacity: 0.42;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Curated Tour List */
+.hx-tour-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.hx-tour-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 11px;
+  border: 1px solid rgba(198, 212, 255, 0.12);
+  background: rgba(255, 255, 255, 0.045);
+  color: #eef1fc;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+.hx-tour-item:hover,
+.hx-tour-item.on {
+  background: rgba(140, 164, 255, 0.16);
+  border-color: rgba(206, 218, 255, 0.36);
+}
+.hx-tour-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.hx-tour-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 600 14.5px/1.3 var(--font-display);
+  color: #f8f9ff;
+}
+.hx-tour-title i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: 0 0 9px;
+}
+.hx-tour-steps {
+  font: 500 12px/1 var(--font-text);
+  color: rgba(184, 198, 244, 0.78);
+  white-space: nowrap;
+}
+.hx-tour-sub {
+  margin: 4px 0 0 17px;
+  font: 400 12.5px/1.4 var(--font-text);
+  color: rgba(186, 198, 240, 0.80);
+}
+
+/* Help Guide List */
+.hx-help-list {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+.hx-help-list > div {
+  display: grid;
+  gap: 2px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(198, 212, 255, 0.08);
+}
+.hx-help-list > div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.hx-help-list dt {
+  font: 600 13px/1.3 var(--font-text);
+  color: #ffe2a8;
+}
+.hx-help-list dd {
+  margin: 0;
+  font: 400 12.5px/1.4 var(--font-text);
+  color: rgba(214, 222, 252, 0.85);
+}
+
+/* 6. Guided Tour Floating Card (.tourbar) on Dark 3D Spiral Ground */
+html[data-tab='map'] .tourbar {
+  top: calc(var(--top-h, 58px) + 14px);
+  left: 20px;
+  bottom: auto;
+  right: auto;
+  width: min(440px, calc(100vw - 32px));
+  background: rgba(10, 14, 42, 0.90);
+  -webkit-backdrop-filter: blur(22px) saturate(1.3);
+  backdrop-filter: blur(22px) saturate(1.3);
+  color: #eef1fc;
+  border: 1px solid rgba(198, 212, 255, 0.18);
+  border-top: 3px solid var(--tc, #ffe2a8);
+  border-radius: 14px;
+  box-shadow: 0 20px 52px rgba(2, 4, 18, 0.65);
+}
+html[data-tab='map'] .tourbar .tb-say {
+  font-size: 18px;
+  line-height: 1.52;
+  color: #f4f6ff;
+}
+html[data-tab='map'] .tourbar .tb-ctl button {
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(198, 212, 255, 0.2);
+  color: #eef1fc;
+}
+html[data-tab='map'] .tourbar .tb-ctl button.pri {
+  background: #eef1fc;
+  color: #090d28;
+  border-color: #eef1fc;
+  font-weight: 600;
+}
+html[data-tab='map'] .tourbar .tb-speed {
+  border-radius: 8px;
+  border-color: rgba(198, 212, 255, 0.2);
+}
+
+/* 7. Evidence Drawer & Floating Unit Sheet Visual Polish */
+html[data-tab='map'] .drawer {
+  background: linear-gradient(180deg, rgba(11, 15, 44, 0.94) 0%, rgba(7, 10, 32, 0.96) 100%) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(1.3) !important;
+  backdrop-filter: blur(26px) saturate(1.3) !important;
+  border-left: 1px solid rgba(198, 212, 255, 0.16) !important;
+  box-shadow: -20px 0 56px rgba(2, 4, 18, 0.68) !important;
+}
+.hx-unit {
+  background: linear-gradient(180deg, rgba(11, 16, 46, 0.94) 0%, rgba(8, 11, 34, 0.96) 100%) !important;
+  border: 1px solid rgba(198, 212, 255, 0.18) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 22px 56px rgba(2, 4, 18, 0.70) !important;
+}
+
+/* 8. Responsive Layout (< 1180px & Mobile <= 760px) */
+@media (max-width: 1180px) {
+  html[data-tab='map'] body .topbar {
+    flex-wrap: wrap;
+    row-gap: 6px;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+  html[data-tab='map'] body .topbar .hx-quickrail {
+    order: 3;
+    flex: 1 1 100%;
+    justify-content: flex-start;
+    padding-top: 2px;
+  }
+  .hx-help-wrap {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  html[data-tab='map'] body .topbar .brand .yrs {
+    display: none;
+  }
+  html[data-tab='map'] body .topbar .brand h1 {
+    font-size: 20px !important;
+  }
+  .hx-tool-btn {
+    height: 32px;
+    padding: 0 9px;
+    font-size: 12px;
+  }
+  html[data-tab='map'] body .topbar .search {
+    width: 36px !important;
+    height: 32px;
+  }
+  html[data-tab='map'] body .topbar .search input {
+    width: 36px !important;
+    height: 32px !important;
+    padding: 0 0 0 34px !important;
+  }
+  html[data-tab='map'] body .topbar .search input::placeholder {
+    color: transparent !important;
+  }
+  html[data-tab='map'] body .topbar .search:focus-within,
+  html[data-tab='map'] body .topbar .search.has-q {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 8px;
+    width: auto !important;
+    z-index: 30;
+  }
+  html[data-tab='map'] body .topbar .search:focus-within input,
+  html[data-tab='map'] body .topbar .search.has-q input {
+    width: 100% !important;
+    padding: 0 14px 0 34px !important;
+    background: rgba(14, 19, 54, 0.96) !important;
+  }
+  .hx-kbd {
+    display: none;
+  }
+  .hx-lang-sw {
+    height: 32px;
+  }
+  .hx-lang-sw button {
+    height: 26px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+  .hx-pop.dom-pop,
+  .hx-pop.tour-pop {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    top: calc(var(--top-h, 88px) + 6px);
+    width: auto;
+  }
+  html[data-tab='map'] .tourbar {
+    left: 10px;
+    right: 10px;
+    width: auto;
+    top: calc(var(--top-h, 88px) + 8px);
+  }
+}
+
 
