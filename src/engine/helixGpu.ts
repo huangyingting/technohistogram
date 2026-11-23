@@ -34,8 +34,8 @@ import {
   textureFromImage,
 } from './webgpu';
 
-const NIGHT_HEX = '#06081a';
-const INK_HEX = '#eef0fa';
+const NIGHT_HEX = '#060d0e';
+const INK_HEX = '#f2efe9';
 
 function srgbVec3ToLinear(c: any) {
   const lo = c.div(12.92);
@@ -920,11 +920,12 @@ export class HelixGpuRenderer {
     this.canvas = canvas;
     this.camera.position.set(0, 0, 5);
 
-    // Pass 0: Night sky gradient + 128x128 LCG grain
+    // Pass 0: Deep Mineral Obsidian-Pine sky + Celadon astrolabe radial glow + 128x128 LCG grain
     this.grainTex = makeGrainTexture();
-    const g0 = hexToSrgbVec3('#06081a');
-    const g1 = hexToSrgbVec3('#0a0c2e');
-    const g2 = hexToSrgbVec3('#140f3e');
+    const g0 = hexToSrgbVec3('#050b0c');
+    const g1 = hexToSrgbVec3('#091517');
+    const g2 = hexToSrgbVec3('#0f2224');
+    const gAura = hexToSrgbVec3('#1c4a48');
     const groundGeo = new THREE.PlaneGeometry(1, 1);
     const groundMat = new THREE.MeshBasicNodeMaterial();
     groundMat.depthTest = false;
@@ -939,18 +940,23 @@ export class HelixGpuRenderer {
       // Screen coordinates with top-left origin: sx in [0, W], sy in [0, H]
       const sx = uv().x.mul(this.uSize.x);
       const sy = float(1.0).sub(uv().y).mul(this.uSize.y);
-      const gx = this.uSize.x.mul(0.3);
+      const gx = this.uSize.x.mul(0.32);
       const gy = this.uSize.y;
       const denom = tslMax(gx.mul(gx).add(gy.mul(gy)), 1.0);
       const t = tslClamp(sx.mul(gx).add(sy.mul(gy)).div(denom), 0.0, 1.0);
       const cA = vec3(g0.x, g0.y, g0.z);
       const cB = vec3(g1.x, g1.y, g1.z);
       const cC = vec3(g2.x, g2.y, g2.z);
-      const skySrgb = select(
+      const baseSky = select(
         t.lessThan(0.55),
         tslMix(cA, cB, t.div(0.55)),
         tslMix(cB, cC, t.sub(0.55).div(0.45)),
       );
+      // Subtle mineral-celadon zenith aura behind the right-hand spiral stage
+      const dx = uv().x.sub(0.68).mul(1.25);
+      const dy = float(1.0).sub(uv().y).sub(0.50);
+      const rad = smoothstep(0.72, 0.0, length(vec2(dx, dy))).mul(0.32);
+      const skySrgb = tslMix(baseSky, vec3(gAura.x, gAura.y, gAura.z), rad);
       const gr = texture(this.grainTex, vec2(sx.div(128.0), sy.div(128.0)));
       const compositedSrgb = tslMix(skySrgb, gr.rgb, gr.a);
       return vec4(srgbVec3ToLinear(compositedSrgb), 1.0);
@@ -1007,7 +1013,7 @@ export class HelixGpuRenderer {
     const r = await createWebGPURenderer(this.canvas, {
       alpha: false,
       antialias: true,
-      clearColor: 0x06081a,
+      clearColor: 0x060d0e,
       clearAlpha: 1,
       label: 'helix',
     });

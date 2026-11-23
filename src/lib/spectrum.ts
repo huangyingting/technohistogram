@@ -1,17 +1,18 @@
-// The Histomap's colour is one blend: electric blue, violet, hot pink, red-orange, orange, yellow, white,
-// blended in OKLCh without a seam, with deep navy shadows and a chromatic fringe on the lines.
+// Mineral Astrolabe Spectrum: Cinnabar terracotta & burnished bronze (1026) -> mineral gold ->
+// malachite & verdigris jade -> glacial cyan -> warm porcelain pearl (2026), blended seamlessly in OKLCh
+// over deep obsidian-pine shadows with a copper/jade chromatic fringe.
 
 export const ELECTRIC: [number, string][] = [
-  [0, '#ffd84a'],
-  [0.14, '#ff9a1f'],
-  [0.28, '#ff5a2a'],
-  [0.4, '#ff3f66'],
-  [0.5, '#ff2d9b'],
-  [0.62, '#c438e8'],
-  [0.73, '#7a45ff'],
-  [0.84, '#2a5cff'],
-  [0.93, '#3fa9ff'],
-  [1, '#f2f8ff'],
+  [0, '#d96b38'],
+  [0.14, '#e6943a'],
+  [0.27, '#ebd060'],
+  [0.4, '#a6db6c'],
+  [0.53, '#47cf8e'],
+  [0.66, '#1fc7a8'],
+  [0.78, '#22c7d6'],
+  [0.89, '#62e3e8'],
+  [0.96, '#b8f7ec'],
+  [1, '#f7f4eb'],
 ];
 
 const _hex = (h: string): [number, number, number] => [
@@ -122,7 +123,7 @@ export function heat(t: number): string {
 
 export function sunk(h: string, d: number): string {
   const [L1, a1, b1] = toOklab(h);
-  const [L2, a2, b2] = toOklab('#06081a');
+  const [L2, a2, b2] = toOklab('#060d0e');
   const C = Math.hypot(a1, b1);
   let H = Math.atan2(b1, a1);
   if (H > 1.0 && H < 2.0) H += (1.05 - H) * d * 0.5;
@@ -153,30 +154,30 @@ export const ORDER = [
 ] as const;
 
 export const SPECTRUM: Record<string, [string, string, string, string, string]> = {
-  ai: ['#fedfdf', '#fe9fa2', '#fc5d6d', '#bd3748', '#7b242e'],
-  materials: ['#ffe0d7', '#ffa286', '#fe612c', '#bc3e0d', '#7b290c'],
-  energy: ['#ffe1d0', '#fea56e', '#eb7616', '#ab5201', '#713401'],
-  space: ['#ffe3c1', '#fdaa24', '#d28a0c', '#966208', '#643f00'],
-  transport: ['#fae7af', '#e3b904', '#ba9708', '#856c07', '#584600'],
-  biotech: ['#bdf8d7', '#1bdf95', '#18b77a', '#008455', '#015636'],
-  computing: ['#acf8f5', '#21d8d4', '#00b2ae', '#037f7c', '#035351'],
-  semiconductors: ['#caeffe', '#44cffe', '#0fabd7', '#0b7a9a', '#005067'],
-  internet: ['#dbe9ff', '#96c0fe', '#599bfb', '#236bcf', '#184687'],
-  communications: ['#e1e7ff', '#abb9fe', '#8090fc', '#5560cf', '#373e87'],
-  software: ['#ebe3ff', '#c9acfe', '#ae7bfb', '#7f51c1', '#53347e'],
-  society: ['#ffdbf6', '#ff90e9', '#e55ece', '#a73f95', '#6d2961'],
-  media: ['#ffdee9', '#ff9ac0', '#f9559f', '#b53772', '#76254a'],
-  agriculture: ['#edf6bf', '#c9e24f', '#9fbf12', '#728a08', '#4a5a04'],
-  health: ['#c9f6ec', '#62e6cb', '#1fc0a4', '#0f8b76', '#0a5b4d'],
-  home: ['#ffe6dc', '#ffb8a0', '#ff8666', '#c45a3a', '#7f3a22'],
+  ai: ['#ffe3dc', '#f99b8b', '#ec5f4f', '#b43a2d', '#732119'],
+  materials: ['#ffe5d4', '#f6a77a', '#df6d35', '#a64719', '#6c2b0d'],
+  energy: ['#ffebd2', '#f6b868', '#e58a24', '#a85d0a', '#6d3a04'],
+  space: ['#fdf0c4', '#f0ca55', '#cfa01c', '#946f0b', '#614704'],
+  transport: ['#f7efc2', '#dfd06a', '#b8a528', '#827312', '#554b08'],
+  biotech: ['#c8fae3', '#5ee9a8', '#22c382', '#0d8a58', '#075838'],
+  computing: ['#c4fbf4', '#5eead4', '#1fb8a6', '#0d8275', '#06544c'],
+  semiconductors: ['#ccf4fe', '#67dbf8', '#22aed6', '#0e7b9b', '#075066'],
+  internet: ['#d8effe', '#85c8f9', '#469be2', '#236cb0', '#144574'],
+  communications: ['#dfeafa', '#9cbbf2', '#6d92dc', '#4465aa', '#293f6e'],
+  software: ['#eae4fb', '#c3aff5', '#9678e0', '#694cb0', '#432f73'],
+  society: ['#f9e2ee', '#ea9fc8', '#cc67a0', '#964372', '#612949'],
+  media: ['#fde2e6', '#f49eab', '#db6278', '#a13d50', '#692432'],
+  agriculture: ['#eef8c8', '#c6e265', '#95ba29', '#698514', '#435609'],
+  health: ['#cbf9ee', '#6de7cc', '#27bfa0', '#128971', '#0a5949'],
+  home: ['#ffe9dd', '#f7b495', '#e47f58', '#aa5434', '#6f341f'],
 };
 
 export const GROUNDS = {
-  night: '#06081a',
-  indigo: '#141a3d',
-  print: '#e3e4ea',
-  ultramarine: '#1c2c96',
-  violet: '#5a2a9a',
+  night: '#060d0e',
+  indigo: '#0c1c1e',
+  print: '#e6ebe8',
+  ultramarine: '#0d2629',
+  violet: '#193836',
 };
 
 export const domainBase = (d: string): string => (SPECTRUM[d] || SPECTRUM.computing)[2];
@@ -184,11 +185,11 @@ export const domainLit = (d: string): string => (SPECTRUM[d] || SPECTRUM.computi
 export const domainCore = (d: string): string => (SPECTRUM[d] || SPECTRUM.computing)[0];
 
 export const INK = {
-  onDark: '#eef0fa',
-  onDark2: '#b9c0e4',
-  onDark3: '#7f88b8',
-  onLight: '#0f1120',
-  onLight2: '#4a4f66',
+  onDark: '#f2efe9',
+  onDark2: '#9cb5af',
+  onDark3: '#68837d',
+  onLight: '#0c1617',
+  onLight2: '#425653',
 };
 
 export const VERDICT: Record<string, { mark: string; word: string; pale: string }> = {
@@ -252,16 +253,16 @@ export const PAIRS: Record<string, [string, string]> = {
 
 export const MOTION = { fall: 900, split: 600, trace: 1400, resolve: 500 };
 
-export const KIT = { ink: '#eef0fa', soft: '#aeb6dc', night: '#06081a', indigo: '#141a3d', ultramarine: '#1c2c96' };
+export const KIT = { ink: '#f2efe9', soft: '#9cb5af', night: '#060d0e', indigo: '#0c1c1e', ultramarine: '#0d2629' };
 
 export const VERDICT_NIGHT: Record<string, string> = {
-  came_true: '#3fe0a0',
-  came_true_late: '#36c9d6',
-  partly: '#f2c14e',
-  wrong: '#ff4d6d',
-  pending: 'rgba(185,192,255,0.6)',
-  misattributed: '#e07be0',
-  unresolvable: '#7a80a8',
+  came_true: '#4ade9e',
+  came_true_late: '#4fd1c5',
+  partly: '#eab854',
+  wrong: '#f06464',
+  pending: 'rgba(156,181,175,0.62)',
+  misattributed: '#d482b8',
+  unresolvable: '#6e8782',
 };
 
 import { isZh, VERDICT_ZH, STATUS_ZH } from './i18n';

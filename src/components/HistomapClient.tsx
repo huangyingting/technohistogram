@@ -435,7 +435,7 @@ export default function HistomapClient() {
                       >
                         <div className="hx-tour-top">
                           <span className="hx-tour-title">
-                            <i style={{ background: t.color || '#7f98ff' }} />
+                            <i style={{ background: t.color || '#5eead4' }} />
                             {t.title}
                           </span>
                           <span className="hx-tour-steps">

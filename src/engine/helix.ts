@@ -113,13 +113,13 @@ const LIN_OF: Record<string, number> = Object.fromEntries(
 );
 const LANE_LIN = ORDER.map((d) => LIN_OF[d] ?? 7);
 
-const INK = '#eef0fa';
-const SOFT = '#aeb6dc';
+const INK = '#f2efe9';
+const SOFT = '#9cb5af';
 const NIGHT = GROUNDS.night;
-const GROUND = ['#06081a', '#0a0c2e', '#140f3e'];
-const FRINGE_BLUE = '#2f6dff';
-const FRINGE_RED = '#ff5a2a';
-const CORE = '#fff8ec';
+const GROUND = ['#050b0c', '#091517', '#0f2224'];
+const FRINGE_BLUE = '#2dd4bf';
+const FRINGE_RED = '#e8834a';
+const CORE = '#f7f4eb';
 const FONT_DISPLAY = FONT_STACK_DISPLAY;
 const FONT_TEXT = FONT_STACK_SANS;
 const linName = (en: string) => (isZh() ? ROOT_LINEAGE_ZH[en] || en : en);
@@ -193,7 +193,7 @@ const A0 = (270 * Math.PI) / 180;
 const GAP_Y = ((6 / 360) * 100) / 2;
 const ROOT_LEN = 4.4 * PITCH;
 const ROOT_X = -10 * PITCH;
-const EMBER = '#4a1a1e';
+const EMBER = '#4d2619';
 const TONE = [0, 1, 2, 1, 0, 2, 1, 0, 2, 0, 1, 2, 1];
 const FLOOR_PULLED = 2.6;
 const FLOOR_FAR = 2.2;
@@ -1095,8 +1095,8 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   const STRIP_W = 44;
   const STRIP_PAD = 18;
   const STRIP_BOT = 38;
-  const PLATE = 'rgba(6,8,26,0.92)';
-  const PLATE_S = 'rgba(6,8,26,0.72)';
+  const PLATE = 'rgba(5,12,14,0.92)';
+  const PLATE_S = 'rgba(5,12,14,0.74)';
   const READ = { pad: 10, date: 19, name: 24, line: 20 };
   const TAG_H = 18;
   const skyTop = () => 6;
@@ -1259,6 +1259,12 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     lg.addColorStop(1, GROUND[2]);
     g.fillStyle = lg;
     g.fillRect(0, 0, W, H);
+    const rg = g.createRadialGradient(W * 0.68, H * 0.5, 0, W * 0.68, H * 0.5, Math.max(W, H) * 0.62);
+    rg.addColorStop(0, 'rgba(28, 74, 72, 0.28)');
+    rg.addColorStop(0.55, 'rgba(16, 44, 46, 0.12)');
+    rg.addColorStop(1, 'rgba(5, 11, 12, 0)');
+    g.fillStyle = rg;
+    g.fillRect(0, 0, W, H);
     const t = document.createElement('canvas');
     t.width = t.height = 128;
     const tg = t.getContext('2d')!;
@@ -1268,9 +1274,9 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       s = (s * 1103515245 + 12345) & 0x7fffffff;
       const v = (s >> 16) & 255;
       const up = v > 128;
-      im.data[i] = up ? 238 : 0;
-      im.data[i + 1] = up ? 240 : 0;
-      im.data[i + 2] = up ? 250 : 0;
+      im.data[i] = up ? 236 : 0;
+      im.data[i + 1] = up ? 244 : 0;
+      im.data[i + 2] = up ? 240 : 0;
       im.data[i + 3] = Math.round((Math.abs(v - 128) / 128) * 9);
     }
     tg.putImageData(im, 0, 0);
@@ -3323,10 +3329,10 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
 
     x.save();
     x.globalAlpha = 0.96 * a;
-    x.shadowColor = 'rgba(0,0,0,0.6)';
-    x.shadowBlur = 22;
+    x.shadowColor = 'rgba(0,0,0,0.68)';
+    x.shadowBlur = 24;
     x.shadowOffsetY = 6;
-    x.fillStyle = 'rgba(9,12,34,0.94)';
+    x.fillStyle = 'rgba(7,16,18,0.95)';
     x.fillRect(cx0, cy0, CW, CH);
     x.restore();
 
@@ -3343,7 +3349,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     if (hasPic) {
       x.globalAlpha = a;
       drawPic(x, pic!, xx + PW / 2, yy + PH / 2, PW, PH);
-      x.strokeStyle = 'rgba(238,240,250,0.16)';
+      x.strokeStyle = 'rgba(156,181,175,0.22)';
       x.strokeRect(xx + 0.5, yy + 0.5, PW - 1, PH - 1);
       yy += PH + 9;
     }
@@ -3548,7 +3554,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       octx.save();
       octx.textAlign = 'left';
       octx.textBaseline = 'alphabetic';
-      octx.shadowColor = 'rgba(4, 7, 22, 0.85)';
+      octx.shadowColor = 'rgba(3, 9, 10, 0.88)';
       octx.shadowBlur = 16;
       if (isZh() && roEra === '公元前') {
         const eraFont = `600 ${Math.round(P.readout * 0.30)}px ${FONT_TEXT}`;
@@ -3678,13 +3684,13 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     if (a <= 0.02) return;
 
     plate(x, x0, y0, w, h, 0.94 * a);
-    x.strokeStyle = 'rgba(238,240,250,0.14)';
+    x.strokeStyle = 'rgba(130,206,194,0.20)';
     x.lineWidth = 1;
     x.globalAlpha = a;
     x.strokeRect(x0 + 0.5, y0 + 0.5, w - 1, h - 1);
 
     if (hasMore || f.total > 0 || f.fcast) {
-      x.fillStyle = 'rgba(238,240,250,0.28)';
+      x.fillStyle = 'rgba(156,181,175,0.34)';
       x.fillRect(x0 + w / 2 - 16, y0 + 5, 32, 3);
     }
 
@@ -3847,39 +3853,39 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const fh = fh0 - padY * 2;
 
     x.save();
-    // Frosted dark-sapphire reading card behind the desktop right-side rail
+    // Smoked Obsidian-Jade architectural reading frame on the desktop left rail
     const cardA = clamp(Math.max(headA, linesA), 0, 1);
     const bgGrad = x.createLinearGradient(fx0, fy0, fx0, fy0 + fh0);
-    bgGrad.addColorStop(0, `rgba(9, 13, 36, ${(0.84 * cardA).toFixed(3)})`);
-    bgGrad.addColorStop(1, `rgba(6, 9, 27, ${(0.92 * cardA).toFixed(3)})`);
+    bgGrad.addColorStop(0, `rgba(8, 18, 20, ${(0.88 * cardA).toFixed(3)})`);
+    bgGrad.addColorStop(1, `rgba(5, 11, 13, ${(0.95 * cardA).toFixed(3)})`);
     x.fillStyle = bgGrad;
-    x.shadowColor = `rgba(2, 4, 14, ${(0.55 * cardA).toFixed(3)})`;
-    x.shadowBlur = 22;
+    x.shadowColor = `rgba(1, 5, 6, ${(0.62 * cardA).toFixed(3)})`;
+    x.shadowBlur = 24;
     x.shadowOffsetY = 6;
     x.beginPath();
-    if (x.roundRect) x.roundRect(fx0, fy0, fw0, fh0, 12);
+    if (x.roundRect) x.roundRect(fx0, fy0, fw0, fh0, 8);
     else x.rect(fx0, fy0, fw0, fh0);
     x.fill();
     x.shadowBlur = 0;
     x.shadowOffsetY = 0;
 
-    const accentCol = f.fcast ? INK : typeOf(f.un);
-    x.strokeStyle = `rgba(205, 216, 255, ${(0.14 * cardA).toFixed(3)})`;
+    const accentCol = f.fcast ? '#6ee7d8' : typeOf(f.un);
+    x.strokeStyle = `rgba(130, 206, 194, ${(0.18 * cardA).toFixed(3)})`;
     x.lineWidth = 1;
     x.stroke();
 
-    // Subtle top accent bar matching current era's spectrum hue
+    // Precision top mineral accent rule matching current era's spectrum hue
     x.save();
     x.clip();
-    const topGlow = x.createLinearGradient(fx0, fy0, fx0 + fw0 * 0.7, fy0);
-    topGlow.addColorStop(0, hexA(accentCol, 0.65 * cardA));
+    const topGlow = x.createLinearGradient(fx0, fy0, fx0 + fw0 * 0.78, fy0);
+    topGlow.addColorStop(0, hexA(accentCol, 0.78 * cardA));
     topGlow.addColorStop(1, hexA(accentCol, 0));
     x.fillStyle = topGlow;
     x.fillRect(fx0, fy0, fw0, 2);
     x.restore();
 
     x.beginPath();
-    if (x.roundRect) x.roundRect(fx0 + 2, fy0 + 2, fw0 - 4, fh0 - 4, 10);
+    if (x.roundRect) x.roundRect(fx0 + 2, fy0 + 2, fw0 - 4, fh0 - 4, 6);
     else x.rect(fx - 4, fy - 4, fw + 8, fh + 8);
     x.clip();
     x.textAlign = 'left';
@@ -3918,7 +3924,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     }
 
     y += 8;
-    x.strokeStyle = 'rgba(205, 216, 255, 0.12)';
+    x.strokeStyle = 'rgba(130, 206, 194, 0.14)';
     x.lineWidth = 1;
     x.globalAlpha = headA;
     x.beginPath();
@@ -3988,14 +3994,14 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     }
     x.restore();
 
-    // Luminous rightward bridge notch connecting the selected left-panel item directly into the right-adjacent detail drawer
+    // Luminous celadon-jade bridge chevron connecting the selected left-panel item into the right-adjacent detail drawer
     if (itemRes.selMidY !== null && !P.vert && W >= 900) {
       x.save();
       const my = itemRes.selMidY;
       const rx = fx0 + fw0;
-      x.globalAlpha = 0.95 * linesA;
-      x.fillStyle = '#ffe2a8';
-      x.shadowColor = 'rgba(255, 226, 168, 0.65)';
+      x.globalAlpha = 0.96 * linesA;
+      x.fillStyle = '#5eead4';
+      x.shadowColor = 'rgba(94, 234, 212, 0.70)';
       x.shadowBlur = 10;
       x.beginPath();
       x.moveTo(rx - 1, my - 6);
@@ -4041,25 +4047,25 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         selMidY = y - 2 + rowH * 0.5;
         x.save();
         x.globalAlpha = a;
-        x.fillStyle = 'rgba(138, 164, 255, 0.16)';
-        x.strokeStyle = 'rgba(255, 226, 168, 0.34)';
+        x.fillStyle = 'rgba(45, 212, 191, 0.13)';
+        x.strokeStyle = 'rgba(94, 234, 212, 0.38)';
         x.lineWidth = 1;
         x.beginPath();
-          if (x.roundRect) x.roundRect(fx - 5, y - 3, fw + 12, rowH + 1, 7);
-          else x.rect(fx - 5, y - 3, fw + 12, rowH + 1);
-          x.fill();
-          x.stroke();
-          x.fillStyle = '#ffe2a8';
-          x.beginPath();
-          if (x.roundRect) x.roundRect(fx + fw + 4.5, y + 1, 2.5, Math.max(10, rowH - 7), 2);
-          else x.rect(fx + fw + 4.5, y + 1, 2.5, Math.max(10, rowH - 7));
-          x.fill();
-          x.restore();
+        if (x.roundRect) x.roundRect(fx - 5, y - 3, fw + 12, rowH + 1, 5);
+        else x.rect(fx - 5, y - 3, fw + 12, rowH + 1);
+        x.fill();
+        x.stroke();
+        x.fillStyle = '#5eead4';
+        x.beginPath();
+        if (x.roundRect) x.roundRect(fx + fw + 4.5, y + 1, 2.5, Math.max(10, rowH - 7), 1.5);
+        else x.rect(fx + fw + 4.5, y + 1, 2.5, Math.max(10, rowH - 7));
+        x.fill();
+        x.restore();
       } else if (isHov) {
-        x.fillStyle = 'rgba(238,240,250,0.08)';
+        x.fillStyle = 'rgba(94, 234, 212, 0.07)';
         x.globalAlpha = a;
         x.beginPath();
-        if (x.roundRect) x.roundRect(fx - 5, y - 2, fw + 9, rowH - 1, 6);
+        if (x.roundRect) x.roundRect(fx - 5, y - 2, fw + 9, rowH - 1, 5);
         else x.rect(fx - 5, y - 2, fw + 9, rowH - 1);
         x.fill();
       }
@@ -4067,7 +4073,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       if (hasPic) {
         x.globalAlpha = 0.95 * a;
         drawPic(x, pic!, fx + TH_W / 2, y + TH_H / 2 + 2, TH_W, TH_H);
-        x.strokeStyle = 'rgba(238,240,250,0.18)';
+        x.strokeStyle = 'rgba(156,181,175,0.22)';
         x.lineWidth = 1;
         x.strokeRect(fx + 0.5, y + 2.5, TH_W - 1, TH_H - 1);
       } else {
@@ -4108,7 +4114,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     if (claims.length && y < yMax - 24) {
       if (!f.fcast && cards.length) {
         y += 3;
-        x.strokeStyle = 'rgba(238,240,250,0.1)';
+        x.strokeStyle = 'rgba(130,206,194,0.13)';
         x.lineWidth = 1;
         x.globalAlpha = a;
         x.beginPath();
@@ -4132,25 +4138,25 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
           selMidY = y - 2 + rowH * 0.5;
           x.save();
           x.globalAlpha = a;
-          x.fillStyle = 'rgba(138, 164, 255, 0.16)';
-          x.strokeStyle = 'rgba(255, 226, 168, 0.34)';
+          x.fillStyle = 'rgba(45, 212, 191, 0.13)';
+          x.strokeStyle = 'rgba(94, 234, 212, 0.38)';
           x.lineWidth = 1;
           x.beginPath();
-          if (x.roundRect) x.roundRect(fx - 5, y - 3, fw + 12, rowH + 1, 7);
+          if (x.roundRect) x.roundRect(fx - 5, y - 3, fw + 12, rowH + 1, 5);
           else x.rect(fx - 5, y - 3, fw + 12, rowH + 1);
           x.fill();
           x.stroke();
-          x.fillStyle = '#ffe2a8';
+          x.fillStyle = '#5eead4';
           x.beginPath();
-          if (x.roundRect) x.roundRect(fx + fw + 4.5, y + 1, 2.5, Math.max(10, rowH - 7), 2);
+          if (x.roundRect) x.roundRect(fx + fw + 4.5, y + 1, 2.5, Math.max(10, rowH - 7), 1.5);
           else x.rect(fx + fw + 4.5, y + 1, 2.5, Math.max(10, rowH - 7));
           x.fill();
           x.restore();
         } else if (isHov) {
-          x.fillStyle = 'rgba(238,240,250,0.08)';
+          x.fillStyle = 'rgba(94, 234, 212, 0.07)';
           x.globalAlpha = a;
           x.beginPath();
-          if (x.roundRect) x.roundRect(fx - 5, y - 2, fw + 9, rowH - 1, 6);
+          if (x.roundRect) x.roundRect(fx - 5, y - 2, fw + 9, rowH - 1, 5);
           else x.rect(fx - 5, y - 2, fw + 9, rowH - 1);
           x.fill();
         }
@@ -4244,10 +4250,10 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   function drawStrip(x: CanvasRenderingContext2D, P: StagePreset) {
     const b = stripBox();
     const sy = BAND.stripY;
-    x.fillStyle = 'rgba(6,8,26,0.86)';
+    x.fillStyle = 'rgba(5, 12, 14, 0.90)';
     x.globalAlpha = 1;
     x.fillRect(0, sy, W, BAND.stripH);
-    x.strokeStyle = 'rgba(238,240,250,0.14)';
+    x.strokeStyle = 'rgba(130, 206, 194, 0.16)';
     x.lineWidth = 1;
     x.beginPath();
     x.moveTo(0, sy + 0.5);
@@ -4285,7 +4291,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       x.fillRect(bx, b.y - bh, bw, bh);
     }
 
-    x.strokeStyle = 'rgba(238,240,250,0.25)';
+    x.strokeStyle = 'rgba(156, 181, 175, 0.28)';
     x.lineWidth = 1;
     x.globalAlpha = 1;
     x.beginPath();
@@ -4293,7 +4299,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     x.lineTo(b.x1, b.y + 0.5);
     x.stroke();
 
-    x.strokeStyle = 'rgba(238,240,250,0.35)';
+    x.strokeStyle = 'rgba(94, 234, 212, 0.42)';
     x.beginPath();
     x.moveTo(rx1 + 0.5, b.y - 6);
     x.lineTo(rx1 + 0.5, b.y + 6);

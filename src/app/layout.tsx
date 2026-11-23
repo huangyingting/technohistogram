@@ -48,7 +48,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  themeColor: '#06081a',
+  themeColor: '#060d0e',
 };
 
 const FONT_FACE_CSS = `

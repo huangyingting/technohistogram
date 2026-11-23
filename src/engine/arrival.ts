@@ -486,9 +486,9 @@ export function runArrival({ targets, ready, onReveal, onDone }: RunArrivalOpts)
         clamp((time - DROP * 0.6) / 0.4, 0, 1) *
         (time < IMPACT ? 1 : 1 - (time - IMPACT) / 0.4);
       const g = ctx.createRadialGradient(cx, cy, Rb * 0.5, cx, cy, Rb * 2.1);
-      g.addColorStop(0, `rgba(255,232,180,${a})`);
-      g.addColorStop(0.45, `rgba(255,214,150,${a * 0.35})`);
-      g.addColorStop(1, 'rgba(255,214,150,0)');
+      g.addColorStop(0, `rgba(162,246,228,${a})`);
+      g.addColorStop(0.45, `rgba(79,209,197,${a * 0.36})`);
+      g.addColorStop(1, 'rgba(79,209,197,0)');
       ctx.fillStyle = g;
       ctx.fillRect(cx - Rb * 2.2, cy - Rb * 2.2, Rb * 4.4, Rb * 4.4);
     }
@@ -497,9 +497,9 @@ export function runArrival({ targets, ready, onReveal, onDone }: RunArrivalOpts)
       const fw = L.ballR * 2.6;
       const fh = L.ballR * 0.5;
       const g = ctx.createRadialGradient(cx, L.floor, 0, cx, L.floor, fw);
-      g.addColorStop(0, `rgba(255,236,200,${a})`);
-      g.addColorStop(0.35, `rgba(255,220,170,${a * 0.3})`);
-      g.addColorStop(1, 'rgba(255,220,170,0)');
+      g.addColorStop(0, `rgba(190,250,236,${a})`);
+      g.addColorStop(0.35, `rgba(94,234,212,${a * 0.32})`);
+      g.addColorStop(1, 'rgba(94,234,212,0)');
       ctx.save();
       ctx.translate(cx, L.floor);
       ctx.scale(1, fh / fw);

@@ -23,9 +23,9 @@ const CUT = 7 * PULSE;
 const Y0 = 1026;
 const Y1 = 2026;
 const TURN = 100;
-let INK = '#05060f';
-let WHITE = '#f7f6f1';
-let GROUND: string | null = null;
+let INK = '#050b0c';
+let WHITE = '#f4f1ea';
+let GROUND: string | null = '#0d2629';
 
 const PAL: Record<string, string> = {
   ai: '#E0716B',
