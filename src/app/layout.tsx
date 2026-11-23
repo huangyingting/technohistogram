@@ -72,6 +72,14 @@ const PREBOOT_SCRIPT = `(function(){
     } catch (e) {}
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
     document.documentElement.dataset.lang = lang;
+    var theme = 'jade';
+    try {
+      var spT = new URLSearchParams(location.search).get('theme');
+      var savedT = localStorage.getItem('histomap:theme');
+      if (spT === 'jade' || spT === 'starlight' || spT === 'xuan') theme = spT;
+      else if (savedT === 'jade' || savedT === 'starlight' || savedT === 'xuan') theme = savedT;
+    } catch (e) {}
+    document.documentElement.dataset.theme = theme;
     var h = location.hash.slice(1);
     if (!h || /(^|&)intro=1(&|$)/.test(h) || !/(^|&)(v|e|tr|m)=/.test(h)) {
       document.documentElement.classList.add('arrive', 'arrival-mode');
@@ -114,7 +122,7 @@ const PREBOOT_SCRIPT = `(function(){
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-CN" data-lang="zh" suppressHydrationWarning>
+    <html lang="zh-CN" data-lang="zh" data-theme="jade" suppressHydrationWarning>
       <head>
         <meta name="mobile-web-app-capable" content="yes" />
         <style dangerouslySetInnerHTML={{ __html: FONT_FACE_CSS }} />

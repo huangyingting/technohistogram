@@ -1,5 +1,5 @@
 // Shared UI: tooltip, drawer, scrubber, filters, search.
-import * as d3 from 'd3';
+import type * as d3Types from 'd3';
 import {
   db,
   neighbors,
@@ -17,7 +17,8 @@ import {
   modelEvents,
   ensure,
   ensureNow,
-  ensureAll,
+  ensureEventText,
+  ensureZhSearchIndex,
   needsFor,
   forecastCount,
 } from './data';
@@ -38,6 +39,9 @@ import {
 } from './spectrum';
 import { assetUrl } from './basePath';
 import { isZh, onLangChange, SIG_ZH, KIND_ZH, TAG_ZH } from './i18n';
+import { matchDynasties, synthesizeZhArchivalDigest, type DynastyPeriod } from './dynasties';
+import { isLineageSpotlight, toggleLineageSpotlight, onLineageChange, onThemeChange } from './theme';
+import { exportEventPoster } from './sharePoster';
 
 const clampY = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 const recCol = (y: number | string) => heat(slotOf(clampY(+y || 2026, YEAR_MIN, YEAR_MAX)) / SLOT_MAX);
@@ -409,13 +413,12 @@ export function initSearch() {
   window.addEventListener('resize', () => {
     if (!box.hidden) placeBox();
   });
-  q.addEventListener(
-    'focus',
-    () => {
-      ensureAll();
-    },
-    { once: true },
-  );
+  q.addEventListener('focus', () => {
+    ensure('past', 'meta');
+    ensureZhSearchIndex().then(() => {
+      if (document.activeElement === q && q.value.trim()) render();
+    });
+  });
   const hasQ = () => q.closest('.search')?.classList.toggle('has-q', !!q.value.trim());
   q.addEventListener('input', hasQ);
   q.addEventListener('blur', hasQ);
@@ -495,6 +498,7 @@ export function initSearch() {
       ? ({ who: '人物', org: '机构', tag: '脉络标签' } as Record<string, string>)[k] || k
       : ({ who: 'Person', org: 'Organization', tag: 'Tag' } as Record<string, string>)[k] || k;
   let ents: EntRow[] = [];
+  let dyns: DynastyPeriod[] = [];
   const hasCjk = (s: string) => /[\u3400-\u9fff]/.test(s);
   const render = () => {
     const v = q.value.trim().toLowerCase();
@@ -504,6 +508,8 @@ export function initSearch() {
     }
     const terms = v.split(/\s+/);
     ensureTxt();
+    ensureZhSearchIndex();
+    dyns = matchDynasties(v).slice(0, 3);
     ents = db.loaded.has('meta')
       ? entities()
           .filter((x) =>
@@ -529,6 +535,20 @@ export function initSearch() {
       .map((d) => d[0]);
     items = all.slice(0, 12);
     idx = -1;
+    const dynRows = dyns.length
+      ? `<div class="sr-h" aria-hidden="true"><span></span><span>${isZh() ? '纪年' : 'Span'}</span><span>${
+          isZh() ? '历史朝代与科技时代快跳' : 'Historical Dynasty & Tech Era'
+        }</span><span>${isZh() ? '史料' : 'Records'}</span></div>` +
+        dyns
+          .map((d, di) => {
+            const cnt = db.events.filter(
+              (ev) => ev.kind !== 'overlay' && ev.year >= d.start && ev.year <= d.end,
+            ).length;
+            const spanStr = isZh() ? d.spanZh : d.spanEn;
+            return `<button type="button" role="option" class="sr-dyn" data-dyn="${di}"><span class="n">◈</span><span class="y">${esc(fmtYear(d.focusYear))}</span><span class="t"><b>${esc(isZh() ? d.zh : d.en)} · ${esc(spanStr)}</b><span class="sr-dyn-sub">${esc(isZh() ? d.noteZh : d.noteEn)}</span></span><span class="d">${cnt}${isZh() ? ' 条' : ''}</span></button>`;
+          })
+          .join('')
+      : '';
     const entRows = ents.length
       ? `<div class="sr-h" aria-hidden="true"><span></span><span>${isZh() ? '相关' : 'Events'}</span><span>${
           isZh() ? '人物、机构或技术脉络' : 'Person, organization or tag'
@@ -541,8 +561,9 @@ export function initSearch() {
           .join('')
       : '';
     box.innerHTML =
-      items.length || ents.length
-        ? entRows +
+      items.length || ents.length || dyns.length
+        ? dynRows +
+          entRows +
           (items.length
             ? miniTimeline(all, items) +
               `<div class="sr-h" aria-hidden="true"><span>${isZh() ? '序号' : 'No.'}</span><span>${
@@ -570,8 +591,8 @@ export function initSearch() {
             : '')
         : `<div class="empty">${
             isZh()
-              ? `未找到与「${esc(q.value)}」匹配的记录。可尝试搜索「活字」「晶体管」「阿波罗」或英文关键词（如 Transformer）。`
-              : `Nothing matches "${esc(q.value)}". A name or a word like transistor finds records.`
+              ? `未找到与「${esc(q.value)}」匹配的记录。支持中文、拼音/首字母（如 zaozhi、rgzn）、朝代/时期（如 宋朝、工业革命）及英文检索。`
+              : `Nothing matches "${esc(q.value)}". Try keywords, Pinyin (e.g. zaozhi), dynasties (e.g. Song Dynasty), or tech terms.`
           }</div>`;
     placeBox();
     box.hidden = false;
@@ -596,6 +617,7 @@ export function initSearch() {
       else {
         set({ q: q.value.trim() });
         box.hidden = true;
+        q.blur();
       }
       return;
     } else if (ev.key === 'Escape') {
@@ -611,13 +633,26 @@ export function initSearch() {
     const b = (ev.target as HTMLElement).closest<HTMLElement>('button, .tk.on');
     if (!b) return;
     if (b.dataset.all) set({ q: q.value.trim() });
-    else if (b.dataset.ent) {
+    else if (b.dataset.dyn != null && dyns[+b.dataset.dyn]) {
+      const d = dyns[+b.dataset.dyn];
+      const candidates = db.events
+        .filter((ev2) => ev2.kind !== 'overlay' && ev2.year >= d.start && ev2.year <= d.end)
+        .sort((a, c) => (c.significance || 0) - (a.significance || 0) || a.year - c.year);
+      if (candidates.length) {
+        select(candidates[0].id);
+      } else {
+        const midY = d.focusYear || Math.round((Math.max(YEAR_MIN, d.start) + Math.min(YEAR_MAX, d.end)) * 0.5);
+        set({ at: String(midY) });
+        (window as any).__helix?.travelTo?.(midY, { dur: 900 });
+      }
+    } else if (b.dataset.ent) {
       const x = ents[+b.dataset.ent];
       if (x) selectEntity(x.k, x.n, x.ids);
     } else if (b.dataset.i != null && items[+b.dataset.i]) {
       select(items[+b.dataset.i].id);
     }
     box.hidden = true;
+    q.blur();
   });
   box.addEventListener('mouseover', (ev) => {
     const b = (ev.target as HTMLElement).closest<HTMLElement>('[data-i]');
@@ -926,18 +961,14 @@ const WHERE_ONE: Record<string, string> = {
   dl: 'Deal',
   im: 'Measure',
 };
-const WHERE_GROUP: Record<string, string> = {
-  pt: 'Counted in patterns',
-  th: 'Steps of the same thread',
-  po: 'Named by rules',
-  bm: 'Named by benchmarks',
-  dl: 'Deals of a named organization, within two years',
-  im: 'Milestone on measures',
+const WHERE_ONE_ZH: Record<string, string> = {
+  pt: '规律',
+  th: '脉络',
+  po: '法规',
+  bm: '评测',
+  dl: '交易',
+  im: '指标',
 };
-const bmHead = (L: any, ids: string[]) =>
-  ids.every((id) => /^model named/.test((L.basis || {})[`bm:${id}`] || ''))
-    ? 'Model named here, scored on benchmarks'
-    : WHERE_GROUP.bm;
 const SIG_WORD: Record<number, string> = { 1: 'minor', 2: 'modest', 3: 'notable', 4: 'major', 5: 'landmark' };
 const cap = (s: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : '');
 
@@ -1172,40 +1203,19 @@ function whereBlock(e: any): string {
     return '';
   }
   const L = db.links.events[e.id] || {};
-  const why = L.why || {};
   const rows: string[] = [];
-  const counts: string[] = [];
-  const orgs = (e.orgs || []).map((o: string) => o.toLowerCase());
-  const yearsApart = (a: number, b: number) => {
-    const d = b - a;
-    return d === 0 ? 'the same year' : d > 0 ? `${d} year${d === 1 ? '' : 's'} later` : `${-d} year${d === -1 ? '' : 's'} earlier`;
-  };
-  for (const [k, one, many] of WHERE_KINDS) {
+  for (const [k] of WHERE_KINDS) {
     const ids: string[] = L[k] || [];
-    const total = k === 'dl' && L.dln ? L.dln : ids.length;
-    if (total) {
-      counts.push(
-        `${k === 'bm' && ids.length && bmHead(L, ids) !== WHERE_GROUP.bm ? 'a model named here scored on' : WHERE_REL[k]} ${total} ${total === 1 ? one : many}${k === 'dl' ? ' within two years' : ''}`,
-      );
-    }
     if (!ids.length) continue;
     ids.forEach((id, i) => {
       const name = (db.links.names[k] || {})[id] || id;
       const yr = (db.links.years[k] || {})[id];
-      let reason = why[`${k}:${id}`] || '';
-      if (k === 'pt' && /pairs (behind|counted for)/.test(reason)) reason = patternClause(id, e, reason);
-      if (k === 'dl' && !reason) {
-        const shared = name
-          .split(/ to |, /)
-          .map((x: string) => x.trim())
-          .find((x: string) => orgs.includes(x.toLowerCase()));
-        reason = `${shared ? shared + ' deal' : 'deal of the same org'}${yr ? ', ' + yearsApart(e.year, yr) : ''}`;
-      }
-      rows.push(`<li><span class="k">${i === 0 ? esc(WHERE_ONE[k]) : ''}</span><span class="tt">${esc(name)}</span>${yr ? `<span class="y">${yr}</span>` : ''}</li>`);
+      const kindLabel = isZh() ? WHERE_ONE_ZH[k] || WHERE_ONE[k] : WHERE_ONE[k];
+      rows.push(`<li><span class="k">${i === 0 ? esc(kindLabel) : ''}</span><span class="tt">${esc(name)}</span>${yr ? `<span class="y">${yr}</span>` : ''}</li>`);
     });
   }
   if (!rows.length) return '';
-  return `<div class="sect-h where-h"><span>Where this appears</span><span>${rows.length}</span></div><ul class="where ix">${rows.join('')}</ul>`;
+  return `<div class="sect-h where-h"><span>${isZh() ? '跨专题关联索引' : 'Where this appears'}</span><span>${rows.length}</span></div><ul class="where ix">${rows.join('')}</ul>`;
 }
 
 export function goWhere(key: string, e?: any) {
@@ -1247,6 +1257,41 @@ const scaleNote = () =>
     ? '权重等级（1 至 5 级）与情绪倾向由编纂团队依据每条史料的历史影响范围与社会反响核定，并非民意统计数据。'
     : 'Significance 1 to 5 and mood are editorial classifications of each record\u2019s reach and reception, not measurements of public opinion.';
 
+function syncDrawerActions(isEventRecord: boolean) {
+  const linBtn = document.getElementById('dlineage') as HTMLButtonElement | null;
+  const postBtn = document.getElementById('dposter') as HTMLButtonElement | null;
+  const shareBtn = document.getElementById('dshare') as HTMLButtonElement | null;
+  const closeBtn = document.getElementById('dclose') as HTMLButtonElement | null;
+  const zh = isZh();
+  if (linBtn) {
+    linBtn.hidden = !isEventRecord;
+    const on = isLineageSpotlight();
+    linBtn.classList.toggle('on', on);
+    linBtn.setAttribute('aria-pressed', String(on));
+    linBtn.title = zh
+      ? '3D 因果脉络聚光灯 (快捷键 L)：高亮前因与后世影响'
+      : '3D Lineage Spotlight (Key L): highlight ancestors & descendants';
+    const lbl = linBtn.querySelector('.da-lbl');
+    if (lbl) lbl.textContent = zh ? '脉络' : 'Lineage';
+  }
+  if (postBtn) {
+    postBtn.hidden = !isEventRecord;
+    postBtn.title = zh ? '生成高清博物馆级分享海报（含二维码）' : 'Export HD archival poster with QR code';
+    const lbl = postBtn.querySelector('.da-lbl');
+    if (lbl) lbl.textContent = zh ? '海报' : 'Poster';
+  }
+  if (shareBtn) {
+    shareBtn.hidden = !state.sel;
+    shareBtn.title = zh ? '复制当前条目直达链接' : 'Copy direct link to this record';
+    const lbl = shareBtn.querySelector('.da-lbl');
+    if (lbl && !shareBtn.dataset.copied) lbl.textContent = zh ? '链接' : 'Link';
+  }
+  if (closeBtn) {
+    closeBtn.setAttribute('aria-label', zh ? '关闭详情抽屉' : 'Close record');
+    closeBtn.title = zh ? '关闭 (Esc)' : 'Close (Esc)';
+  }
+}
+
 export function renderDrawer() {
   const dr = $('#drawer') as (HTMLElement & { inert?: boolean }) | null;
   const dk = $('#dk');
@@ -1262,8 +1307,19 @@ export function renderDrawer() {
     ensureNow('past').then(() => renderDrawer());
     return;
   }
-  if (state.sel && db.byId.has(state.sel) && !(db.loaded.has('meta') && db.loaded.has('text'))) {
-    ensureNow('meta', 'text');
+  if (state.sel && db.byId.has(state.sel)) {
+    const selId = state.sel;
+    if (!db.loaded.has('meta')) {
+      ensureNow('meta').then(() => {
+        if (state.sel === selId) renderDrawer();
+      });
+    }
+    const selEv = db.byId.get(selId);
+    if (selEv && !selEv._textLoaded) {
+      ensureEventText(selId).then(() => {
+        if (state.sel === selId) renderDrawer();
+      });
+    }
   }
   const wasOpen = dr.classList.contains('on');
   const after = () => {
@@ -1271,6 +1327,10 @@ export function renderDrawer() {
     kickerEnds();
     const h = $('#drawer h3');
     if (h) h.setAttribute('tabindex', '-1');
+    if (!wasOpen && window.innerWidth <= 820) {
+      dr.dataset.snap = 'half';
+      dr.style.removeProperty('--sheet-drag-y');
+    }
     drawerOpened(dr, wasOpen);
   };
   const ent = entityOf(state.sel);
@@ -1287,11 +1347,15 @@ export function renderDrawer() {
     return;
   }
   const pt = state.sel && db.pointById && db.pointById.get(state.sel);
-  if (pt) {
-    tint(null);
+  const openDr = (isEventRecord = false) => {
     dr.inert = false;
     dr.classList.add('on');
     dr.setAttribute('aria-hidden', 'false');
+    syncDrawerActions(isEventRecord);
+  };
+  if (pt) {
+    tint(null);
+    openDr(false);
     dk.innerHTML = pt.kicker;
     body.innerHTML = pt.html;
     body.scrollTop = 0;
@@ -1307,11 +1371,6 @@ export function renderDrawer() {
   const bench = state.sel && db.benchById && db.benchById.get(state.sel);
   const person = state.sel && db.personById && db.personById.get(state.sel);
   const pol = state.sel && db.policyById && db.policyById.get(state.sel);
-  const openDr = () => {
-    dr.inert = false;
-    dr.classList.add('on');
-    dr.setAttribute('aria-hidden', 'false');
-  };
   if (bench) {
     openDr();
     benchDrawer(bench, state.sel, $);
@@ -1368,6 +1427,7 @@ export function renderDrawer() {
   dr.classList.toggle('sheet', asSheet);
   document.body.classList.toggle('drawer-sheet', asSheet && !!state.sel);
   if (!e) {
+    syncDrawerActions(false);
     listReturn = null;
     if (!state.sel && !holdTrail) trail = [];
     const had = dr.contains(document.activeElement);
@@ -1384,7 +1444,7 @@ export function renderDrawer() {
     drawerReturn = null;
     return;
   }
-  openDr();
+  openDr(e.type !== 'moment');
   const d = DOMAIN[e.domain];
   const era = e.ai_era && AI_ERA[e.ai_era];
   if (lastSel !== e.id) {
@@ -1438,6 +1498,16 @@ export function renderDrawer() {
     isZh() && e._en?.title && e._en.title !== nameOf(e)
       ? `<p class="en-sub">${esc(e._en.title)}</p>`
       : '';
+  const zhDigestText = isZh() ? synthesizeZhArchivalDigest(e, inc, out) : '';
+  const summaryHtml = isZh()
+    ? e._hasZhSummary && e.summary
+      ? `<p class="summary">${esc(e.summary)}</p>${detailBlock(e)}`
+      : `<div class="zh-digest"><div class="zh-digest-h"><span>中文史料提要</span><span>编纂纪要</span></div><p class="summary">${esc(zhDigestText)}</p></div>${
+          e.summary
+            ? `<details class="detail en-orig"><summary>英文原始文献摘录 · Archival English</summary><p>${esc(e.summary)}</p>${detailParagraphs(e)}</details>`
+            : detailBlock(e)
+        }`
+    : `<p class="summary">${esc(e.summary || '')}</p>${detailBlock(e)}`;
   body.innerHTML = `
     <h3>${esc(nameOf(e))}</h3>
     <div class="date"><span>${esc(fmtDate(e))}</span><span>${esc(sigLabel)}</span><button type="button" class="scale-k" aria-expanded="false" aria-controls="scale-note">${isZh() ? '编纂说明' : 'editorial'}</button>${fo ? `<span class="folio" title="${isZh() ? '在当前时间跨度中的序列位置' : 'Position in the years shown'}">${fo}</span>` : ''}</div>
@@ -1445,9 +1515,7 @@ export function renderDrawer() {
     ${trailHtml}
     ${enTitleHint}
     ${picFigure(e)}
-    ${isZh() && !e._hasZhSummary && e.summary ? `<div class="sect-h"><span>英文原始文献摘录</span><span>Archival Note</span></div>` : ''}
-    <p class="summary">${esc(e.summary)}</p>
-    ${detailBlock(e)}
+    ${summaryHtml}
     <dl class="dl">
       ${people ? `<dt>${isZh() ? '相关人物' : 'People'}</dt><dd>${people}</dd>` : ''}
       ${orgs ? `<dt>${isZh() ? '相关机构' : 'Orgs'}</dt><dd>${orgs}</dd>` : ''}
@@ -1460,13 +1528,7 @@ export function renderDrawer() {
     ${srcs.some((s: any) => s.kind === 'background') ? `<p class="bg-read"><span>${isZh() ? '延伸背景' : 'Background'}</span> ${srcs.filter((s: any) => s.kind === 'background').map((s: any) => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(host(s.url))}</a>`).join(', ')}</p>` : ''}
     ${verifBlock(e)}`;
   body.scrollTop = 0;
-  if (out.length + inc.length) {
-    if (hasD3()) miniGraph(e, inc, out);
-    else
-      ensureD3().then(() => {
-        if (state.sel === e.id && document.getElementById('mg')) miniGraph(e, inc, out);
-      });
-  }
+  if (out.length + inc.length) miniGraph(e, inc, out);
   after();
 }
 
@@ -1612,13 +1674,20 @@ function fitMoment() {
   setTimeout(step, 1000);
 }
 
-function detailBlock(e: any): string {
+function detailParagraphs(e: any): string {
   const paras = String(e.detail || '')
     .split(/\n\s*\n/)
     .map((x) => x.trim())
     .filter(Boolean);
-  if (!paras.length) return '';
-  return `<details class="detail"><summary>${isZh() ? '延伸考证细节' : 'Supporting detail'}</summary>${paras.map((x) => `<p>${esc(x)}</p>`).join('')}</details>`;
+  return paras.map((x) => `<p>${esc(x)}</p>`).join('');
+}
+
+function detailBlock(e: any): string {
+  const html = detailParagraphs(e);
+  if (!html) return '';
+  return `<details class="detail"><summary>${
+    isZh() ? (e._hasZhDetail ? '延伸考证细节' : '英文原始考证文献 · Supporting detail') : 'Supporting detail'
+  }</summary>${html}</details>`;
 }
 
 function verif(x: any): string {
@@ -1648,28 +1717,41 @@ const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct
 function modelDrawer(m: any) {
   const dk = $('#dk')!;
   const body = $('#db')!;
+  const zh = isZh();
   const pp = m.params_billion;
   const params =
     pp == null
-      ? 'Not disclosed'
+      ? zh
+        ? '未公开披露'
+        : 'Not disclosed'
       : pp >= 1000
-        ? `${+(pp / 1000).toFixed(2)} trillion`
+        ? zh
+          ? `${+(pp / 1000).toFixed(2)} 万亿`
+          : `${+(pp / 1000).toFixed(2)} trillion`
         : pp >= 1
-          ? `${+pp.toFixed(1)} billion`
-          : `${Math.round(pp * 1000)} million`;
+          ? zh
+            ? `${+pp.toFixed(1)} 十亿 (${+pp.toFixed(1)}B)`
+            : `${+pp.toFixed(1)} billion`
+          : zh
+            ? `${Math.round(pp * 1000)} 百万`
+            : `${Math.round(pp * 1000)} million`;
   const w = wOf(m);
   tint(W_COL[w]);
-  const wLabel: Record<string, string> = {
-    open: 'Open weights',
-    gated: 'Gated weights',
-    closed: 'Closed weights',
-  };
-  const wLong: Record<string, string> = {
-    open: 'Open: weights publicly downloadable',
-    gated: 'Gated: weights released on request under a research license',
-    closed: 'Closed: available only through the lab',
-  };
-  dk.innerHTML = `<i style="background:${W_COL[w]}"></i><span class="ki">Model</span><span class="ki">${esc(m.org)}</span><span class="ki">${wLabel[w] || w}</span>`;
+  const wLabel: Record<string, string> = zh
+    ? { open: '开源权重', gated: '申请制权重', closed: '闭源权重' }
+    : { open: 'Open weights', gated: 'Gated weights', closed: 'Closed weights' };
+  const wLong: Record<string, string> = zh
+    ? {
+        open: '开源：模型权重可公开下载',
+        gated: '受限开放：须签署研究许可申请获取权重',
+        closed: '闭源：仅通过研发机构接口提供服务',
+      }
+    : {
+        open: 'Open: weights publicly downloadable',
+        gated: 'Gated: weights released on request under a research license',
+        closed: 'Closed: available only through the lab',
+      };
+  dk.innerHTML = `<i style="background:${W_COL[w]}"></i><span class="ki">${zh ? 'AI 模型' : 'Model'}</span><span class="ki">${esc(m.org)}</span><span class="ki">${wLabel[w] || w}</span>`;
   const evs = modelEvents(m);
   const msrc = [
     { url: m.source_url, title: m.source_title || '' },
@@ -1682,18 +1764,18 @@ function modelDrawer(m: any) {
     `<li><button type="button" data-id="${esc(x.id)}"><i style="background:${recCol(x.year)}"></i><span class="y">${x.year}</span><span>${esc(x.title || x.name)}</span></button></li>`;
   body.innerHTML = `
     <h3>${esc(m.name)}</h3>
-    <div class="date"><span>${m.month ? MON[m.month - 1] + ' ' : ''}${m.year}</span><span>${esc(m.modality)}</span></div>
+    <div class="date"><span>${zh ? (m.month ? `${m.year}年${m.month}月` : `${m.year}年`) : `${m.month ? MON[m.month - 1] + ' ' : ''}${m.year}`}</span><span>${esc(m.modality)}</span></div>
     <p class="summary">${esc(m.notable_for)}</p>
     <dl class="dl">
-      <dt>Lab</dt><dd>${esc(m.org)}</dd>
-      <dt>Parameters</dt><dd>${esc(params)}</dd>
-      <dt>Weights</dt><dd>${wLong[w] || w}</dd>
-      ${m.aka && m.aka.length ? `<dt>Also listed as</dt><dd>${esc(m.aka.join(', '))}</dd>` : ''}
-      ${m.fams && m.fams.length ? `<dt>Family</dt><dd>${esc(m.fams.join(', '))}</dd>` : ''}
+      <dt>${zh ? '研发机构' : 'Lab'}</dt><dd>${esc(m.org)}</dd>
+      <dt>${zh ? '参数规模' : 'Parameters'}</dt><dd>${esc(params)}</dd>
+      <dt>${zh ? '权重开放度' : 'Weights'}</dt><dd>${wLong[w] || w}</dd>
+      ${m.aka && m.aka.length ? `<dt>${zh ? '别名' : 'Also listed as'}</dt><dd>${esc(m.aka.join(', '))}</dd>` : ''}
+      ${m.fams && m.fams.length ? `<dt>${zh ? '模型谱系' : 'Family'}</dt><dd>${esc(m.fams.join(', '))}</dd>` : ''}
     </dl>
-    ${evs.length ? `<div class="sect-h"><span>Matching on the map</span><span>${evs.length}</span></div><ul class="links">${evs.slice(0, 4).map(row).join('')}</ul>` : `<div class="sect-h"><span>Matching event</span><span>0</span></div><p class="ab-small" style="font-size:13px;color:var(--ink-3);margin:0">No map event names this model in its title.</p>`}
-    ${fam.length ? `<div class="sect-h"><span>Same family</span><span>${fam.length}</span></div><ul class="links">${fam.map((x: any) => `<li><button type="button" data-id="${esc(x.id)}"><i style="background:${W_COL[wOf(x)]};border-radius:50%"></i><span class="y">${x.year}</span><span>${esc(x.name)}</span></button></li>`).join('')}</ul>` : ''}
-    <div class="sect-h"><span>Source${msrc.length > 1 ? 's' : ''}</span><span>${msrc.length}</span></div>
+    ${evs.length ? `<div class="sect-h"><span>${zh ? '图谱关联事件' : 'Matching on the map'}</span><span>${evs.length}</span></div><ul class="links">${evs.slice(0, 4).map(row).join('')}</ul>` : `<div class="sect-h"><span>${zh ? '图谱关联事件' : 'Matching event'}</span><span>0</span></div><p class="ab-small" style="font-size:13px;color:var(--ink-3);margin:0">${zh ? '图谱事件标题中未直接点名该模型。' : 'No map event names this model in its title.'}</p>`}
+    ${fam.length ? `<div class="sect-h"><span>${zh ? '同谱系模型' : 'Same family'}</span><span>${fam.length}</span></div><ul class="links">${fam.map((x: any) => `<li><button type="button" data-id="${esc(x.id)}"><i style="background:${W_COL[wOf(x)]};border-radius:50%"></i><span class="y">${x.year}</span><span>${esc(x.name)}</span></button></li>`).join('')}</ul>` : ''}
+    <div class="sect-h"><span>${zh ? '文献来源' : `Source${msrc.length > 1 ? 's' : ''}`}</span><span>${msrc.length}</span></div>
     <ol class="sources">${msrc.map((s) => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title || host(s.url))}</a><span class="host">${esc(s.title ? host(s.url) : s.url)}</span></li>`).join('')}</ol>
     ${verif(m)}`;
   body.scrollTop = 0;
@@ -2010,21 +2092,22 @@ function fcCheckHtml(fcs: any[]): string {
 function forecastsDrawer() {
   const dk = $('#dk')!;
   const body = $('#db')!;
+  const zh = isZh();
   const { all, voices } = forecastCount();
   const years = [...new Set(all.map((f: any) => f.t))];
   const checked = all.filter((f: any) => f.chk);
   const row = (f: any) =>
-    `<li><button type="button" class="ls-word" data-id="${esc(f.id)}"><i style="background:${fcCol(f)}"></i><span class="y">${esc(String(f.y0))}</span><span>${esc(f.text)}<span class="ls-sub">${esc(f.who)}, ${esc(fcWord(f))}</span></span></button></li>`;
+    `<li><button type="button" class="ls-word" data-id="${esc(f.id)}"><i style="background:${fcCol(f)}"></i><span class="y">${esc(String(f.y0))}</span><span>${esc(f.text)}<span class="ls-sub">${esc(f.who)} · ${esc(fcWord(f))}</span></span></button></li>`;
   tint(null);
-  dk.innerHTML = `<i style="background:${VERDICT_NIGHT.pending}"></i><span class="ki">Forecasts</span><span class="ki">${years[0]} to ${years[years.length - 1]}</span>`;
+  dk.innerHTML = `<i style="background:${VERDICT_NIGHT.pending}"></i><span class="ki">${zh ? '远景预测' : 'Forecasts'}</span><span class="ki">${zh ? `${years[0]} 至 ${years[years.length - 1]}年` : `${years[0]} to ${years[years.length - 1]}`}</span>`;
   body.innerHTML = `
-    <h3>${all.length} dated forecasts from ${voices} voices</h3>
-    <div class="date"><span>Due ${years[0]} to ${years[years.length - 1]}</span>${checked.length ? `<span>${checked.length} checked ${esc(dayOf(checked[0].chk.on))}</span>` : ''}</div>
+    <h3>${zh ? `来自 ${voices} 位学界与产业人物的 ${all.length} 项具名年份预测` : `${all.length} dated forecasts from ${voices} voices`}</h3>
+    <div class="date"><span>${zh ? `目标期限：${years[0]} 至 ${years[years.length - 1]}年` : `Due ${years[0]} to ${years[years.length - 1]}`}</span>${checked.length ? `<span>${zh ? `已核查 ${checked.length} 项（截至 ${esc(dayOf(checked[0].chk.on))}）` : `${checked.length} checked ${esc(dayOf(checked[0].chk.on))}`}</span>` : ''}</div>
     ${fcCheckHtml(all)}
     ${years
       .map((y) => {
         const g = all.filter((f: any) => f.t === y);
-        return `<div class="sect-h"><span>${y}</span><span>${g.length}</span></div><ul class="links ls-list ls-words">${g.map(row).join('')}</ul>`;
+        return `<div class="sect-h"><span>${y}${zh ? '年' : ''}</span><span>${g.length}</span></div><ul class="links ls-list ls-words">${g.map(row).join('')}</ul>`;
       })
       .join('')}`;
   body.scrollTop = 0;
@@ -2078,17 +2161,35 @@ const DEAL_KIND: Record<string, [string, string]> = {
   energy: ['Power deal', '#8a4e2c'],
 };
 
+const DEAL_KIND_ZH: Record<string, string> = {
+  equity: '股权投资',
+  acquisition: '并购收购',
+  licensing: '技术授权与人才引进',
+  cloud: '云算力合约',
+  compute: '算力与数据中心',
+  chips: '芯片采购',
+  energy: '能源与电力协议',
+};
+
 function dealDrawer(f: any) {
   const dk = $('#dk')!;
   const body = $('#db')!;
-  const [kl, kc] = DEAL_KIND[f.kind] || [f.kind, '#888'];
+  const zh = isZh();
+  const [klEn, kc] = DEAL_KIND[f.kind] || [f.kind, '#888'];
+  const kl = zh ? DEAL_KIND_ZH[f.kind] || klEn : klEn;
   const amt =
     f.amount_usd_billion == null
-      ? 'Not disclosed'
+      ? zh
+        ? '未公开披露'
+        : 'Not disclosed'
       : f.amount_usd_billion >= 1
-        ? `$${+f.amount_usd_billion.toFixed(2)} billion`
-        : `$${Math.round(f.amount_usd_billion * 1000)} million`;
-  dk.innerHTML = `<i style="background:${kc}"></i><span class="ki">Deal</span><span class="ki">${esc(kl)}</span>`;
+        ? zh
+          ? `${+f.amount_usd_billion.toFixed(2)} 十亿美元 ($${+f.amount_usd_billion.toFixed(2)}B)`
+          : `$${+f.amount_usd_billion.toFixed(2)} billion`
+        : zh
+          ? `${Math.round(f.amount_usd_billion * 1000)} 百万美元`
+          : `$${Math.round(f.amount_usd_billion * 1000)} million`;
+  dk.innerHTML = `<i style="background:${kc}"></i><span class="ki">${zh ? '资本交易' : 'Deal'}</span><span class="ki">${esc(kl)}</span>`;
   const key = (s: string) =>
     String(s || '')
       .replace(/\s*\(.*?\)/g, '')
@@ -2118,12 +2219,12 @@ function dealDrawer(f: any) {
   const row = (x: any) =>
     `<li><button type="button" data-id="${esc(x.id)}"><i style="background:${recCol(x.year)}"></i><span class="y">${x.year}</span><span>${esc(x.title)}</span></button></li>`;
   body.innerHTML = `
-    <h3>${esc(f.source_org)} to ${esc(f.target_org)}</h3>
-    <div class="date"><span>${f.month ? MON[f.month - 1] + ' ' : ''}${f.year}</span><span>${esc(kl)}</span></div>
+    <h3>${zh ? `${esc(f.source_org)} → ${esc(f.target_org)}` : `${esc(f.source_org)} to ${esc(f.target_org)}`}</h3>
+    <div class="date"><span>${zh ? (f.month ? `${f.year}年${f.month}月` : `${f.year}年`) : `${f.month ? MON[f.month - 1] + ' ' : ''}${f.year}`}</span><span>${esc(kl)}</span></div>
     <p class="summary">${esc(f.note)}</p>
-    <dl class="dl"><dt>From</dt><dd>${esc(f.source_org)}</dd><dt>To</dt><dd>${esc(f.target_org)}</dd><dt>Amount</dt><dd>${esc(amt)}</dd></dl>
-    ${rel.length ? `<div class="sect-h"><span>Related on the map</span><span>${rel.length}</span></div><ul class="links">${rel.map(row).join('')}</ul>` : ''}
-    <div class="sect-h"><span>Source${f.alt_source && f.alt_source.url ? 's' : ''}</span><span>${f.alt_source && f.alt_source.url ? 2 : 1}</span></div>
+    <dl class="dl"><dt>${zh ? '出资/供给方' : 'From'}</dt><dd>${esc(f.source_org)}</dd><dt>${zh ? '受资/合作方' : 'To'}</dt><dd>${esc(f.target_org)}</dd><dt>${zh ? '交易规模' : 'Amount'}</dt><dd>${esc(amt)}</dd></dl>
+    ${rel.length ? `<div class="sect-h"><span>${zh ? '图谱关联事件' : 'Related on the map'}</span><span>${rel.length}</span></div><ul class="links">${rel.map(row).join('')}</ul>` : ''}
+    <div class="sect-h"><span>${zh ? '文献来源' : `Source${f.alt_source && f.alt_source.url ? 's' : ''}`}</span><span>${f.alt_source && f.alt_source.url ? 2 : 1}</span></div>
     <ol class="sources"><li><a href="${esc(f.source_url)}" target="_blank" rel="noopener">${esc(f.source_label)}</a>${f.source_label !== host(f.source_url) ? `<span class="host">${esc(host(f.source_url))}</span>` : ''}</li>${f.alt_source && f.alt_source.url ? `<li><a href="${esc(f.alt_source.url)}" target="_blank" rel="noopener">${esc(f.alt_source.title || host(f.alt_source.url))}</a><span class="host">${esc(host(f.alt_source.url))}</span></li>` : ''}</ol>
     ${verif(f)}`;
   body.scrollTop = 0;
@@ -2137,12 +2238,19 @@ interface GraphNode {
 }
 
 function miniGraph(e: any, inc: any[], out: any[]) {
-  const svg = d3.select<SVGSVGElement, unknown>('#mg');
-  const node = svg.node();
+  const node = document.getElementById('mg') as SVGSVGElement | null;
   if (!node) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = <K extends keyof SVGElementTagNameMap>(tag: K, attrs: Record<string, string | number> = {}) => {
+    const n = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, String(v));
+    return n;
+  };
   const W = node.clientWidth || 380;
-  const H = 200;
-  svg.attr('viewBox', `0 0 ${W} ${H}`);
+  const H = 196;
+  node.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  while (node.firstChild) node.removeChild(node.firstChild);
+
   const nodes = new Map<string, GraphNode>([[e.id, { e, lvl: 0 }]]);
   [...inc, ...out].forEach((x) => nodes.set(x.id, { e: x, lvl: 1 }));
   [...inc, ...out].forEach((x) =>
@@ -2154,78 +2262,113 @@ function miniGraph(e: any, inc: any[], out: any[]) {
       }),
   );
   const arr = [...nodes.values()];
-  const ys = d3.extent(arr, (n) => Number(n.e.t)) as [number, number];
-  const pad = 22;
-  const x = d3
-    .scaleLinear()
-    .domain(ys[0] === ys[1] ? [ys[0] - 1, ys[1] + 1] : ys)
-    .range([pad, W - pad]);
+  let minT = Infinity;
+  let maxT = -Infinity;
+  for (const n of arr) {
+    const tv = Number(n.e.t);
+    if (tv < minT) minT = tv;
+    if (tv > maxT) maxT = tv;
+  }
+  const d0 = minT === maxT ? minT - 1 : minT;
+  const d1 = minT === maxT ? maxT + 1 : maxT;
+  const pad = 24;
+  const x = (tv: number) => pad + ((tv - d0) / (d1 - d0)) * (W - pad * 2);
+
   let k = 0;
   arr.forEach((n) => {
-    n.x = x(n.e.t);
-    if (n.lvl === 0) n.y = H / 2;
+    n.x = x(Number(n.e.t));
+    if (n.lvl === 0) n.y = H / 2 - 4;
     else {
       k++;
-      n.y = H / 2 + (k % 2 ? -1 : 1) * (n.lvl === 1 ? 26 + (k % 5) * 12 : 52 + (k % 4) * 10);
+      n.y = H / 2 - 4 + (k % 2 ? -1 : 1) * (n.lvl === 1 ? 25 + (k % 5) * 11 : 48 + (k % 4) * 9);
     }
   });
+
   const links: [GraphNode, GraphNode][] = [];
   arr.forEach((n) =>
     (n.e.connects || []).forEach((c: string) => {
       if (nodes.has(c)) links.push([n, nodes.get(c)!]);
     }),
   );
-  svg.selectAll('*').remove();
-  svg
-    .append('g')
-    .attr('class', 'axis')
-    .attr('transform', `translate(0,${H - 18})`)
-    .call(
-      d3
-        .axisBottom(x)
-        .tickValues(
-          (() => {
-            const [a, b] = x.domain();
-            const yrs = d3.range(Math.ceil(a), Math.floor(b) + 1);
-            return yrs.length <= 6 ? yrs : x.ticks(5).filter((v) => Number.isInteger(v));
-          })(),
-        )
-        .tickFormat(d3.format('d') as any)
-        .tickSize(3),
-    )
-    .select('.domain')
-    .remove();
-  svg
-    .append('g')
-    .selectAll('path')
-    .data(links)
-    .join('path')
-    .attr('d', ([a, b]) => arc([a.x!, a.y!], [b.x!, b.y!], 0.25))
-    .attr('fill', 'none')
-    .attr('stroke', ([a, b]) => (a.lvl === 0 || b.lvl === 0 ? '#121212' : 'rgba(28,26,23,.25)'))
-    .attr('stroke-width', ([a, b]) => (a.lvl === 0 || b.lvl === 0 ? 1.2 : 0.7));
-  const g = svg
-    .append('g')
-    .selectAll('g')
-    .data(arr)
-    .join('g')
-    .attr('transform', (n) => `translate(${n.x},${n.y})`)
-    .style('cursor', (n) => (n.lvl ? 'pointer' : 'default'))
-    .on('click', (_, n) => n.lvl && select(n.e.id))
-    .on('mouseenter', (ev, n) => tip.show(ev, eventTip(n.e)))
-    .on('mousemove', (ev) => tip.move(ev))
-    .on('mouseleave', () => tip.hide());
-  g.append('circle')
-    .attr('r', (n) => (n.lvl === 0 ? 7 : n.lvl === 1 ? 4.5 : 3))
-    .attr('fill', (n) => recCol(n.e.year))
-    .attr('stroke', GROUNDS.night)
-    .attr('stroke-width', (n) => (n.lvl === 0 ? 1.5 : 0.6))
-    .attr('opacity', (n) => (n.lvl === 2 ? 0.6 : 1));
-  g.filter((n) => n.lvl === 0)
-    .append('text')
-    .attr('y', -11)
-    .attr('text-anchor', 'middle')
-    .text((n) => String(n.e.year));
+
+  // Axis ticks
+  const gAxis = el('g', { class: 'axis', transform: `translate(0,${H - 18})` });
+  const span = Math.floor(d1) - Math.ceil(d0);
+  const tickYears: number[] = [];
+  if (span >= 0 && span <= 6) {
+    for (let y = Math.ceil(d0); y <= Math.floor(d1); y++) tickYears.push(y);
+  } else {
+    const rawStep = Math.max(1, (d1 - d0) / 4.5);
+    const mag = Math.pow(10, Math.floor(Math.log10(rawStep)));
+    const norm = rawStep / mag;
+    const nice = (norm <= 1.5 ? 1 : norm <= 3 ? 2 : norm <= 7 ? 5 : 10) * mag;
+    const startY = Math.ceil(d0 / nice) * nice;
+    for (let y = startY; y <= d1 + 1e-6; y += nice) tickYears.push(Math.round(y));
+  }
+  for (const ty of tickYears) {
+    const tx = x(ty);
+    const tg = el('g', { transform: `translate(${tx.toFixed(1)},0)` });
+    tg.appendChild(el('line', { y2: 3, stroke: 'var(--rule-strong)' }));
+    const tt = el('text', {
+      y: 12,
+      'text-anchor': 'middle',
+      fill: 'var(--ink-3)',
+      'font-size': '10',
+    });
+    tt.textContent = fmtYear(ty);
+    tg.appendChild(tt);
+    gAxis.appendChild(tg);
+  }
+  node.appendChild(gAxis);
+
+  // Causal arc links
+  const gLinks = el('g');
+  for (const [a, b] of links) {
+    const direct = a.lvl === 0 || b.lvl === 0;
+    gLinks.appendChild(
+      el('path', {
+        d: arc([a.x!, a.y!], [b.x!, b.y!], 0.25),
+        fill: 'none',
+        stroke: direct ? 'var(--accent)' : 'var(--rule-strong)',
+        'stroke-opacity': direct ? '0.78' : '0.45',
+        'stroke-width': direct ? '1.35' : '0.8',
+      }),
+    );
+  }
+  node.appendChild(gLinks);
+
+  // Event nodes
+  const gNodes = el('g');
+  for (const n of arr) {
+    const ng = el('g', { transform: `translate(${n.x!.toFixed(1)},${n.y!.toFixed(1)})` });
+    ng.style.cursor = n.lvl ? 'pointer' : 'default';
+    if (n.lvl) ng.addEventListener('click', () => select(n.e.id));
+    ng.addEventListener('mouseenter', (ev) => tip.show(ev as MouseEvent, eventTip(n.e)));
+    ng.addEventListener('mousemove', (ev) => tip.move(ev as MouseEvent));
+    ng.addEventListener('mouseleave', () => tip.hide());
+    ng.appendChild(
+      el('circle', {
+        r: n.lvl === 0 ? 7 : n.lvl === 1 ? 4.6 : 3.1,
+        fill: recCol(n.e.year),
+        stroke: GROUNDS.night,
+        'stroke-width': n.lvl === 0 ? 1.6 : 0.7,
+        opacity: n.lvl === 2 ? 0.65 : 1,
+      }),
+    );
+    if (n.lvl === 0) {
+      const lbl = el('text', {
+        y: -11,
+        'text-anchor': 'middle',
+        fill: 'var(--ink)',
+        'font-size': '10.5',
+        'font-weight': '600',
+      });
+      lbl.textContent = fmtYear(n.e.year);
+      ng.appendChild(lbl);
+    }
+    gNodes.appendChild(ng);
+  }
+  node.appendChild(gNodes);
 }
 
 export function initDrawer() {
@@ -2236,6 +2379,137 @@ export function initDrawer() {
   body.addEventListener('scroll', fadeBody, { passive: true });
   window.addEventListener('resize', fadeBody);
   $('#dclose')?.addEventListener('click', () => select(''));
+  $('#dlineage')?.addEventListener('click', () => {
+    toggleLineageSpotlight();
+  });
+  $('#dposter')?.addEventListener('click', async () => {
+    const e = state.sel ? db.byId.get(state.sel) : null;
+    if (!e) return;
+    const btn = document.getElementById('dposter') as HTMLButtonElement | null;
+    const lbl = btn?.querySelector('.da-lbl');
+    if (btn) btn.disabled = true;
+    if (lbl) lbl.textContent = isZh() ? '生成中…' : 'Rendering…';
+    try {
+      await exportEventPoster(e);
+      if (lbl) lbl.textContent = isZh() ? '已保存' : 'Saved';
+      setTimeout(() => {
+        if (lbl) lbl.textContent = isZh() ? '海报' : 'Poster';
+      }, 1500);
+    } finally {
+      if (btn) btn.disabled = false;
+    }
+  });
+  $('#dshare')?.addEventListener('click', async () => {
+    const btn = document.getElementById('dshare') as HTMLButtonElement | null;
+    const lbl = btn?.querySelector('.da-lbl');
+    const url = window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+    }
+    if (btn && lbl) {
+      btn.dataset.copied = '1';
+      lbl.textContent = isZh() ? '已复制' : 'Copied';
+      setTimeout(() => {
+        delete btn.dataset.copied;
+        lbl.textContent = isZh() ? '链接' : 'Link';
+      }, 1400);
+    }
+  });
+
+  // Mobile 3-detent bottom-sheet drag & tap-to-cycle ('peek' | 'half' | 'full')
+  window.addEventListener(
+    'resize',
+    () => {
+      if (window.innerWidth <= 820 && dr.classList.contains('on') && !dr.dataset.snap) {
+        dr.dataset.snap = 'half';
+      }
+    },
+    { passive: true },
+  );
+  const grip = document.getElementById('dgrip');
+  if (grip) {
+    let startY = 0;
+    let startH = 0;
+    let dragging = false;
+    let moved = false;
+    let lastPointerCycleAt = 0;
+    const cycleSnap = () => {
+      const cur = dr.dataset.snap || 'half';
+      dr.dataset.snap = cur === 'half' ? 'full' : cur === 'full' ? 'peek' : 'half';
+    };
+    grip.addEventListener('pointerdown', (ev: PointerEvent) => {
+      if (window.innerWidth > 820) return;
+      dragging = true;
+      moved = false;
+      startY = ev.clientY;
+      startH = dr.getBoundingClientRect().height;
+      dr.classList.add('sheet-dragging');
+      try {
+        grip.setPointerCapture(ev.pointerId);
+      } catch {}
+    });
+    grip.addEventListener('pointermove', (ev: PointerEvent) => {
+      if (!dragging) return;
+      const dy = ev.clientY - startY;
+      if (Math.abs(dy) > 5) moved = true;
+      const clamped = Math.max(-window.innerHeight * 0.45, dy);
+      dr.style.setProperty('--sheet-drag-y', `${Math.round(clamped)}px`);
+    });
+    const finishGrip = (ev: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      dr.classList.remove('sheet-dragging');
+      dr.style.removeProperty('--sheet-drag-y');
+      try {
+        grip.releasePointerCapture(ev.pointerId);
+      } catch {}
+      if (!moved) {
+        lastPointerCycleAt = performance.now();
+        cycleSnap();
+        return;
+      }
+      const dy = ev.clientY - startY;
+      const finalH = startH - dy;
+      const vh = window.innerHeight;
+      if (finalH < 96 || dy > vh * 0.38) {
+        select('');
+      } else if (finalH > vh * 0.68) {
+        dr.dataset.snap = 'full';
+      } else if (finalH < vh * 0.34) {
+        dr.dataset.snap = 'peek';
+      } else {
+        dr.dataset.snap = 'half';
+      }
+    };
+    grip.addEventListener('pointerup', finishGrip);
+    grip.addEventListener('pointercancel', finishGrip);
+    grip.addEventListener('click', () => {
+      if (window.innerWidth > 820) return;
+      if (performance.now() - lastPointerCycleAt < 350) return;
+      cycleSnap();
+    });
+  }
+
+  onLineageChange(() => {
+    const e = state.sel ? db.byId.get(state.sel) : null;
+    syncDrawerActions(Boolean(e && e.type !== 'moment'));
+  });
+  onThemeChange(() => {
+    if (state.sel) renderDrawer();
+    if (scrub) {
+      scrub.layout();
+      scrub.draw();
+    }
+  });
   dr.addEventListener('click', (ev) => {
     const b = (ev.target as HTMLElement).closest<HTMLElement>('[data-list]');
     if (b && b.dataset.list && db.pointById && db.pointById.has(b.dataset.list)) select(b.dataset.list);
@@ -2360,6 +2634,15 @@ export interface ScrubberHandle {
 let scrub: ScrubberHandle | null = null;
 
 export function initScrubber(): ScrubberHandle {
+  const d3 = (typeof window !== 'undefined' ? (window as any).d3 : null) as typeof d3Types | null;
+  if (!d3) {
+    return {
+      layout: () => {},
+      draw: () => {},
+      setRange: () => {},
+      mark: () => {},
+    };
+  }
   const host = d3.select<HTMLElement, unknown>('#scrub');
   const hostNode = host.node();
   if (!hostNode) {
@@ -2413,15 +2696,15 @@ export function initScrubber(): ScrubberHandle {
       .attr('width', tw);
   }
 
-  function brushed(ev: d3.D3BrushEvent<unknown>) {
+  function brushed(ev: d3Types.D3BrushEvent<unknown>) {
     if (!ev.selection || silent) return;
     const sel = ev.selection as [number, number];
     const [a, b] = sel.map(x.invert);
-    d3.select('#rng').text(`${fmtYear(Math.round(a))} to ${fmtYear(Math.round(b) - 1)}`);
+    d3!.select('#rng').text(`${fmtYear(Math.round(a))} to ${fmtYear(Math.round(b) - 1)}`);
     winLabel(sel);
   }
 
-  function ended(ev: d3.D3BrushEvent<unknown>) {
+  function ended(ev: d3Types.D3BrushEvent<unknown>) {
     if (silent) return;
     if (!ev.selection) {
       set({ y0: YEAR_MIN, y1: YEAR_MAX });
@@ -2508,7 +2791,7 @@ export function initScrubber(): ScrubberHandle {
           return g;
         })
         .each(function (d, i) {
-          const g = d3.select(this);
+          const g = d3!.select(this);
           const a = x(d.start);
           const b = x(Math.min(YEAR_MAX + 1, d.end));
           g.select('rect')
@@ -2584,7 +2867,7 @@ export function initScrubber(): ScrubberHandle {
   }
 
   function drawHist() {
-    if (!W) return;
+    if (!W || !d3) return;
     const years = d3.range(YEAR_MIN, YEAR_MAX + 1);
     const ev = db.events.filter((e) => passes(e));
     const m = new Map<number, Record<string, number>>(years.map((y) => [y, {}]));
@@ -2603,7 +2886,7 @@ export function initScrubber(): ScrubberHandle {
       .scaleSqrt()
       .domain([0, max])
       .range([H - B, B > 10 ? 12 : 3]);
-    const bars = (layer: d3.Series<Record<string, number>, string>) => {
+    const bars = (layer: d3Types.Series<Record<string, number>, string>) => {
       let d = '';
       for (const p of layer) {
         const h = yy(p[0]) - yy(p[1]);
@@ -2615,7 +2898,7 @@ export function initScrubber(): ScrubberHandle {
       return d;
     };
     gHist
-      .selectAll<SVGPathElement, d3.Series<Record<string, number>, string>>('path')
+      .selectAll<SVGPathElement, d3Types.Series<Record<string, number>, string>>('path')
       .data(st, (d) => d.key)
       .join('path')
       .attr('data-k', (d) => d.key)
@@ -2623,7 +2906,7 @@ export function initScrubber(): ScrubberHandle {
   }
 
   function setRange() {
-    if (!W) return;
+    if (!W || !d3) return;
     silent = true;
     if (state.y0 === YEAR_MIN && state.y1 === YEAR_MAX) {
       gBrush.call(brush.move, null);

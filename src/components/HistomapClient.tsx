@@ -3,6 +3,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { bootHistomap } from '../engine/boot';
 import { getLang, setLang, onLangChange, syncHtmlLang, type Lang } from '../lib/i18n';
+import {
+  getThemeId,
+  setTheme,
+  onThemeChange,
+  syncHtmlTheme,
+  THEMES,
+  THEME_ORDER,
+  type ThemeId,
+} from '../lib/theme';
+import { assetUrl } from '../lib/basePath';
 import { DOMAINS } from '../lib/palette';
 import { state as S, set as setStore, subscribe } from '../lib/store';
 import { db, ensureNow, onData } from '../lib/data';
@@ -28,7 +38,8 @@ const EPOCH_PRESETS: EpochPreset[] = [
 
 export default function HistomapClient() {
   const [lang, setLangState] = useState<Lang>(() => getLang());
-  const [openMenu, setOpenMenu] = useState<'domains' | 'tours' | 'help' | null>(null);
+  const [themeId, setThemeState] = useState<ThemeId>(() => getThemeId());
+  const [openMenu, setOpenMenu] = useState<'domains' | 'tours' | 'themes' | 'help' | null>(null);
   const [activeDomains, setActiveDomains] = useState<Set<string>>(
     () => new Set(DOMAINS.map((d) => d.id)),
   );
@@ -43,8 +54,22 @@ export default function HistomapClient() {
 
   useEffect(() => {
     syncHtmlLang();
+    syncHtmlTheme();
     setLangState(getLang());
+    setThemeState(getThemeId());
     bootHistomap();
+
+    if (
+      typeof navigator !== 'undefined' &&
+      'serviceWorker' in navigator &&
+      location.protocol.startsWith('http')
+    ) {
+      navigator.serviceWorker.register(assetUrl('/sw.js')).catch(() => {});
+    }
+
+    const offTheme = onThemeChange((spec) => {
+      setThemeState(spec.id);
+    });
 
     const offLang = onLangChange((l) => {
       setLangState(l);
@@ -101,6 +126,7 @@ export default function HistomapClient() {
     document.addEventListener('keydown', onKey);
 
     return () => {
+      offTheme();
       offLang();
       offStore();
       offData();
@@ -467,12 +493,81 @@ export default function HistomapClient() {
               <input
                 id="q"
                 type="search"
-                placeholder={zh ? '搜索史料…' : 'Search…'}
+                placeholder={zh ? '搜索史料 / 拼音 / 朝代…' : 'Search / Pinyin / Era…'}
                 autoComplete="off"
                 aria-controls="search-results"
               />
               <kbd className="hx-kbd" aria-hidden="true">/</kbd>
               <div className="search-results" id="search-results" role="listbox" hidden />
+            </div>
+
+            <div className="hx-pop-wrap hx-theme-wrap">
+              <button
+                type="button"
+                id="theme-toggle"
+                className={`hx-tool-btn hx-theme-btn${openMenu === 'themes' ? ' active' : ''}`}
+                aria-expanded={openMenu === 'themes'}
+                aria-label={zh ? `切换主题（当前：${THEMES[themeId].zh}）` : `Switch theme (${THEMES[themeId].en})`}
+                onClick={() => setOpenMenu((m) => (m === 'themes' ? null : 'themes'))}
+                title={zh ? `视觉主题：${THEMES[themeId].zh}` : `Visual theme: ${THEMES[themeId].en}`}
+              >
+                <span
+                  className="hx-theme-swatch"
+                  style={{
+                    background: THEMES[themeId].accent,
+                    boxShadow: `0 0 0 2px ${THEMES[themeId].night}`,
+                  }}
+                  aria-hidden="true"
+                />
+                <span className="hx-theme-lbl">
+                  {zh ? THEMES[themeId].zhShort : THEMES[themeId].enShort}
+                </span>
+              </button>
+              {openMenu === 'themes' && (
+                <div className="hx-pop theme-pop" role="dialog" aria-label={zh ? '切换主题风格' : 'Select visual theme'}>
+                  <div className="hx-pop-head">
+                    <div>
+                      <strong>{zh ? '星图视觉主题' : 'Visual Atmosphere'}</strong>
+                      <small>{zh ? '实时切换 WebGPU 着色器与界面色板' : 'Live WebGPU shader & UI palette'}</small>
+                    </div>
+                  </div>
+                  <div className="hx-theme-list">
+                    {THEME_ORDER.map((tid) => {
+                      const spec = THEMES[tid];
+                      const active = themeId === tid;
+                      return (
+                        <button
+                          key={tid}
+                          type="button"
+                          data-theme-opt={tid}
+                          className={`hx-theme-item${active ? ' on' : ''}`}
+                          aria-pressed={active}
+                          onClick={() => {
+                            setTheme(tid);
+                            setOpenMenu(null);
+                          }}
+                        >
+                          <span
+                            className="hx-theme-preview"
+                            style={{
+                              background: spec.night,
+                              borderColor: spec.accent,
+                            }}
+                            aria-hidden="true"
+                          >
+                            <i style={{ background: spec.accent }} />
+                            <i style={{ background: spec.accentWarm }} />
+                          </span>
+                          <span className="hx-theme-meta">
+                            <strong>{zh ? spec.zh : spec.en}</strong>
+                            <span>{zh ? spec.subZh : spec.subEn}</span>
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div
@@ -534,8 +629,12 @@ export default function HistomapClient() {
                       <dd>{zh ? '展开文献考证、人物脉络与原始出处' : 'Open primary sources & evidence panel'}</dd>
                     </div>
                     <div>
-                      <dt>{zh ? '键盘快捷键' : 'Shortcuts'}</dt>
-                      <dd>{zh ? '← → 步进年代 · / 搜索 · Esc 关闭面板' : '← → step eras · / search · Esc close'}</dd>
+                      <dt>{zh ? '因果脉络聚光灯' : '3D Lineage Spotlight'}</dt>
+                      <dd>{zh ? '选中事件后按 L 或点击「脉络」，高亮前因与后世影响弧线' : 'Press L or click Lineage to trace ancestors & descendants in 3D'}</dd>
+                    </div>
+                    <div>
+                      <dt>{zh ? '键盘巡航与快捷键' : 'Keyboard Cruise'}</dt>
+                      <dd>{zh ? '↑ ↓ 或 J K 逐条巡航史料 · ← → 步进年代 · / 搜索 · Esc 关闭' : '↑ ↓ or J K cruise events · ← → step eras · / search · Esc close'}</dd>
                     </div>
                   </dl>
                 </div>
@@ -651,19 +750,68 @@ export default function HistomapClient() {
         aria-label={zh ? '史料考证面板' : 'Evidence panel'}
         aria-hidden="true"
       >
+        <div
+          className="drawer-grip"
+          id="dgrip"
+          role="button"
+          tabIndex={0}
+          aria-label={zh ? '上下拖拽或点击切换面板高度' : 'Drag or tap to resize sheet'}
+        >
+          <span />
+        </div>
         <div className="drawer-head">
           <div className="drawer-top">
             <div className="kicker sc" id="dk" />
-            <button
-              className="icon-btn"
-              id="dclose"
-              type="button"
-              aria-label={zh ? '关闭面板' : 'Close evidence panel'}
-            >
-              <svg viewBox="0 0 14 14" stroke="currentColor" strokeWidth="1.5">
-                <path d="M2 2l10 10M12 2 2 12" />
-              </svg>
-            </button>
+            <div className="drawer-actions">
+              <button
+                className="da-btn"
+                id="dlineage"
+                type="button"
+                aria-pressed="false"
+                hidden
+              >
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                  <circle cx="3.2" cy="8" r="1.8" />
+                  <circle cx="12.8" cy="4" r="1.8" />
+                  <circle cx="12.8" cy="12" r="1.8" />
+                  <path d="M5 7.3 11 4.7M5 8.7l6 2.6" />
+                </svg>
+                <span className="da-lbl">{zh ? '脉络' : 'Lineage'}</span>
+              </button>
+              <button
+                className="da-btn"
+                id="dposter"
+                type="button"
+                hidden
+              >
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                  <rect x="2.2" y="2" width="11.6" height="12" rx="1.8" />
+                  <path d="M5 6h6M5 8.8h4M10.2 10.5h1.5v1.5h-1.5z" />
+                </svg>
+                <span className="da-lbl">{zh ? '海报' : 'Poster'}</span>
+              </button>
+              <button
+                className="da-btn"
+                id="dshare"
+                type="button"
+                hidden
+              >
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                  <path d="M6.6 9.4 9.4 6.6M5.2 10.8l-1.1 1.1a2.2 2.2 0 0 1-3.1-3.1l1.6-1.6a2.2 2.2 0 0 1 3.1 0M10.8 5.2l1.1-1.1a2.2 2.2 0 0 1 3.1 3.1l-1.6 1.6a2.2 2.2 0 0 1-3.1 0" />
+                </svg>
+                <span className="da-lbl">{zh ? '链接' : 'Link'}</span>
+              </button>
+              <button
+                className="icon-btn"
+                id="dclose"
+                type="button"
+                aria-label={zh ? '关闭面板' : 'Close evidence panel'}
+              >
+                <svg viewBox="0 0 14 14" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M2 2l10 10M12 2 2 12" />
+                </svg>
+              </button>
+            </div>
           </div>
           <div className="drawer-title" id="dt" />
         </div>

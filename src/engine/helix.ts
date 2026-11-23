@@ -4,6 +4,7 @@
 import {
   db,
   ensure,
+  ensureMomentPictures,
   onData,
   fmtDate,
   forecastOrder,
@@ -31,7 +32,14 @@ import { esc, tip, select as selectRecord, openEvidence } from '../lib/ui';
 import { assetUrl } from '../lib/basePath';
 import { state, hashParams } from '../lib/store';
 import { POSTER } from '../lib/poster';
-import { HelixGpuRenderer } from './helixGpu';
+import type { HelixGpuRenderer } from './helixGpu';
+import {
+  getTheme,
+  onThemeChange,
+  isLineageSpotlight,
+  toggleLineageSpotlight,
+  onLineageChange,
+} from '../lib/theme';
 import {
   isZh,
   onLangChange,
@@ -113,13 +121,13 @@ const LIN_OF: Record<string, number> = Object.fromEntries(
 );
 const LANE_LIN = ORDER.map((d) => LIN_OF[d] ?? 7);
 
-const INK = '#f2efe9';
-const SOFT = '#9cb5af';
-const NIGHT = GROUNDS.night;
-const GROUND = ['#050b0c', '#091517', '#0f2224'];
-const FRINGE_BLUE = '#2dd4bf';
-const FRINGE_RED = '#e8834a';
-const CORE = '#f7f4eb';
+let INK = getTheme().ink;
+let SOFT = getTheme().soft;
+let NIGHT = GROUNDS.night;
+let GROUND: [string, string, string] = [...getTheme().sky];
+let FRINGE_BLUE = getTheme().fringeBlue;
+let FRINGE_RED = getTheme().fringeRed;
+let CORE = getTheme().core;
 const FONT_DISPLAY = FONT_STACK_DISPLAY;
 const FONT_TEXT = FONT_STACK_SANS;
 const linName = (en: string) => (isZh() ? ROOT_LINEAGE_ZH[en] || en : en);
@@ -193,7 +201,7 @@ const A0 = (270 * Math.PI) / 180;
 const GAP_Y = ((6 / 360) * 100) / 2;
 const ROOT_LEN = 4.4 * PITCH;
 const ROOT_X = -10 * PITCH;
-const EMBER = '#4d2619';
+let EMBER = getTheme().ember;
 const TONE = [0, 1, 2, 1, 0, 2, 1, 0, 2, 0, 1, 2, 1];
 const FLOOR_PULLED = 2.6;
 const FLOOR_FAR = 2.2;
@@ -232,19 +240,36 @@ const colAt = (sf: number) => (sf < R ? rootCol(sf / R) : heat((sf - R - 26) / 1
 const uOf = (y: number) => (slf(y) - R - 26) / 1000;
 
 const COLS: string[] = [];
-for (let si = 0; si <= SPAN; si++) {
-  const h =
-    si < R
-      ? rootCol(si / R)
-      : heat(
-          uOf(yearOfSlot(si)) +
-            0.012 * Math.sin(si * 0.37) +
-            0.008 * Math.sin(si * 1.31),
-        );
-  for (const t of [h, mix(h, INK, 0.22), sunk(h, 0.22)]) {
-    COLS.push(t, sunk(t, 0.2), sunk(t, 0.42));
+const COLW: string[] = [];
+
+function rebuildHelixPalette() {
+  const spec = getTheme();
+  INK = spec.ink;
+  SOFT = spec.soft;
+  NIGHT = spec.night;
+  GROUND = [...spec.sky];
+  FRINGE_BLUE = spec.fringeBlue;
+  FRINGE_RED = spec.fringeRed;
+  CORE = spec.core;
+  EMBER = spec.ember;
+  COLS.length = 0;
+  for (let si = 0; si <= SPAN; si++) {
+    const h =
+      si < R
+        ? rootCol(si / R)
+        : heat(
+            uOf(yearOfSlot(si)) +
+              0.012 * Math.sin(si * 0.37) +
+              0.008 * Math.sin(si * 1.31),
+          );
+    for (const t of [h, mix(h, INK, 0.22), sunk(h, 0.22)]) {
+      COLS.push(t, sunk(t, 0.2), sunk(t, 0.42));
+    }
   }
+  COLW.length = COLS.length * 5;
+  COLW.fill('');
 }
+rebuildHelixPalette();
 
 const heatOf = (y: number) => colAt(slf(y));
 const W_SIZE = [1, 1, 1, 1, 1.08];
@@ -253,14 +278,14 @@ const W_LIFT = [0, 0, 0, 0.03, 0.17];
 const wOf = (e: any) => clamp(Math.round((e && e.significance) || 3), 1, 5) - 1;
 const satOf = (h: string, k: number, up = 0) => {
   const [L, a, b] = toOklab(h);
-  return fromOklab(Math.min(1, L + up), a * k, b * k);
+  const delta = getTheme().isLight ? -up * 0.45 : up;
+  return fromOklab(clamp(L + delta, 0, 1), a * k, b * k);
 };
-const COLW = new Array<string>(COLS.length * 5);
 const colW = (key: number): string =>
   COLW[key] ||
   (COLW[key] = satOf(COLS[(key / 5) | 0], W_SAT[key % 5], W_LIFT[key % 5]));
 
-const typeOf = (y: number) => mix(heatOf(y), INK, 0.32);
+const typeOf = (y: number) => mix(heatOf(y), INK, getTheme().isLight ? 0.26 : 0.32);
 const lumOf = (c: string) => {
   const v = [1, 3, 5]
     .map((i) => parseInt(c.slice(i, i + 2), 16) / 255)
@@ -269,9 +294,13 @@ const lumOf = (c: string) => {
 };
 const typeOfPhone = (y: number) => {
   const h = heatOf(y);
-  let m = 0.32;
+  const light = getTheme().isLight;
+  let m = light ? 0.28 : 0.32;
   let c = mix(h, INK, m);
-  while (m < 0.9 && (lumOf(c) + 0.05) / 0.062 < 5) {
+  while (
+    m < 0.9 &&
+    (light ? (0.88 + 0.05) / (lumOf(c) + 0.05) < 4.5 : (lumOf(c) + 0.05) / 0.062 < 5)
+  ) {
     m += 0.06;
     c = mix(h, INK, m);
   }
@@ -490,20 +519,49 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   const octx = over.getContext('2d')!;
   void shell;
 
-  const gpu = new HelixGpuRenderer(gpuCanvas);
+  let gpu!: HelixGpuRenderer;
+  let gpuLoaded = false;
   let sceneKey = '';
   let alive = true;
   let raf = 0;
+  let rafFallback: ReturnType<typeof setTimeout> | null = null;
+  let gyroAz = 0;
+  let gyroEl = 0;
+  let gyroBase: { beta: number; gamma: number } | null = null;
 
   function invalidate() {
-    if (!alive || raf) return;
-    raf = requestAnimationFrame(frame);
+    if (!alive || raf || rafFallback !== null) return;
+    raf = requestAnimationFrame((now) => {
+      if (rafFallback !== null) {
+        clearTimeout(rafFallback);
+        rafFallback = null;
+      }
+      frame(now);
+    });
+    rafFallback = setTimeout(() => {
+      rafFallback = null;
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+      frame(performance.now());
+    }, 32);
   }
 
-  gpu.init(() => {
-    sceneKey = '';
-    invalidate();
-  });
+  import('./helixGpu')
+    .then(({ HelixGpuRenderer: GpuCtor }) => {
+      if (!alive) return;
+      gpu = new GpuCtor(gpuCanvas);
+      gpuLoaded = true;
+      gpu.setTheme(getTheme());
+      if (W > 0 && H > 0) gpu.setSize(W, H, DPR);
+      gpu.init(() => {
+        if (!alive) return;
+        sceneKey = '';
+        invalidate();
+      });
+    })
+    .catch(() => {});
 
   let W = 0;
   let H = 0;
@@ -675,6 +733,57 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   }
 
   const momentImg = new Map<string, HTMLImageElement | 0 | null>();
+  const MOMENT_SHEET_S = 1024;
+  const MOMENT_CELL = 200;
+  const MOMENT_COLS = 5; // up to 25 moment thumbnails on one 4MB atlas
+  let momentSheet: HTMLCanvasElement | null = null;
+  let momentSheetCtx: CanvasRenderingContext2D | null = null;
+  let momentSheetDirty = false;
+  const momentTileBySrc = new Map<
+    string,
+    { u: number; v: number; uw: number; vh: number; a: number }
+  >();
+
+  function packMomentThumb(src: string, im: HTMLImageElement) {
+    if (momentTileBySrc.has(src) || !im.naturalWidth || !im.naturalHeight) return;
+    const idx = momentTileBySrc.size;
+    if (idx >= MOMENT_COLS * MOMENT_COLS) return;
+    if (!momentSheet) {
+      momentSheet = document.createElement('canvas');
+      momentSheet.width = MOMENT_SHEET_S;
+      momentSheet.height = MOMENT_SHEET_S;
+      (momentSheet as any).naturalWidth = MOMENT_SHEET_S;
+      (momentSheet as any).naturalHeight = MOMENT_SHEET_S;
+      (momentSheet as any).complete = true;
+      momentSheetCtx = momentSheet.getContext('2d');
+    }
+    if (!momentSheetCtx) return;
+    const col = idx % MOMENT_COLS;
+    const row = Math.floor(idx / MOMENT_COLS);
+    const pad = 2;
+    const maxBox = MOMENT_CELL - pad * 2;
+    const a = im.naturalWidth / im.naturalHeight;
+    let dw = maxBox;
+    let dh = maxBox;
+    if (a >= 1) {
+      dh = Math.max(8, Math.round(maxBox / a));
+    } else {
+      dw = Math.max(8, Math.round(maxBox * a));
+    }
+    const px = col * MOMENT_CELL + pad;
+    const py = row * MOMENT_CELL + pad;
+    momentSheetCtx.clearRect(px - 1, py - 1, dw + 2, dh + 2);
+    momentSheetCtx.drawImage(im, px, py, dw, dh);
+    momentTileBySrc.set(src, {
+      u: (px + 0.5) / MOMENT_SHEET_S,
+      v: 1 - (py + dh - 0.5) / MOMENT_SHEET_S,
+      uw: Math.max(1, dw - 1) / MOMENT_SHEET_S,
+      vh: Math.max(1, dh - 1) / MOMENT_SHEET_S,
+      a,
+    });
+    momentSheetDirty = true;
+  }
+
   function ensureMomentPics() {
     for (const e of db.events || []) {
       if (!(e.moment || e.type === 'moment') || !e.picture || !e.picture.src) continue;
@@ -686,6 +795,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       im.decoding = 'async';
       im.onload = () => {
         momentImg.set(s, im);
+        packMomentThumb(s, im);
         geomKey = '';
         sceneKey = '';
         unitDomKey = '';
@@ -826,7 +936,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
           layer,
           p,
           c,
-          colKey: (si * 3 + TONE[lane]) * 3,
+          colKey: (si * 3 + TONE[lane % TONE.length]) * 3,
           w: wOf(list[i]),
           moment: !!list[i].moment,
         };
@@ -914,9 +1024,11 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       const src = assetUrl(e.picture.src);
       const im = momentImg.get(src);
       if (!im || typeof im !== 'object' || !im.naturalWidth) continue;
+      packMomentThumb(src, im);
+      const tile = momentTileBySrc.get(src);
+      if (!tile || !momentSheet) continue;
       const cell = evCell.get(e.id);
       if (!cell) continue;
-      const pc = { u: 0, v: 0, uw: 1, vh: 1, a: im.naturalWidth / im.naturalHeight };
       const p = new Float32Array(3);
       coilRel(slf(e.year) + 0.5, cell.lane, 0.28, p, 0);
       const dec = Math.floor(sl(e.year) / 10) * 10;
@@ -926,8 +1038,8 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         e,
         s: sl(e.year),
         y: e.year,
-        pc,
-        atl: im,
+        pc: tile,
+        atl: momentSheet,
         p,
         cell,
         moment: true,
@@ -1095,8 +1207,8 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   const STRIP_W = 44;
   const STRIP_PAD = 18;
   const STRIP_BOT = 38;
-  const PLATE = 'rgba(5,12,14,0.92)';
-  const PLATE_S = 'rgba(5,12,14,0.74)';
+  let PLATE = getTheme().plate;
+  let PLATE_S = getTheme().plateSoft;
   const READ = { pad: 10, date: 19, name: 24, line: 20 };
   const TAG_H = 18;
   const skyTop = () => 6;
@@ -1148,8 +1260,8 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     syncLayoutVars(P, BAND);
     const pull = cam.pull;
     const Y = Math.max(T0, cam.year);
-    const el = ((P.el + cam.elOff + pull * 10) * Math.PI) / 180;
-    const az = ((P.az + cam.azOff + pull * 18) * Math.PI) / 180;
+    const el = ((P.el + cam.elOff + gyroEl + pull * 10) * Math.PI) / 180;
+    const az = ((P.az + cam.azOff + gyroAz + pull * 18) * Math.PI) / 180;
     const dist = P.dist * (1 + pull * 3.55) * (P.vert ? 1 + cam.breath * BREATH : 1);
     const tY = (slf(Y) - R) / 100;
     const aY = A0 + tY * Math.PI * 2;
@@ -1719,6 +1831,54 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     }
   }
 
+  let lineageCacheKey = '';
+  let lineageHops = new Map<string, number>();
+  let lineageEdges: { from: string; to: string; hop: number }[] = [];
+
+  function getLineageGraph() {
+    const active = isLineageSpotlight() && !!state.sel && !!(db.byId && db.byId.has(state.sel));
+    const k = active ? `${state.sel}:${db.events.length}` : '';
+    if (k === lineageCacheKey) return { active, hops: lineageHops, edges: lineageEdges };
+    lineageCacheKey = k;
+    lineageHops = new Map();
+    lineageEdges = [];
+    if (!active) return { active: false, hops: lineageHops, edges: lineageEdges };
+    const rootId = state.sel!;
+    const rootEv = db.byId.get(rootId);
+    if (!rootEv) return { active: false, hops: lineageHops, edges: lineageEdges };
+
+    lineageHops.set(rootId, 0);
+    const inc1: string[] = (db.in && db.in.get(rootId)) || [];
+    const out1: string[] = rootEv.connects || [];
+    for (const id of inc1) {
+      if (!db.byId.has(id)) continue;
+      if (!lineageHops.has(id)) lineageHops.set(id, -1);
+      lineageEdges.push({ from: id, to: rootId, hop: -1 });
+    }
+    for (const id of out1) {
+      if (!db.byId.has(id)) continue;
+      if (!lineageHops.has(id)) lineageHops.set(id, 1);
+      lineageEdges.push({ from: rootId, to: id, hop: 1 });
+    }
+    for (const id1 of inc1) {
+      const inc2: string[] = (db.in && db.in.get(id1)) || [];
+      for (const id2 of inc2.slice(0, 4)) {
+        if (!db.byId.has(id2) || id2 === rootId) continue;
+        if (!lineageHops.has(id2)) lineageHops.set(id2, -2);
+        lineageEdges.push({ from: id2, to: id1, hop: -2 });
+      }
+    }
+    for (const id1 of out1) {
+      const ev1 = db.byId.get(id1);
+      for (const id2 of (ev1?.connects || []).slice(0, 4)) {
+        if (!db.byId.has(id2) || id2 === rootId) continue;
+        if (!lineageHops.has(id2)) lineageHops.set(id2, 2);
+        lineageEdges.push({ from: id1, to: id2, hop: 2 });
+      }
+    }
+    return { active: true, hops: lineageHops, edges: lineageEdges };
+  }
+
   function paintScene(x: CanvasRenderingContext2D, V: ViewState) {
     x.setTransform(DPR, 0, 0, DPR, 0, 0);
     if (gpu.ready) {
@@ -1727,6 +1887,10 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       x.drawImage(ground(), 0, 0, W, H);
     }
     gpu.beginScene();
+
+    const lin = getLineageGraph();
+    const linActive = lin.active && lin.hops.size > 0;
+    const linThreadMul = linActive ? 0.28 : 1;
 
     visCells = [];
     picHits = [];
@@ -1766,9 +1930,9 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
           const own = !pulled && near > 0.66;
           if (own) {
             const strokes: [number, string, number, number][] = [
-              [-1.1, FRINGE_BLUE, 0.45 * ah, 1.0],
-              [1.1, FRINGE_RED, 0.45 * ah, 1.0],
-              [0, CORE, 0.6 * ah, 0.9],
+              [-1.1, FRINGE_BLUE, 0.45 * ah * linThreadMul, 1.0],
+              [1.1, FRINGE_RED, 0.45 * ah * linThreadMul, 1.0],
+              [0, CORE, 0.6 * ah * linThreadMul, 0.9],
             ];
             for (const [dx, st, al, lw] of strokes) {
               let prev = false;
@@ -1788,7 +1952,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
               }
             }
           } else {
-            const al = (near * 0.62 + 0.08) * ah;
+            const al = (near * 0.62 + 0.08) * ah * linThreadMul;
             const col = c.col[step];
             let prev = false;
             let px = 0;
@@ -1870,18 +2034,28 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
           const inHand = uInHand !== null && unitOf(c.e.year) === uInHand;
           const dim =
             uInHand !== null && !inHand ? (near > 0.62 ? 0.58 : 0.85) : 1;
+          const hop = linActive ? lin.hops.get(c.e.id) : undefined;
           let ux = qm[2] - qm[0];
           let uy = qm[3] - qm[1];
           let vx = qm[6] - qm[0];
           let vy = qm[7] - qm[1];
-          const ws = W_SIZE[m.w];
+          const ws =
+            W_SIZE[m.w] *
+            (hop === 0 ? 1.38 : hop !== undefined && Math.abs(hop) === 1 ? 1.24 : hop !== undefined ? 1.12 : 1);
           const lu = Math.hypot(ux, uy) * ws;
           const lv = Math.hypot(vx, vy) * ws;
           const floor = pulled ? FLOOR_PULLED : FLOOR_FAR;
-          const col = c.moment
-            ? mix(heatOf(c.e.year), INK, 0.28)
-            : colW((c.colKey + step) * 5 + m.w);
-          const alpha =
+          const col =
+            hop !== undefined
+              ? hop < 0
+                ? mix(heatOf(c.e.year), '#f59e0b', 0.45)
+                : hop > 0
+                  ? mix(heatOf(c.e.year), FRINGE_BLUE, 0.45)
+                  : mix(heatOf(c.e.year), INK, 0.38)
+              : c.moment
+                ? mix(heatOf(c.e.year), INK, 0.28)
+                : colW((c.colKey + step) * 5 + m.w);
+          const baseAlpha =
             (pulled
               ? 0.92
               : c.moment
@@ -1891,8 +2065,23 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
                   : 0.52 + near * 0.44) *
             ah *
             dim;
+          const alpha = linActive
+            ? hop !== undefined
+              ? Math.max(baseAlpha, hop === 0 ? 1 : Math.abs(hop) === 1 ? 0.96 : 0.82)
+              : baseAlpha * 0.14
+            : baseAlpha;
 
-          if (c.moment) {
+          if (hop !== undefined) {
+            const haloCol = hop < 0 ? '#f59e0b' : hop > 0 ? FRINGE_BLUE : heatOf(c.e.year);
+            targetHalos.push(
+              cx,
+              cy,
+              1.6,
+              hop === 0 ? 24 : Math.abs(hop) === 1 ? 17 : 12,
+              haloCol,
+              hop === 0 ? 0.62 : Math.abs(hop) === 1 ? 0.48 : 0.34,
+            );
+          } else if (c.moment && !linActive) {
             const rad = Math.max(floor, Math.min(lu, lv) * 0.5, 4);
             if (rad * 4 >= 2) {
               targetHalos.push(
@@ -2569,7 +2758,9 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const alpha =
       (pulled ? 0.85 : clamp(0.38 + near * 0.62 + lift * 0.2, 0, 1)) * ah;
     if (alpha <= 0.004) return;
-    const texEntry = gpu.textureForImage(it.atl);
+    const dirty = it.atl === momentSheet && momentSheetDirty;
+    if (dirty) momentSheetDirty = false;
+    const texEntry = gpu.textureForImage(it.atl, dirty);
     const pc = it.pc;
     const momentHex =
       it.moment && Math.max(w, h) * 0.5 * 3 >= 2 ? heatOf(it.y) : null;
@@ -3402,26 +3593,202 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
 
   let flowWasActive = false;
 
+  function projectLineageNode(V: ViewState, ev: any): { sx: number; sy: number; d: number } | null {
+    if (!ev) return null;
+    const cell = evCell.get(ev.id);
+    if (cell) {
+      const p = projR(V, cell.c[0], cell.c[1], cell.c[2]);
+      if (p.d) return { sx: p.sx, sy: p.sy, d: p.d };
+    }
+    const tmp = new Float32Array(3);
+    const lane = laneIx[ev.domain] ?? 4;
+    if (ev.year < T0) {
+      coilRel(slf(ev.year) + 0.5, lane, 0.02, tmp, 0);
+    } else {
+      coilY(clamp(ev.year, T0, T2), lane, 0.02, tmp, 0);
+    }
+    const p = projR(V, tmp[0], tmp[1], tmp[2]);
+    return p.d ? { sx: p.sx, sy: p.sy, d: p.d } : null;
+  }
+
+  function drawLineageSpotlight(x: CanvasRenderingContext2D, V: ViewState, selEv: any) {
+    const lin = getLineageGraph();
+    if (!lin.active || !selEv || lin.hops.size === 0) return;
+
+    const light = getTheme().isLight;
+    const preCol = light ? '#b45309' : '#f59e0b';
+    const sucCol = light ? '#0f766e' : FRINGE_BLUE;
+    const pts = new Map<string, { sx: number; sy: number; d: number; ev: any; hop: number }>();
+    for (const [id, hop] of lin.hops) {
+      const ev = db.byId.get(id);
+      const p = projectLineageNode(V, ev);
+      if (p && ev) pts.set(id, { ...p, ev, hop });
+    }
+
+    const pulsePhase = reduced() ? 0.55 : ((performance.now() * 0.00055) % 1);
+    if (!reduced()) invalidate();
+
+    x.save();
+    for (const edge of lin.edges) {
+      const a = pts.get(edge.from);
+      const b = pts.get(edge.to);
+      if (!a || !b) continue;
+      if (!onStage(a.sx, a.sy) && !onStage(b.sx, b.sy)) continue;
+      const isPre = edge.hop < 0;
+      const isDirect = Math.abs(edge.hop) === 1;
+      const col = isPre ? preCol : sucCol;
+      const dx = b.sx - a.sx;
+      const dy = b.sy - a.sy;
+      const dist = Math.hypot(dx, dy);
+      if (dist < 4) continue;
+      const lift = clamp(dist * 0.22, 16, 86);
+      const mx = (a.sx + b.sx) * 0.5;
+      const my = (a.sy + b.sy) * 0.5 - lift;
+
+      x.strokeStyle = col;
+      x.lineWidth = isDirect ? 2.1 : 1.25;
+      x.globalAlpha = isDirect ? 0.88 : 0.45;
+      if (!isDirect) x.setLineDash([4, 4]);
+      x.beginPath();
+      x.moveTo(a.sx, a.sy);
+      x.quadraticCurveTo(mx, my, b.sx, b.sy);
+      x.stroke();
+      if (!isDirect) x.setLineDash([]);
+
+      // Directional arrowhead at 82% along Bezier curve + traveling light bead on 1-hop arcs
+      const drawAtT = (t: number) => {
+        const omt = 1 - t;
+        const px = omt * omt * a.sx + 2 * omt * t * mx + t * t * b.sx;
+        const py = omt * omt * a.sy + 2 * omt * t * my + t * t * b.sy;
+        const tx = 2 * omt * (mx - a.sx) + 2 * t * (b.sx - mx);
+        const ty = 2 * omt * (my - a.sy) + 2 * t * (b.sy - my);
+        return { px, py, ang: Math.atan2(ty, tx) };
+      };
+
+      if (isDirect) {
+        const arr = drawAtT(0.84);
+        x.fillStyle = col;
+        x.globalAlpha = 0.94;
+        x.save();
+        x.translate(arr.px, arr.py);
+        x.rotate(arr.ang);
+        x.beginPath();
+        x.moveTo(4.5, 0);
+        x.lineTo(-4.2, -3.2);
+        x.lineTo(-2.4, 0);
+        x.lineTo(-4.2, 3.2);
+        x.closePath();
+        x.fill();
+        x.restore();
+
+        const bead = drawAtT(pulsePhase);
+        x.fillStyle = light ? col : '#ffffff';
+        x.globalAlpha = 0.92;
+        x.beginPath();
+        x.arc(bead.px, bead.py, 2.4, 0, Math.PI * 2);
+        x.fill();
+      }
+    }
+
+    // Node markers + clickable 1-hop callout pills
+    const placedPills: [number, number, number, number][] = [];
+    const sL = stageLeft();
+    const candidates = [...pts.values()]
+      .filter((n) => Math.abs(n.hop) === 1 && onStage(n.sx, n.sy) && n.sx > sL + 8)
+      .sort((a, b) => (b.ev.significance || 0) - (a.ev.significance || 0))
+      .slice(0, V.P.vert ? 4 : 8);
+
+    for (const n of pts.values()) {
+      if (!onStage(n.sx, n.sy)) continue;
+      const col = n.hop < 0 ? preCol : n.hop > 0 ? sucCol : INK;
+      const r = n.hop === 0 ? 6.5 : Math.abs(n.hop) === 1 ? 4.6 : 3.2;
+      x.fillStyle = col;
+      x.globalAlpha = n.hop === 0 ? 1 : Math.abs(n.hop) === 1 ? 0.95 : 0.72;
+      x.beginPath();
+      x.arc(n.sx, n.sy, r, 0, Math.PI * 2);
+      x.fill();
+      x.strokeStyle = NIGHT;
+      x.lineWidth = 1.4;
+      x.stroke();
+    }
+
+    x.font = `500 11.5px ${FONT_TEXT}`;
+    for (const n of candidates) {
+      const col = n.hop < 0 ? preCol : sucCol;
+      const tag = `${n.hop < 0 ? '← ' : '→ '}${fmtYear(n.ev.year)} · ${n.ev.title}`;
+      const txt = trimText(x, tag, 178);
+      const tw = x.measureText(txt).width;
+      const bw = tw + 14;
+      const bh = 21;
+      const bx = clamp(n.sx - bw * 0.5, sL + 10, W - bw - 12);
+      let by = n.hop < 0 ? n.sy - bh - 10 : n.sy + 10;
+      by = clamp(by, 44, BAND.stripY - bh - 10);
+      if (
+        placedPills.some(
+          (r) => bx < r[2] + 4 && bx + bw > r[0] - 4 && by < r[3] + 3 && by + bh > r[1] - 3,
+        )
+      ) {
+        continue;
+      }
+      placedPills.push([bx, by, bx + bw, by + bh]);
+      plate(x, bx, by, bw, bh, 0.94);
+      x.strokeStyle = hexA(col, 0.58);
+      x.lineWidth = 1;
+      x.globalAlpha = 0.95;
+      x.strokeRect(bx + 0.5, by + 0.5, bw - 1, bh - 1);
+      x.fillStyle = INK;
+      x.textAlign = 'left';
+      x.textBaseline = 'middle';
+      x.fillText(txt, bx + 7, by + bh * 0.5 + 0.5);
+      satHits.push({ e: n.ev, x0: bx, y0: by, x1: bx + bw, y1: by + bh });
+    }
+
+    // Subtle HUD badge in top-right of 3D stage
+    const preN = [...lin.hops.values()].filter((h) => h < 0).length;
+    const sucN = [...lin.hops.values()].filter((h) => h > 0).length;
+    const badgeTxt = isZh()
+      ? `因果脉络聚光 · ${preN} 项前驱 → ${sucN} 项后续（按 L 退出）`
+      : `Lineage Spotlight · ${preN} precursors → ${sucN} successors (Press L)`;
+    x.font = `500 11.5px ${FONT_TEXT}`;
+    const btw = x.measureText(badgeTxt).width;
+    const bbw = btw + 20;
+    const bbh = 24;
+    const bbx = Math.max(sL + 12, W - bbw - 16);
+    const bby = 10;
+    plate(x, bbx, bby, bbw, bbh, 0.92);
+    x.strokeStyle = hexA(FRINGE_BLUE, 0.45);
+    x.lineWidth = 1;
+    x.globalAlpha = 0.96;
+    x.strokeRect(bbx + 0.5, bby + 0.5, bbw - 1, bbh - 1);
+    x.fillStyle = INK;
+    x.textAlign = 'left';
+    x.textBaseline = 'middle';
+    x.fillText(badgeTxt, bbx + 10, bby + bbh * 0.5 + 0.5);
+    x.restore();
+  }
+
   function drawOverlay(V: ViewState, sceneRepainted: boolean) {
     octx.setTransform(DPR, 0, 0, DPR, 0, 0);
     octx.clearRect(0, 0, W, H);
     feedHits = [];
     const now = performance.now();
 
-    gpu.beginFlow();
-    const flowActive = rootFlowOn();
-    if (flowActive) {
-      drawRootFlow(V, now);
-      invalidate();
-    }
-    if (sceneRepainted || flowActive || flowWasActive) {
-      try {
-        gpu.render();
-      } catch {
-        /* guard rAF/DOM sheet loop against transient GPU device loss */
+    if (gpuLoaded) {
+      gpu.beginFlow();
+      const flowActive = rootFlowOn();
+      if (flowActive) {
+        drawRootFlow(V, now);
+        invalidate();
       }
+      if (sceneRepainted || flowActive || flowWasActive) {
+        try {
+          gpu.render();
+        } catch {
+          /* guard rAF/DOM sheet loop against transient GPU device loss */
+        }
+      }
+      flowWasActive = flowActive;
     }
-    flowWasActive = flowActive;
 
     const rest =
       Math.abs(cam.year - cam.target) < 0.35 &&
@@ -3521,6 +3888,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     }
 
     drawRef(octx, V, selEv);
+    drawLineageSpotlight(octx, V, selEv);
 
     if (hov && hov.kind === 'pic') {
       const { it, cx, cy, w, h } = hov;
@@ -3554,7 +3922,9 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       octx.save();
       octx.textAlign = 'left';
       octx.textBaseline = 'alphabetic';
-      octx.shadowColor = 'rgba(3, 9, 10, 0.88)';
+      octx.shadowColor = getTheme().isLight
+        ? 'rgba(247, 241, 229, 0.92)'
+        : 'rgba(3, 9, 10, 0.88)';
       octx.shadowBlur = 16;
       if (isZh() && roEra === '公元前') {
         const eraFont = `600 ${Math.round(P.readout * 0.30)}px ${FONT_TEXT}`;
@@ -3853,13 +4223,24 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const fh = fh0 - padY * 2;
 
     x.save();
-    // Smoked Obsidian-Jade architectural reading frame on the desktop left rail
+    // Theme-aware architectural reading frame on the desktop left rail
+    const spec = getTheme();
     const cardA = clamp(Math.max(headA, linesA), 0, 1);
     const bgGrad = x.createLinearGradient(fx0, fy0, fx0, fy0 + fh0);
-    bgGrad.addColorStop(0, `rgba(8, 18, 20, ${(0.88 * cardA).toFixed(3)})`);
-    bgGrad.addColorStop(1, `rgba(5, 11, 13, ${(0.95 * cardA).toFixed(3)})`);
+    if (spec.isLight) {
+      bgGrad.addColorStop(0, `rgba(252, 248, 239, ${(0.92 * cardA).toFixed(3)})`);
+      bgGrad.addColorStop(1, `rgba(243, 236, 222, ${(0.97 * cardA).toFixed(3)})`);
+      x.shadowColor = `rgba(58, 43, 25, ${(0.16 * cardA).toFixed(3)})`;
+    } else if (spec.id === 'starlight') {
+      bgGrad.addColorStop(0, `rgba(11, 16, 30, ${(0.88 * cardA).toFixed(3)})`);
+      bgGrad.addColorStop(1, `rgba(6, 9, 18, ${(0.95 * cardA).toFixed(3)})`);
+      x.shadowColor = `rgba(2, 4, 10, ${(0.64 * cardA).toFixed(3)})`;
+    } else {
+      bgGrad.addColorStop(0, `rgba(8, 18, 20, ${(0.88 * cardA).toFixed(3)})`);
+      bgGrad.addColorStop(1, `rgba(5, 11, 13, ${(0.95 * cardA).toFixed(3)})`);
+      x.shadowColor = `rgba(1, 5, 6, ${(0.62 * cardA).toFixed(3)})`;
+    }
     x.fillStyle = bgGrad;
-    x.shadowColor = `rgba(1, 5, 6, ${(0.62 * cardA).toFixed(3)})`;
     x.shadowBlur = 24;
     x.shadowOffsetY = 6;
     x.beginPath();
@@ -3869,10 +4250,12 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     x.shadowBlur = 0;
     x.shadowOffsetY = 0;
 
-    const accentCol = f.fcast ? '#6ee7d8' : typeOf(f.un);
-    x.strokeStyle = `rgba(130, 206, 194, ${(0.18 * cardA).toFixed(3)})`;
+    const accentCol = f.fcast ? FRINGE_BLUE : typeOf(f.un);
+    x.strokeStyle = spec.ruleStrong;
+    x.globalAlpha = cardA;
     x.lineWidth = 1;
     x.stroke();
+    x.globalAlpha = 1;
 
     // Precision top mineral accent rule matching current era's spectrum hue
     x.save();
@@ -3994,14 +4377,14 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     }
     x.restore();
 
-    // Luminous celadon-jade bridge chevron connecting the selected left-panel item into the right-adjacent detail drawer
+    // Luminous bridge chevron connecting the selected left-panel item into the right-adjacent detail drawer
     if (itemRes.selMidY !== null && !P.vert && W >= 900) {
       x.save();
       const my = itemRes.selMidY;
       const rx = fx0 + fw0;
       x.globalAlpha = 0.96 * linesA;
-      x.fillStyle = '#5eead4';
-      x.shadowColor = 'rgba(94, 234, 212, 0.70)';
+      x.fillStyle = FRINGE_BLUE;
+      x.shadowColor = hexA(FRINGE_BLUE, 0.7);
       x.shadowBlur = 10;
       x.beginPath();
       x.moveTo(rx - 1, my - 6);
@@ -4577,7 +4960,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const P = H > W || W < 720 ? VERT : DESK;
     BAND = bandOf(P);
     syncLayoutVars(P, BAND);
-    gpu.setSize(W, H, DPR);
+    if (gpuLoaded) gpu.setSize(W, H, DPR);
     sceneKey = '';
     unitDomKey = '';
   }
@@ -4589,8 +4972,16 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     buildGeom();
     const moving = stepPhysics(now);
     const V = view();
+    if (!gpuLoaded) {
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      ctx.drawImage(ground(), 0, 0, W, H);
+      drawOverlay(V, false);
+      if (moving) invalidate();
+      return;
+    }
     const uHand = V.pull > 0.5 ? 'p' : unitOf(cam.year);
-    const key = `${W}x${H}x${DPR}:${slf(cam.year).toFixed(3)}:${V.pull.toFixed(3)}:${cam.drawer.toFixed(3)}:${cam.azOff.toFixed(2)}:${cam.elOff.toFixed(2)}:${cam.breath.toFixed(3)}:${uHand}:${shA.toFixed(2)}:${geomKey}:${gpu.ready ? 1 : 0}`;
+    const linKey = isLineageSpotlight() && state.sel ? `L:${state.sel}` : '';
+    const key = `${W}x${H}x${DPR}:${slf(cam.year).toFixed(3)}:${V.pull.toFixed(3)}:${cam.drawer.toFixed(3)}:${cam.azOff.toFixed(2)}:${cam.elOff.toFixed(2)}:${gyroAz.toFixed(2)}:${gyroEl.toFixed(2)}:${cam.breath.toFixed(3)}:${uHand}:${shA.toFixed(2)}:${geomKey}:${gpu.ready ? 1 : 0}:${getTheme().id}:${linKey}`;
     let sceneRepainted = false;
     if (key !== sceneKey) {
       sceneKey = key;
@@ -4706,7 +5097,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         const d = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
         const next = clamp(pinchPull0 + (pinchD0 - d) / 180, 0, 1);
         cam.pull = next;
-        cam.pullT = next > 0.45 ? 1 : 0;
+        cam.pullT = next;
         invalidate();
         return;
       }
@@ -4924,17 +5315,123 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     travelTo(nearestStop(cam.year));
   }
 
+  function cruiseEvent(step: 1 | -1): boolean {
+    if (!db.events || !db.events.length) return false;
+    if (cam.pullT > 0.5) cam.pullT = 0;
+
+    if ((openUnit !== null || openFcast) && unitDom && !unitDom.hidden) {
+      const domIds = [
+        ...new Set(
+          [...unitDom.querySelectorAll<HTMLElement>('[data-id]')]
+            .map((el) => el.dataset.id || '')
+            .filter(Boolean),
+        ),
+      ];
+      const curIdx = state.sel ? domIds.indexOf(state.sel) : -1;
+      if (domIds.length && (curIdx >= 0 || !state.sel)) {
+        const nextIdx = curIdx < 0 ? (step > 0 ? 0 : domIds.length - 1) : curIdx + step;
+        if (nextIdx >= 0 && nextIdx < domIds.length) {
+          selectRecord(domIds[nextIdx]);
+          invalidate();
+          return true;
+        }
+      }
+      if (!openFcast && openUnit !== null && curIdx >= 0) {
+        let uNext = openUnit;
+        for (let g = 0; g < 260; g++) {
+          const cand = stepStop(uNext, step > 0 ? -1 : 1);
+          if (cand === uNext) break;
+          uNext = cand;
+          const evs = evByUnit.get(uNext);
+          if (evs && evs.length) {
+            openUnit = uNext;
+            openFilter = null;
+            openScroll = 0;
+            unitDomKey = '';
+            if (V_LAST) renderUnitDom(V_LAST);
+            const targetEv = step > 0 ? evs[0] : evs[evs.length - 1];
+            selectRecord(targetEv.id);
+            travelTo(targetEv.year);
+            return true;
+          }
+        }
+      }
+    }
+
+    const allChrono = db.events
+      .filter((e) => e.kind !== 'overlay' && (!state.domains.size || state.domains.has(e.domain)))
+      .sort(
+        (a, b) =>
+          a.year - b.year ||
+          (a.t ?? 0) - (b.t ?? 0) ||
+          String(a.id).localeCompare(String(b.id)),
+      );
+    if (!allChrono.length) return false;
+
+    if (state.sel) {
+      const idx = allChrono.findIndex((e) => e.id === state.sel);
+      if (idx >= 0) {
+        const nextIdx = clamp(idx + step, 0, allChrono.length - 1);
+        if (nextIdx !== idx) {
+          const targetEv = allChrono[nextIdx];
+          selectRecord(targetEv.id);
+          travelTo(targetEv.year);
+          return true;
+        }
+        return false;
+      }
+    }
+
+    // No event currently selected: pick nearest event to camera year
+    let bestIdx = 0;
+    let bestDist = Infinity;
+    for (let i = 0; i < allChrono.length; i++) {
+      const dist = Math.abs(allChrono[i].year - cam.year);
+      if (dist < bestDist) {
+        bestDist = dist;
+        bestIdx = i;
+      }
+    }
+    const picked = allChrono[bestIdx];
+    selectRecord(picked.id);
+    travelTo(picked.year);
+    return true;
+  }
+
   function onKey(ev: KeyboardEvent) {
+    if (state.view && state.view !== 'spiral') return;
+    if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
     if (
       ev.target &&
       (ev.target as HTMLElement).matches?.('input, textarea, select, [contenteditable]')
     ) {
       return;
     }
-    if (ev.key === 'ArrowLeft' || ev.key === 'ArrowDown') {
+    const sr = document.getElementById('search-results');
+    if (sr && !sr.hidden) return;
+    if (document.querySelector('.modal.open')) return;
+
+    if (ev.key === 'j' || ev.key === 'J') {
+      if (cruiseEvent(1)) ev.preventDefault();
+    } else if (ev.key === 'k' || ev.key === 'K') {
+      if (cruiseEvent(-1)) ev.preventDefault();
+    } else if (ev.key === 'l' || ev.key === 'L') {
+      if (state.sel && db.byId && db.byId.has(state.sel)) {
+        ev.preventDefault();
+        toggleLineageSpotlight();
+      }
+    } else if (ev.key === 'ArrowDown') {
+      ev.preventDefault();
+      if (state.sel || openUnit !== null || openFcast) cruiseEvent(1);
+      else stepBy(-1);
+    } else if (ev.key === 'ArrowUp') {
+      ev.preventDefault();
+      if (state.sel || openUnit !== null || openFcast) cruiseEvent(-1);
+      else stepBy(1);
+    } else if (ev.key === 'ArrowLeft' || ev.key === '[') {
       ev.preventDefault();
       stepBy(-1);
-    } else if (ev.key === 'ArrowRight' || ev.key === 'ArrowUp') {
+    } else if (ev.key === 'ArrowRight' || ev.key === ']') {
       ev.preventDefault();
       stepBy(1);
     } else if (ev.key === 'PageDown') {
@@ -4974,6 +5471,24 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     }
   }
 
+  function onDeviceOrientation(ev: DeviceOrientationEvent) {
+    if (reduced() || orbitDrag || touches.size > 0) return;
+    if (ev.beta == null || ev.gamma == null) return;
+    if (!gyroBase) {
+      gyroBase = { beta: ev.beta, gamma: ev.gamma };
+      return;
+    }
+    const tAz = clamp((ev.gamma - gyroBase.gamma) * 0.16, -4.5, 4.5);
+    const tEl = clamp((ev.beta - gyroBase.beta) * 0.11, -3.0, 3.0);
+    const nextAz = gyroAz + (tAz - gyroAz) * 0.18;
+    const nextEl = gyroEl + (tEl - gyroEl) * 0.18;
+    if (Math.abs(nextAz - gyroAz) > 0.04 || Math.abs(nextEl - gyroEl) > 0.04) {
+      gyroAz = nextAz;
+      gyroEl = nextEl;
+      invalidate();
+    }
+  }
+
   let awaitingArrival = false;
   let textA = 1;
   let landingRaf = 0;
@@ -5006,7 +5521,10 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const h = hitAt(ev.clientX - r.left, ev.clientY - r.top);
     if (!h) pullBack();
   });
-  scene.addEventListener('keydown', onKey);
+  window.addEventListener('keydown', onKey);
+  if (typeof window !== 'undefined' && 'DeviceOrientationEvent' in window) {
+    window.addEventListener('deviceorientation', onDeviceOrientation, { passive: true });
+  }
 
   const ro = new ResizeObserver(() => {
     resize();
@@ -5015,7 +5533,10 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   ro.observe(host);
 
   const offData = onData((name?: string) => {
-    if (name === 'text') ensureMomentPics();
+    if (name === 'text' || name === 'moment-pics' || name === 'text-shard') {
+      ensureMomentPics();
+    }
+    lineageCacheKey = '';
     recKey = '';
     geomKey = '';
     sceneKey = '';
@@ -5030,6 +5551,24 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     if (V_LAST) renderUnitDom(V_LAST);
     invalidate();
   });
+  const offTheme = onThemeChange((spec) => {
+    rebuildHelixPalette();
+    PLATE = spec.plate;
+    PLATE_S = spec.plateSoft;
+    grd = null;
+    grdKey = '';
+    geomKey = '';
+    sceneKey = '';
+    unitDomKey = '';
+    if (gpuLoaded) gpu.setTheme(spec);
+    if (V_LAST) renderUnitDom(V_LAST);
+    invalidate();
+  });
+  const offLineage = onLineageChange(() => {
+    lineageCacheKey = '';
+    sceneKey = '';
+    invalidate();
+  });
 
   if (!db.loaded.has('past')) ensure('past');
   if (!db.predictions || !db.predictions.length) ensure('predictions');
@@ -5037,7 +5576,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   for (const k of ['cards', 'centuries', 'diffusion', 'markers', 'highlights', 'forecasts']) {
     if (!db.loaded.has(k)) ensure(k);
   }
-  if (!db.loaded.has('text')) ensure('text');
+  if (!db.loaded.has('moment-pics')) ensureMomentPictures();
   else ensureMomentPics();
 
   const hp = hashParams();
@@ -5251,7 +5790,9 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         if (!p.get('v')) p.set('v', 'spiral');
         p.set('born', '1');
         const h = '#' + p.toString().replace(/%2C/g, ',');
-        if (h !== location.hash) history.replaceState(null, '', h);
+        if (h !== location.hash) {
+          History.prototype.replaceState.call(window.history, window.history.state, '', h);
+        }
       } catch {
         /* ignore */
       }
@@ -5292,16 +5833,23 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   function cleanup() {
     alive = false;
     if (raf) cancelAnimationFrame(raf);
+    if (rafFallback !== null) {
+      clearTimeout(rafFallback);
+      rafFallback = null;
+    }
     if (landingRaf) cancelAnimationFrame(landingRaf);
     ro.disconnect();
     offData();
     offLang();
+    offTheme();
+    offLineage();
     window.removeEventListener('pointermove', onPointerMove);
     window.removeEventListener('pointerup', onPointerUp);
     window.removeEventListener('pointercancel', onPointerUp);
-    scene.removeEventListener('keydown', onKey);
+    window.removeEventListener('keydown', onKey);
+    window.removeEventListener('deviceorientation', onDeviceOrientation);
     delete document.documentElement.dataset.hxLayout;
-    gpu.dispose();
+    if (gpuLoaded) gpu.dispose();
     if (activeHooks === hooks) activeHooks = null;
     if (window.__helix === debugApi) delete window.__helix;
   }
@@ -5361,7 +5909,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       return picHits.length;
     },
     get gpuReady() {
-      return gpu.ready;
+      return gpuLoaded && gpu.ready;
     },
     arrivalReady: hooks.arrivalReady,
     arrivalTargets: hooks.arrivalTargets,
@@ -5369,6 +5917,29 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     stepBy,
     pullBack,
     stillFrame,
+    cruiseEvent,
+    captureStageCanvas() {
+      if (W <= 0 || H <= 0) return null;
+      const out = document.createElement('canvas');
+      out.width = Math.max(1, Math.round(W * DPR));
+      out.height = Math.max(1, Math.round(H * DPR));
+      const c2d = out.getContext('2d');
+      if (!c2d) return null;
+      try {
+        const V = view();
+        if (gpuLoaded) {
+          paintScene(ctx, V);
+          gpu.render();
+        }
+        drawOverlay(V, false);
+        if (gpuLoaded && gpu.ready) c2d.drawImage(gpuCanvas, 0, 0, out.width, out.height);
+        c2d.drawImage(scene, 0, 0, out.width, out.height);
+        c2d.drawImage(over, 0, 0, out.width, out.height);
+      } catch {
+        return null;
+      }
+      return out;
+    },
     openUnitSheet(un: number) {
       openFcast = false;
       openUnit = un;

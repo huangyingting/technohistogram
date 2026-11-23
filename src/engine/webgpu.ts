@@ -76,6 +76,8 @@ export function ensureWebGPUTelemetry(): WebGPUTelemetry {
  *  2. Environments without working WebGPU swapchain backing cleanly fall back to
  *     Three.js `WebGPURenderer`'s WebGL2 backend without poisoning the canvas.
  */
+let sharedGpu: GPU | null = null;
+let sharedAdapter: GPUAdapter | null = null;
 let sharedDevice: GPUDevice | null = null;
 let sharedIsSoftware = false;
 let webgpuDevicePromise: Promise<GPUDevice | null> | null = null;
@@ -95,6 +97,9 @@ function acquireSharedWebGPUDevice(): Promise<GPUDevice | null> {
         (await gpu.requestAdapter()) ||
         (await gpu.requestAdapter({ fallbackAdapter: true } as any));
       if (!adapter) return null;
+      // Retain strong references to GPU + GPUAdapter so V8 GC never drops Dawn's wgpu::Instance wire reference
+      sharedGpu = gpu;
+      sharedAdapter = adapter;
       const info = (adapter as any).info;
       const arch = String(info?.architecture || info?.description || '').toLowerCase();
       sharedIsSoftware =
@@ -103,11 +108,15 @@ function acquireSharedWebGPUDevice(): Promise<GPUDevice | null> {
         arch.includes('llvmpipe') ||
         arch.includes('lavapipe');
       const dev = await adapter.requestDevice();
+      if (typeof window !== 'undefined') {
+        (window as any).__webgpuKeepAlive = { gpu: sharedGpu, adapter: sharedAdapter, device: dev };
+      }
       let lost = false;
       dev.lost.then(() => {
         lost = true;
         if (sharedDevice === dev) {
           sharedDevice = null;
+          sharedAdapter = null;
           webgpuDevicePromise = null;
         }
       });
@@ -143,11 +152,12 @@ function acquireSharedWebGPUDevice(): Promise<GPUDevice | null> {
         });
         pass.end();
         dev.queue.submit([enc.finish()]);
+        await dev.queue.onSubmittedWorkDone();
         await Promise.race([
           new Promise<void>((r) =>
             requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(r, 16))),
           ),
-          new Promise<void>((r) => setTimeout(r, 140)),
+          new Promise<void>((r) => setTimeout(r, 120)),
         ]);
         try {
           wctx.unconfigure();
@@ -217,7 +227,7 @@ export async function createWebGPURenderer(
  * Wraps an already-decoded HTMLImageElement in an upright `THREE.Texture`
  * (`flipY = true`, `SRGBColorSpace`) compatible with both WebGPU and WebGL2 backends.
  */
-export function textureFromImage(img: HTMLImageElement): THREE.Texture {
+export function textureFromImage(img: HTMLImageElement | HTMLCanvasElement): THREE.Texture {
   const texture = new THREE.Texture(img);
   texture.flipY = true;
   texture.colorSpace = THREE.SRGBColorSpace;

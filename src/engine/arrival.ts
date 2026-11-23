@@ -17,6 +17,7 @@ import {
 } from 'three/tsl';
 import { slotOf, SLOT_MAX } from '../lib/time';
 import { heat, sunk, mix } from '../lib/spectrum';
+import { getTheme } from '../lib/theme';
 import { POSTER } from '../lib/poster';
 import { assetUrl } from '../lib/basePath';
 import { isZh } from '../lib/i18n';
@@ -284,7 +285,7 @@ export function runArrival({ targets, ready, onReveal, onDone }: RunArrivalOpts)
     c.width = c.height = S;
     const h = heat(key / 31);
     const x = c.getContext('2d')!;
-    const col = mix(h, '#ffffff', 0.18);
+    const col = getTheme().isLight ? mix(h, '#1e1914', 0.08) : mix(h, '#ffffff', 0.18);
     const deep = sunk(h, 0.55);
     const g = x.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
     g.addColorStop(0, col);
@@ -475,7 +476,9 @@ export function runArrival({ targets, ready, onReveal, onDone }: RunArrivalOpts)
   }
 
   const COL: string[] = [];
-  for (let k = 0; k < 32; k++) COL.push(mix(heat(k / 31), '#ffffff', 0.3));
+  for (let k = 0; k < 32; k++) {
+    COL.push(getTheme().isLight ? mix(heat(k / 31), '#1e1914', 0.1) : mix(heat(k / 31), '#ffffff', 0.3));
+  }
 
   function light(time: number, b: { y: number; sq: number }, Rb: number) {
     const cx = L.ballX;

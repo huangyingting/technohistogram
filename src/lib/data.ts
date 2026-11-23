@@ -1,4 +1,3 @@
-import * as d3Module from 'd3';
 import { fmtYear } from './time';
 import { state, viewOf, hashParams, AppState } from './store';
 import {
@@ -368,6 +367,7 @@ const txtOf = (e: any) =>
   [
     e._en?.title || e.title,
     e._zh?.title || '',
+    e._py || '',
     DOMAIN_ZH[e.domain]?.label || '',
     DOMAIN_ZH[e.domain]?.short || '',
     TYPE_ZH[e.type] || '',
@@ -577,13 +577,12 @@ const breathe = () =>
     : new Promise<void>((r) => setTimeout(r, 0));
 const CHUNK = 250;
 
-function applyText(text: any) {
-  if (!text) return;
-  db._textJson = text;
-  const T = text.events || text;
-  for (const e of db.events) {
-    const x = T[e.id];
-    if (!x) continue;
+function applyTextEntries(T: Record<string, any> | null | undefined) {
+  if (!T) return;
+  for (const id of Object.keys(T)) {
+    const e = db.byId.get(id);
+    const x = T[id];
+    if (!e || !x) continue;
     if (!e._en) {
       e._en = { title: e.title, title_short: e.title_short || e.title, summary: '' };
     }
@@ -592,8 +591,127 @@ function applyText(text: any) {
     if (x.verification_note) e.verification_note = x.verification_note;
     if (x.detail) e.detail = x.detail;
     if (x.picture) e.picture = x.picture;
+    e._textLoaded = true;
   }
+}
+
+function applyText(text: any) {
+  if (!text) return;
+  db._textJson = text;
+  const T = text.events || text;
+  applyTextEntries(T);
   applyZhOverlay();
+}
+
+interface ShardIndex {
+  version: string;
+  total: number;
+  shards: { file: string; minYear: number; maxYear: number; count: number; ids: string[] }[];
+  momentPictures?: Record<string, any>;
+}
+
+let shardIndex: ShardIndex | null = null;
+let shardIndexPromise: Promise<ShardIndex | null> | null = null;
+const idToShardIdx = new Map<string, number>();
+const shardDataCache = new Map<number, Record<string, any>>();
+const shardFetchPromises = new Map<number, Promise<void>>();
+
+function applyMomentPicturesFromIndex() {
+  if (!shardIndex?.momentPictures) return;
+  for (const [id, pic] of Object.entries(shardIndex.momentPictures)) {
+    const e = db.byId.get(id);
+    if (e && !e.picture) e.picture = pic;
+  }
+}
+
+export function ensureMomentPictures(): Promise<void> {
+  return ensureShardIndex().then(() => {
+    applyMomentPicturesFromIndex();
+  });
+}
+
+function ensureShardIndex(): Promise<ShardIndex | null> {
+  if (shardIndex) return Promise.resolve(shardIndex);
+  if (!shardIndexPromise) {
+    shardIndexPromise = getJSON(vurl('text_shards/index.json'), null).then((idx: ShardIndex | null) => {
+      if (idx && Array.isArray(idx.shards)) {
+        shardIndex = idx;
+        idToShardIdx.clear();
+        idx.shards.forEach((s, si) => {
+          for (const id of s.ids || []) idToShardIdx.set(id, si);
+        });
+        applyMomentPicturesFromIndex();
+        emit('moment-pics');
+      }
+      return shardIndex;
+    });
+  }
+  return shardIndexPromise;
+}
+
+function loadShardByIndex(si: number): Promise<void> {
+  if (shardDataCache.has(si)) return Promise.resolve();
+  const existing = shardFetchPromises.get(si);
+  if (existing) return existing;
+  const shardMeta = shardIndex?.shards[si];
+  if (!shardMeta) return Promise.resolve();
+  const p = getJSON(vurl(`text_shards/${shardMeta.file}`), null).then((json) => {
+    const T = (json && (json.events || json)) || {};
+    shardDataCache.set(si, T);
+    applyTextEntries(T);
+    applyZhOverlay();
+    emit('text-shard');
+  });
+  shardFetchPromises.set(si, p);
+  return p;
+}
+
+export async function ensureEventText(id: string): Promise<void> {
+  if (!id || db.loaded.has('text')) return;
+  const ev = db.byId.get(id);
+  if (ev && ev._textLoaded) return;
+  const idx = await ensureShardIndex();
+  if (!idx) {
+    if (ev) ev._textLoaded = true;
+    return;
+  }
+  const si = idToShardIdx.get(id);
+  if (si == null) {
+    if (ev) ev._textLoaded = true;
+    return;
+  }
+  await loadShardByIndex(si);
+  if (ev) ev._textLoaded = true;
+}
+
+let zhSearchLoaded = false;
+let zhSearchPromise: Promise<void> | null = null;
+let zhPyMap: Record<string, string> | null = null;
+
+function applyZhSearchMap() {
+  if (!zhPyMap) return;
+  for (const e of db.events) {
+    const py = zhPyMap[e.id];
+    if (py && e._py !== py) {
+      e._py = py;
+      e._txt = txtOf(e);
+    }
+  }
+}
+
+export function ensureZhSearchIndex(): Promise<void> {
+  if (zhSearchLoaded) return Promise.resolve();
+  if (!zhSearchPromise) {
+    zhSearchPromise = getJSON(vurl('zh_search.json'), null).then((json) => {
+      if (json && json.py) {
+        zhPyMap = json.py;
+        zhSearchLoaded = true;
+        applyZhSearchMap();
+        emit('zh-search');
+      }
+    });
+  }
+  return zhSearchPromise;
 }
 
 function applyMeta(meta: any) {
@@ -624,7 +742,25 @@ interface LoaderSpec {
 const LOADERS: Record<string, LoaderSpec> = {
   past: { file: 'events_past.json', apply: (p) => mergePast(p) },
   meta: { file: 'events_meta.json', apply: applyMeta },
-  text: { file: 'events_text.json', parts: /^events_text(_\d+)?\.json$/, apply: applyText },
+  text: {
+    file: 'text_shards/index.json',
+    apply: async (idxJson) => {
+      if (idxJson && Array.isArray(idxJson.shards) && !shardIndex) {
+        shardIndex = idxJson;
+        idToShardIdx.clear();
+        idxJson.shards.forEach((s: any, si: number) => {
+          for (const id of s.ids || []) idToShardIdx.set(id, si);
+        });
+      } else {
+        await ensureShardIndex();
+      }
+      if (!shardIndex) return;
+      await Promise.all(shardIndex.shards.map((_, si) => loadShardByIndex(si)));
+      const merged: Record<string, any> = {};
+      for (const part of shardDataCache.values()) Object.assign(merged, part);
+      db._textJson = { events: merged };
+    },
+  },
   tours: {
     file: 'tours.json',
     apply: (t) => {
@@ -771,7 +907,8 @@ export function ensureNow(...names: (string | string[])[]): Promise<void[]> {
   return Promise.all(names.flat().filter(Boolean).map((n) => start(n, true)));
 }
 export const need = (names: string | string[]) => ensureNow(names).then(() => db);
-export const ensureAll = () => ensure(...Object.keys(LOADERS));
+export const ensureAll = () =>
+  ensure(...Object.keys(LOADERS).filter((k) => k !== 'text'));
 
 export const needsFor = (sel: string): string | null =>
   !sel
@@ -917,7 +1054,12 @@ async function mergePast(pack: any) {
   performance.mark('past-indexed');
   if (db.loaded.has('meta')) applyMeta(db._metaJson);
   if (db.loaded.has('text')) applyText(db._textJson);
+  else {
+    for (const part of shardDataCache.values()) applyTextEntries(part);
+    applyMomentPicturesFromIndex();
+  }
   applyZhOverlay();
+  applyZhSearchMap();
   await breathe();
 }
 
@@ -1019,18 +1161,21 @@ export const registerLabel = (s: AppState = state): string =>
       ? 'Landmarks: one entry per episode at significance 5'
       : 'All: the whole record';
 
-export function ensureD3(): Promise<typeof d3Module | null> {
+let d3LoadPromise: Promise<any> | null = null;
+
+export function ensureD3(): Promise<any> {
   if (typeof window === 'undefined') return Promise.resolve(null);
-  if (!window.d3) {
-    window.d3 = d3Module;
-    document.dispatchEvent(new CustomEvent('d3-ready'));
+  if (window.d3) return Promise.resolve(window.d3);
+  if (!d3LoadPromise) {
+    d3LoadPromise = import('d3').then((mod) => {
+      window.d3 = mod;
+      document.dispatchEvent(new CustomEvent('d3-ready'));
+      return mod;
+    });
   }
-  return Promise.resolve(window.d3);
+  return d3LoadPromise;
 }
-export const hasD3 = (): boolean => {
-  if (typeof window !== 'undefined' && !window.d3) window.d3 = d3Module;
-  return typeof window !== 'undefined' && !!window.d3;
-};
+export const hasD3 = (): boolean => typeof window !== 'undefined' && !!window.d3;
 
 export function census() {
   const ev = db.events.filter((e) => e.kind !== 'overlay');

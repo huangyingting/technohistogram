@@ -33,9 +33,7 @@ import {
   loadGpuTexture,
   textureFromImage,
 } from './webgpu';
-
-const NIGHT_HEX = '#060d0e';
-const INK_HEX = '#f2efe9';
+import { getTheme, type ThemeSpec } from '../lib/theme';
 
 function srgbVec3ToLinear(c: any) {
   const lo = c.div(12.92);
@@ -51,6 +49,22 @@ function hexToSrgbVec3(hex: string): THREE.Vector3 {
     (n & 255) / 255,
   );
 }
+
+function hexToLinearVec3(hex: string): THREE.Vector3 {
+  const [r, g, b] = linearRgb(hex);
+  return new THREE.Vector3(r, g, b);
+}
+
+const initTheme = getTheme();
+let curInkHex = initTheme.ink;
+const uSky0 = uniform(hexToSrgbVec3(initTheme.sky[0]));
+const uSky1 = uniform(hexToSrgbVec3(initTheme.sky[1]));
+const uSky2 = uniform(hexToSrgbVec3(initTheme.sky[2]));
+const uSkyAura = uniform(hexToSrgbVec3(initTheme.aura));
+const uInkLin = uniform(hexToLinearVec3(initTheme.ink));
+const uCardBackLin = uniform(hexToLinearVec3(initTheme.isLight ? '#faf5eb' : initTheme.night));
+const uCardShadowLin = uniform(hexToLinearVec3(initTheme.isLight ? '#574631' : initTheme.night));
+const uIsLight = uniform(initTheme.isLight ? 1.0 : 0.0);
 
 function makeGrainTexture(): THREE.DataTexture {
   const S = 128;
@@ -115,7 +129,7 @@ class LineBatch {
     mat.depthTest = false;
     mat.depthWrite = false;
     mat.side = THREE.DoubleSide;
-    if (additive) mat.blending = THREE.AdditiveBlending;
+    mat.blending = THREE.NormalBlending;
 
     mat.positionNode = Fn(() => {
       const p0 = aEnd.xy;
@@ -166,7 +180,10 @@ class LineBatch {
       If(alpha.lessThan(0.004), () => {
         Discard();
       });
-      return vec4(aCol.xyz, alpha);
+      const rgbOut = additive
+        ? aCol.xyz.mul(float(1.32).sub(uIsLight.mul(0.32)))
+        : aCol.xyz;
+      return vec4(rgbOut, alpha);
     })();
 
     this.mesh = new THREE.InstancedMesh(geo, mat, max);
@@ -259,7 +276,7 @@ class GlowBatch {
     mat.depthTest = false;
     mat.depthWrite = false;
     mat.side = THREE.DoubleSide;
-    mat.blending = THREE.AdditiveBlending;
+    mat.blending = THREE.NormalBlending;
 
     mat.positionNode = Fn(() => {
       const outerR = aGlowPos.w;
@@ -281,7 +298,8 @@ class GlowBatch {
       If(alpha.lessThan(0.003), () => {
         Discard();
       });
-      return vec4(aGlowCol.xyz, alpha);
+      const glowRgb = aGlowCol.xyz.mul(float(1.38).sub(uIsLight.mul(0.38)));
+      return vec4(glowRgb, alpha);
     })();
 
     this.mesh = new THREE.InstancedMesh(geo, mat, max);
@@ -372,8 +390,7 @@ class CellBatch {
     const aAxis = attribute('aAxis', 'vec4');
     const aCellCol = attribute('aCellCol', 'vec4');
     const aCellMeta = attribute('aCellMeta', 'vec3');
-    const inkLin = linearRgb(INK_HEX);
-    const inkNode = vec3(inkLin[0], inkLin[1], inkLin[2]);
+    const inkNode = uInkLin;
 
     const mat = new THREE.MeshBasicNodeMaterial();
     mat.transparent = true;
@@ -537,10 +554,7 @@ class CardDecorBatch {
     this.shAttr.setUsage(THREE.DynamicDrawUsage);
     this.shMetaAttr.setUsage(THREE.DynamicDrawUsage);
 
-    const nightLin = linearRgb(NIGHT_HEX);
-    const nightNode = vec3(nightLin[0], nightLin[1], nightLin[2]);
-    const inkLin = linearRgb(INK_HEX);
-    const inkNode = vec3(inkLin[0], inkLin[1], inkLin[2]);
+    const inkNode = uInkLin;
 
     // Shadow + dark backing card
     const shGeo = new THREE.PlaneGeometry(1, 1);
@@ -585,7 +599,8 @@ class CardDecorBatch {
       If(alpha.lessThan(0.004), () => {
         Discard();
       });
-      return vec4(nightNode.mul(0.6), alpha);
+      const rgb = select(backA.greaterThanEqual(shA), uCardBackLin, uCardShadowLin.mul(0.55));
+      return vec4(rgb, alpha);
     })();
     this.shadowMesh = new THREE.InstancedMesh(shGeo, shMat, max);
     this.shadowMesh.count = 0;
@@ -824,8 +839,8 @@ class PicLayer {
         const ex = cx + dx * t;
         const ey = cy + dy * t;
         const sa = alpha * 0.45;
-        this.stems.push(ex, ey, scx, scy, INK_HEX, sa, 1.0);
-        this.dots.push(scx, scy, 1.2, 2.4, INK_HEX, sa);
+        this.stems.push(ex, ey, scx, scy, curInkHex, sa, 1.0);
+        this.dots.push(scx, scy, 1.2, 2.4, curInkHex, sa);
       }
     }
     if (w >= 20) {
@@ -909,7 +924,7 @@ export class HelixGpuRenderer {
   readonly flowGlows: GlowBatch;
 
   private texCache = new Map<string, { id: number; tex: THREE.Texture }>();
-  private imgCache = new Map<HTMLImageElement, { id: number; tex: THREE.Texture }>();
+  private   imgCache = new Map<HTMLImageElement | HTMLCanvasElement, { id: number; tex: THREE.Texture }>();
   private nextTexId = 1;
   private W = 1;
   private H = 1;
@@ -920,12 +935,8 @@ export class HelixGpuRenderer {
     this.canvas = canvas;
     this.camera.position.set(0, 0, 5);
 
-    // Pass 0: Deep Mineral Obsidian-Pine sky + Celadon astrolabe radial glow + 128x128 LCG grain
+    // Pass 0: Theme-reactive sky + astrolabe radial glow + 128x128 LCG grain
     this.grainTex = makeGrainTexture();
-    const g0 = hexToSrgbVec3('#050b0c');
-    const g1 = hexToSrgbVec3('#091517');
-    const g2 = hexToSrgbVec3('#0f2224');
-    const gAura = hexToSrgbVec3('#1c4a48');
     const groundGeo = new THREE.PlaneGeometry(1, 1);
     const groundMat = new THREE.MeshBasicNodeMaterial();
     groundMat.depthTest = false;
@@ -944,19 +955,16 @@ export class HelixGpuRenderer {
       const gy = this.uSize.y;
       const denom = tslMax(gx.mul(gx).add(gy.mul(gy)), 1.0);
       const t = tslClamp(sx.mul(gx).add(sy.mul(gy)).div(denom), 0.0, 1.0);
-      const cA = vec3(g0.x, g0.y, g0.z);
-      const cB = vec3(g1.x, g1.y, g1.z);
-      const cC = vec3(g2.x, g2.y, g2.z);
       const baseSky = select(
         t.lessThan(0.55),
-        tslMix(cA, cB, t.div(0.55)),
-        tslMix(cB, cC, t.sub(0.55).div(0.45)),
+        tslMix(uSky0, uSky1, t.div(0.55)),
+        tslMix(uSky1, uSky2, t.sub(0.55).div(0.45)),
       );
-      // Subtle mineral-celadon zenith aura behind the right-hand spiral stage
+      // Subtle zenith aura behind the right-hand spiral stage
       const dx = uv().x.sub(0.68).mul(1.25);
       const dy = float(1.0).sub(uv().y).sub(0.50);
       const rad = smoothstep(0.72, 0.0, length(vec2(dx, dy))).mul(0.32);
-      const skySrgb = tslMix(baseSky, vec3(gAura.x, gAura.y, gAura.z), rad);
+      const skySrgb = tslMix(baseSky, uSkyAura, rad);
       const gr = texture(this.grainTex, vec2(sx.div(128.0), sy.div(128.0)));
       const compositedSrgb = tslMix(skySrgb, gr.rgb, gr.a);
       return vec4(srgbVec3ToLinear(compositedSrgb), 1.0);
@@ -1007,13 +1015,30 @@ export class HelixGpuRenderer {
     this.flowGlows = new GlowBatch(32, this.uSize, 45);
     this.scene.add(this.flowLines.mesh);
     this.scene.add(this.flowGlows.mesh);
+    this.setTheme(getTheme());
+  }
+
+  setTheme(spec: ThemeSpec) {
+    curInkHex = spec.ink;
+    uIsLight.value = spec.isLight ? 1.0 : 0.0;
+    uSky0.value.copy(hexToSrgbVec3(spec.sky[0]));
+    uSky1.value.copy(hexToSrgbVec3(spec.sky[1]));
+    uSky2.value.copy(hexToSrgbVec3(spec.sky[2]));
+    uSkyAura.value.copy(hexToSrgbVec3(spec.aura));
+    uInkLin.value.copy(hexToLinearVec3(spec.ink));
+    uCardBackLin.value.copy(hexToLinearVec3(spec.isLight ? '#faf5eb' : spec.night));
+    uCardShadowLin.value.copy(hexToLinearVec3(spec.isLight ? '#574631' : spec.night));
+    if (this.renderer && this.ready) {
+      this.renderer.setClearColor(parseInt(spec.night.slice(1), 16), 1);
+    }
   }
 
   async init(onReady?: () => void) {
+    const spec = getTheme();
     const r = await createWebGPURenderer(this.canvas, {
       alpha: false,
       antialias: true,
-      clearColor: 0x060d0e,
+      clearColor: parseInt(spec.night.slice(1), 16),
       clearAlpha: 1,
       label: 'helix',
     });
@@ -1021,15 +1046,28 @@ export class HelixGpuRenderer {
       r.dispose();
       return;
     }
+    const dev = (r as any)?.backend?.device;
+    if (dev && dev.lost && typeof dev.lost.then === 'function') {
+      dev.lost.then(() => {
+        this.ready = false;
+      });
+    }
     this.renderer = r;
     this.ready = true;
+    this.sizeDirty = true;
     this.applySize();
     onReady?.();
   }
 
-  textureForImage(img: HTMLImageElement): { id: number; tex: THREE.Texture } {
+  textureForImage(
+    img: HTMLImageElement | HTMLCanvasElement,
+    dirty = false,
+  ): { id: number; tex: THREE.Texture } {
     const hit = this.imgCache.get(img);
-    if (hit) return hit;
+    if (hit) {
+      if (dirty) hit.tex.needsUpdate = true;
+      return hit;
+    }
     const entry = { id: this.nextTexId++, tex: textureFromImage(img) };
     this.imgCache.set(img, entry);
     return entry;
@@ -1055,14 +1093,33 @@ export class HelixGpuRenderer {
     return this.texCache.get(key) || null;
   }
 
+  private sizeDirty = true;
+
   setSize(W: number, H: number, DPR: number) {
-    this.W = Math.max(1, W);
-    this.H = Math.max(1, H);
+    const nw = Math.max(1, Math.round(W));
+    const nh = Math.max(1, Math.round(H));
+    if (nw === this.W && nh === this.H && DPR === this.DPR && !this.sizeDirty) return;
+    this.W = nw;
+    this.H = nh;
     this.DPR = DPR;
-    this.applySize();
+    this.uSize.value.set(nw, nh);
+    this.camera.left = 0;
+    this.camera.right = nw;
+    this.camera.top = nh;
+    this.camera.bottom = 0;
+    this.camera.updateProjectionMatrix();
+    this.canvas.style.width = `${nw}px`;
+    this.canvas.style.height = `${nh}px`;
+    if (!this.renderer) {
+      this.canvas.width = Math.round(nw * DPR);
+      this.canvas.height = Math.round(nh * DPR);
+    } else {
+      this.sizeDirty = true;
+    }
   }
 
   private applySize() {
+    if (!this.sizeDirty) return;
     const { W, H, DPR } = this;
     this.uSize.value.set(W, H);
     this.camera.left = 0;
@@ -1072,10 +1129,11 @@ export class HelixGpuRenderer {
     this.camera.updateProjectionMatrix();
     this.canvas.style.width = `${W}px`;
     this.canvas.style.height = `${H}px`;
-    if (this.renderer) {
+    if (this.renderer && this.ready) {
       this.renderer.setPixelRatio(DPR);
       this.renderer.setSize(W, H, false);
-    } else {
+      this.sizeDirty = false;
+    } else if (!this.renderer) {
       this.canvas.width = Math.round(W * DPR);
       this.canvas.height = Math.round(H * DPR);
     }
@@ -1112,6 +1170,7 @@ export class HelixGpuRenderer {
 
   render() {
     if (!this.ready || !this.renderer || this.disposed) return;
+    if (this.sizeDirty) this.applySize();
     this.lines.flush();
     this.rootPics.flush();
     this.farCellHalos.flush();

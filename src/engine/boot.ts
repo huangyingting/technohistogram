@@ -2,6 +2,7 @@ import {
   load,
   db,
   ensure,
+  ensureMomentPictures,
   ensureNow,
   onData,
   markPainted,
@@ -794,7 +795,7 @@ export function bootHistomap(): void {
         }
         await frame();
       }
-      if ((name === 'text' || name === 'meta' || name === 'past' || name === 'links') && state.sel) {
+      if ((name === 'text' || name === 'text-shard' || name === 'meta' || name === 'past' || name === 'links') && state.sel) {
         redrawDrawer();
       }
       if (current && current.api.onData) {
@@ -933,7 +934,7 @@ export function bootHistomap(): void {
         ensure('past')
           .then(() => ensure('series'))
           .then(() => {
-            if (!lean()) ensure('meta').then(() => ensure('text'));
+            if (!lean()) ensure('meta').then(() => ensureMomentPictures());
           });
       } else {
         requestAnimationFrame(gate);

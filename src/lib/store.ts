@@ -159,7 +159,9 @@ export function setHover(id: string | null): void {
   hoverListeners.forEach((f) => f(hover));
 }
 
-let pending: number | null = null;
+let pendingRaf: number | null = null;
+let pendingTimer: ReturnType<typeof setTimeout> | null = null;
+let pendingReplace = true;
 let changedKeys = new Set<string>();
 
 export function set(patch: Partial<AppState>, { replace = false } = {}): void {
@@ -189,14 +191,26 @@ export function set(patch: Partial<AppState>, { replace = false } = {}): void {
     }
   }
   if (!any || typeof window === 'undefined') return;
-  if (pending) return;
-  pending = requestAnimationFrame(() => {
-    pending = null;
+  if (!replace) pendingReplace = false;
+  if (pendingRaf !== null || pendingTimer !== null) return;
+  const flush = () => {
+    if (pendingRaf !== null) {
+      cancelAnimationFrame(pendingRaf);
+      pendingRaf = null;
+    }
+    if (pendingTimer !== null) {
+      clearTimeout(pendingTimer);
+      pendingTimer = null;
+    }
     const ch = changedKeys;
+    const useReplace = pendingReplace;
     changedKeys = new Set();
-    writeHash(replace || !(ch.has('view') || ch.has('sel')), ch);
+    pendingReplace = true;
+    writeHash(useReplace || !(ch.has('view') || ch.has('sel')), ch);
     listeners.forEach((f) => f(state, ch));
-  });
+  };
+  pendingRaf = requestAnimationFrame(flush);
+  pendingTimer = setTimeout(flush, 24);
 }
 
 export const SPIRAL_KEYS = ['born', 'fy', 'z'];
@@ -228,8 +242,9 @@ function writeHash(replace: boolean, ch = new Set<string>()): void {
   }
   const h = '#' + p.toString().replace(/%2C/g, ',');
   if (h === location.hash) return;
-  if (replace) history.replaceState(null, '', h);
-  else history.pushState(null, '', h);
+  const st = window.history.state;
+  if (replace) History.prototype.replaceState.call(window.history, st, '', h);
+  else History.prototype.pushState.call(window.history, st, '', h);
 }
 
 const PAGE_WORDS: Record<string, string> = {
@@ -340,7 +355,7 @@ export function initStoreHash(): void {
     if (pathLikeHash()) {
       const p = hashParams();
       if (!p.get('v')) p.set('v', 'spiral');
-      history.replaceState(null, '', '#' + p.toString());
+      History.prototype.replaceState.call(window.history, window.history.state, '', '#' + p.toString());
     }
   } catch {
     /* ignore */

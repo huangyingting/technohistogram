@@ -2,6 +2,8 @@
 // malachite & verdigris jade -> glacial cyan -> warm porcelain pearl (2026), blended seamlessly in OKLCh
 // over deep obsidian-pine shadows with a copper/jade chromatic fringe.
 
+import { getTheme, onThemeChange, type ThemeSpec } from './theme';
+
 export const ELECTRIC: [number, string][] = [
   [0, '#d96b38'],
   [0.14, '#e6943a'],
@@ -85,14 +87,17 @@ export function blend(h1: string, h2: string, t: number): string {
 }
 
 const LUT: string[] = [];
-{
+let sunkTargetHex = '#060d0e';
+
+function buildLutFromCurve(curve: [number, string][]) {
+  LUT.length = 0;
   const raw: [number, number, number][] = [];
   for (let i = 0; i <= 512; i++) {
     const t = i / 512;
     let k = 0;
-    while (k < ELECTRIC.length - 2 && t > ELECTRIC[k + 1][0]) k++;
-    const [t0, c0] = ELECTRIC[k];
-    const [t1, c1] = ELECTRIC[k + 1];
+    while (k < curve.length - 2 && t > curve[k + 1][0]) k++;
+    const [t0, c0] = curve[k];
+    const [t1, c1] = curve[k + 1];
     raw.push(toOklab(blend(c0, c1, Math.min(1, Math.max(0, (t - t0) / (t1 - t0))))));
   }
   let cur = raw;
@@ -117,16 +122,19 @@ const LUT: string[] = [];
   for (const [L, a, b] of cur) LUT.push(fromOklab(L, a, b));
 }
 
+buildLutFromCurve(getTheme().curve);
+sunkTargetHex = getTheme().sunkTarget;
+
 export function heat(t: number): string {
   return LUT[Math.round(Math.min(1, Math.max(0, Number.isFinite(t) ? t : 1)) * 512)];
 }
 
 export function sunk(h: string, d: number): string {
   const [L1, a1, b1] = toOklab(h);
-  const [L2, a2, b2] = toOklab('#060d0e');
+  const [L2, a2, b2] = toOklab(sunkTargetHex);
   const C = Math.hypot(a1, b1);
   let H = Math.atan2(b1, a1);
-  if (H > 1.0 && H < 2.0) H += (1.05 - H) * d * 0.5;
+  if (!getTheme().isLight && H > 1.0 && H < 2.0) H += (1.05 - H) * d * 0.5;
   const L = L1 + (L2 - L1) * d;
   const Cs = C * (1 - 0.45 * d);
   const a = Cs * Math.cos(H) + (a2 - a1) * d * 0.3;
@@ -203,7 +211,20 @@ export const VERDICT: Record<string, { mark: string; word: string; pale: string 
 };
 
 export function hex(h: string): [number, number, number] {
-  return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+  if (!h) return [156, 181, 175];
+  if (h.startsWith('#')) {
+    if (h.length === 4) {
+      return [
+        parseInt(h[1] + h[1], 16),
+        parseInt(h[2] + h[2], 16),
+        parseInt(h[3] + h[3], 16),
+      ];
+    }
+    return [parseInt(h.slice(1, 3), 16) || 0, parseInt(h.slice(3, 5), 16) || 0, parseInt(h.slice(5, 7), 16) || 0];
+  }
+  const m = h.match(/rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)/i);
+  if (m) return [Math.round(+m[1]), Math.round(+m[2]), Math.round(+m[3])];
+  return [156, 181, 175];
 }
 
 export function mix(a: string, b: string, t: number): string {
@@ -255,12 +276,31 @@ export const MOTION = { fall: 900, split: 600, trace: 1400, resolve: 500 };
 
 export const KIT = { ink: '#f2efe9', soft: '#9cb5af', night: '#060d0e', indigo: '#0c1c1e', ultramarine: '#0d2629' };
 
+export function applySpectrumTheme(spec: ThemeSpec = getTheme()): void {
+  buildLutFromCurve(spec.curve);
+  sunkTargetHex = spec.sunkTarget;
+  GROUNDS.night = spec.night;
+  GROUNDS.indigo = spec.indigo;
+  GROUNDS.ultramarine = spec.ultramarine;
+  INK.onDark = spec.ink;
+  INK.onDark2 = spec.soft;
+  INK.onDark3 = spec.ink3;
+  KIT.ink = spec.ink;
+  KIT.soft = spec.soft;
+  KIT.night = spec.night;
+  KIT.indigo = spec.indigo;
+  KIT.ultramarine = spec.ultramarine;
+}
+
+applySpectrumTheme(getTheme());
+onThemeChange((spec) => applySpectrumTheme(spec));
+
 export const VERDICT_NIGHT: Record<string, string> = {
   came_true: '#4ade9e',
   came_true_late: '#4fd1c5',
   partly: '#eab854',
   wrong: '#f06464',
-  pending: 'rgba(156,181,175,0.62)',
+  pending: '#8aa39d',
   misattributed: '#d482b8',
   unresolvable: '#6e8782',
 };

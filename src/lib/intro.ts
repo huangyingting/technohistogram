@@ -758,7 +758,7 @@ function landHash() {
   p.delete('intro');
   if (!p.get('v')) p.set('v', 'spiral');
   const h = '#' + p.toString();
-  if (h !== had) history.replaceState(null, '', h);
+  if (h !== had) History.prototype.replaceState.call(window.history, window.history.state, '', h);
 }
 
 export function closeIntro({ restore = true } = {}) {

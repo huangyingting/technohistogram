@@ -1,10 +1,30 @@
 {
-  "name": "Technology Histomap",
-  "short_name": "Histomap",
+  "name": "技术演进全图 · Technology Histomap",
+  "short_name": "技术演进全图",
+  "description": "从公元前 330 万年到 2026 年：三维 WebGPU 螺旋星图呈现 4,828 条世界技术史考证记录。",
+  "lang": "zh-CN",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#06081a",
-  "theme_color": "#06081a"
+  "background_color": "#060d0e",
+  "theme_color": "#060d0e",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "./apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
 }

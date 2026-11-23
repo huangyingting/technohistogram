@@ -1,5 +1,5 @@
-import * as d3 from 'd3';
 import { db, host } from './data';
+import { isZh } from './i18n';
 
 const esc = (s: any) =>
   String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
@@ -113,38 +113,60 @@ export const isFounding = (m: any) => {
 
 const ROLE_FILLER =
   /^(?:(?:Academic\/research role|Research role|Role prior to move|Joined) \((?:specific )?title (?:not stated|per source note)\)|Title not stated)$/i;
-const span = (r: any) =>
-  r.start || r.end
+const span = (r: any) => {
+  if (isZh()) {
+    return r.start || r.end
+      ? `${r.start ? fmtYM(r.start) : '起始未详'}${r.end ? ' — ' + fmtYM(r.end) : r.start ? ' 至今' : ''}`
+      : '起止日期未载';
+  }
+  return r.start || r.end
     ? `${r.start ? fmtYM(r.start) : 'start not stated'}${r.end ? ' to ' + fmtYM(r.end) : r.start ? ' onward' : ''}`
     : 'dates not stated';
+};
 
 export function personDrawer(p: any, $: (sel: string) => HTMLElement | null) {
+  const zh = isZh();
   const founded = [...db.orgById.values()].filter((o: any) => (o.founders || []).includes(p.name));
   const g = TORG_GROUP.get(laneOf(p.moves.length ? p.moves[p.moves.length - 1].to_org : null)) || TGROUPS[0];
-  $('#dk')!.innerHTML = `<i style="background:${g.color}"></i>Person <span aria-hidden="true">&middot;</span> ${p.moves.length} move${p.moves.length === 1 ? '' : 's'}${p.stub ? ' <span aria-hidden="true">&middot;</span> minimal entry' : ''}`;
+  $('#dk')!.innerHTML = `<i style="background:${g.color}"></i>${zh ? '人物履历' : 'Person'} <span aria-hidden="true">&middot;</span> ${
+    zh ? `${p.moves.length} 次机构履新` : `${p.moves.length} move${p.moves.length === 1 ? '' : 's'}`
+  }${p.stub ? ` <span aria-hidden="true">&middot;</span> ${zh ? '简明条目' : 'minimal entry'}` : ''}`;
   const roles = p.roles.slice();
   const srcs = [...new Map([...roles.map((r: any) => r.source_url), ...p.moves.map((m: any) => m.source_url)].filter(Boolean).map((u) => [u, u])).keys()];
   const rel = db.events.filter((e) => (e.people || []).includes(p.name)).sort((a, b) => a.t - b.t).slice(0, 8);
   const row = (x: any) => `<li><button type="button" data-id="${esc(x.id)}"><i style="background:var(--ink-3)"></i><span class="y">${x.year}</span><span>${esc(x.title)}</span></button></li>`;
   $('#db')!.innerHTML = `
     <h3>${esc(p.name)}</h3>
-    <div class="date">${p.moves.length ? `<span>${esc(fmtYM(p.moves[0].date))} to ${esc(fmtYM(p.moves[p.moves.length - 1].date))}</span>` : ''}${founded.length ? `<span>co-founder of ${esc(founded.map((o: any) => orgShort(o.id)).join(', '))}</span>` : ''}</div>
-    ${p.stub ? `<p class="tl-stub"><span class="sc">Minimal entry</span> One sourced report names this move; earlier roles and titles are not on record.</p>` : ''}
-    ${p.moves.length ? `<div class="sect-h"><span>Moves on the map</span><span>${p.moves.length}</span></div>
-    <ol class="tl-moves">${p.moves.map((m: any) => `<li class="${isFounding(m) ? 'f' : ''}"><span class="y">${esc(fmtYM(m.date))}</span><span class="b"><b>${esc(m.from_org ? orgShort(m.from_org) : 'Not stated')}</b> <span aria-hidden="true">&rarr;</span><span class="sr-only">to</span> <b>${esc(orgShort(m.to_org))}</b>${isFounding(m) ? ' <span class="tl-f sc">founding</span>' : ''}${m.announced ? ' <span class="tl-f tl-ann sc">announced</span>' : ''}<span class="n">${esc(m.note || '')}</span>${m.date_note ? `<span class="n">Date: ${esc(m.date_note)}</span>` : ''}${m.verification_note ? `<span class="n tl-fc">Fact check: ${esc(m.verification_note)}</span>` : ''}<a href="${esc(m.source_url)}" target="_blank" rel="noopener" class="host">${esc(host(m.source_url))}</a>${(m.more_sources || []).map((x: any) => ` <a href="${esc(x.url)}" target="_blank" rel="noopener" class="host">${esc(host(x.url))}</a>`).join('')}${m.verification === 'supported' ? `<span class="tl-v">fact checked</span>` : ''}</span></li>`).join('')}</ol>` : ''}
-    ${roles.length ? `<div class="sect-h"><span>Career path</span><span>${roles.length} role${roles.length === 1 ? '' : 's'}</span></div>
+    <div class="date">${p.moves.length ? `<span>${esc(fmtYM(p.moves[0].date))} ${zh ? '至' : 'to'} ${esc(fmtYM(p.moves[p.moves.length - 1].date))}</span>` : ''}${founded.length ? `<span>${zh ? `联合创立 ${esc(founded.map((o: any) => orgShort(o.id)).join('、'))}` : `co-founder of ${esc(founded.map((o: any) => orgShort(o.id)).join(', '))}`}</span>` : ''}</div>
+    ${p.stub ? `<p class="tl-stub"><span class="sc">${zh ? '简明记录' : 'Minimal entry'}</span> ${zh ? '现有公开文献仅记载此次履新，更早期的职位细节暂未收录。' : 'One sourced report names this move; earlier roles and titles are not on record.'}</p>` : ''}
+    ${p.moves.length ? `<div class="sect-h"><span>${zh ? '机构流动轨迹' : 'Moves on the map'}</span><span>${p.moves.length}</span></div>
+    <ol class="tl-moves">${p.moves.map((m: any) => `<li class="${isFounding(m) ? 'f' : ''}"><span class="y">${esc(fmtYM(m.date))}</span><span class="b"><b>${esc(m.from_org ? orgShort(m.from_org) : zh ? '未详' : 'Not stated')}</b> <span aria-hidden="true">&rarr;</span><span class="sr-only">${zh ? '至' : 'to'}</span> <b>${esc(orgShort(m.to_org))}</b>${isFounding(m) ? ` <span class="tl-f sc">${zh ? '创立' : 'founding'}</span>` : ''}${m.announced ? ` <span class="tl-f tl-ann sc">${zh ? '官宣' : 'announced'}</span>` : ''}<span class="n">${esc(m.note || '')}</span>${m.date_note ? `<span class="n">${zh ? '日期说明：' : 'Date: '}${esc(m.date_note)}</span>` : ''}${m.verification_note ? `<span class="n tl-fc">${zh ? '考证：' : 'Fact check: '}${esc(m.verification_note)}</span>` : ''}<a href="${esc(m.source_url)}" target="_blank" rel="noopener" class="host">${esc(host(m.source_url))}</a>${(m.more_sources || []).map((x: any) => ` <a href="${esc(x.url)}" target="_blank" rel="noopener" class="host">${esc(host(x.url))}</a>`).join('')}${m.verification === 'supported' ? `<span class="tl-v">${zh ? '已核查' : 'fact checked'}</span>` : ''}</span></li>`).join('')}</ol>` : ''}
+    ${roles.length ? `<div class="sect-h"><span>${zh ? '履历阶段' : 'Career path'}</span><span>${zh ? `${roles.length} 段经历` : `${roles.length} role${roles.length === 1 ? '' : 's'}`}</span></div>
     <ol class="tl-roles">${roles.map((r: any) => `<li><span class="o">${esc(r.org)}</span>${r.title && !ROLE_FILLER.test(r.title) ? `<span class="t">${esc(r.title)}</span>` : ''}<span class="d">${esc(span(r))}</span></li>`).join('')}</ol>` : ''}
-    ${rel.length ? `<div class="sect-h"><span>Events naming ${esc(p.name.split(' ').slice(-1)[0])}</span><span>${rel.length}</span></div><ul class="links">${rel.map(row).join('')}</ul>` : ''}
-    <div class="sect-h"><span>Sources</span><span>${srcs.length}</span></div>
+    ${rel.length ? `<div class="sect-h"><span>${zh ? '相关技术史事件' : `Events naming ${esc(p.name.split(' ').slice(-1)[0])}`}</span><span>${rel.length}</span></div><ul class="links">${rel.map(row).join('')}</ul>` : ''}
+    <div class="sect-h"><span>${zh ? '文献来源' : 'Sources'}</span><span>${srcs.length}</span></div>
     <ol class="sources">${srcs.map((u: string) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(host(u))}</a><span class="host">${esc(u.replace(/^https?:\/\/(www\.)?/, '').slice(0, 70))}</span></li>`).join('')}</ol>
-    ${p.verification_note ? `<p class="verif part"><span>Fact check</span> ${esc(p.verification_note)}</p>` : ''}`;
+    ${p.verification_note ? `<p class="verif part"><span>${zh ? '文献核查' : 'Fact check'}</span> ${esc(p.verification_note)}</p>` : ''}`;
 }
 
+const BCAT_ZH: Record<string, string> = {
+  vision: '视觉感知',
+  language: '自然语言',
+  knowledge: '知识理解',
+  math: '数学推理',
+  code: '代码编程',
+  reasoning: '综合推理',
+  agentic: '智能体执行',
+};
+
 export function benchDrawer(b: any, pointId: string, $: (sel: string) => HTMLElement | null) {
+  const zh = isZh();
   const c = bcolor(b);
-  const cat = (BCAT[b.domain] || {}).label || b.domain;
+  const cat = zh ? BCAT_ZH[b.domain] || (BCAT[b.domain] || {}).label || b.domain : (BCAT[b.domain] || {}).label || b.domain;
   const sel = b.points.find((p: any) => p.id === pointId);
-  $('#dk')!.innerHTML = `<i style="background:${c}"></i>Benchmark <span aria-hidden="true">&middot;</span> ${esc(cat)} <span aria-hidden="true">&middot;</span> ${b.ts ? 'Saturated' : 'Unsaturated'}`;
+  $('#dk')!.innerHTML = `<i style="background:${c}"></i>${zh ? '基准评测' : 'Benchmark'} <span aria-hidden="true">&middot;</span> ${esc(cat)} <span aria-hidden="true">&middot;</span> ${
+    b.ts ? (zh ? '已趋饱和' : 'Saturated') : zh ? '尚未饱和' : 'Unsaturated'
+  }`;
   const hb = b.human_baseline;
   const best = b.points[b.points.length - 1];
   const fmtV = (v: any) => `${+(+v).toFixed(2)}`;
@@ -153,34 +175,34 @@ export function benchDrawer(b: any, pointId: string, $: (sel: string) => HTMLEle
   const srcs = [...(b.sources || [])];
   $('#db')!.innerHTML = `
     <h3>${esc(sel ? sel.model : b.name)}</h3>
-    ${sel ? `<div class="date"><span>${esc(fmtYM(sel.date))}</span><span>${esc(sel.org)}</span><span>${esc(bshort(b))} ${fmtV(sel.value)}${b.higher_is_better ? '' : ' error'}</span></div>
-    <div class="bd-pick" style="--oc:${c}"><span class="sc">Record result</span><p><b>${fmtV(sel.value)}</b> ${esc(b.metric)} on ${esc(b.name)}, ${Math.round(pct(b, sel.value) || 0)}% of the maximum score.${hb && hb.value != null ? ` Human baseline ${fmtV(hb.value)}.` : ''}</p>${sel.date_note ? `<p>Date: ${esc(sel.date_note)}.</p>` : ''}${sel.t > Math.floor(b.t0) && String(sel.date) < String(b.introduced) ? `<p>The model was released before the benchmark, so the result is drawn at the benchmark's launch.</p>` : ''}<p class="src"><a href="${esc(sel.source_url)}" target="_blank" rel="noopener">${esc(sel.source_title || 'Source for this result')}</a> <span class="host">${esc(host(sel.source_url))}</span>${(sel.more_sources || []).map((x: any) => ` &middot; <a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title || host(x.url))}</a>`).join('')}</p>${sel.verification === 'supported' ? `<p class="bd-fc">Fact checked against the source.</p>` : sel.verification_note ? `<p class="bd-fc">Fact check: ${esc(sel.verification_note)}</p>` : ''}</div>
-    <div class="sect-h"><span>The benchmark</span><span>${esc(bshort(b))}</span></div>` : `<div class="date"><span>Introduced ${esc(fmtYM(b.introduced))}</span><span>${b.ts ? `saturated ${esc(fmtYM(b.saturated_date))}, after ${yrs(b.ts - b.t0)}` : `open after ${yrs(NOW_T - b.t0)}`}</span></div>`}
-    ${sel ? `<p class="summary"><b>${esc(b.name)}</b>, introduced ${esc(fmtYM(b.introduced))}; ${b.ts ? `saturated ${esc(fmtYM(b.saturated_date))}, after ${yrs(b.ts - b.t0)}.` : `still open after ${yrs(NOW_T - b.t0)}.`}</p>` : ''}
+    ${sel ? `<div class="date"><span>${esc(fmtYM(sel.date))}</span><span>${esc(sel.org)}</span><span>${esc(bshort(b))} ${fmtV(sel.value)}${b.higher_is_better ? '' : zh ? ' 误差' : ' error'}</span></div>
+    <div class="bd-pick" style="--oc:${c}"><span class="sc">${zh ? '刷新纪录成绩' : 'Record result'}</span><p><b>${fmtV(sel.value)}</b> ${esc(b.metric)}（${esc(b.name)}，${zh ? `达满分基准的 ${Math.round(pct(b, sel.value) || 0)}%` : `${Math.round(pct(b, sel.value) || 0)}% of the maximum score`}${hb && hb.value != null ? (zh ? `；人类基线 ${fmtV(hb.value)}` : `. Human baseline ${fmtV(hb.value)}`) : ''}）。</p>${sel.date_note ? `<p>${zh ? '日期说明：' : 'Date: '}${esc(sel.date_note)}</p>` : ''}${sel.t > Math.floor(b.t0) && String(sel.date) < String(b.introduced) ? `<p>${zh ? '该模型发布早于评测基准创立日期，故按基准发布时点绘制。' : "The model was released before the benchmark, so the result is drawn at the benchmark's launch."}</p>` : ''}<p class="src"><a href="${esc(sel.source_url)}" target="_blank" rel="noopener">${esc(sel.source_title || (zh ? '成绩原始出处' : 'Source for this result'))}</a> <span class="host">${esc(host(sel.source_url))}</span>${(sel.more_sources || []).map((x: any) => ` &middot; <a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title || host(x.url))}</a>`).join('')}</p>${sel.verification === 'supported' ? `<p class="bd-fc">${zh ? '已对照原始出处核查。' : 'Fact checked against the source.'}</p>` : sel.verification_note ? `<p class="bd-fc">${zh ? '考证说明：' : 'Fact check: '}${esc(sel.verification_note)}</p>` : ''}</div>
+    <div class="sect-h"><span>${zh ? '评测基准概况' : 'The benchmark'}</span><span>${esc(bshort(b))}</span></div>` : `<div class="date"><span>${zh ? `发布于 ${esc(fmtYM(b.introduced))}` : `Introduced ${esc(fmtYM(b.introduced))}`}</span><span>${b.ts ? (zh ? `${esc(fmtYM(b.saturated_date))} 趋于饱和（历时 ${yrs(b.ts - b.t0)}）` : `saturated ${esc(fmtYM(b.saturated_date))}, after ${yrs(b.ts - b.t0)}`) : zh ? `已持续开放 ${yrs(NOW_T - b.t0)}` : `open after ${yrs(NOW_T - b.t0)}`}</span></div>`}
+    ${sel ? `<p class="summary"><b>${esc(b.name)}</b>，${zh ? `发布于 ${esc(fmtYM(b.introduced))}` : `introduced ${esc(fmtYM(b.introduced))}`}；${b.ts ? (zh ? `于 ${esc(fmtYM(b.saturated_date))} 趋于饱和（历时 ${yrs(b.ts - b.t0)}）。` : `saturated ${esc(fmtYM(b.saturated_date))}, after ${yrs(b.ts - b.t0)}.`) : zh ? `至今仍未饱和（历时 ${yrs(NOW_T - b.t0)}）。` : `still open after ${yrs(NOW_T - b.t0)}.`}</p>` : ''}
     ${b.notes ? `<p class="summary">${esc(b.notes)}</p>` : ''}
     <dl class="dl">
-      <dt>Created by</dt><dd>${esc(b.creator)}</dd>
-      <dt>Metric</dt><dd>${esc(b.metric)}${b.higher_is_better ? '' : ', lower is better'}</dd>
-      <dt>Human baseline</dt><dd>${hb && hb.value != null ? `${fmtV(hb.value)} ${esc(hb.unit || '')}${hb.note ? `<span class="bd-note">${esc(hb.note)}</span>` : ''}${hb.source ? ` <a class="bd-src" href="${esc(hb.source)}" target="_blank" rel="noopener">${esc(host(hb.source))}</a>` : ''}` : 'None published'}${b.checks?.human_baseline?.note ? `<span class="bd-note">Fact check: ${esc(b.checks.human_baseline.note)}</span>` : ''}</dd>
-      <dt>Saturation</dt><dd>${b.ts ? `${esc(fmtYM(b.saturated_date))}, ${yrs(b.ts - b.t0)} after release` : 'Not yet'}${b.checks?.saturated_date?.note ? `<span class="bd-note">Fact check: ${esc(b.checks.saturated_date.note)}</span>` : ''}</dd>
-      <dt>Latest record</dt><dd>${fmtV(best.value)}, ${esc(best.model)} (${esc(fmtYM(best.date))})</dd>
+      <dt>${zh ? '创立团队' : 'Created by'}</dt><dd>${esc(b.creator)}</dd>
+      <dt>${zh ? '评分指标' : 'Metric'}</dt><dd>${esc(b.metric)}${b.higher_is_better ? '' : zh ? '（越低越优）' : ', lower is better'}</dd>
+      <dt>${zh ? '人类水平基线' : 'Human baseline'}</dt><dd>${hb && hb.value != null ? `${fmtV(hb.value)} ${esc(hb.unit || '')}${hb.note ? `<span class="bd-note">${esc(hb.note)}</span>` : ''}${hb.source ? ` <a class="bd-src" href="${esc(hb.source)}" target="_blank" rel="noopener">${esc(host(hb.source))}</a>` : ''}` : zh ? '未公布人类基线' : 'None published'}${b.checks?.human_baseline?.note ? `<span class="bd-note">${zh ? '核查：' : 'Fact check: '}${esc(b.checks.human_baseline.note)}</span>` : ''}</dd>
+      <dt>${zh ? '饱和状态' : 'Saturation'}</dt><dd>${b.ts ? `${esc(fmtYM(b.saturated_date))}（${zh ? `发布后 ${yrs(b.ts - b.t0)}` : `${yrs(b.ts - b.t0)} after release`}）` : zh ? '尚未饱和' : 'Not yet'}${b.checks?.saturated_date?.note ? `<span class="bd-note">${zh ? '核查：' : 'Fact check: '}${esc(b.checks.saturated_date.note)}</span>` : ''}</dd>
+      <dt>${zh ? '最新最高纪录' : 'Latest record'}</dt><dd>${fmtV(best.value)}，${esc(best.model)}（${esc(fmtYM(best.date))}）</dd>
     </dl>
-    <div class="sect-h"><span>Record progression</span><span>${b.points.length}</span></div>
-    <table class="bd-tab"><thead><tr><th>Date</th><th>Model and lab</th><th class="r">Score</th></tr></thead><tbody>${b.points.map((p: any) => `<tr class="${p.id === pointId ? 'on' : ''}"><td class="y">${esc(fmtYM(p.date))}</td><td><button type="button" data-id="${esc(p.id)}">${esc(p.model)}</button><span>${esc(p.org)} &middot; <a href="${esc(p.source_url)}" target="_blank" rel="noopener">${esc(host(p.source_url))}</a></span></td><td class="r">${fmtV(p.value)}${p.verification_note ? '<sup title="Qualified by the fact check; open the result for the note">*</sup>' : ''}</td></tr>`).join('')}</tbody></table>
-    ${rel.length ? `<div class="sect-h"><span>Related on the map</span><span>${rel.length}</span></div><ul class="links">${rel.map(row).join('')}</ul>` : ''}
-    <div class="sect-h"><span>Benchmark sources</span><span>${srcs.length}</span></div>
+    <div class="sect-h"><span>${zh ? '历代最高分演进' : 'Record progression'}</span><span>${b.points.length}</span></div>
+    <table class="bd-tab"><thead><tr><th>${zh ? '日期' : 'Date'}</th><th>${zh ? '模型与机构' : 'Model and lab'}</th><th class="r">${zh ? '得分' : 'Score'}</th></tr></thead><tbody>${b.points.map((p: any) => `<tr class="${p.id === pointId ? 'on' : ''}"><td class="y">${esc(fmtYM(p.date))}</td><td><button type="button" data-id="${esc(p.id)}">${esc(p.model)}</button><span>${esc(p.org)} &middot; <a href="${esc(p.source_url)}" target="_blank" rel="noopener">${esc(host(p.source_url))}</a></span></td><td class="r">${fmtV(p.value)}${p.verification_note ? `<sup title="${zh ? '附有文献核查限定说明，点击查看详情' : 'Qualified by the fact check; open the result for the note'}">*</sup>` : ''}</td></tr>`).join('')}</tbody></table>
+    ${rel.length ? `<div class="sect-h"><span>${zh ? '图谱关联事件' : 'Related on the map'}</span><span>${rel.length}</span></div><ul class="links">${rel.map(row).join('')}</ul>` : ''}
+    <div class="sect-h"><span>${zh ? '评测文献来源' : 'Benchmark sources'}</span><span>${srcs.length}</span></div>
     <ol class="sources">${srcs.map((s: any) => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title || host(s.url))}</a><span class="host">${esc(host(s.url))}</span></li>`).join('')}</ol>
-    ${b.verification_note ? `<p class="verif part"><span>Fact check</span> ${esc(b.verification_note)}</p>` : ''}`;
+    ${b.verification_note ? `<p class="verif part"><span>${zh ? '文献核查' : 'Fact check'}</span> ${esc(b.verification_note)}</p>` : ''}`;
 }
 
 export const RISO = { ultramarine: '#7E91DC', teal: '#7EB3B4', pink: '#FB99C0', orange: '#FBA783' };
 export const PSTATUS = [
-  { id: 'in_force', label: 'In force', color: RISO.ultramarine },
-  { id: 'enacted', label: 'Enacted', color: RISO.teal },
-  { id: 'proposed', label: 'Proposed', color: RISO.pink, hollow: true },
-  { id: 'repealed', label: 'Repealed', color: RISO.orange, hatch: true },
-  { id: 'vetoed', label: 'Vetoed', color: RISO.orange, hatch: true },
-  { id: 'blocked', label: 'Blocked', color: RISO.orange, hatch: true },
+  { id: 'in_force', label: 'In force', zh: '现行有效', color: RISO.ultramarine },
+  { id: 'enacted', label: 'Enacted', zh: '已颁布', color: RISO.teal },
+  { id: 'proposed', label: 'Proposed', zh: '提案审议中', color: RISO.pink, hollow: true },
+  { id: 'repealed', label: 'Repealed', zh: '已废止', color: RISO.orange, hatch: true },
+  { id: 'vetoed', label: 'Vetoed', zh: '已否决', color: RISO.orange, hatch: true },
+  { id: 'blocked', label: 'Blocked', zh: '已受阻搁置', color: RISO.orange, hatch: true },
 ];
 export const PSTAT: Record<string, any> = Object.fromEntries(PSTATUS.map((s) => [s.id, s]));
 export const pswatch = (st: any) =>
@@ -191,49 +213,75 @@ export const pswatch = (st: any) =>
       : `background:${st.color}`;
 
 export const PTYPES = [
-  { id: 'law', label: 'Law', sym: 'circle', fill: true },
-  { id: 'regulation', label: 'Regulation', sym: 'square', fill: true },
-  { id: 'executive_order', label: 'Executive order', sym: 'triangle', fill: true },
-  { id: 'treaty', label: 'Treaty', sym: 'star', fill: true },
-  { id: 'bill', label: 'Bill', sym: 'square', fill: false },
-  { id: 'strategy', label: 'Strategy', sym: 'diamond', fill: false },
-  { id: 'guidance', label: 'Guidance', sym: 'circle', fill: false },
+  { id: 'law', label: 'Law', zh: '法律立法', sym: 'circle', fill: true },
+  { id: 'regulation', label: 'Regulation', zh: '行政法规', sym: 'square', fill: true },
+  { id: 'executive_order', label: 'Executive order', zh: '行政命令', sym: 'triangle', fill: true },
+  { id: 'treaty', label: 'Treaty', zh: '国际条约', sym: 'star', fill: true },
+  { id: 'bill', label: 'Bill', zh: '法案草案', sym: 'square', fill: false },
+  { id: 'strategy', label: 'Strategy', zh: '国家战略', sym: 'diamond', fill: false },
+  { id: 'guidance', label: 'Guidance', zh: '监管指引', sym: 'circle', fill: false },
 ];
 export const PTYPE: Record<string, any> = Object.fromEntries(PTYPES.map((t) => [t.id, t]));
-const SYM = (): Record<string, d3.SymbolType> => ({
-  circle: d3.symbolCircle,
-  square: d3.symbolSquare,
-  triangle: d3.symbolTriangle,
-  star: d3.symbolStar,
-  diamond: d3.symbolDiamond,
-});
-export const psym = (type: string, size = 60) => d3.symbol(SYM()[(PTYPE[type] || PTYPES[0]).sym], size)();
+
+export function psym(type: string, size = 60): string {
+  const kind = (PTYPE[type] || PTYPES[0]).sym;
+  if (kind === 'square') {
+    const h = Math.sqrt(size) / 2;
+    return `M${-h},${-h}L${h},${-h}L${h},${h}L${-h},${h}Z`;
+  }
+  if (kind === 'triangle') {
+    const r = Math.sqrt((size * 4) / (3 * Math.sqrt(3)));
+    return `M0,${-r}L${(r * Math.sqrt(3)) / 2},${r / 2}L${(-r * Math.sqrt(3)) / 2},${r / 2}Z`;
+  }
+  if (kind === 'diamond') {
+    const r = Math.sqrt(size / 2);
+    return `M0,${-r}L${r},0L0,${r}L${-r},0Z`;
+  }
+  if (kind === 'star') {
+    const R = Math.sqrt(size / 1.12);
+    const r = R * 0.42;
+    const pts: string[] = [];
+    for (let i = 0; i < 10; i++) {
+      const a = -Math.PI / 2 + (i * Math.PI) / 5;
+      const rad = i % 2 === 0 ? R : r;
+      pts.push(`${(Math.cos(a) * rad).toFixed(2)},${(Math.sin(a) * rad).toFixed(2)}`);
+    }
+    return `M${pts.join('L')}Z`;
+  }
+  const r = Math.sqrt(size / Math.PI);
+  return `M${r},0A${r},${r},0,1,1,${-r},0A${r},${r},0,1,1,${r},0Z`;
+}
+
 const fmtD = (d: string | null | undefined) => {
   if (!d) return '';
   const [y, m, dd] = String(d).split('-').map(Number);
+  if (isZh()) return `${y}年${m ? `${m}月` : ''}${dd ? `${dd}日` : ''}`;
   return (dd ? dd + ' ' : '') + (m ? MON[m - 1] + ' ' : '') + y;
 };
 
 export function policyDrawer(x: any, $: (sel: string) => HTMLElement | null) {
+  const zh = isZh();
   const st = PSTAT[x.status] || PSTATUS[0];
-  const ty = PTYPE[x.type] || { label: x.type };
-  $('#dk')!.innerHTML = `<i style="${pswatch(st)}"></i>Policy <span aria-hidden="true">&middot;</span> ${esc(ty.label)} <span aria-hidden="true">&middot;</span> ${esc(st.label)}`;
+  const ty = PTYPE[x.type] || { label: x.type, zh: x.type };
+  const stLabel = zh ? st.zh || st.label : st.label;
+  const tyLabel = zh ? ty.zh || ty.label : ty.label;
+  $('#dk')!.innerHTML = `<i style="${pswatch(st)}"></i>${zh ? '科技政策' : 'Policy'} <span aria-hidden="true">&middot;</span> ${esc(tyLabel)} <span aria-hidden="true">&middot;</span> ${esc(stLabel)}`;
   const rel = (x.related_event_ids || []).map((id: string) => db.byId.get(id)).filter(Boolean).sort((a: any, b: any) => a.t - b.t);
   const row = (e: any) => `<li><button type="button" data-id="${esc(e.id)}"><i style="background:var(--ink-3)"></i><span class="y">${e.year}</span><span>${esc(e.title)}</span></button></li>`;
   const steps = [
-    ['Introduced', x.date_introduced, x.date_introduced_note],
-    ['Enacted', x.date_enacted, x.date_enacted_note],
-    ['In force', x.date_in_force, x.date_in_force_note],
+    [zh ? '提出日期' : 'Introduced', x.date_introduced, x.date_introduced_note],
+    [zh ? '正式颁布' : 'Enacted', x.date_enacted, x.date_enacted_note],
+    [zh ? '生效施行' : 'In force', x.date_in_force, x.date_in_force_note],
   ].filter((s) => s[1]);
   $('#db')!.innerHTML = `
     <h3${x.title.length > 90 ? ' class="long"' : ''}>${esc(x.title)}</h3>
-    <div class="date"><span>${esc(x.jurisdiction)}</span><span>${esc(x.level)}</span><span style="color:${st.color};filter:brightness(.85)">${esc(st.label)}</span></div>
-    <ol class="pd-life">${steps.map(([l, d, n]) => `<li><span class="sc">${l}</span><b>${esc(fmtD(d))}</b>${n ? `<span class="pd-dn">${esc(n)}</span>` : ''}</li>`).join('')}${['repealed', 'vetoed', 'blocked'].includes(x.status) ? `<li class="end" style="--oc:${st.color}"><span class="sc">${esc(st.label)}</span><b>date not recorded</b></li>` : ''}</ol>
+    <div class="date"><span>${esc(x.jurisdiction)}</span><span>${esc(x.level)}</span><span style="color:${st.color};filter:brightness(.85)">${esc(stLabel)}</span></div>
+    <ol class="pd-life">${steps.map(([l, d, n]) => `<li><span class="sc">${l}</span><b>${esc(fmtD(d))}</b>${n ? `<span class="pd-dn">${esc(n)}</span>` : ''}</li>`).join('')}${['repealed', 'vetoed', 'blocked'].includes(x.status) ? `<li class="end" style="--oc:${st.color}"><span class="sc">${esc(stLabel)}</span><b>${zh ? '具体日期未载' : 'date not recorded'}</b></li>` : ''}</ol>
     <p class="summary">${esc(x.summary)}</p>
     ${x.status_note ? `<p class="pd-note">${esc(x.status_note)}</p>` : ''}
-    <dl class="dl"><dt>Jurisdiction</dt><dd>${esc(x.jurisdiction)} (${esc(x.region)})</dd><dt>Instrument</dt><dd>${esc(ty.label)}${ty.fill ? ', binding' : ty.fill === false ? ', not binding on its own' : ''}</dd><dt>Status</dt><dd>${esc(st.label)}</dd></dl>
-    ${rel.length ? `<div class="sect-h"><span>Related on the map</span><span>${rel.length}</span></div><ul class="links">${rel.map(row).join('')}</ul>` : ''}
-    <div class="sect-h"><span>Sources</span><span>${(x.sources || []).length}</span></div>
+    <dl class="dl"><dt>${zh ? '管辖法域' : 'Jurisdiction'}</dt><dd>${esc(x.jurisdiction)} (${esc(x.region)})</dd><dt>${zh ? '法律层级' : 'Instrument'}</dt><dd>${esc(tyLabel)}${ty.fill ? (zh ? '（具法律约束力）' : ', binding') : ty.fill === false ? (zh ? '（非强制约束性）' : ', not binding on its own') : ''}</dd><dt>${zh ? '当前效力' : 'Status'}</dt><dd>${esc(stLabel)}</dd></dl>
+    ${rel.length ? `<div class="sect-h"><span>${zh ? '图谱关联事件' : 'Related on the map'}</span><span>${rel.length}</span></div><ul class="links">${rel.map(row).join('')}</ul>` : ''}
+    <div class="sect-h"><span>${zh ? '文献来源' : 'Sources'}</span><span>${(x.sources || []).length}</span></div>
     <ol class="sources">${(x.sources || []).map((s: any) => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title || host(s.url))}</a><span class="host">${esc(host(s.url))}</span></li>`).join('')}</ol>
-    ${x.verification === 'supported' ? `<p class="verif ok"><span>Fact checked</span> Key claims confirmed against the cited sources.</p>` : x.verification_note ? `<p class="verif part"><span>${x.verification === 'unsupported' ? 'Corrected' : 'Partly confirmed'}</span> ${esc(x.verification_note)}</p>` : ''}`;
+    ${x.verification === 'supported' ? `<p class="verif ok"><span>${zh ? '已核查考证' : 'Fact checked'}</span> ${zh ? '核心陈述已对照引用文献核实。' : 'Key claims confirmed against the cited sources.'}</p>` : x.verification_note ? `<p class="verif part"><span>${x.verification === 'unsupported' ? (zh ? '已勘误修正' : 'Corrected') : zh ? '部分证实' : 'Partly confirmed'}</span> ${esc(x.verification_note)}</p>` : ''}`;
 }
