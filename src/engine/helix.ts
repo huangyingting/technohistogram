@@ -574,6 +574,11 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   const GHOST_A = 0.28;
   const FC_FROM = 2020;
 
+  let panelHidden = false;
+  try {
+    panelHidden = localStorage.getItem('histomap:panelHidden') === '1';
+  } catch {}
+
   let cam = {
     year: T1,
     target: T1,
@@ -584,6 +589,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     elOff: 0,
     breath: 0,
     drawer: 0,
+    panel: panelHidden ? 0 : 1,
     fling: null as {
       y0: number;
       y1: number;
@@ -592,6 +598,29 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       ease?: (t: number) => number;
     } | null,
   };
+
+  function setPanelHidden(next?: boolean): boolean {
+    const target = next === undefined ? !panelHidden : Boolean(next);
+    panelHidden = target;
+    if (reduced()) cam.panel = target ? 0 : 1;
+    if (target && (openFcast || openUnit !== null)) {
+      closeSheet();
+    }
+    try {
+      localStorage.setItem('histomap:panelHidden', target ? '1' : '0');
+    } catch {}
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('histomap:panel', { detail: { hidden: target } }));
+    }
+    invalidate();
+    return panelHidden;
+  }
+
+  if (panelHidden && typeof window !== 'undefined') {
+    queueMicrotask(() => {
+      window.dispatchEvent(new CustomEvent('histomap:panel', { detail: { hidden: true } }));
+    });
+  }
   let settleAt = 0;
   let moveAt = 0;
   let restAt = 0;
@@ -1221,14 +1250,16 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   let lastLayoutSig = '';
   const syncLayoutVars = (P: StagePreset, b: typeof BAND) => {
     const split = !P.vert && W >= 900;
-    const eraRightEdge = split ? Math.max(266, Math.round(b.x0 - 8)) : 0;
+    const eraRightEdge = split ? Math.max(24, Math.round(b.x0 - 8)) : 0;
     const drawerW = split ? Math.round(clamp(W * 0.265, 304, 372)) : 0;
     const eraBottom = split ? Math.round(b.stripH + 8) : 0;
-    const sig = `${split ? '1' : '0'}:${eraRightEdge}:${drawerW}:${eraBottom}`;
+    const pState = panelHidden ? 'closed' : 'open';
+    const sig = `${split ? '1' : '0'}:${eraRightEdge}:${drawerW}:${eraBottom}:${pState}`;
     if (sig === lastLayoutSig) return;
     lastLayoutSig = sig;
     const root = document.documentElement;
     root.dataset.hxLayout = split ? 'split' : 'stack';
+    root.dataset.hxPanel = pState;
     if (split) {
       root.style.setProperty('--hx-era-right-edge', `${eraRightEdge}px`);
       root.style.setProperty('--hx-drawer-w', `${drawerW}px`);
@@ -1243,7 +1274,9 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       return { x0: 0, x1: W, y0: 0, y1: sy, w: W, h: sy, stripY: sy, stripH: sh };
     }
     const cw = Math.min(P.colW, Math.max(256, Math.round(W * 0.24)));
-    const x0 = 10 + cw + 8;
+    const openX0 = 10 + cw + 8;
+    const closedX0 = 32;
+    const x0 = Math.round(lerp(closedX0, openX0, cam.panel));
     return { x0, x1: W, y0: 0, y1: sy, w: Math.max(240, W - x0), h: sy, stripY: sy, stripH: sh };
   };
 
@@ -3148,7 +3181,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
   function renderUnitDom(V: ViewState) {
     V_LAST = V;
     const vert = V.P.vert;
-    const on = openFcast || openUnit !== null;
+    const on = (openFcast || openUnit !== null) && (vert || !panelHidden);
     if (!on) {
       if (unitDom && !unitDom.hidden) unitDom.hidden = true;
       openRect = null;
@@ -3982,13 +4015,23 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       }
       octx.restore();
 
-      if (pullFade > 0.02) {
-        const fx = 10;
-        const fw = BAND.x0 - 18;
+      if (pullFade > 0.02 && cam.panel > 0.03) {
+        const cw = Math.min(P.colW, Math.max(256, Math.round(W * 0.24)));
+        const fx = Math.round(lerp(-cw - 14, 10, cam.panel));
         if (openFcast || openUnit !== null) renderUnitDom(V);
         else {
           renderUnitDom(V);
-          drawFeed(octx, fx, 8, fw, BAND.stripY - 16, P, f, fieldA * pullFade, linesA * pullFade);
+          drawFeed(
+            octx,
+            fx,
+            8,
+            cw,
+            BAND.stripY - 16,
+            P,
+            f,
+            fieldA * pullFade * cam.panel,
+            linesA * pullFade * cam.panel,
+          );
         }
       } else {
         renderUnitDom(V);
@@ -4279,7 +4322,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     x.fillStyle = accentCol;
     x.globalAlpha = 0.98 * headA;
     const headTxt = f.fcast ? fcT1() : unitLabel(f.un);
-    x.fillText(headTxt, fx, y);
+    x.fillText(trimText(x, headTxt, Math.max(120, fw - 64)), fx, y);
 
     const cntTxt = f.fcast
       ? isZh()
@@ -4299,10 +4342,11 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     x.fillText(cntTxt, fx, y);
 
     if (f.total + f.claimsTotal > 0) {
+      const hitX1 = fx + Math.max(120, fw - 64);
       feedHits.push(
         f.fcast
-          ? { kind: 'openFcast', x0: fx, y0: fy, x1: fx + fw, y1: y + 4 }
-          : { kind: 'openUnit', un: f.un, x0: fx, y0: fy, x1: fx + fw, y1: y + 4 },
+          ? { kind: 'openFcast', x0: fx, y0: fy, x1: hitX1, y1: y + 4 }
+          : { kind: 'openUnit', un: f.un, x0: fx, y0: fy, x1: hitX1, y1: y + 4 },
       );
     }
 
@@ -4937,6 +4981,17 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       moving = true;
     }
 
+    const panelTarget = panelHidden ? 0 : 1;
+    if (Math.abs(cam.panel - panelTarget) > 0.001) {
+      if (reduced()) {
+        cam.panel = panelTarget;
+      } else {
+        cam.panel += (panelTarget - cam.panel) * Math.min(1, dt * 12);
+        if (Math.abs(cam.panel - panelTarget) < 0.002) cam.panel = panelTarget;
+      }
+      moving = true;
+    }
+
     void settleAt;
     void moveAt;
     return moving;
@@ -4981,7 +5036,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     }
     const uHand = V.pull > 0.5 ? 'p' : unitOf(cam.year);
     const linKey = isLineageSpotlight() && state.sel ? `L:${state.sel}` : '';
-    const key = `${W}x${H}x${DPR}:${slf(cam.year).toFixed(3)}:${V.pull.toFixed(3)}:${cam.drawer.toFixed(3)}:${cam.azOff.toFixed(2)}:${cam.elOff.toFixed(2)}:${gyroAz.toFixed(2)}:${gyroEl.toFixed(2)}:${cam.breath.toFixed(3)}:${uHand}:${shA.toFixed(2)}:${geomKey}:${gpu.ready ? 1 : 0}:${getTheme().id}:${linKey}`;
+    const key = `${W}x${H}x${DPR}:${slf(cam.year).toFixed(3)}:${V.pull.toFixed(3)}:${cam.drawer.toFixed(3)}:${cam.panel.toFixed(3)}:${cam.azOff.toFixed(2)}:${cam.elOff.toFixed(2)}:${gyroAz.toFixed(2)}:${gyroEl.toFixed(2)}:${cam.breath.toFixed(3)}:${uHand}:${shA.toFixed(2)}:${geomKey}:${gpu.ready ? 1 : 0}:${getTheme().id}:${linKey}`;
     let sceneRepainted = false;
     if (key !== sceneKey) {
       sceneKey = key;
@@ -5420,6 +5475,11 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
         ev.preventDefault();
         toggleLineageSpotlight();
       }
+    } else if (ev.key === 'b' || ev.key === 'B') {
+      if (!(H > W || W < 900)) {
+        ev.preventDefault();
+        setPanelHidden();
+      }
     } else if (ev.key === 'ArrowDown') {
       ev.preventDefault();
       if (state.sel || openUnit !== null || openFcast) cruiseEvent(1);
@@ -5457,6 +5517,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       pullBack(false);
     } else if (ev.key === 'Enter' && !openFcast && openUnit === null) {
       ev.preventDefault();
+      if (panelHidden) setPanelHidden(false);
       openFcast = false;
       openUnit = unitOf(cam.year);
       openFilter = null;
@@ -5899,6 +5960,10 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     get pull() {
       return cam.pull;
     },
+    get panelHidden() {
+      return panelHidden;
+    },
+    togglePanel: (hide?: boolean) => setPanelHidden(hide),
     get cellsCount() {
       return cells.length;
     },
@@ -5941,8 +6006,9 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       return out;
     },
     openUnitSheet(un: number) {
+      if (panelHidden) setPanelHidden(false);
       openFcast = false;
-      openUnit = un;
+      openUnit = unitOf(un);
       openFilter = null;
       openScroll = 0;
       shOpen = true;
@@ -5951,6 +6017,7 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       invalidate();
     },
     openForecasts() {
+      if (panelHidden) setPanelHidden(false);
       openFcast = true;
       openUnit = null;
       openFilter = null;

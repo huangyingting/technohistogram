@@ -27,13 +27,13 @@ interface EpochPreset {
 }
 
 const EPOCH_PRESETS: EpochPreset[] = [
-  { id: 'roots', year: -50000, zh: '远古', en: 'Roots', range: [-3400000, 1025] },
-  { id: 'song', year: 1092, zh: '1092 宋元', en: '1092', range: [1026, 1399] },
-  { id: 'print', year: 1450, zh: '1450 活字', en: '1450', range: [1400, 1699] },
-  { id: 'steam', year: 1780, zh: '1780 蒸汽', en: '1780', range: [1700, 1899] },
-  { id: 'chip', year: 1947, zh: '1947 芯片', en: '1947', range: [1900, 1979] },
-  { id: 'web', year: 1991, zh: '1991 互联', en: '1991', range: [1980, 2016] },
-  { id: 'ai', year: 2026, zh: '2026 智能', en: 'AI 2026', range: [2017, 2030] },
+  { id: 'roots', year: -3000, zh: '远古', en: 'Roots', range: [-3400000, 1025] },
+  { id: 'print', year: 1450, zh: '1450 活字', en: '1450', range: [1026, 1549] },
+  { id: 'sci', year: 1600, zh: '1600 科学', en: '1600', range: [1550, 1749] },
+  { id: 'ind', year: 1870, zh: '1870 工业', en: '1870', range: [1750, 1919] },
+  { id: 'chip', year: 1947, zh: '1947 芯片', en: '1947', range: [1920, 1979] },
+  { id: 'web', year: 1991, zh: '1991 互联', en: '1991', range: [1980, 2015] },
+  { id: 'ai', year: 2026, zh: '2026 智能', en: 'AI 2026', range: [2016, 2030] },
 ];
 
 export default function HistomapClient() {
@@ -47,6 +47,7 @@ export default function HistomapClient() {
   const [tourList, setTourList] = useState<any[]>([]);
   const [camYear, setCamYear] = useState<number>(2026);
   const [pulledBack, setPulledBack] = useState<boolean>(false);
+  const [panelHidden, setPanelHiddenState] = useState<boolean>(false);
   const [hasQuery, setHasQuery] = useState<boolean>(false);
   const toolbarRef = useRef<HTMLDivElement | null>(null);
 
@@ -96,8 +97,16 @@ export default function HistomapClient() {
         setCamYear((prev) => (prev === y ? prev : y));
         const pb = (hx.pull ?? 0) > 0.48;
         setPulledBack((prev) => (prev === pb ? prev : pb));
+        const ph = Boolean(hx.panelHidden);
+        setPanelHiddenState((prev) => (prev === ph ? prev : ph));
       }
     }, 180);
+
+    const onPanelEvt = (ev: Event) => {
+      const hidden = Boolean((ev as CustomEvent)?.detail?.hidden);
+      setPanelHiddenState(hidden);
+    };
+    window.addEventListener('histomap:panel', onPanelEvt);
 
     const onDocDown = (ev: MouseEvent) => {
       if (!toolbarRef.current) return;
@@ -131,6 +140,7 @@ export default function HistomapClient() {
       offStore();
       offData();
       window.clearInterval(poll);
+      window.removeEventListener('histomap:panel', onPanelEvt);
       document.removeEventListener('pointerdown', onDocDown);
       document.removeEventListener('keydown', onKey);
     };
@@ -165,6 +175,9 @@ export default function HistomapClient() {
   };
 
   const jumpToEpoch = (yr: number) => {
+    if (yr < 2010 && !db.loaded.has('past')) {
+      ensureNow('past').catch(() => {});
+    }
     const hx = (window as any).__helix;
     if (hx) {
       if ((hx.pull ?? 0) > 0.4) hx.pullBack?.(false);
@@ -190,6 +203,22 @@ export default function HistomapClient() {
       if ((hx.pull ?? 0) > 0.4) hx.pullBack?.(false);
       hx.openForecasts();
       setOpenMenu(null);
+    }
+  };
+
+  const toggleLeftPanel = () => {
+    const hx = (window as any).__helix;
+    if (hx?.togglePanel) {
+      const next = hx.togglePanel();
+      setPanelHiddenState(Boolean(next));
+    } else {
+      setPanelHiddenState((prev) => {
+        const next = !prev;
+        try {
+          localStorage.setItem('histomap:panelHidden', next ? '1' : '0');
+        } catch {}
+        return next;
+      });
     }
   };
 
@@ -478,6 +507,8 @@ export default function HistomapClient() {
 
             <div className={`search${hasQuery ? ' has-q' : ''}`} role="search">
               <svg
+                width="13"
+                height="13"
                 viewBox="0 0 16 16"
                 fill="none"
                 stroke="currentColor"
@@ -634,7 +665,7 @@ export default function HistomapClient() {
                     </div>
                     <div>
                       <dt>{zh ? '键盘巡航与快捷键' : 'Keyboard Cruise'}</dt>
-                      <dd>{zh ? '↑ ↓ 或 J K 逐条巡航史料 · ← → 步进年代 · / 搜索 · Esc 关闭' : '↑ ↓ or J K cruise events · ← → step eras · / search · Esc close'}</dd>
+                      <dd>{zh ? '↑ ↓ 或 J K 逐条巡航史料 · B 收起/展开左侧栏 · / 搜索 · Esc 关闭' : '↑ ↓ or J K cruise events · B toggle era panel · / search · Esc close'}</dd>
                     </div>
                   </dl>
                 </div>
@@ -721,6 +752,53 @@ export default function HistomapClient() {
 
         <main className="stage" id="stage" tabIndex={-1} />
 
+        <button
+          type="button"
+          id="hx-panel-toggle"
+          className={`hx-panel-toggle${panelHidden ? ' collapsed' : ''}${pulledBack ? ' pulled' : ''}`}
+          onClick={toggleLeftPanel}
+          aria-pressed={!panelHidden}
+          aria-label={
+            panelHidden
+              ? zh
+                ? '展开左侧年代面板 (快捷键 B)'
+                : 'Show era panel (Key B)'
+              : zh
+                ? '收起左侧年代面板 (快捷键 B)'
+                : 'Hide era panel (Key B)'
+          }
+          title={
+            panelHidden
+              ? zh
+                ? '展开左侧年代面板 (快捷键 B)'
+                : 'Show era panel (Key B)'
+              : zh
+                ? '收起左侧年代面板 (快捷键 B)'
+                : 'Hide era panel (Key B)'
+          }
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.55"
+            aria-hidden="true"
+          >
+            <rect x="1.75" y="2.25" width="12.5" height="11.5" rx="2" />
+            <path d="M6 2.5v11" />
+            {panelHidden ? (
+              <path d="M9 6l2.5 2L9 10" strokeLinecap="round" strokeLinejoin="round" />
+            ) : (
+              <path d="M11 6 8.5 8 11 10" strokeLinecap="round" strokeLinejoin="round" />
+            )}
+          </svg>
+          <span className="hx-pt-lbl">
+            {panelHidden ? (zh ? '年代栏' : 'Eras') : zh ? '收起' : 'Hide'}
+          </span>
+        </button>
+
         <footer className="scrubber" aria-label={zh ? '年份跨度' : 'Year range'}>
           <div className="scrub-label">
             <span className="sc">{zh ? '年代' : 'Years'}</span>
@@ -770,7 +848,7 @@ export default function HistomapClient() {
                 aria-pressed="false"
                 hidden
               >
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                   <circle cx="3.2" cy="8" r="1.8" />
                   <circle cx="12.8" cy="4" r="1.8" />
                   <circle cx="12.8" cy="12" r="1.8" />
@@ -784,7 +862,7 @@ export default function HistomapClient() {
                 type="button"
                 hidden
               >
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                   <rect x="2.2" y="2" width="11.6" height="12" rx="1.8" />
                   <path d="M5 6h6M5 8.8h4M10.2 10.5h1.5v1.5h-1.5z" />
                 </svg>
@@ -796,7 +874,7 @@ export default function HistomapClient() {
                 type="button"
                 hidden
               >
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                   <path d="M6.6 9.4 9.4 6.6M5.2 10.8l-1.1 1.1a2.2 2.2 0 0 1-3.1-3.1l1.6-1.6a2.2 2.2 0 0 1 3.1 0M10.8 5.2l1.1-1.1a2.2 2.2 0 0 1 3.1 3.1l-1.6 1.6a2.2 2.2 0 0 1-3.1 0" />
                 </svg>
                 <span className="da-lbl">{zh ? '链接' : 'Link'}</span>
@@ -807,7 +885,7 @@ export default function HistomapClient() {
                 type="button"
                 aria-label={zh ? '关闭面板' : 'Close evidence panel'}
               >
-                <svg viewBox="0 0 14 14" stroke="currentColor" strokeWidth="1.5">
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                   <path d="M2 2l10 10M12 2 2 12" />
                 </svg>
               </button>
