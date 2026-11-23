@@ -112,8 +112,8 @@ export function runArrival({ targets, ready, onReveal, onDone }: RunArrivalOpts)
     (pre
       ? ''
       : isZh()
-        ? '<h2 class="ar-lines" aria-live="polite"><span>技术演进<em>全图</em></span><small>公元前 330 万年 — 2026 年 · 人类技术谱系</small></h2>'
-        : '<h2 class="ar-lines" aria-live="polite"><span>Technology <em>Histomap</em></span><small>3.3 million BCE to 2026</small></h2>');
+        ? '<h2 class="ar-lines" aria-live="polite"><span class="ar-kicker"><i class="ar-gem" aria-hidden="true"></i>前330万年 — 2026 · 三维技术演进星盘</span><span class="ar-headline">技术演进<em>全图</em></span><small class="ar-sub"><span class="ar-sub-txt">4,828 条原始文献考证 · 每世纪旋转一圈</span><b class="ar-enter-pill">点击任意处进入 →</b></small></h2>'
+        : '<h2 class="ar-lines" aria-live="polite"><span class="ar-kicker"><i class="ar-gem" aria-hidden="true"></i>3.3M BCE — 2026 · WEBGPU TECH ASTROLABE</span><span class="ar-headline">Technology <em>Histomap</em></span><small class="ar-sub"><span class="ar-sub-txt">4,828 sourced records · One turn per century</span><b class="ar-enter-pill">Click anywhere to enter →</b></small></h2>');
   document.body.appendChild(host);
   if (pre) pre.classList.add('live');
   requestAnimationFrame(() => document.documentElement.classList.remove('arrival-mode'));
@@ -177,8 +177,8 @@ export function runArrival({ targets, ready, onReveal, onDone }: RunArrivalOpts)
       L.s = T.pic || 12;
       L.picAt = T.picAt || null;
     } else {
-      L.cx = L.W / 2;
-      L.cy = L.H * 0.52;
+      L.cx = L.phone ? L.W * 0.5 : L.W * 0.68;
+      L.cy = L.H * 0.5;
       L.R = Math.min(L.W, L.H) * 0.36;
       L.s = L.phone ? 9 : 12;
       L.dot = null;
@@ -277,25 +277,27 @@ export function runArrival({ targets, ready, onReveal, onDone }: RunArrivalOpts)
     return n / Math.max(1, D.images.length);
   }
 
-  const SPR: Record<number, HTMLCanvasElement> = {};
+  const SPR: Record<string, HTMLCanvasElement> = {};
   function grain(key: number) {
-    if (SPR[key]) return SPR[key];
+    const th = getTheme();
+    const sk = `${th.id}:${key}`;
+    if (SPR[sk]) return SPR[sk];
     const c = document.createElement('canvas');
     const S = 32;
     c.width = c.height = S;
     const h = heat(key / 31);
     const x = c.getContext('2d')!;
-    const col = getTheme().isLight ? mix(h, '#1e1914', 0.08) : mix(h, '#ffffff', 0.18);
-    const deep = sunk(h, 0.55);
+    const col = th.isLight ? mix(h, th.ink, 0.14) : mix(h, th.core, 0.2);
+    const deep = th.isLight ? mix(h, th.sunkTarget, 0.35) : sunk(h, 0.55);
     const g = x.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
     g.addColorStop(0, col);
-    g.addColorStop(0.3, col);
-    g.addColorStop(0.42, hexA(deep, 0.5));
-    g.addColorStop(0.75, hexA(deep, 0.08));
+    g.addColorStop(0.32, col);
+    g.addColorStop(0.46, hexA(deep, th.isLight ? 0.42 : 0.5));
+    g.addColorStop(0.76, hexA(deep, th.isLight ? 0.06 : 0.08));
     g.addColorStop(1, hexA(deep, 0));
     x.fillStyle = g;
     x.fillRect(0, 0, S, S);
-    return (SPR[key] = c);
+    return (SPR[sk] = c);
   }
 
   function makeAtlasMaterial(tex: THREE.Texture) {
@@ -351,15 +353,16 @@ export function runArrival({ targets, ready, onReveal, onDone }: RunArrivalOpts)
       pf[1] === D.images.length
         ? data.pictures
         : 0;
-    const sub = lines?.querySelector('small');
-    const counts = ` \u00b7 ${D.events.length.toLocaleString('en-US')} records${picN ? ` \u00b7 ${picN.toLocaleString('en-US')} pictures` : ''}`;
-    if (sub && pre) {
+    const subTxt = (lines?.querySelector('.ar-sub-txt') || lines?.querySelector('small')) as HTMLElement | null;
+    if (subTxt && picN && !subTxt.querySelector('i')) {
+      const zh = isZh();
+      const picLabel = zh
+        ? ` \u00b7 ${picN.toLocaleString('en-US')} 幅历史影像`
+        : ` \u00b7 ${picN.toLocaleString('en-US')} archival images`;
       const c = document.createElement('i');
-      c.textContent = counts;
-      sub.appendChild(c);
+      c.textContent = picLabel;
+      subTxt.appendChild(c);
       requestAnimationFrame(() => requestAnimationFrame(() => c.classList.add('on')));
-    } else if (sub) {
-      sub.textContent = `3.3 million BCE to 2026${counts}`;
     }
 
     D.events.forEach((e: any) =>
@@ -477,32 +480,41 @@ export function runArrival({ targets, ready, onReveal, onDone }: RunArrivalOpts)
 
   const COL: string[] = [];
   for (let k = 0; k < 32; k++) {
-    COL.push(getTheme().isLight ? mix(heat(k / 31), '#1e1914', 0.1) : mix(heat(k / 31), '#ffffff', 0.3));
+    const th0 = getTheme();
+    COL.push(th0.isLight ? mix(heat(k / 31), th0.ink, 0.16) : mix(heat(k / 31), th0.core, 0.28));
   }
 
   function light(time: number, b: { y: number; sq: number }, Rb: number) {
+    const th = getTheme();
     const cx = L.ballX;
     const cy = b.y;
+    const glowCore = th.isLight
+      ? mix(th.accentWarm, th.accent, 0.45)
+      : mix(th.fringeBlue, th.core, 0.46);
+    const glowMid = th.isLight ? th.accent : th.fringeBlue;
+    const glowWarm = th.accentWarm;
     if (time < IMPACT + 0.4) {
       const a =
-        0.22 *
+        (th.isLight ? 0.15 : 0.22) *
         clamp((time - DROP * 0.6) / 0.4, 0, 1) *
         (time < IMPACT ? 1 : 1 - (time - IMPACT) / 0.4);
-      const g = ctx.createRadialGradient(cx, cy, Rb * 0.5, cx, cy, Rb * 2.1);
-      g.addColorStop(0, `rgba(162,246,228,${a})`);
-      g.addColorStop(0.45, `rgba(79,209,197,${a * 0.36})`);
-      g.addColorStop(1, 'rgba(79,209,197,0)');
+      const g = ctx.createRadialGradient(cx, cy, Rb * 0.45, cx, cy, Rb * 2.15);
+      g.addColorStop(0, hexA(glowCore, a));
+      g.addColorStop(0.46, hexA(glowMid, a * 0.38));
+      g.addColorStop(0.78, hexA(glowWarm, a * 0.14));
+      g.addColorStop(1, hexA(glowMid, 0));
       ctx.fillStyle = g;
       ctx.fillRect(cx - Rb * 2.2, cy - Rb * 2.2, Rb * 4.4, Rb * 4.4);
     }
     if (b.sq > 0 && time < IMPACT + 0.05) {
-      const a = clamp(b.sq * 2.2, 0, 0.55);
+      const a = clamp(b.sq * (th.isLight ? 1.35 : 2.2), 0, th.isLight ? 0.32 : 0.55);
       const fw = L.ballR * 2.6;
       const fh = L.ballR * 0.5;
       const g = ctx.createRadialGradient(cx, L.floor, 0, cx, L.floor, fw);
-      g.addColorStop(0, `rgba(190,250,236,${a})`);
-      g.addColorStop(0.35, `rgba(94,234,212,${a * 0.32})`);
-      g.addColorStop(1, 'rgba(94,234,212,0)');
+      g.addColorStop(0, hexA(glowCore, a));
+      g.addColorStop(0.36, hexA(glowWarm, a * 0.34));
+      g.addColorStop(0.72, hexA(glowMid, a * 0.16));
+      g.addColorStop(1, hexA(glowMid, 0));
       ctx.save();
       ctx.translate(cx, L.floor);
       ctx.scale(1, fh / fw);
@@ -514,12 +526,13 @@ export function runArrival({ targets, ready, onReveal, onDone }: RunArrivalOpts)
   }
 
   function drawOverlay(time: number) {
+    const th = getTheme();
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     ctx.clearRect(0, 0, L.W, L.H);
     const b = ball(Math.min(time, IMPACT));
     const rem = L.dot ? remaining(time) : 1;
     const Rb = L.ballR * Math.sqrt(Math.max(rem, 0.02));
-    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalCompositeOperation = th.isLight ? 'source-over' : 'lighter';
     light(time, b, Rb);
     if (!L.dot || !L.arr) {
       ctx.globalCompositeOperation = 'source-over';

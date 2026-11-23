@@ -225,21 +225,29 @@ export default function HistomapClient() {
   return (
     <>
       <h2 className="ar-pre" id="ar-pre" aria-live="polite">
-        {zh ? (
-          <>
-            <span>
+        <span className="ar-kicker">
+          <i className="ar-gem" aria-hidden="true" />
+          {zh ? '前330万年 — 2026 · 三维技术演进星盘' : '3.3M BCE — 2026 · WEBGPU TECH ASTROLABE'}
+        </span>
+        <span className="ar-headline">
+          {zh ? (
+            <>
               技术演进<em>全图</em>
-            </span>
-            <small>公元前 330 万年 — 2026 年 · 点击任意处进入星图</small>
-          </>
-        ) : (
-          <>
-            <span>
+            </>
+          ) : (
+            <>
               Technology <em>Histomap</em>
-            </span>
-            <small>3.3 million BCE to 2026 · Click anywhere to enter</small>
-          </>
-        )}
+            </>
+          )}
+        </span>
+        <small className="ar-sub">
+          <span className="ar-sub-txt">
+            {zh ? '4,828 条原始文献考证 · 每世纪旋转一圈' : '4,828 sourced records · One turn per century'}
+          </span>
+          <b className="ar-enter-pill">
+            {zh ? '点击任意处进入 →' : 'Click anywhere to enter →'}
+          </b>
+        </small>
       </h2>
 
       <section

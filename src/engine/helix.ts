@@ -160,7 +160,7 @@ const DESK: StagePreset = {
   az: 32,
   dist: 2.98,
   fov: 1.05,
-  ox: 0.395,
+  ox: 0.215,
   oy: 0.485,
   picMax: 74,
   lines: 9,
@@ -1328,10 +1328,15 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
       ? Math.min(BAND.w * 0.92, BAND.h * 0.95)
       : Math.min(BAND.w, BAND.h);
     const f = side * P.fov * lerp(1, 0.91, drT);
-    const closedOx = BAND.x0 + BAND.w * (1 - P.ox);
-    const openOx = openStageX0 + openRightW * 0.575;
+    const closedOx = split
+      ? Math.min(W - side * 0.205, BAND.x0 + BAND.w * (1 - P.ox))
+      : BAND.x0 + BAND.w * (1 - P.ox);
+    const openOx = split
+      ? Math.min(W - side * 0.195, openStageX0 + openRightW * 0.72)
+      : closedOx;
     const baseOx = split ? lerp(closedOx, openOx, cam.drawer) : closedOx;
-    const ox = P.vert ? BAND.w * P.ox : lerp(baseOx, W * 0.5, pull);
+    const pullOx = split ? BAND.x0 + BAND.w * 0.59 : W * 0.54;
+    const ox = P.vert ? BAND.w * P.ox : lerp(baseOx, pullOx, pull);
     const oy = BAND.y0 + BAND.h * (P.vert ? lerp(P.oy, 0.58, pull) : P.oy);
     const rot = -aY * (1 - pull);
     return {
@@ -1390,7 +1395,8 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     clamp(1 - (d - (V.dist - 1.05)) / 2.2, 0, 1);
 
   function ground() {
-    const k = `${W}x${H}x${DPR}`;
+    const th = getTheme();
+    const k = `${W}x${H}x${DPR}x${th.id}`;
     if (grd && grdKey === k) return grd;
     grdKey = k;
     grd = document.createElement('canvas');
@@ -1398,16 +1404,23 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     grd.height = Math.max(1, Math.round(H * DPR));
     const g = grd.getContext('2d')!;
     g.scale(DPR, DPR);
-    const lg = g.createLinearGradient(W, 0, W * 0.7, H);
+    const lg = g.createLinearGradient(W, 0, W * 0.68, H);
     lg.addColorStop(0, GROUND[0]);
     lg.addColorStop(0.55, GROUND[1]);
     lg.addColorStop(1, GROUND[2]);
     g.fillStyle = lg;
     g.fillRect(0, 0, W, H);
-    const rg = g.createRadialGradient(W * 0.68, H * 0.5, 0, W * 0.68, H * 0.5, Math.max(W, H) * 0.62);
-    rg.addColorStop(0, 'rgba(28, 74, 72, 0.28)');
-    rg.addColorStop(0.55, 'rgba(16, 44, 46, 0.12)');
-    rg.addColorStop(1, 'rgba(5, 11, 12, 0)');
+    const hexRgba = (hex: string, a: number) => {
+      const m = /^#?([0-9a-f]{6})$/i.exec(hex.trim());
+      if (!m) return `rgba(28, 74, 72, ${a})`;
+      const n = parseInt(m[1], 16);
+      return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${a})`;
+    };
+    const ax = W >= 900 && W >= H ? W * 0.74 : W * 0.55;
+    const rg = g.createRadialGradient(ax, H * 0.5, 0, ax, H * 0.5, Math.max(W, H) * 0.62);
+    rg.addColorStop(0, hexRgba(th.aura, th.isLight ? 0.42 : 0.3));
+    rg.addColorStop(0.55, hexRgba(th.aura, th.isLight ? 0.16 : 0.12));
+    rg.addColorStop(1, hexRgba(GROUND[0], 0));
     g.fillStyle = rg;
     g.fillRect(0, 0, W, H);
     const t = document.createElement('canvas');
@@ -1415,14 +1428,15 @@ export default function helix(el: HTMLElement, shell: Record<string, any> = {}) 
     const tg = t.getContext('2d')!;
     const im = tg.createImageData(128, 128);
     let s = 1337;
+    const grainAlpha = th.isLight ? 6 : 9;
     for (let i = 0; i < im.data.length; i += 4) {
       s = (s * 1103515245 + 12345) & 0x7fffffff;
       const v = (s >> 16) & 255;
       const up = v > 128;
-      im.data[i] = up ? 236 : 0;
-      im.data[i + 1] = up ? 244 : 0;
-      im.data[i + 2] = up ? 240 : 0;
-      im.data[i + 3] = Math.round((Math.abs(v - 128) / 128) * 9);
+      im.data[i] = th.isLight ? (up ? 90 : 28) : up ? 236 : 0;
+      im.data[i + 1] = th.isLight ? (up ? 76 : 22) : up ? 244 : 0;
+      im.data[i + 2] = th.isLight ? (up ? 58 : 16) : up ? 240 : 0;
+      im.data[i + 3] = Math.round((Math.abs(v - 128) / 128) * grainAlpha);
     }
     tg.putImageData(im, 0, 0);
     g.fillStyle = g.createPattern(t, 'repeat')!;

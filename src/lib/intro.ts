@@ -3,6 +3,8 @@ import { db, census, onData } from './data';
 import { set, TABS } from './store';
 import { assetUrl } from './basePath';
 import { isZh } from './i18n';
+import { getTheme } from './theme';
+import { mix } from './spectrum';
 
 const esc = (v: any) =>
   String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
@@ -362,7 +364,8 @@ function placeObjects(W: number, H: number, m: number, tb: HTMLElement) {
     const el = svg.querySelector(`.sp-obj[data-i="${i}"]`)!;
     const tO = Math.min(o.year + 0.5, S.tEnd);
     const [qx, qy, r, a] = coil(g, tO);
-    const names = o.short ? (W < 1400 ? [o.short] : [o.name, o.short]) : [o.name];
+    const baseName = isZh() ? o.nameZh : o.name;
+    const names = !isZh() && o.short ? (W < 1400 ? [o.short] : [baseName, o.short]) : [baseName];
     for (const nm of names) {
       const isLast = nm === names[names.length - 1];
       const tw = ctx.measureText(`${o.year}  ${nm}`).width;
@@ -480,7 +483,9 @@ function toDots(records: any[]) {
     const span = e0.month ? (e0.day ? 1 / 365 : 1 / 12) : 1;
     list.forEach((e, i) => {
       S.ids.add(e.id);
-      out.push({ id: e.id, t: start + (span * (i + 0.5)) / list.length, lm: e.landmark || S.phone ? 1 : 0, c: PAL[e.domain] || WHITE });
+      const rawC = PAL[e.domain] || WHITE;
+      const c = getTheme().isLight ? mix(rawC, getTheme().ink, 0.22) : rawC;
+      out.push({ id: e.id, t: start + (span * (i + 0.5)) / list.length, lm: e.landmark || S.phone ? 1 : 0, c });
     });
   }
   return out;
@@ -615,13 +620,14 @@ function focusables() {
 const PHONE = 700;
 function sheet() {
   if (!panel) return;
-  if (!panel.querySelector('.sp-hl')) panel.innerHTML = html({ N: 4823, sourced: true });
+  const zh = isZh();
+  if (!panel.querySelector('.sp-hl')) panel.innerHTML = html({ N: 4828, sourced: true });
   const svg = panel.querySelector('.sp-svg');
   if (svg && !svg.querySelector('.sp-obj')) {
-    svg.innerHTML = OBJECTS.map(
-      (o, i) =>
-        `<g class="sp-obj" data-i="${i}" style="--i:${i}"><line class="sp-lead"/><circle class="sp-pin" r="4.5"/><g class="sp-ic">${DRAW_OBJ[o.d]}</g><text class="sp-nm"><tspan class="y">${o.year}</tspan><tspan class="n" dx="7">${esc(o.name)}</tspan></text><title>${esc(o.name)}, ${o.year}</title></g>`,
-    ).join('');
+    svg.innerHTML = OBJECTS.map((o, i) => {
+      const nm = zh ? o.nameZh : o.name;
+      return `<g class="sp-obj" data-i="${i}" style="--i:${i}"><line class="sp-lead"/><circle class="sp-pin" r="4.5"/><g class="sp-ic">${DRAW_OBJ[o.d]}</g><text class="sp-nm"><tspan class="y">${o.year}</tspan><tspan class="n" dx="7">${esc(nm)}</tspan></text><title>${esc(nm)}, ${o.year}</title></g>`;
+    }).join('');
   }
 }
 
@@ -634,7 +640,11 @@ function recount() {
 
 function paint() {
   if (!panel) return;
-  if (GROUND) panel.style.setProperty('--in-ground', GROUND);
+  const th = getTheme();
+  GROUND = th.night;
+  INK = th.isLight ? th.soft : th.sunkTarget;
+  WHITE = th.ink;
+  panel.style.setProperty('--in-ground', GROUND);
   panel.style.setProperty('--in-black', INK);
   panel.style.setProperty('--in-white', WHITE);
 }

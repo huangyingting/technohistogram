@@ -66,7 +66,7 @@ const PREBOOT_SCRIPT = `(function(){
     try {
       var sp = new URLSearchParams(location.search);
       var qLang = sp.get('lang');
-      var saved = localStorage.getItem('histomap_lang');
+      var saved = localStorage.getItem('histomap:lang') || localStorage.getItem('histomap_lang');
       if (qLang === 'en' || qLang === 'zh') lang = qLang;
       else if (saved === 'en' || saved === 'zh') lang = saved;
     } catch (e) {}
@@ -80,6 +80,10 @@ const PREBOOT_SCRIPT = `(function(){
       else if (savedT === 'jade' || savedT === 'starlight' || savedT === 'xuan') theme = savedT;
     } catch (e) {}
     document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme === 'xuan' ? 'light' : 'dark';
+    var tc = theme === 'xuan' ? '#efe7d6' : theme === 'starlight' ? '#06081a' : '#060d0e';
+    var tm = document.querySelector('meta[name="theme-color"]');
+    if (tm) tm.setAttribute('content', tc);
     var h = location.hash.slice(1);
     if (!h || /(^|&)intro=1(&|$)/.test(h) || !/(^|&)(v|e|tr|m)=/.test(h)) {
       document.documentElement.classList.add('arrive', 'arrival-mode');
